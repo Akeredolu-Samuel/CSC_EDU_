@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT 308 — Study Notes</title>
+  <meta name="description" content="Compiled study notes for EDT 308: Blended Learning, E-Moderation, E-tivities, Online Course Design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--amber:#f59e0b;--purple:#a855f7;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+    /* TOP BAR */
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:12px;}
+    .btn-back{display:flex;align-items:center;gap:6px;background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;}
+    .btn-back:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .tb-title{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:7px;}
+    .tb-badge{font-size:10px;background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);color:var(--blue);border-radius:99px;padding:2px 10px;}
+    .btn-quiz-link{display:flex;align-items:center;gap:6px;background:var(--blue);border:none;color:#fff;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background 0.2s;text-decoration:none;}
+    .btn-quiz-link:hover{background:#2563eb;}
+
+    /* LAYOUT */
+    .notes-layout{display:flex;max-width:1100px;margin:0 auto;gap:0;}
+
+    /* SIDEBAR */
+    .sidebar{width:240px;min-width:240px;border-right:0.5px solid var(--border);padding:1.5rem 1rem;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;flex-shrink:0;}
+    .sidebar::-webkit-scrollbar{width:4px;}
+    .sidebar::-webkit-scrollbar-track{background:transparent;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+    .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);margin-bottom:0.8rem;padding:0 0.5rem;}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.15s;margin-bottom:2px;cursor:pointer;border:none;background:transparent;font-family:var(--font);text-align:left;width:100%;line-height:1.4;}
+    .sb-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+    .sb-link.active{background:var(--blue-dim);color:var(--blue);font-weight:500;}
+    .sb-num{min-width:16px;font-size:10px;color:var(--dim);margin-top:2px;}
+
+    /* MAIN CONTENT */
+    .notes-main{flex:1;padding:2rem 2.5rem;min-width:0;}
+
+    /* HERO BOX */
+    .notes-hero{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.06));border:0.5px solid rgba(59,130,246,0.2);border-radius:14px;padding:1.8rem;margin-bottom:2.5rem;}
+    .nh-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.7rem;display:flex;align-items:center;gap:6px;}
+    .nh-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .nh-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;}
+    .topic-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .topic-tag{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:99px;padding:3px 12px;font-size:11px;color:var(--muted);}
+
+    /* SECTIONS */
+    .notes-section{margin-bottom:3rem;scroll-margin-top:70px;}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:0.5px solid var(--border);}
+    .sec-num{background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);color:var(--blue);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    .sec-src{font-size:10.5px;color:var(--dim);margin-top:1px;}
+
+    p{font-size:13.5px;color:var(--muted);margin-bottom:0.9rem;line-height:1.7;}
+    h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:0.6rem;margin-top:1.4rem;}
+    h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:0.5rem;margin-top:1.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+    .bullet-list{margin:0.5rem 0 1rem 0;display:flex;flex-direction:column;gap:5px;}
+    .bullet-list li{font-size:13px;color:var(--muted);list-style:none;padding-left:1.2rem;position:relative;line-height:1.6;}
+    .bullet-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:0.6;}
+
+    .def-box{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid var(--blue);border-radius:0 8px 8px 0;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .def-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:0.4rem;font-weight:600;}
+    .def-box p{font-size:13px;margin-bottom:0;color:var(--text);}
+
+    .highlight-box{background:rgba(34,197,94,0.06);border:0.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .highlight-box.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
+    .highlight-box.purple{background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.2);}
+    .hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:0.5rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+    .hb-label.amber{color:var(--amber);}
+    .hb-label.purple{color:var(--purple);}
+    .highlight-box p{font-size:13px;margin-bottom:0;}
+
+    /* STAGES */
+    .stages-grid{display:flex;flex-direction:column;gap:8px;margin:1rem 0;}
+    .stage-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem 1rem;transition:border-color 0.2s;}
+    .stage-row:hover{border-color:rgba(59,130,246,0.25);}
+    .stage-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+    .stage-row:nth-child(1) .stage-num{background:rgba(59,130,246,0.15);color:#60a5fa;}
+    .stage-row:nth-child(2) .stage-num{background:rgba(34,197,94,0.12);color:#4ade80;}
+    .stage-row:nth-child(3) .stage-num{background:rgba(245,158,11,0.12);color:#fbbf24;}
+    .stage-row:nth-child(4) .stage-num{background:rgba(168,85,247,0.12);color:#c084fc;}
+    .stage-row:nth-child(5) .stage-num{background:rgba(239,68,68,0.12);color:#f87171;}
+    .stage-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .stage-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+    /* SKILLS GRID */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:1rem 0;}
+    .skill-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .skill-num{font-size:10px;color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+    .skill-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+    .skill-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    /* ETIVITY COMPONENTS */
+    .etivity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:1rem 0;}
+    .etivity-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .ec-num{width:24px;height:24px;background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--blue);margin-bottom:7px;}
+    .ec-name{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .ec-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    /* TABLE */
+    .summary-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12.5px;}
+    .summary-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;}
+    .summary-table td{padding:9px 12px;border-bottom:0.5px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:top;line-height:1.5;}
+    .summary-table td:first-child{color:var(--text);font-weight:500;white-space:nowrap;}
+    .summary-table tr:last-child td{border-bottom:none;}
+    .summary-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+    .divider{height:0.5px;background:var(--border);margin:2rem 0;}
+
+    /* FOOTER */
+    .hub-footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--dim);border-top:0.5px solid var(--border);letter-spacing:0.05em;margin-top:2rem;}
+    .hub-footer span{color:var(--blue);}
+
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .notes-main{padding:1.5rem 1.2rem;}
+      .skills-grid{grid-template-columns:1fr 1fr;}
+      .etivity-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .skills-grid,.etivity-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <div class="tb-left">
+    <a class="btn-back" href="index.html" id="back-btn"><i class="ti ti-arrow-left" style="font-size:13px"></i> Home</a>
+    <div class="tb-title"><i class="ti ti-book-2" style="font-size:15px;color:#3b82f6"></i> EDT 308 — Study Notes</div>
+    <span class="tb-badge">Active</span>
+  </div>
+  <a class="btn-quiz-link" href="edt308_cbt_quiz (1).html" id="take-quiz-btn"><i class="ti ti-player-play" style="font-size:13px"></i> Take Quiz</a>
+</nav>
+
+<div class="notes-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-label">Contents</div>
+    <a class="sb-link active" href="#sec1" id="sb-1"><span class="sb-num">1</span> E-Learning &amp; E-Moderator</a>
+    <a class="sb-link" href="#sec2" id="sb-2"><span class="sb-num">2</span> E-Learning Environment</a>
+    <a class="sb-link" href="#sec3" id="sb-3"><span class="sb-num">3</span> Skills &amp; Responsibilities</a>
+    <a class="sb-link" href="#sec4" id="sb-4"><span class="sb-num">4</span> E-Tivities &amp; Community</a>
+    <a class="sb-link" href="#sec5" id="sb-5"><span class="sb-num">5</span> Salmon's 5-Stage Model</a>
+    <a class="sb-link" href="#sec6" id="sb-6"><span class="sb-num">6</span> Sync vs. Async E-Tivities</a>
+    <a class="sb-link" href="#sec7" id="sb-7"><span class="sb-num">7</span> Moderating Live Environments</a>
+    <a class="sb-link" href="#sec8" id="sb-8"><span class="sb-num">8</span> Issues &amp; Challenges</a>
+    <a class="sb-link" href="#sec9" id="sb-9"><span class="sb-num">9</span> Drafting Course Design</a>
+    <a class="sb-link" href="#sec10" id="sb-10"><span class="sb-num">10</span> Emerging EdTech Trends</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="notes-main">
+
+    <div class="notes-hero">
+      <div class="nh-tag"><i class="ti ti-school" style="font-size:13px"></i> Compiled Study Notes</div>
+      <div class="nh-title">Blended Learning &amp; E-Moderation</div>
+      <div class="nh-sub">Resources from UTHTECH solution &nbsp;&middot;&nbsp; 10 Objectives &nbsp;&middot;&nbsp; Exam Prep Guide</div>
+      <div class="topic-tags">
+        <span class="topic-tag">E-Learning</span>
+        <span class="topic-tag">E-Moderating</span>
+        <span class="topic-tag">Salmon's Model</span>
+        <span class="topic-tag">E-tivities</span>
+        <span class="topic-tag">Sync &amp; Async</span>
+        <span class="topic-tag">Hockly's 10 Skills</span>
+        <span class="topic-tag">LMS</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="notes-section" id="sec1">
+      <div class="sec-header">
+        <div class="sec-num">1</div>
+        <div><div class="sec-title">Key Terms – E-Learning &amp; E-Moderator</div><div class="sec-src">Objective 1</div></div>
+      </div>
+
+      <h3>1.1 What is E-Learning?</h3>
+      <p>E-learning (electronic learning) refers to the acquisition of knowledge and skills through electronic technologies and media. It encompasses any form of learning that is enabled electronically, from simple online resources that supplement face-to-face teaching, to fully online courses with no physical interaction.</p>
+
+      <div class="def-box">
+        <div class="def-label">Scholarly Definitions</div>
+        <p><strong>Guri-Rosenbilt (2005):</strong> E-learning uses electronic media for various learning purposes, from classroom add-on functions to complete substitutions for face-to-face meetings.</p>
+        <p style="margin-top: 5px;"><strong>Clark and Mayer (2016):</strong> E-learning is instruction delivered through digital devices to support learning.</p>
+        <p style="margin-top: 5px;"><strong>eLearningNC.gov:</strong> Learning by utilising electronic technologies to access educational curricula outside traditional classrooms.</p>
+      </div>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-info-circle"></i> E-Learning Core Concept</div>
+        <p>The use of electronic technologies to deliver, support, and enhance teaching, learning, and assessment. It may be fully online or blend with face-to-face elements.</p>
+      </div>
+
+      <h3>1.2 What is an E-Moderator?</h3>
+      <p>An e-moderator is a facilitator of online learning who guides and supports learners in virtual environments. The term was popularised by Professor Gilly Salmon in her seminal book <em>E-Moderating: The Key to Teaching and Learning Online</em> (2001).</p>
+
+      <div class="def-box" style="border-left-color: var(--purple);">
+        <div class="def-label" style="color: var(--purple);">E-Moderator Definition</div>
+        <p>A person who maintains an online learning environment for the benefit of participants. They facilitate communication, guide discussions, motivate learners, and promote knowledge construction in digital spaces.</p>
+      </div>
+
+      <p>According to IGI Global, the e-moderator:</p>
+      <ul class="bullet-list">
+        <li>Maintains the online learning environment for the benefit of all participants.</li>
+        <li>Is familiar with the capabilities of the learning environment.</li>
+        <li>May have additional privileges (e.g., loading learning materials, creating/moderating forums, enrolling students).</li>
+        <li>Represents the learning community with leadership qualities.</li>
+        <li>Is responsible for motivating and supervising interventions by community members.</li>
+      </ul>
+
+      <p style="margin-top: 10px;"><strong>Gilly Salmon's definition (2011):</strong> The essential role of the e-moderator is promoting human interaction and communication through the modelling, conveying, and building of knowledge and skills. This reflects a <em>constructivist approach</em> (learners build knowledge through engagement, not passive reception).</p>
+      <p>E-Moderation (also called tele-tutoring) means filling an educational role in a digital environment. This includes university teaching, corporate training, workshops, and seminars.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2 -->
+    <section class="notes-section" id="sec2">
+      <div class="sec-header">
+        <div class="sec-num">2</div>
+        <div><div class="sec-title">The E-Learning Environment</div><div class="sec-src">Objective 2</div></div>
+      </div>
+
+      <h3>2.1 Characteristics of the E-Learning Environment</h3>
+      <p>The e-learning environment is the digital space where teaching and learning occur. It can be fully online or blended (a combination of online and face-to-face).</p>
+
+      <ul class="bullet-list">
+        <li><strong>Technology-mediated:</strong> All communication and content delivery happens through digital tools (LMS platforms, video conferencing, discussion forums, etc.).</li>
+        <li><strong>Flexible access:</strong> Learners can access content at any time and from any location with internet access.</li>
+        <li><strong>Learner-centred:</strong> The environment shifts focus from teacher-led instruction to student-driven exploration.</li>
+        <li><strong>Interactive:</strong> Forums, chats, quizzes, peer feedback, and collaborative tools allow for rich interaction.</li>
+        <li><strong>Asynchronous and/or synchronous:</strong> Learners may interact in real-time or at different times.</li>
+        <li><strong>Scalable:</strong> Can accommodate small groups or thousands of learners simultaneously.</li>
+      </ul>
+
+      <h3>2.2 Common E-Learning Platforms (LMS)</h3>
+      <p>A Learning Management System (LMS) is software that houses course content, manages learner enrolment, tracks progress, and enables communication.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-name" style="color:var(--blue)">Canvas</div>
+          <div class="skill-desc">Widely used in higher education; user-friendly interface.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:var(--green)">Google Classroom</div>
+          <div class="skill-desc">Free, integrates with Google Workspace tools.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:var(--amber)">Moodle</div>
+          <div class="skill-desc">Open-source; highly customisable; popular globally.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:var(--purple)">Schoology</div>
+          <div class="skill-desc">Combines LMS features with social networking.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:#f43f5e">Blackboard</div>
+          <div class="skill-desc">Enterprise-level LMS common in universities.</div>
+        </div>
+      </div>
+
+      <h3>2.3 Types of E-Learning Environments</h3>
+      <ul class="bullet-list">
+        <li><strong>Fully Online:</strong> All instruction, content, and assessment delivered digitally. No face-to-face meetings.</li>
+        <li><strong>Blended/Hybrid:</strong> Combines online components with face-to-face sessions. Offers flexibility while retaining human contact.</li>
+        <li><strong>Synchronous Online:</strong> Students and instructor meet at the same time via video conferencing or live chat.</li>
+        <li><strong>Asynchronous Online:</strong> Students engage with materials and discussions at their own pace, within given deadlines.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3 -->
+    <section class="notes-section" id="sec3">
+      <div class="sec-header">
+        <div class="sec-num">3</div>
+        <div><div class="sec-title">Skills &amp; Responsibilities of an E-Moderator</div><div class="sec-src">Objective 3</div></div>
+      </div>
+
+      <h3>3.1 Overview</h3>
+      <p>The e-moderator wears many hats: teacher, facilitator, motivator, community builder, and technical guide. According to Nicky Hockly's e-Moderation Station, the key skills can be grouped into the Top Ten Moderator Skills.</p>
+
+      <h3>3.2 The Top Ten E-Moderator Skills (Hockly, 2010)</h3>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-num">1. PLN</div>
+          <div class="skill-name">Personal Learning Network</div>
+          <div class="skill-desc">Develop and maintain a professional learning network (blogs, X/Twitter, webinars) to stay updated. Ongoing, not a one-time event.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">2. Enthusiasm</div>
+          <div class="skill-name">Genuine Interest</div>
+          <div class="skill-desc">Uninspired teachers produce uninspired learners. Variety in tasks, time allocation, reflection, and experimentation are required.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">3. Communication</div>
+          <div class="skill-name">Textual Intuition</div>
+          <div class="skill-desc">Skilled at 'reading between the lines', detecting tone, emotion, confusion, or disengagement. Careful word choice is essential.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">4. Presence</div>
+          <div class="skill-name">Visible Yet Supportive</div>
+          <div class="skill-desc">Present without dominating. Knowing when to intervene (guide) and when to step back to allow peer interaction and independent learning.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">5. Develop Discussions</div>
+          <div class="skill-name">Dialogue Building</div>
+          <div class="skill-desc">Ask powerful questions, encourage critical thinking, and build on existing threads. Weaving and summarising are key techniques.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">6. Scaffolding</div>
+          <div class="skill-name">Calibrated Support</div>
+          <div class="skill-desc">Provide the right level of support—not too much (kills challenge) and not too little (creates frustration). Adjust support over time.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">7. Empathy</div>
+          <div class="skill-name">Student Perspective</div>
+          <div class="skill-desc">See the process from the learner's view. Taking an online course as a student is the best way to build this skill.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">8. Sensitivity</div>
+          <div class="skill-name">Diversity Awareness</div>
+          <div class="skill-desc">Adapt to diverse backgrounds and learning styles. Use pre-course questionnaires and respect cultural norms.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">9. Socialising</div>
+          <div class="skill-name">Community Cultivation</div>
+          <div class="skill-desc">Actively combat isolation through cafe-style posts, peer introductions, and social tasks. Enhances retention and satisfaction.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">10. Cycles</div>
+          <div class="skill-name">Lifecycles Planning</div>
+          <div class="skill-desc">Plan for each phase of the course lifecycle: warm welcome/orientation (start), active tasks (middle), and closure/achievement (end).</div>
+        </div>
+      </div>
+
+      <h3>3.3 Core Responsibilities of an E-Moderator</h3>
+      <ul class="bullet-list">
+        <li>Setting up and managing the online learning environment.</li>
+        <li>Welcoming and orienting new learners.</li>
+        <li>Facilitating discussions and motivating participation.</li>
+        <li>Providing timely and constructive feedback.</li>
+        <li>Monitoring learner progress and addressing difficulties.</li>
+        <li>Maintaining academic standards and community guidelines.</li>
+        <li>Summarising and weaving discussion threads.</li>
+        <li>Supporting learners with technical issues.</li>
+        <li>Encouraging peer collaboration and knowledge construction.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4 -->
+    <section class="notes-section" id="sec4">
+      <div class="sec-header">
+        <div class="sec-num">4</div>
+        <div><div class="sec-title">E-Tivities – Purpose, Design &amp; Community</div><div class="sec-src">Objective 4</div></div>
+      </div>
+
+      <h3>4.1 What is an E-Tivity?</h3>
+      <p>The term 'e-tivity' was coined by Professor Gilly Salmon. It refers to a framework for active, interactive online learning activities designed and led by an e-moderator.</p>
+
+      <div class="def-box">
+        <div class="def-label">E-Tivity Core Concept</div>
+        <p>A motivating, engaging, and purposeful online activity designed and led by an e-moderator. It involves a stimulus (spark), an individual or group task, interaction among participants (responses), and a summary or feedback from the e-moderator (plenary).</p>
+      </div>
+
+      <h3>4.2 Key Features of E-Tivities (Salmon, 2002)</h3>
+      <ul class="bullet-list">
+        <li>Motivating, engaging, and purposeful.</li>
+        <li>Based on interaction between learners mainly through written messages/contributions.</li>
+        <li>Designed and led by an e-moderator.</li>
+        <li>Asynchronous (primarily) — though synchronous variants exist.</li>
+        <li>Inexpensive and easy to run (usually through forums, online bulletin boards).</li>
+        <li>Require an online posting or contribution from each participant.</li>
+        <li>Include an interactive or participative element (responding to others' posts).</li>
+        <li>End with a summary, feedback, or critique from the e-moderator (the 'plenary').</li>
+      </ul>
+
+      <h3>4.3 Purpose of E-Tivities</h3>
+      <ul class="bullet-list">
+        <li>Offer students a clear and effective framework for achieving learning outcomes.</li>
+        <li>Create opportunities for active participation beyond passive content consumption.</li>
+        <li>Build community through shared tasks and peer responses.</li>
+        <li>Bridge Salmon's five stages of online learning with specific activities at each stage.</li>
+        <li>Make online engagement purposeful, not tokenistic.</li>
+      </ul>
+
+      <h3>4.4 E-Tivity Design Elements</h3>
+      <div class="etivity-grid">
+        <div class="etivity-card">
+          <div class="ec-num">1</div>
+          <div class="ec-name">Title</div>
+          <div class="ec-desc">A catchy, memorable name.</div>
+        </div>
+        <div class="etivity-card">
+          <div class="ec-num">2</div>
+          <div class="ec-name">Purpose</div>
+          <div class="ec-desc">Clear learning outcome or objective.</div>
+        </div>
+        <div class="etivity-card">
+          <div class="ec-num">3</div>
+          <div class="ec-name">Spark</div>
+          <div class="ec-desc">A resource, question, or challenge to stimulate thought.</div>
+        </div>
+        <div class="etivity-card">
+          <div class="ec-num">4</div>
+          <div class="ec-name">Task</div>
+          <div class="ec-desc">What the learner must contribute (post reflection, response).</div>
+        </div>
+        <div class="etivity-card">
+          <div class="ec-num">5</div>
+          <div class="ec-name">Response</div>
+          <div class="ec-desc">How learners interact (e.g. reply to at least two peers).</div>
+        </div>
+        <div class="etivity-card">
+          <div class="ec-num">6</div>
+          <div class="ec-name">Schedule</div>
+          <div class="ec-desc">Timeline for when to post and respond.</div>
+        </div>
+        <div class="etivity-card">
+          <div class="ec-num">7</div>
+          <div class="ec-name">Plenary</div>
+          <div class="ec-desc">The moderator's summary, weaving, or feedback at the end.</div>
+        </div>
+      </div>
+
+      <h3>4.5 E-Tivities &amp; Community of Learning</h3>
+      <p>E-tivities are central to building a community of learning (a group of learners) who collectively construct knowledge through shared experience and dialogue. When e-tivities are well-designed:</p>
+      <ul class="bullet-list">
+        <li>Learners feel connected to peers despite physical distance.</li>
+        <li>Knowledge is co-constructed through dialogue, not just transmitted by the instructor.</li>
+        <li>Learners take increasing responsibility for their own and each other's learning.</li>
+        <li>The e-moderator moves from direct guide to facilitator and observer.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 5 -->
+    <section class="notes-section" id="sec5">
+      <div class="sec-header">
+        <div class="sec-num">5</div>
+        <div><div class="sec-title">Gilly Salmon's Five-Stage Model</div><div class="sec-src">Objective 5</div></div>
+      </div>
+
+      <p>Gilly Salmon's Five-Stage Model is a framework for understanding how online learners progress in their engagement with e-learning. It is rooted in social constructivism. The model provides a scaffold for both course design and e-moderator interventions.</p>
+
+      <div class="stages-grid">
+        <div class="stage-row">
+          <div class="stage-num">1</div>
+          <div>
+            <div class="stage-title">Stage 1 – Access and Motivation</div>
+            <div class="stage-desc"><strong>Focus:</strong> Getting learners onto the platform. <strong>Activity:</strong> Welcoming, guiding, providing technical instructions, troubleshooting access issues. <strong>E-tivity Example:</strong> 'Post a brief message to confirm you can access the forum.'</div>
+          </div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num">2</div>
+          <div>
+            <div class="stage-title">Stage 2 – Online Socialisation</div>
+            <div class="stage-desc"><strong>Focus:</strong> Building an online identity and trust. <strong>Activity:</strong> Create social, low-stakes activities, model friendly communication norms, validate participation. <strong>E-tivity Example:</strong> 'Introduce yourself and share one thing you hope to learn. Reply to two peers.'</div>
+          </div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num">3</div>
+          <div>
+            <div class="stage-title">Stage 3 – Information Exchange</div>
+            <div class="stage-desc"><strong>Focus:</strong> Sharing information, resources, and ideas. <strong>Activity:</strong> Provide content, facilitate sharing, model how to synthesise resources, step back slightly. <strong>E-tivity Example:</strong> 'Research an online tool. Share a summary and one strength/weakness. Respond to a classmate.'</div>
+          </div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num">4</div>
+          <div>
+            <div class="stage-title">Stage 4 – Knowledge Construction</div>
+            <div class="stage-desc"><strong>Focus:</strong> Active discussion, debate, and collaboration. <strong>Activity:</strong> Weave threads, link/synthesise contributions, pose challenging questions, highlight consensus/divergence. <strong>E-tivity Example:</strong> 'Given the reading on digital equity, do you believe online learning increases or reduces educational inequality? Argue your position.'</div>
+          </div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num">5</div>
+          <div>
+            <div class="stage-title">Stage 5 – Development</div>
+            <div class="stage-desc"><strong>Focus:</strong> Self-directed learning, reflection, and real application. <strong>Activity:</strong> Encourage reflection, support application of concepts, create closure and achievement. <strong>E-tivity Example:</strong> 'Design a short e-tivity for your own teaching context. Reflect on how Salmon's model informed your design.'</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>5.3 Summary Table</h3>
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Stage Name</th>
+            <th>Learner Activity</th>
+            <th>E-Moderator Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Access &amp; Motivation</td>
+            <td>Access the platform; build motivation</td>
+            <td>Welcome, guide, encourage, troubleshoot</td>
+          </tr>
+          <tr>
+            <td>2. Online Socialisation</td>
+            <td>Build identity; interact with peers</td>
+            <td>Model norms; create social tasks</td>
+          </tr>
+          <tr>
+            <td>3. Information Exchange</td>
+            <td>Share resources and ideas</td>
+            <td>Provide content; facilitate sharing</td>
+          </tr>
+          <tr>
+            <td>4. Knowledge Construction</td>
+            <td>Debate, critique, collaborate</td>
+            <td>Weave threads; pose challenges</td>
+          </tr>
+          <tr>
+            <td>5. Development</td>
+            <td>Reflect; apply learning; self-direct</td>
+            <td>Encourage reflection; provide closure</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 6 -->
+    <section class="notes-section" id="sec6">
+      <div class="sec-header">
+        <div class="sec-num">6</div>
+        <div><div class="sec-title">Synchronous vs. Asynchronous E-Tivities</div><div class="sec-src">Objective 6</div></div>
+      </div>
+
+      <h3>6.1 Synchronous Learning</h3>
+      <p>Synchronous e-learning occurs in real time (all participants are online) at the same time.</p>
+      <p><strong>Examples:</strong> Live video lectures (Zoom, Teams, Meet), live webinars, real-time group chats, live polls, virtual office hours.</p>
+      <p><strong>Advantages:</strong> Immediate feedback, real-time peer collaboration, stronger social presence/community.</p>
+      <p><strong>Disadvantages:</strong> Low scheduling flexibility, difficult across time zones, technical disruptions disrupt the whole group.</p>
+
+      <h3>6.2 Asynchronous Learning</h3>
+      <p>Asynchronous e-learning does not require participants to be online at the same time. Learners engage with materials at their own pace.</p>
+      <p><strong>Examples:</strong> Pre-recorded video lectures, discussion forums, emails, downloadable PDFs, podcasts.</p>
+      <p><strong>Advantages:</strong> High flexibility, allows more reflection time, global accessibility, thoughtful communication.</p>
+      <p><strong>Disadvantages:</strong> Can feel isolated, requires high self-discipline, delayed feedback, risk of 'lurking'.</p>
+
+      <h3>6.3 Comparison Table</h3>
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Synchronous E-Tivity</th>
+            <th>Asynchronous E-Tivity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Timing</td>
+            <td>All at the same time</td>
+            <td>Participants' own schedule</td>
+          </tr>
+          <tr>
+            <td>Interaction</td>
+            <td>Real-time; instant responses</td>
+            <td>Delayed; reflective responses</td>
+          </tr>
+          <tr>
+            <td>Tools used</td>
+            <td>Zoom, Teams, live chat</td>
+            <td>Forums, email, recorded video</td>
+          </tr>
+          <tr>
+            <td>Best for</td>
+            <td>Discussions, Q&amp;A, debates</td>
+            <td>Reflections, research tasks</td>
+          </tr>
+          <tr>
+            <td>Flexibility</td>
+            <td>Low — fixed schedule</td>
+            <td>High — within deadlines</td>
+          </tr>
+          <tr>
+            <td>Community feel</td>
+            <td>Stronger real-time bonding</td>
+            <td>Built over time through posts</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 7 -->
+    <section class="notes-section" id="sec7">
+      <div class="sec-header">
+        <div class="sec-num">7</div>
+        <div><div class="sec-title">Moderating Live (Synchronous) Environments</div><div class="sec-src">Objective 7</div></div>
+      </div>
+
+      <h3>7.1 Practical Strategies for Live Online Moderation</h3>
+      <p>Moderating a live online session requires managing technology, people, time, and content simultaneously.</p>
+      
+      <h4>Before the session:</h4>
+      <ul class="bullet-list">
+        <li>Clearly define the moderator's role and communicate expectations to all participants.</li>
+        <li>Prepare 'house rules' for online conduct and share them in advance.</li>
+        <li>Test all technology and have a backup plan for failures.</li>
+        <li>Paste tech support contacts into the chat area at the start.</li>
+        <li>Prepare an agenda and share it with participants.</li>
+      </ul>
+
+      <h4>During the session:</h4>
+      <ul class="bullet-list">
+        <li>Have the moderator introduce themselves clearly when the session begins.</li>
+        <li>Use the moderator to relay in-room proceedings to the online audience (for hybrid settings).</li>
+        <li>Actively involve online participants — acknowledge questions, reactions, and chat messages.</li>
+        <li>Manage time carefully — keep the session on track.</li>
+        <li>Use polls, breakout rooms, and shared documents to maintain engagement.</li>
+        <li>Monitor chat actively for questions, technical issues, or off-topic content.</li>
+        <li>Summarise key points periodically to keep all participants aligned.</li>
+      </ul>
+
+      <h4>After the session:</h4>
+      <ul class="bullet-list">
+        <li>Post a summary of key discussion points in the LMS.</li>
+        <li>Follow up on unanswered questions.</li>
+        <li>Gather feedback from participants.</li>
+        <li>Share recordings if the session was recorded.</li>
+      </ul>
+
+      <h3>7.2 Techniques for Engagement in Live Environments</h3>
+      <ul class="bullet-list">
+        <li><strong>Weaving:</strong> Explicitly connecting contributions from different participants to show coherence.</li>
+        <li><strong>Questioning:</strong> Posing thought-provoking questions that require more than a yes/no answer.</li>
+        <li><strong>Summarising:</strong> Periodically recapping key ideas to reinforce learning.</li>
+        <li><strong>Directing:</strong> Inviting quieter participants to share views.</li>
+        <li><strong>Stepping back:</strong> Allowing learner-to-learner dialogue without constant moderator interruption.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 8 -->
+    <section class="notes-section" id="sec8">
+      <div class="sec-header">
+        <div class="sec-num">8</div>
+        <div><div class="sec-title">Issues in Online &amp; Blended Environments</div><div class="sec-src">Objective 8</div></div>
+      </div>
+
+      <h3>8.1 Common Challenges &amp; Solutions</h3>
+      <ul class="bullet-list">
+        <li><strong>1. Technical Problems:</strong> Connectivity issues, software incompatibility, device limitations. <br><em>Solution:</em> Clear technical guides, support channels, and backup plans.</li>
+        <li><strong>2. Student Isolation and Disengagement:</strong> feeling anonymous, leading to 'lurking'. <br><em>Solution:</em> Strong community building at Stages 1-2, check-ins, collaborative tasks.</li>
+        <li><strong>3. Online Flaming:</strong> Hostile, aggressive, or offensive communication. <br><em>Solution:</em> Early netiquette rules; address incidents promptly and privately.</li>
+        <li><strong>4. Assessment and Academic Integrity:</strong> Concerns about verification and plagiarism. <br><em>Solution:</em> Vary assessments (reflections, discussion, project), proctoring, AI detectors.</li>
+        <li><strong>5. Balancing Sync and Async:</strong> Coherence between in-person and online parts. <br><em>Solution:</em> Link online tasks directly to physical classes; use forums to prepare for sync meets.</li>
+        <li><strong>6. Digital Literacy Gaps:</strong> Learners uncomfortable with technology. <br><em>Solution:</em> Orientation sessions, multiple content formats, supportive environment.</li>
+        <li><strong>7. Time Management and Procrastination:</strong> Flexibility leads to falling behind. <br><em>Solution:</em> Clear deadlines, weekly check-ins, structured posting windows.</li>
+        <li><strong>8. Participation Inequality:</strong> Some dominate, others remain silent. <br><em>Solution:</em> Directed questions, design e-tivities requiring individual posts before peer responses.</li>
+      </ul>
+
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-alert-triangle"></i> What is Flaming?</div>
+        <p><strong>Online Flaming</strong> refers to hostile, aggressive, or offensive online communication. Without face-to-face cues, tone can be misread and conflict can escalate quickly in text spaces.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 9 -->
+    <section class="notes-section" id="sec9">
+      <div class="sec-header">
+        <div class="sec-num">9</div>
+        <div><div class="sec-title">Drafting a Course Design for an Online Space</div><div class="sec-src">Objective 9</div></div>
+      </div>
+
+      <h3>9.1 Key Principles of Online Course Design</h3>
+      <p>A well-designed online course is built around clear learning objectives, scaffolded activities, and meaningful interaction. Key principles include:</p>
+      <ul class="bullet-list">
+        <li><strong>Alignment:</strong> Objectives, activities, and assessments must align.</li>
+        <li><strong>Scaffolding:</strong> Build content and complexity progressively (mirror Salmon's five stages).</li>
+        <li><strong>Variety:</strong> Mix content types (video, text, audio) and activity formats.</li>
+        <li><strong>Interaction:</strong> Design for learner-content, learner-learner, and learner-instructor interaction.</li>
+        <li><strong>Accessibility:</strong> Ensure all learners can engage with materials.</li>
+        <li><strong>Assessment:</strong> Use formative and summative assessments appropriately.</li>
+      </ul>
+
+      <h3>9.2 Steps in Blended/Online Course Design</h3>
+      <p><strong>Step 1 – Define Learning Outcomes:</strong> What should learners know, understand, or be able to do by the end?</p>
+      <p><strong>Step 2 – Map Content to Stages:</strong> Align content and activities with Salmon's five-stage model to scaffold learning.</p>
+      <p><strong>Step 3 – Select the Platform:</strong> Choose an appropriate LMS (Canvas, Moodle, Google Classroom, etc.) based on institutional context.</p>
+      <p><strong>Step 4 – Design E-Tivities:</strong> Create purposeful, interactive activities for each module/week. Include spark, task, response, and plenary.</p>
+      <p><strong>Step 5 – Design Assessment:</strong> Plan formative assessments (discussion posts, quizzes) and summative assessments (projects, essays).</p>
+      <p><strong>Step 6 – Build and Organise Content:</strong> Structure the LMS logically week-by-week or module-by-module. Include clear navigation.</p>
+      <p><strong>Step 7 – Pilot and Refine:</strong> Test the course with a small group before full launch. Gather feedback and revise.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 10 -->
+    <section class="notes-section" id="sec10">
+      <div class="sec-header">
+        <div class="sec-num">10</div>
+        <div><div class="sec-title">Emerging Trends in E-Moderating</div><div class="sec-src">Objective 10</div></div>
+      </div>
+
+      <h3>10.1 Artificial Intelligence (AI) in E-Learning</h3>
+      <p>AI is transforming e-learning and the role of the e-moderator through:</p>
+      <ul class="bullet-list">
+        <li><strong>Personalised learning:</strong> AI adapts content, pace, and difficulty in real time.</li>
+        <li><strong>Automated assessment:</strong> instant feedback and identification of knowledge gaps.</li>
+        <li><strong>Predictive analytics:</strong> alerts e-moderators to at-risk learners early.</li>
+        <li><strong>AI tutors and chatbots:</strong> on-demand support outside of moderated hours.</li>
+        <li><strong>Administrative support:</strong> automates grading, scheduling, and admin tasks.</li>
+      </ul>
+      <p><strong>Implication:</strong> As AI handles routine tasks, the e-moderator's uniquely human skills—empathy, community building, nuanced feedback, and critical dialogue facilitation—become even more valuable.</p>
+
+      <h3>10.2 Other Key Trends</h3>
+      <ul class="bullet-list">
+        <li><strong>Microlearning:</strong> Content in small, focused bursts (3-10 minutes) like short clips, infographics, and quick quizzes.</li>
+        <li><strong>Mobile Learning (m-Learning):</strong> Mobile-first designs so content is responsive on small screens.</li>
+        <li><strong>Gamification:</strong> Points, badges, leaderboards, and challenges to increase engagement and retention.</li>
+        <li><strong>AR &amp; VR:</strong> Immersive learning. VR-trained employees are 4x faster to train and 275% more confident.</li>
+        <li><strong>Data Analytics:</strong> LMS analytics tracking student behaviour. Learners in the lowest performance quartile interact 45% less.</li>
+        <li><strong>Social Platforms:</strong> Social-media-like dynamics. remote education shows a 30% engagement increase.</li>
+        <li><strong>Blended &amp; Hybrid Norms:</strong> Post-pandemic norm. Fully online delivery is an complementary, student-centric option.</li>
+      </ul>
+
+      <h3>10.9 Implications for the E-Moderator Role</h3>
+      <p>Emerging trends mean the e-moderator must stay continuously updated (PLN skill is critical), be comfortable with data tools/LMS analytics, design for mobile/microlearning, collaborate with AI, navigate immersive environments, and advocate for digital equity.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer class="hub-footer">
+  EDT 308 &nbsp;&middot;&nbsp; <span>Resources from UTHTECH solution &nbsp;&middot;&nbsp; Built by samwissy</span> &nbsp;&middot;&nbsp; Academic Practice Portal
+</footer>
+
+</body>
+</html>

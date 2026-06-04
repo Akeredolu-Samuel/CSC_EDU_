@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT 308 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quizzes for EDT 308: Blended Learning, E-Moderation, E-tivities, Online Course Design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    /* LANDING */
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #3b82f6; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(59,130,246,0.08); }
+    .logo-ring i { font-size: 28px; color: #3b82f6; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(59,130,246,0.07); border: 0.5px solid rgba(59,130,246,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input, .form-group select { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus, .form-group select:focus { border-color: #3b82f6; }
+    .form-group input::placeholder { color: #3d4460; }
+    .form-group select option { background: #0d1325; color: #e8eaf0; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #3b82f6; }
+    .q-count-val { background: rgba(59,130,246,0.15); border: 0.5px solid rgba(59,130,246,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #3b82f6; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #2563eb; }
+
+    /* HEADER */
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #3b82f6; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #3b82f6; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    /* QUIZ BODY */
+    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(59,130,246,0.12); border-color: #3b82f6; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #3b82f6; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    /* NAVIGATOR */
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(59,130,246,0.4); color: #3b82f6; }
+    .nav-dot.active { border-color: #3b82f6; color: #3b82f6; background: rgba(59,130,246,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    /* FOOTER */
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #2563eb; }
+    .btn-ghost { background: transparent; border: 0.5px solid rgba(255,255,255,0.12); color: #9ba3b8; border-radius: 8px; padding: 9px 18px; font-size: 12.5px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #e8eaf0; }
+    .btn-finish { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.4); color: #4ade80; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-finish:hover { background: rgba(34,197,94,0.22); }
+
+    /* RESULTS */
+    #results { align-items: center; justify-content: flex-start; padding: 1.5rem 1.25rem 1rem; background: #0a0f1e; overflow-y: auto; }
+    .res-top { text-align: center; margin-bottom: 1.5rem; width: 100%; }
+    .score-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #3b82f6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .score-ring.great { border-color: #22c55e; }
+    .score-ring.mid { border-color: #f59e0b; }
+    .score-ring.low { border-color: #ef4444; }
+    .score-num { font-size: 28px; font-weight: 500; color: #fff; }
+    .score-denom { font-size: 11px; color: #6b7594; }
+    .res-name { font-size: 17px; color: #e8eaf0; margin-bottom: 0.3rem; }
+    .res-pct { font-size: 13px; color: #6b7594; margin-bottom: 0.2rem; }
+    .res-msg { font-size: 12.5px; color: #4b5577; margin-bottom: 1.2rem; }
+
+    .stats-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center; min-width: 80px; }
+    .stat-val { font-size: 20px; font-weight: 500; }
+    .stat-lbl { font-size: 10.5px; color: #4b5577; margin-top: 2px; }
+    .stat-card.ok .stat-val { color: #4ade80; }
+    .stat-card.bad .stat-val { color: #f87171; }
+    .stat-card.skip .stat-val { color: #f59e0b; }
+
+    .breakdown { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; max-width: 500px; width: 100%; margin: 0 auto 1.2rem; overflow: hidden; }
+    .bd-header { padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-bottom: 0.5px solid rgba(255,255,255,0.07); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5577; display: flex; justify-content: space-between; }
+    .bd-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 1rem; border-bottom: 0.5px solid rgba(255,255,255,0.04); gap: 8px; }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-q { font-size: 12px; color: #6b7594; flex: 1; }
+    .bd-badge { font-size: 10.5px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+    .bd-badge.ok { background: rgba(34,197,94,0.13); color: #4ade80; }
+    .bd-badge.bad { background: rgba(239,68,68,0.11); color: #f87171; }
+    .bd-badge.skip { background: rgba(245,158,11,0.13); color: #fbbf24; }
+
+    .res-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn-retry2 { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 7px; }
+    .btn-retry2:hover { background: #2563eb; }
+    .btn-home { background: transparent; border: 0.5px solid rgba(255,255,255,0.15); color: #9ba3b8; border-radius: 8px; padding: 10px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-home:hover { border-color: rgba(255,255,255,0.3); color: #e8eaf0; }
+
+    .footer-tag { text-align: center; padding: 0.65rem; font-size: 10px; color: #4b5577; border-top: 0.5px solid rgba(255,255,255,0.04); background: #0a0f1e; letter-spacing: 0.05em; }
+    .footer-tag span { color: #3b82f6; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- LANDING -->
+  <div id="landing" class="screen active">
+    <!-- Back to Portal top link -->
+    <div style="width: 100%; display: flex; justify-content: flex-start; padding: 15px; position: absolute; top: 0; left: 0;">
+      <a href="index.html" class="btn-ghost" style="padding: 5px 12px; font-size: 11.5px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Portal</a>
+    </div>
+
+    <div class="brand-pill" style="margin-top: 2rem;">EDT 308 &nbsp;|&nbsp; CBT Practice</div>
+    <div class="logo-ring"><i class="ti ti-school" aria-hidden="true"></i></div>
+    <h1 class="main-title">EDT 308 Quiz</h1>
+    <p class="main-sub">Blended Learning &middot; E-Moderation &middot; Online Course Design</p>
+
+    <div class="read-box">
+      <div class="read-box-title"><i class="ti ti-book-2" aria-hidden="true" style="font-size:14px"></i> Quiz Coverage Areas</div>
+      <ul>
+        <li>Objective 1: E-Learning &amp; E-Moderator terms</li>
+        <li>Objective 2: Platform types &amp; LMS platforms</li>
+        <li>Objective 3: Hockly's Top 10 E-Moderator Skills</li>
+        <li>Objective 4: E-Tivities purpose &amp; design elements</li>
+        <li>Objective 5: Salmon's 5-Stage Model (Access to Development)</li>
+        <li>Objective 6: Synchronous vs Asynchronous differences</li>
+        <li>Objective 7: Live online moderating strategies</li>
+        <li>Objective 8: Common issues (Flaming, isolation, etc.)</li>
+        <li>Objective 9: Scaffolding, alignment &amp; design steps</li>
+        <li>Objective 10: AI, mobile, VR, analytics emerging trends</li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="uname">Your name</label>
+      <input id="uname" type="text" placeholder="e.g. Samuel Adeyemi" maxlength="40" autocomplete="off" />
+    </div>
+
+    <div class="q-count-row">
+      <label for="qslider">Questions</label>
+      <input id="qslider" type="range" min="20" max="60" step="5" value="25" oninput="document.getElementById('qcval').textContent=this.value" />
+      <span class="q-count-val" id="qcval">25</span>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">
+      <i class="ti ti-player-play" aria-hidden="true"></i> Start CBT
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="qh-left" style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" class="btn-ghost" style="padding: 4px 10px; font-size: 11px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Home</a>
+        <span class="qh-logo"><i class="ti ti-school" aria-hidden="true"></i> EDT 308</span>
+        <span class="qh-user" id="hdr-user"></span>
+      </div>
+      <div class="qh-right">
+        <div class="timer-badge" id="timer-badge"><i class="ti ti-clock" aria-hidden="true" style="font-size:13px"></i><span id="timer-txt">--:--</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <span class="prog-label" id="prog-label">1/25</span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="q-meta">
+        <span class="q-num-tag" id="q-num-tag">Question 1</span>
+        <span class="q-section-tag" id="q-sec-tag"></span>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback-box" id="feedback">
+        <div class="fb-label" id="fb-label"></div>
+        <div class="fb-text" id="fb-text"></div>
+        <div class="fb-hint" id="fb-hint"></div>
+      </div>
+    </div>
+
+    <div class="q-nav" id="q-nav"></div>
+
+    <div class="quiz-footer">
+      <button class="btn-ghost" id="btn-prev" onclick="goQ(cur-1)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Prev</button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action" id="btn-submit" onclick="submitAns()" disabled>Submit</button>
+        <button class="btn-ghost" id="btn-next" onclick="goQ(cur+1)" style="display:none">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        <button class="btn-finish" id="btn-finish" onclick="confirmFinish()" style="display:none"><i class="ti ti-flag" aria-hidden="true"></i> Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="screen">
+    <div class="res-top">
+      <div class="brand-pill">Session Complete</div>
+      <div class="score-ring" id="score-ring">
+        <span class="score-num" id="res-score">0</span>
+        <span class="score-denom" id="res-denom">/ 25</span>
+      </div>
+      <p class="res-name" id="res-name"></p>
+      <p class="res-pct" id="res-pct"></p>
+      <p class="res-msg" id="res-msg"></p>
+    </div>
+    <div class="stats-row" id="stats-row"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="res-actions">
+      <button class="btn-retry2" onclick="retryQuiz()"><i class="ti ti-refresh" aria-hidden="true"></i> Retry Same</button>
+      <button class="btn-home" onclick="goHome()"><i class="ti ti-home" aria-hidden="true"></i> New Session</button>
+    </div>
+  </div>
+
+</div>
+<div class="footer-tag">EDT 308 &nbsp;&middot;&nbsp; <span>Resources from UTHTECH solution &nbsp;&middot;&nbsp; Built by samwissy</span></div>
+
+<script>
+const BANK = [
+  // Objective 1
+  {
+    q: "How does Guri-Rosenbilt (2005) define the scope of e-learning?",
+    opts: [
+      "E-learning is instruction delivered through digital devices to support learning.",
+      "E-learning uses electronic media for purposes ranging from classroom add-ons to complete face-to-face substitutions.",
+      "E-learning is strictly the acquisition of digital programming skills.",
+      "E-learning is defined as learning that occurs only outside traditional classrooms."
+    ],
+    ans: 1,
+    exp: "Guri-Rosenbilt (2005) notes that e-learning covers electronic media for various learning purposes, spanning from minor classroom add-on features to total substitutions for face-to-face meetings.",
+    hint: "Objective 1.1: What is E-Learning?",
+    sec: "Objective 1"
+  },
+  {
+    q: "Which definition of e-learning is provided by Clark and Mayer (2016)?",
+    opts: [
+      "Learning by utilizing electronic technologies to access educational curricula outside classrooms.",
+      "A complete substitution for face-to-face lectures using recorded video.",
+      "Instruction delivered through digital devices to support learning.",
+      "A constructivist method that removes the role of the live tutor completely."
+    ],
+    ans: 2,
+    exp: "Clark and Mayer (2016) define e-learning concisely as instruction delivered through digital devices to support learning.",
+    hint: "Objective 1.1: What is E-Learning?",
+    sec: "Objective 1"
+  },
+  {
+    q: "Who popularized the term 'e-moderator' and defined its essential role in facilitating online human interaction?",
+    opts: [
+      "Professor Nicky Hockly",
+      "Professor Gilly Salmon",
+      "Vygotsky",
+      "Clark and Mayer"
+    ],
+    ans: 1,
+    exp: "The term 'e-moderator' was popularized by Professor Gilly Salmon in her seminal book 'E-Moderating: The Key to Teaching and Learning Online' (2001).",
+    hint: "Objective 1.2: What is an E-Moderator?",
+    sec: "Objective 1"
+  },
+  {
+    q: "Which of the following is NOT listed by IGI Global as a description of the e-moderator?",
+    opts: [
+      "Maintains the online learning environment for the benefit of all participants.",
+      "Is familiar with the capabilities of the learning environment.",
+      "Is responsible for motivating and supervising interventions by community members.",
+      "Responsible for hosting and maintaining physical servers of the LMS."
+    ],
+    ans: 3,
+    exp: "The e-moderator is a learning facilitator, not a systems engineer responsible for hosting and maintaining physical hardware servers.",
+    hint: "Objective 1.2: What is an E-Moderator?",
+    sec: "Objective 1"
+  },
+  {
+    q: "What learning theory forms the foundation of Gilly Salmon's e-moderating definition?",
+    opts: [
+      "Behaviorism (reinforcement and rewards)",
+      "Cognitivism (mental schema development)",
+      "Social Constructivism (co-constructing knowledge through interaction)",
+      "Direct Instruction (passive absorption)"
+    ],
+    ans: 2,
+    exp: "Salmon's definition reflects social constructivism, where the e-moderator's role is to promote human interaction and communication to build knowledge and skills, rather than pass content passively.",
+    hint: "Objective 1.2: What is an E-Moderator?",
+    sec: "Objective 1"
+  },
+  {
+    q: "E-moderation is also referred to in digital environments as:",
+    opts: [
+      "Tele-tutoring",
+      "Automated tutoring",
+      "Self-directed learning",
+      "Network administration"
+    ],
+    ans: 0,
+    exp: "The resources state that e-moderating is also called tele-tutoring and applies to university teaching, corporate training, workshops, and seminars.",
+    hint: "Objective 1.2: What is an E-Moderator?",
+    sec: "Objective 1"
+  },
+
+  // Objective 2
+  {
+    q: "Which characteristic of the e-learning environment relates to shifting the focus from teacher-led instruction to student-driven exploration?",
+    opts: [
+      "Technology-mediated",
+      "Scalable",
+      "Learner-centred",
+      "Asynchronous"
+    ],
+    ans: 2,
+    exp: "Learner-centredness shifts the focus away from the teacher delivering content to students actively driving their own exploration.",
+    hint: "Objective 2.1: Characteristics of the E-Learning Environment",
+    sec: "Objective 2"
+  },
+  {
+    q: "A Learning Management System (LMS) is defined as:",
+    opts: [
+      "A video editing software for recording online webinars",
+      "Software that houses course content, manages enrolment, tracks progress, and enables communication",
+      "A physical classroom layout configured for technology integration",
+      "A network infrastructure designed for high-speed student internet access"
+    ],
+    ans: 1,
+    exp: "An LMS is the digital system that hosts content, coordinates enrollment, traces learner metrics, and facilitates communication.",
+    hint: "Objective 2.2: Common E-Learning Platforms",
+    sec: "Objective 2"
+  },
+  {
+    q: "Which LMS is described specifically as combining LMS features with social networking?",
+    opts: [
+      "Canvas",
+      "Moodle",
+      "Blackboard",
+      "Schoology"
+    ],
+    ans: 3,
+    exp: "Schoology is described as combining typical LMS features with social networking elements.",
+    hint: "Objective 2.2: Common E-Learning Platforms (LMS)",
+    sec: "Objective 2"
+  },
+  {
+    q: "What type of e-learning environment is open-source and highly customizable?",
+    opts: [
+      "Blackboard",
+      "Moodle",
+      "Canvas",
+      "Google Classroom"
+    ],
+    ans: 1,
+    exp: "Moodle is described specifically as an open-source, highly customizable LMS popular globally.",
+    hint: "Objective 2.2: Common E-Learning Platforms (LMS)",
+    sec: "Objective 2"
+  },
+  {
+    q: "What is a 'Blended/Hybrid' e-learning environment?",
+    opts: [
+      "An environment that integrates both Windows and Mac applications",
+      "All instruction, content, and assessment delivered digitally with no physical contact",
+      "An environment combining online components with face-to-face sessions",
+      "A structure combining two different subject domains into one course"
+    ],
+    ans: 2,
+    exp: "A blended or hybrid environment combines online learning components with traditional face-to-face sessions.",
+    hint: "Objective 2.3: Types of E-Learning Environments",
+    sec: "Objective 2"
+  },
+  {
+    q: "An Asynchronous Online environment is best described as one where students:",
+    opts: [
+      "Must log in at the same time to see live streaming presentations",
+      "Engage with materials and discussions at their own pace, within set deadlines",
+      "Are assessed only via automated AI algorithms",
+      "Learn in physical labs with computers"
+    ],
+    ans: 1,
+    exp: "Asynchronous learning lets students engage with coursework at their own pace within given timeframe boundaries.",
+    hint: "Objective 2.3: Types of E-Learning Environments",
+    sec: "Objective 2"
+  },
+
+  // Objective 3
+  {
+    q: "According to Nicky Hockly (2010), what does 'PLN' stand for?",
+    opts: [
+      "Professional Lecture Network",
+      "Personal Learning Network",
+      "Primary Learner Navigation",
+      "Pedagogical Lesson Norm"
+    ],
+    ans: 1,
+    exp: "PLN stands for Personal Learning Network, which an e-moderator maintains for ongoing professional development.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "Which skill in Hockly's list notes that variety in tasks, constant reflection, and experimentation prevent uninspired learners?",
+    opts: [
+      "Socialising",
+      "Presence",
+      "Enthusiasm",
+      "Empathy"
+    ],
+    ans: 2,
+    exp: "The 'Enthusiasm' skill emphasizes that uninspired teachers produce uninspired learners, requiring variety, time allocation, and reflection.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "How is the skill of 'Presence' defined for an e-moderator?",
+    opts: [
+      "Being online 24/7 and answering all student questions immediately.",
+      "Being present without dominating, knowing when to intervene and when to step back.",
+      "Using video cameras in all sessions to prove you are actively teaching.",
+      "Enforcing strict digital sign-in requirements for learners."
+    ],
+    ans: 1,
+    exp: "Presence is the art of knowing when to guide and when to step back, allowing peer-to-peer social construction.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "What e-moderator techniques are essential to 'Develop Discussions'?",
+    opts: [
+      "Posting video transcripts and assigning grades weekly.",
+      "Weaving (linking ideas from different posts) and summarising.",
+      "Splitting classes into alphabetically ordered forums.",
+      "Deleting posts that deviate from lecture materials."
+    ],
+    ans: 1,
+    exp: "Good e-moderators develop discussions by asking powerful questions and using techniques like weaving (linking ideas) and summarizing.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "What does Hockly mean by 'Scaffolding'?",
+    opts: [
+      "Writing a step-by-step syllabus at the course start.",
+      "Adjusting support as the course progresses, providing neither too much nor too little support.",
+      "Setting strict grading guidelines for forum posts.",
+      "Building interactive game-like elements on the LMS."
+    ],
+    ans: 1,
+    exp: "Scaffolding is calibrated assistance. Providing too much eliminates challenge; providing too little leads to student frustration.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "What is the recommended method to build 'Empathy' as an online educator?",
+    opts: [
+      "Read textbooks on online course designs.",
+      "Experience an online course as a student yourself.",
+      "Conduct surveys at the end of every week.",
+      "Establish strict rules for peer responses."
+    ],
+    ans: 1,
+    exp: "Taking an online course as a student gives educators direct experience of the frustrations and wins online learners encounter, building true empathy.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "What does the skill of 'Sensitivity' require of an e-moderator?",
+    opts: [
+      "Grading students based on their psychological status.",
+      "Adapting the approach to accommodate diverse cultural communication norms and learning styles.",
+      "Preventing any personal discussions on academic forums.",
+      "Enforcing a single standardized learning style for all participants."
+    ],
+    ans: 1,
+    exp: "Sensitivity means adjusting moderation to suit different backgrounds and learning preferences, utilizing questionnaires and check-ins.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+  {
+    q: "Which skill relates to managing the course lifecycle (beginning, middle, and end)?",
+    opts: [
+      "PLN",
+      "Presence",
+      "Cycles",
+      "Socialising"
+    ],
+    ans: 2,
+    exp: "The 'Cycles' skill states that a course has a lifecycle, requiring orientation at the start, active challenges in the middle, and closure at the end.",
+    hint: "Objective 3.2: The Top Ten E-Moderator Skills",
+    sec: "Objective 3"
+  },
+
+  // Objective 4
+  {
+    q: "Who coined the term 'e-tivity'?",
+    opts: [
+      "Nicky Hockly",
+      "Clark and Mayer",
+      "Professor Gilly Salmon",
+      "Vygotsky"
+    ],
+    ans: 2,
+    exp: "The term 'e-tivity' was coined by Professor Gilly Salmon to describe a framework for active, interactive online learning.",
+    hint: "Objective 4.1: What is an E-Tivity?",
+    sec: "Objective 4"
+  },
+  {
+    q: "Which of the following is NOT a core feature of an e-tivity?",
+    opts: [
+      "Based on learner interaction, mainly through written contributions.",
+      "Asynchronous primarily.",
+      "Expensive to build and require specialized multimedia software.",
+      "End with a summary or feedback (plenary) by the e-moderator."
+    ],
+    ans: 2,
+    exp: "E-tivities are inexpensive and easy to run, typically relying on discussion boards or forums rather than costly specialized software.",
+    hint: "Objective 4.2: Key Features of E-Tivities",
+    sec: "Objective 4"
+  },
+  {
+    q: "What is the role of the 'Spark' in an e-tivity design?",
+    opts: [
+      "An automated notification system that alerts students of deadlines.",
+      "A stimulus (resource, question, or challenge) designed to trigger reflection and discussion.",
+      "The final grading scorecard shown to the students.",
+      "The setup configuration tool used by the LMS administrator."
+    ],
+    ans: 1,
+    exp: "The spark is a motivational stimulus that initiates thinking and entices learners to participate in the activity.",
+    hint: "Objective 4.4: E-Tivity Design Elements",
+    sec: "Objective 4"
+  },
+  {
+    q: "In e-tivity design, the e-moderator's summary, weaving, or feedback at the end is called the:",
+    opts: [
+      "Plenary",
+      "Spark",
+      "Response",
+      "Schedule"
+    ],
+    ans: 0,
+    exp: "The plenary represents the closure of the e-tivity, where the e-moderator summarizes, weaves contributions, and provides concluding critiques.",
+    hint: "Objective 4.4: E-Tivity Design Elements",
+    sec: "Objective 4"
+  },
+  {
+    q: "How do well-designed e-tivities impact the dynamic between learners and e-moderators?",
+    opts: [
+      "Learners become entirely passive, and e-moderator workload doubles.",
+      "Knowledge is co-constructed through dialogue, and learners take more responsibility.",
+      "Discussion forums are completely replaced by synchronous chats.",
+      "The e-moderator assumes full control of all cognitive contributions."
+    ],
+    ans: 1,
+    exp: "Well-designed e-tivities build a community where knowledge is co-constructed through dialogue, and students take more responsibility for learning.",
+    hint: "Objective 4.5: E-Tivities & Community of Learning",
+    sec: "Objective 4"
+  },
+  {
+    q: "Which design element specifies the timeline for when students must submit posts and reply to others?",
+    opts: [
+      "Task",
+      "Plenary",
+      "Schedule",
+      "Purpose"
+    ],
+    ans: 2,
+    exp: "The schedule is the design element that outlines the timeline for the activity, ensuring structured posting and response windows.",
+    hint: "Objective 4.4: E-Tivity Design Elements",
+    sec: "Objective 4"
+  },
+
+  // Objective 5
+  {
+    q: "What is Stage 3 of Gilly Salmon's Five-Stage Model?",
+    opts: [
+      "Online Socialisation",
+      "Access and Motivation",
+      "Information Exchange",
+      "Knowledge Construction"
+    ],
+    ans: 2,
+    exp: "The five stages in chronological order are: (1) Access & Motivation, (2) Online Socialisation, (3) Information Exchange, (4) Knowledge Construction, and (5) Development.",
+    hint: "Objective 5.1: Gilly Salmon's Five-Stage Model Overview",
+    sec: "Objective 5"
+  },
+  {
+    q: "What is the primary role of the e-moderator in Stage 1 (Access and Motivation)?",
+    opts: [
+      "Pose challenging debates that require critical analysis.",
+      "Welcome learners, provide clear platform instructions, and troubleshoot access issues.",
+      "Act as an observer and allow self-directed learning.",
+      "Weave threads to highlight consensus among participants."
+    ],
+    ans: 1,
+    exp: "In Stage 1, the e-moderator focuses on helping students overcome tech anxieties, sending welcome messages, and assisting with access.",
+    hint: "Objective 5.2: Stage 1 – Access and Motivation",
+    sec: "Objective 5"
+  },
+  {
+    q: "Which e-tivity is an example appropriate for Stage 2 (Online Socialisation)?",
+    opts: [
+      "Research an online teaching tool and write a comparative review.",
+      "Design an e-tivity and reflect on how Salmon's model informed it.",
+      "Introduce yourself and share one thing you hope to learn. Reply to at least two peers.",
+      "Confirm you can log into the LMS."
+    ],
+    ans: 2,
+    exp: "Stage 2 focuses on building online social trust and identity, which is supported by low-stakes introductions and peer replies.",
+    hint: "Objective 5.2: Stage 2 – Online Socialisation",
+    sec: "Objective 5"
+  },
+  {
+    q: "During which stage of Salmon's model do learners begin to recognize the value of text-based, asynchronous interaction as they share links and resources?",
+    opts: [
+      "Stage 1: Access and Motivation",
+      "Stage 2: Online Socialisation",
+      "Stage 3: Information Exchange",
+      "Stage 4: Knowledge Construction"
+    ],
+    ans: 2,
+    exp: "In Stage 3 (Information Exchange), learners begin sharing documents, resources, and ideas, and value the asynchronous dialogue.",
+    hint: "Objective 5.2: Stage 3 – Information Exchange",
+    sec: "Objective 5"
+  },
+  {
+    q: "Which stage is described as the most intellectually active stage, where debate and critical argument take place?",
+    opts: [
+      "Stage 2 – Online Socialisation",
+      "Stage 3 – Information Exchange",
+      "Stage 4 – Knowledge Construction",
+      "Stage 5 – Development"
+    ],
+    ans: 2,
+    exp: "Stage 4 (Knowledge Construction) involves critical argument, debates, collaborative tasks, and synthesis of ideas.",
+    hint: "Objective 5.2: Stage 4 – Knowledge Construction",
+    sec: "Objective 5"
+  },
+  {
+    q: "What is the e-moderator's main action in Stage 4 (Knowledge Construction) to synthesize contributions?",
+    opts: [
+      "Troubleshoot login issues.",
+      "Step back completely and stop monitoring posts.",
+      "Weave threads (link/synthesise contributions) and highlight key debates.",
+      "Create cafe-style social threads."
+    ],
+    ans: 2,
+    exp: "During Stage 4, e-moderators actively weave threads, summarizing key debates and highlighting points of agreement or divergence.",
+    hint: "Objective 5.2: Stage 4 – Knowledge Construction",
+    sec: "Objective 5"
+  },
+  {
+    q: "At Stage 5 (Development), what does the e-moderator encourage?",
+    opts: [
+      "Basic technical navigation of the discussion board.",
+      "Low-stakes introductions to get to know peers.",
+      "Reflection, independent learning, and applying knowledge to real-world contexts.",
+      "Simple sharing of course documents."
+    ],
+    ans: 2,
+    exp: "Stage 5 focuses on self-directed development, reflection, applying what has been learned, and closing the course.",
+    hint: "Objective 5.2: Stage 5 – Development",
+    sec: "Objective 5"
+  },
+  {
+    q: "According to Salmon's 5-Stage summary table, what is the learner activity during Stage 3 (Information Exchange)?",
+    opts: [
+      "Access the platform and build motivation.",
+      "Build identity and interact with peers.",
+      "Share resources and ideas.",
+      "Debate, critique, and collaborate."
+    ],
+    ans: 2,
+    exp: "The summary table specifies that the learner activity in Stage 3 is to share resources and ideas.",
+    hint: "Objective 5.3: Summary Table",
+    sec: "Objective 5"
+  },
+
+  // Objective 6
+  {
+    q: "Which of the following is an example of a synchronous e-learning tool?",
+    opts: [
+      "Pre-recorded video lectures",
+      "Discussion forums",
+      "Live video lectures via Zoom or Teams",
+      "Email threads"
+    ],
+    ans: 2,
+    exp: "Zoom, Teams, and Google Meet live video lectures are synchronous tools because they require simultaneous real-time attendance.",
+    hint: "Objective 6.1: Synchronous Learning",
+    sec: "Objective 6"
+  },
+  {
+    q: "What is a main advantage of asynchronous learning?",
+    opts: [
+      "Immediate real-time feedback and explanation from tutors.",
+      "Stronger initial real-time community bonding.",
+      "High schedule flexibility, allowing learners to study at their own pace.",
+      "Eliminates the requirement for self-discipline."
+    ],
+    ans: 2,
+    exp: "Asynchronous learning offers high flexibility since students can access materials and complete tasks at times that suit their schedules.",
+    hint: "Objective 6.2: Asynchronous Learning",
+    sec: "Objective 6"
+  },
+  {
+    q: "Which disadvantage is associated with synchronous e-tivities?",
+    opts: [
+      "Delayed feedback from the instructor.",
+      "Difficulty managing scheduling across different time zones.",
+      "Encouraging passive observation ('lurking').",
+      "Providing too much time for reflection before responding."
+    ],
+    ans: 1,
+    exp: "Because synchronous learning requires everyone online at the same time, managing sessions across varying time zones is a challenge.",
+    hint: "Objective 6.1: Synchronous Learning",
+    sec: "Objective 6"
+  },
+  {
+    q: "Asynchronous learning is often considered to promote more thoughtful communication because:",
+    opts: [
+      "It requires video cameras to be turned on.",
+      "Immediate responses are graded higher.",
+      "Learners have more time to reflect and think before contributing posts.",
+      "Instructors check in with students in real time."
+    ],
+    ans: 2,
+    exp: "Asynchronous platforms allow students to read, research, and reflect on topics before posting their written contributions.",
+    hint: "Objective 6.2: Asynchronous Learning",
+    sec: "Objective 6"
+  },
+  {
+    q: "Which tool is best suited for asynchronous e-tivities?",
+    opts: [
+      "Virtual office hours via video call",
+      "Discussion forums and message boards",
+      "Live Q&A breakout rooms",
+      "Instant group messaging chats"
+    ],
+    ans: 1,
+    exp: "Discussion forums are the classic tool for asynchronous activities, allowing posts and responses to be submitted at different times.",
+    hint: "Objective 6.3: Synchronous vs. Asynchronous E-Tivities",
+    sec: "Objective 6"
+  },
+  {
+    q: "In comparing synchronous and asynchronous e-tivities, which has 'Low' flexibility?",
+    opts: [
+      "Asynchronous E-Tivity",
+      "Synchronous E-Tivity",
+      "Both have equal flexibility",
+      "Neither has flexibility"
+    ],
+    ans: 1,
+    exp: "Synchronous e-tivities have low flexibility because they require a fixed, pre-scheduled time block.",
+    hint: "Objective 6.3: Synchronous vs. Asynchronous E-Tivities Table",
+    sec: "Objective 6"
+  },
+
+  // Objective 7
+  {
+    q: "When moderating a live online session, what should be done 'Before the session'?",
+    opts: [
+      "Post the final recorded video link to the LMS.",
+      "Define the moderator's role and share 'house rules' in advance.",
+      "Follow up on unanswered questions from the audience.",
+      "Gather feedback via post-course surveys."
+    ],
+    ans: 1,
+    exp: "Pre-session preparation includes defining roles, setting conduct rules, testing technology, and sharing the agenda.",
+    hint: "Objective 7.1: Practical Strategies for Live Online Moderation",
+    sec: "Objective 7"
+  },
+  {
+    q: "During a live hybrid session, a key role of the online moderator is to:",
+    opts: [
+      "Mute all local participants in the room.",
+      "Relay in-room proceedings to the online audience.",
+      "Grade chat comments for final marks.",
+      "End the call if any participant posts a question."
+    ],
+    ans: 1,
+    exp: "For hybrid settings, the online moderator must bridge the gap by relaying physical room activities/discussion to the virtual audience.",
+    hint: "Objective 7.1: Practical Strategies for Live Online Moderation",
+    sec: "Objective 7"
+  },
+  {
+    q: "What does the live engagement technique of 'Weaving' involve?",
+    opts: [
+      "Letting students speak in alphabetical order.",
+      "Explicitly connecting and synthesising contributions from different participants.",
+      "Recapping the agenda at the start of the call.",
+      "Inviting only the quietest students to present."
+    ],
+    ans: 1,
+    exp: "Weaving is the technique of linking together thoughts and ideas posted by different students to form a coherent dialogue.",
+    hint: "Objective 7.2: Techniques for Engagement in Live Environments",
+    sec: "Objective 7"
+  },
+  {
+    q: "Inviting quieter participants to share their views during a live session is known as:",
+    opts: [
+      "Weaving",
+      "Directing",
+      "Stepping back",
+      "Summarising"
+    ],
+    ans: 1,
+    exp: "Directing is explicitly asking less active or quieter participants to contribute their perspectives to the discussion.",
+    hint: "Objective 7.2: Techniques for Engagement in Live Environments",
+    sec: "Objective 7"
+  },
+  {
+    q: "Why is 'Stepping back' considered a valuable technique for moderators?",
+    opts: [
+      "It allows moderators to leave the call early.",
+      "It fosters learner-to-learner dialogue without constant instructor interruption.",
+      "It forces students to troubleshoot all technical problems alone.",
+      "It reduces the length of the live session."
+    ],
+    ans: 1,
+    exp: "Stepping back means allowing dialogue to flow between students without the moderator intervening after every single contribution.",
+    hint: "Objective 7.2: Techniques for Engagement in Live Environments",
+    sec: "Objective 7"
+  },
+
+  // Objective 8
+  {
+    q: "In online environments, what does 'Online Flaming' refer to?",
+    opts: [
+      "A technical glitch that deletes forum posts.",
+      "Hostile, aggressive, or offensive online communication.",
+      "Highlighting important concepts in green in the syllabus.",
+      "The rapid accumulation of badges by gamified learners."
+    ],
+    ans: 1,
+    exp: "Flaming refers to hostile or offensive remarks online, which can occur easily when text-based formats lack face-to-face cues.",
+    hint: "Objective 8.1: Common Challenges",
+    sec: "Objective 8"
+  },
+  {
+    q: "How can e-moderators resolve the challenge of 'Student Isolation and Disengagement'?",
+    opts: [
+      "Assign longer individual readings to prevent distraction.",
+      "Build a strong community early in Stages 1-2, check in socially, and design peer tasks.",
+      "Remove all group activities and use automatic grading systems.",
+      "Increase the difficulty of weekly synchronous assessments."
+    ],
+    ans: 1,
+    exp: "Combatting isolation requires community focus at Access and Socialization stages, check-ins, and collaborative e-tivities.",
+    hint: "Objective 8.1: Common Challenges",
+    sec: "Objective 8"
+  },
+  {
+    q: "To address 'Participation Inequality' where a few learners dominate, an e-moderator should:",
+    opts: [
+      "Permit only alphabetically selected students to write posts.",
+      "Use directed questions to quieter students and require individual posts before group responses.",
+      "Remove all grading points from discussion forums.",
+      "Instruct dominant students to leave the LMS platform."
+    ],
+    ans: 1,
+    exp: "Using directed questions and structuring activities to require individual posts before revealing peer threads helps level participation.",
+    hint: "Objective 8.1: Common Challenges",
+    sec: "Objective 8"
+  },
+  {
+    q: "What is the recommended solution for digital literacy gaps among online learners?",
+    opts: [
+      "Require students to pass a programming test prior to enrolment.",
+      "Provide orientation sessions, offer multiple format contents, and remain patient/supportive.",
+      "Move all content to paper handouts.",
+      "Ignore the gap to force students to learn independently."
+    ],
+    ans: 1,
+    exp: "Literacy gaps should be managed by offering orientation, flexible formats, and a supportive learning space.",
+    hint: "Objective 8.1: Common Challenges",
+    sec: "Objective 8"
+  },
+  {
+    q: "What is a recommended approach for maintaining academic integrity in online assessments?",
+    opts: [
+      "Use only one single final exam for the entire grade.",
+      "Vary assessment types (reflections, discussion, project-based) and use AI detection/proctoring.",
+      "Conduct all exams in synchronous chats.",
+      "Rely entirely on peer grading without instructor review."
+    ],
+    ans: 1,
+    exp: "Using varied assessment designs like reflections and projects alongside detection tools minimizes academic integrity risks.",
+    hint: "Objective 8.1: Common Challenges",
+    sec: "Objective 8"
+  },
+  {
+    q: "How can e-moderators identify disengaged learners early in the course?",
+    opts: [
+      "Wait for students to report that they are struggling.",
+      "Monitor activity analytics dashboards inside the LMS.",
+      "Ask peers to identify who is not contributing.",
+      "Check who is present on social media platforms."
+    ],
+    ans: 1,
+    exp: "LMS dashboards provide analytics (logins, resources accessed, posts) that allow e-moderators to identify disengaged students early.",
+    hint: "Objective 8.2: Approaches to Managing Issues",
+    sec: "Objective 8"
+  },
+
+  // Objective 9
+  {
+    q: "Which principle of online course design emphasizes that learning objectives, activities, and assessments must support each other?",
+    opts: [
+      "Scaffolding",
+      "Variety",
+      "Alignment",
+      "Accessibility"
+    ],
+    ans: 2,
+    exp: "Alignment ensures that what is taught (content), what is done (activities), and what is tested (assessments) map directly to learning goals.",
+    hint: "Objective 9.1: Key Principles of Online Course Design",
+    sec: "Objective 9"
+  },
+  {
+    q: "What is Step 1 in the steps of blended and online course design?",
+    opts: [
+      "Select the Platform",
+      "Design E-Tivities",
+      "Define Learning Outcomes",
+      "Map Content to Stages"
+    ],
+    ans: 2,
+    exp: "The first step in designing an online course is to define learning outcomes (what students should know/do by the end).",
+    hint: "Objective 9.2: Steps in Blended/Online Course Design",
+    sec: "Objective 9"
+  },
+  {
+    q: "Why is mapping content to stages (Step 2) important in course design?",
+    opts: [
+      "It helps select the most inexpensive hosting server.",
+      "It aligns content and activities with Salmon's 5-Stage model to scaffold learning progress.",
+      "It determines the grading weight of final examinations.",
+      "It coordinates face-to-face classroom scheduling."
+    ],
+    ans: 1,
+    exp: "Mapping content to stages aligns the timeline of coursework with Salmon's framework, scaffolding learner progress.",
+    hint: "Objective 9.2: Steps in Blended/Online Course Design",
+    sec: "Objective 9"
+  },
+  {
+    q: "What should be done during Step 7 of the course design process?",
+    opts: [
+      "Immediately publish the course to thousands of learners.",
+      "Choose a new Learning Management System.",
+      "Pilot and refine the course with a small test group before full launch.",
+      "Draft the initial learning outcomes."
+    ],
+    ans: 2,
+    exp: "Step 7 is to pilot the course with a small cohort, gather qualitative feedback, and refine elements before full launch.",
+    hint: "Objective 9.2: Steps in Blended/Online Course Design",
+    sec: "Objective 9"
+  },
+
+  // Objective 10
+  {
+    q: "How does AI predictive analytics assist e-moderators?",
+    opts: [
+      "By automatically grading essays and project portfolios.",
+      "By predicting which learners are at risk of failing or dropping out, alerting moderators to intervene early.",
+      "By generating weekly discussion prompts based on textbooks.",
+      "By replacing the e-moderator in synchronous live calls."
+    ],
+    ans: 1,
+    exp: "Predictive analytics utilizes student data to identify patterns of disengagement or struggle, allowing early moderator intervention.",
+    hint: "Objective 10.1: Artificial Intelligence (AI) in E-Learning",
+    sec: "Objective 10"
+  },
+  {
+    q: "What is the primary educational benefit of Microlearning?",
+    opts: [
+      "It allows students to learn without using the internet.",
+      "It delivers content in small, focused bursts (3-10 minutes) that are easy to digest.",
+      "It uses microscopic texts to fit more content onto screens.",
+      "It replaces the need for any formal assessments."
+    ],
+    ans: 1,
+    exp: "Microlearning delivers digestible, bite-sized content (3-10 minutes) suitable for busy schedules and mobile access.",
+    hint: "Objective 10.2: Other Key Trends",
+    sec: "Objective 10"
+  },
+  {
+    q: "What has research shown about learners in the lowest performance quartile regarding LMS interaction?",
+    opts: [
+      "They interact 10% less with course materials.",
+      "They interact 45% less with course materials.",
+      "They interact more with materials but fail assessments anyway.",
+      "They access LMS platforms only via mobile phones."
+    ],
+    ans: 1,
+    exp: "LMS data analytics show that students in the lowest performance quartile interact 45% less with online course materials.",
+    hint: "Objective 10.6: Data Analytics and Learning Management",
+    sec: "Objective 10"
+  },
+  {
+    q: "According to emerging trends, VR-trained employees are shown to be how many times faster to train than classroom learners?",
+    opts: [
+      "2x faster",
+      "3x faster",
+      "4x faster",
+      "10x faster"
+    ],
+    ans: 2,
+    exp: "The resources state that VR-trained employees are 4x faster to train and 275% more confident in applying their skills.",
+    hint: "Objective 10.5: Augmented Reality (AR) and Virtual Reality (VR)",
+    sec: "Objective 10"
+  },
+  {
+    q: "What does the rise of Mobile Learning (m-Learning) require e-moderators to do?",
+    opts: [
+      "Ensure all assignments are handwritten.",
+      "Adopt a mobile-first design so LMS layouts and e-tivities are responsive on small screens.",
+      "Limit all activities to simple SMS text messages.",
+      "Ban the use of laptops during online coursework."
+    ],
+    ans: 1,
+    exp: "m-Learning requires responsive, mobile-first design so students can navigate and contribute from smartphones.",
+    hint: "Objective 10.3: Mobile Learning (m-Learning)",
+    sec: "Objective 10"
+  },
+  {
+    q: "Which trend applies game-design elements like badges, points, and leaderboards to increase motivation?",
+    opts: [
+      "Microlearning",
+      "Predictive analytics",
+      "Gamification",
+      "Virtual Reality"
+    ],
+    ans: 2,
+    exp: "Gamification is the integration of game dynamics (challenges, points, badges) into educational contexts to motivate students.",
+    hint: "Objective 10.4: Gamification",
+    sec: "Objective 10"
+  }
+];
+
+let username='', totalQ=25, quizQ=[], userAns=[], cur=0, score=0;
+let timerInterval=null, timeLeft=0;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(){
+  const inp=document.getElementById('uname');
+  username=inp.value.trim();
+  if(!username){inp.focus();inp.style.borderColor='#ef4444';return;}
+  inp.style.borderColor='';
+  totalQ=parseInt(document.getElementById('qslider').value);
+  const shuffled=shuffle([...BANK]);
+  quizQ=shuffled.slice(0,totalQ);
+  userAns=new Array(totalQ).fill(null);
+  cur=0; score=0;
+  timeLeft=totalQ*90;
+  showScreen('quiz');
+  document.getElementById('hdr-user').textContent=username;
+  buildNav();
+  renderQ();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft<=0){clearInterval(timerInterval);showResults();}
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60), s=timeLeft%60;
+  const txt=m+':'+(s<10?'0':'')+s;
+  document.getElementById('timer-txt').textContent=txt;
+  const badge=document.getElementById('timer-badge');
+  if(timeLeft<60) badge.classList.add('warn'); else badge.classList.remove('warn');
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function buildNav(){
+  const nav=document.getElementById('q-nav');
+  nav.innerHTML='';
+  for(let i=0;i<totalQ;i++){
+    const d=document.createElement('button');
+    d.className='nav-dot';
+    d.textContent=i+1;
+    d.id='nd'+i;
+    d.onclick=(()=>{const idx=i;return()=>goQ(idx);})();
+    nav.appendChild(d);
+  }
+}
+
+function updateNav(){
+  for(let i=0;i<totalQ;i++){
+    const d=document.getElementById('nd'+i);
+    if(!d) continue;
+    d.className='nav-dot';
+    if(i===cur) d.classList.add('active');
+    else if(userAns[i]!==null){
+      const correct=userAns[i]===quizQ[i].ans;
+      d.classList.add(correct?'done-ok':'done-bad');
+    }
+  }
+}
+
+function renderQ(){
+  const q=quizQ[cur];
+  document.getElementById('q-num-tag').textContent='Question '+(cur+1)+' of '+totalQ;
+  document.getElementById('q-sec-tag').textContent=q.sec;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('prog-fill').style.width=((cur+1)/totalQ*100)+'%';
+  document.getElementById('prog-label').textContent=(cur+1)+'/'+totalQ;
+
+  const opts=document.getElementById('options');
+  opts.innerHTML='';
+  const letters=['A','B','C','D'];
+  const answered=userAns[cur]!==null;
+
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn'+(answered?' locked':'');
+    btn.innerHTML=`<span class="opt-letter">${letters[i]}</span><span>${o}</span>`;
+    if(!answered) btn.onclick=()=>selectOpt(i);
+    if(answered){
+      if(i===q.ans) btn.classList.add('correct');
+      else if(i===userAns[cur]&&userAns[cur]!==q.ans) btn.classList.add('wrong');
+    }
+    opts.appendChild(btn);
+  });
+
+  const fb=document.getElementById('feedback');
+  const fbl=document.getElementById('fb-label');
+  if(answered){
+    const ok=userAns[cur]===q.ans;
+    fb.classList.add('show');
+    fbl.className='fb-label '+(ok?'ok':'bad');
+    fbl.textContent=ok?'Correct!':'Incorrect.';
+    document.getElementById('fb-text').textContent=q.exp;
+    document.getElementById('fb-hint').textContent=q.hint;
+    document.getElementById('btn-submit').style.display='none';
+    document.getElementById('btn-next').style.display='flex';
+  } else {
+    fb.classList.remove('show');
+    document.getElementById('btn-submit').style.display='block';
+    document.getElementById('btn-submit').disabled=true;
+    document.getElementById('btn-next').style.display='none';
+  }
+
+  document.getElementById('btn-prev').style.display=cur>0?'flex':'none';
+  const allAnswered=userAns.every(a=>a!==null);
+  document.getElementById('btn-finish').style.display=(cur===totalQ-1||allAnswered)?'flex':'none';
+  updateNav();
+}
+
+function selectOpt(i){
+  if(userAns[cur]!==null) return;
+  document.querySelectorAll('.opt-btn').forEach((b,idx)=>{
+    b.classList.toggle('selected',idx===i);
+  });
+  document.getElementById('btn-submit').disabled=false;
+  document.getElementById('btn-submit').dataset.sel=i;
+}
+
+function submitAns(){
+  const sel=parseInt(document.getElementById('btn-submit').dataset.sel);
+  if(isNaN(sel)||userAns[cur]!==null) return;
+  userAns[cur]=sel;
+  const q=quizQ[cur];
+  if(sel===q.ans) score++;
+
+  const btns=document.querySelectorAll('.opt-btn');
+  btns.forEach((b,i)=>{
+    b.classList.add('locked');
+    b.classList.remove('selected');
+    if(i===q.ans) b.classList.add('correct');
+    else if(i===sel&&sel!==q.ans) b.classList.add('wrong');
+  });
+
+  const ok=sel===q.ans;
+  const fb=document.getElementById('feedback');
+  fb.classList.add('show');
+  const fbl=document.getElementById('fb-label');
+  fbl.className='fb-label '+(ok?'ok':'bad');
+  fbl.textContent=ok?'Correct!':'Incorrect.';
+  document.getElementById('fb-text').textContent=q.exp;
+  document.getElementById('fb-hint').textContent=q.hint;
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-next').style.display='flex';
+
+  const allAnswered=userAns.every(a=>a!==null);
+  document.getElementById('btn-finish').style.display=(cur===totalQ-1||allAnswered)?'flex':'none';
+  updateNav();
+}
+
+function goQ(idx){
+  if(idx<0||idx>=totalQ) return;
+  cur=idx;
+  renderQ();
+}
+
+function confirmFinish(){
+  const unanswered=userAns.filter(a=>a===null).length;
+  if(unanswered>0){
+    if(!confirm(unanswered+' question(s) unanswered. Finish anyway?')) return;
+  }
+  clearInterval(timerInterval);
+  showResults();
+}
+
+function showResults(){
+  clearInterval(timerInterval);
+  showScreen('results');
+  const pct=Math.round(score/totalQ*100);
+  const ring=document.getElementById('score-ring');
+  ring.className='score-ring '+(pct>=70?'great':pct>=50?'mid':'low');
+  document.getElementById('res-score').textContent=score;
+  document.getElementById('res-denom').textContent='/ '+totalQ;
+  document.getElementById('res-name').textContent=username+"'s Result";
+  document.getElementById('res-pct').textContent=pct+'% — '+score+' correct out of '+totalQ;
+  let msg='';
+  if(pct>=90) msg='Excellent! You have mastered the EDT 308 material.';
+  else if(pct>=75) msg='Great performance! Review the few you missed.';
+  else if(pct>=60) msg='Good effort. Go back to your study notes and retry.';
+  else if(pct>=50) msg='You are getting there — more review needed before the exam.';
+  else msg='Keep studying! Work through your EDT 308 notes carefully.';
+  document.getElementById('res-msg').textContent=msg;
+
+  const correct=userAns.filter((a,i)=>a===quizQ[i].ans).length;
+  const wrong=userAns.filter((a,i)=>a!==null&&a!==quizQ[i].ans).length;
+  const skipped=userAns.filter(a=>a===null).length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card ok"><div class="stat-val">${correct}</div><div class="stat-lbl">Correct</div></div>
+    <div class="stat-card bad"><div class="stat-val">${wrong}</div><div class="stat-lbl">Wrong</div></div>
+    <div class="stat-card skip"><div class="stat-val">${skipped}</div><div class="stat-lbl">Skipped</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#3b82f6">${pct}%</div><div class="stat-lbl">Score</div></div>`;
+
+  const bd=document.getElementById('breakdown');
+  bd.innerHTML=`<div class="bd-header"><span>Question</span><span>Result</span></div>`;
+  quizQ.forEach((q,i)=>{
+    const ua=userAns[i];
+    const ok=ua===q.ans;
+    const skp=ua===null;
+    const row=document.createElement('div');
+    row.className='bd-row';
+    const qtext=q.q.length>58?q.q.slice(0,58)+'…':q.q;
+    row.innerHTML=`<span class="bd-q">Q${i+1}. ${qtext}</span><span class="bd-badge ${skp?'skip':ok?'ok':'bad'}">${skp?'Skipped':ok?'Correct':'Wrong'}</span>`;
+    bd.appendChild(row);
+  });
+}
+
+function retryQuiz(){
+  score=0; cur=0;
+  userAns=new Array(totalQ).fill(null);
+  shuffle(quizQ);
+  timeLeft=totalQ*90;
+  showScreen('quiz');
+  buildNav();
+  renderQ();
+  startTimer();
+}
+
+function goHome(){
+  clearInterval(timerInterval);
+  showScreen('landing');
+}
+</script>
+
+</body>
+</html>
