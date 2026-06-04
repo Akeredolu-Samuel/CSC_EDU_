@@ -750,5 +750,37 @@
   EDT 308 &nbsp;&middot;&nbsp; <span>Resources from UTHTECH solution &nbsp;&middot;&nbsp; Built by samwissy</span> &nbsp;&middot;&nbsp; Academic Practice Portal
 </footer>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.notes-section');
+  const navLinks = document.querySelectorAll('.sidebar .sb-link');
+
+  const options = {
+    root: null,
+    rootMargin: '-5% 0px -75% 0px', // Trigger when section occupies top portion
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, options);
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+});
+</script>
+
 </body>
 </html>
