@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUA 312 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quizzes for BUA 312: Small Business Management.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    /* LANDING */
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #f97316; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(249,115,22,0.08); }
+    .logo-ring i { font-size: 28px; color: #f97316; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(249,115,22,0.07); border: 0.5px solid rgba(249,115,22,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input, .form-group select { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus, .form-group select:focus { border-color: #f97316; }
+    .form-group input::placeholder { color: #3d4460; }
+    .form-group select option { background: #0d1325; color: #e8eaf0; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #f97316; }
+    .q-count-val { background: rgba(249,115,22,0.15); border: 0.5px solid rgba(249,115,22,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #f97316; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #f97316; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #ea6c08; }
+
+    /* HEADER */
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #f97316; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #f97316; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    /* QUIZ BODY */
+    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(249,115,22,0.12); border-color: #f97316; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #f97316; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    /* NAVIGATOR */
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(249,115,22,0.4); color: #f97316; }
+    .nav-dot.active { border-color: #f97316; color: #f97316; background: rgba(249,115,22,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    /* FOOTER */
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #f97316; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #ea6c08; }
+    .btn-secondary { background: transparent; color: #6b7594; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px 18px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); transition: all 0.15s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: #e8eaf0; }
+
+    /* RESULTS */
+    #results { align-items: center; justify-content: flex-start; padding: 2rem 1.5rem; }
+    .results-inner { max-width: 520px; width: 100%; margin: 0 auto; }
+    .score-ring { width: 110px; height: 110px; border-radius: 50%; border: 3px solid #f97316; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1.5rem; background: rgba(249,115,22,0.07); }
+    .score-pct { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
+    .score-lbl { font-size: 10px; color: #6b7594; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+    .score-ring.good { border-color: #22c55e; background: rgba(34,197,94,0.07); }
+    .score-ring.bad { border-color: #ef4444; background: rgba(239,68,68,0.07); }
+    .result-title { font-size: 20px; font-weight: 600; color: #fff; text-align: center; margin-bottom: 0.4rem; }
+    .result-sub { font-size: 13px; color: #6b7594; text-align: center; margin-bottom: 1.5rem; }
+    .result-stats { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .rstat { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.1rem; text-align: center; }
+    .rstat-num { font-size: 20px; font-weight: 600; color: #fff; }
+    .rstat-lbl { font-size: 10px; color: #4b5577; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .review-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .review-item { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.9rem 1rem; }
+    .ri-q { font-size: 12.5px; color: #c8cfe0; margin-bottom: 6px; line-height: 1.5; }
+    .ri-row { display: flex; gap: 8px; font-size: 11.5px; flex-wrap: wrap; }
+    .ri-tag { padding: 2px 9px; border-radius: 99px; }
+    .ri-tag.ok { background: rgba(34,197,94,0.1); color: #4ade80; border: 0.5px solid rgba(34,197,94,0.3); }
+    .ri-tag.bad { background: rgba(239,68,68,0.1); color: #f87171; border: 0.5px solid rgba(239,68,68,0.3); }
+    .result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    .footer-tag { text-align: center; padding: 1rem; font-size: 10.5px; color: #2a3050; letter-spacing: 0.05em; border-top: 0.5px solid rgba(255,255,255,0.05); margin-top: 0.5rem; }
+    .footer-tag span { color: #f97316; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+<!-- LANDING -->
+<div id="landing" class="screen active">
+  <div class="brand-pill">EduHub · CBT Practice</div>
+  <div class="logo-ring"><i class="ti ti-briefcase"></i></div>
+  <h1 class="main-title">BUA 312 — Small Business Management</h1>
+  <p class="main-sub">CBT practice quiz · 60 questions · Timed</p>
+
+  <div class="read-box">
+    <div class="read-box-title"><i class="ti ti-info-circle" style="font-size:13px"></i> Topics Covered</div>
+    <ul>
+      <li>Definitions &amp; Characteristics of Small Business</li>
+      <li>Types, Advantages &amp; Disadvantages</li>
+      <li>Entrepreneurial Skills &amp; Thinking</li>
+      <li>Starting, Financing &amp; Managing a Business</li>
+      <li>Small Business Environment &amp; HRM</li>
+      <li>Challenges &amp; Prospects in Nigeria</li>
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <label>Your Name</label>
+    <input type="text" id="nameInput" placeholder="Enter your name…">
+  </div>
+  <div class="form-group">
+    <label>Difficulty</label>
+    <select id="diffSelect">
+      <option value="all">All Questions (Mixed)</option>
+      <option value="obj1">Definitions &amp; Characteristics</option>
+      <option value="obj2">Entrepreneurship &amp; Skills</option>
+      <option value="obj3">Finance, Environment &amp; HRM</option>
+    </select>
+  </div>
+  <div class="q-count-row">
+    <label>Questions</label>
+    <input type="range" id="qRange" min="10" max="60" step="5" value="30" oninput="document.getElementById('qVal').textContent=this.value">
+    <div class="q-count-val" id="qVal">30</div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()"><i class="ti ti-player-play" style="font-size:15px"></i> Start Quiz</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="qh-left">
+      <span class="qh-logo"><i class="ti ti-briefcase"></i> BUA 312</span>
+      <span class="qh-user" id="hdrName"></span>
+    </div>
+    <div class="qh-right">
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+      <span class="prog-label" id="progLabel"></span>
+      <div class="timer-badge" id="timerBadge"><i class="ti ti-clock" style="font-size:12px"></i> <span id="timerTxt">--:--</span></div>
+    </div>
+  </div>
+
+  <div class="quiz-body">
+    <div class="q-meta">
+      <span class="q-num-tag" id="qNumTag"></span>
+      <span class="q-section-tag" id="qSecTag"></span>
+    </div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="optionsEl"></div>
+    <div class="feedback-box" id="feedbackBox">
+      <div class="fb-label" id="fbLabel"></div>
+      <div class="fb-text" id="fbText"></div>
+      <div class="fb-hint" id="fbHint"></div>
+    </div>
+  </div>
+
+  <div class="q-nav" id="qNav"></div>
+
+  <div class="quiz-footer">
+    <button class="btn-secondary" onclick="goHome()"><i class="ti ti-home" style="font-size:13px"></i> Home</button>
+    <button class="btn-action" id="nextBtn" onclick="nextQ()" disabled>Next <i class="ti ti-arrow-right" style="font-size:13px"></i></button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="screen">
+  <div class="results-inner">
+    <div class="score-ring" id="scoreRing">
+      <div class="score-pct" id="scorePct"></div>
+      <div class="score-lbl">Score</div>
+    </div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-sub" id="resultSub"></div>
+    <div class="result-stats">
+      <div class="rstat"><div class="rstat-num" id="rsCorrect"></div><div class="rstat-lbl">Correct</div></div>
+      <div class="rstat"><div class="rstat-num" id="rsWrong"></div><div class="rstat-lbl">Wrong</div></div>
+      <div class="rstat"><div class="rstat-num" id="rsTime"></div><div class="rstat-lbl">Time Used</div></div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+    <div class="result-actions">
+      <button class="btn-secondary" onclick="goHome()"><i class="ti ti-home" style="font-size:13px"></i> Home</button>
+      <button class="btn-action" onclick="startQuiz()"><i class="ti ti-refresh" style="font-size:13px"></i> Try Again</button>
+      <button class="btn-secondary" onclick="window.location.href='bua312_notes.html'"><i class="ti ti-book-2" style="font-size:13px"></i> Review Notes</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer-tag">BUA 312 &nbsp;·&nbsp; <span>Resources from UTHTECH solution &nbsp;·&nbsp; Built by samwissy</span></div>
+</div>
+
+<script>
+const BANK = [
+  // --- DEFINITIONS & CHARACTERISTICS (obj1) ---
+  { q: "According to SMEDAN, how many employees does a small business have?", opts: ["Below 10","10–49","50–199","200–499"], ans: 1, exp: "SMEDAN defines a small business as having 10–49 employees.", hint: "Topic: SMEDAN Definition", sec: "Definitions" },
+  { q: "What is the SMEDAN asset range (excluding land and building) for a small business?", opts: ["Below ₦500,000","₦5m – less than ₦50m","₦50m – less than ₦500m","Above ₦500m"], ans: 1, exp: "SMEDAN specifies ₦5 million to less than ₦50 million for small businesses.", hint: "Topic: SMEDAN Definition", sec: "Definitions" },
+  { q: "Under SMEDAN classification, a MICRO enterprise has a capital outlay of:", opts: ["Below ₦500,000","₦5m–₦50m","₦50m–₦500m","Over ₦500m"], ans: 0, exp: "SMEDAN classifies micro enterprises as those with capital below ₦500,000.", hint: "Topic: SMEDAN", sec: "Definitions" },
+  { q: "The Nigeria Tax Act (NTA) defines a small business as one earning up to how much per annum?", opts: ["₦10 million","₦50 million","₦120 million","₦250 million"], ans: 1, exp: "The NTA defines a small business as earning up to ₦50 million per annum.", hint: "Topic: NTA Definition", sec: "Definitions" },
+  { q: "Under CAMA 2020, which of the following is NOT a criterion for a small business?", opts: ["Annual turnover ≤ ₦120m","Net assets ≤ ₦60m","No foreign members","At least 200 employees"], ans: 3, exp: "CAMA 2020 does not specify an employee number of 200; the other three are key criteria.", hint: "Topic: CAMA Definition", sec: "Definitions" },
+  { q: "The CBN defines SMEs as entities with employees between:", opts: ["1–10","5–50","11–200","50–500"], ans: 2, exp: "The CBN generally defines SMEs as entities with 11 to 200 employees.", hint: "Topic: CBN Definition", sec: "Definitions" },
+  { q: "According to the EU definition, a small enterprise has fewer than how many employees?", opts: ["10","25","50","100"], ans: 2, exp: "The EU defines small enterprises as having fewer than 50 employees.", hint: "Topic: EU Definition", sec: "Definitions" },
+  { q: "The EU financial ceiling for a MICRO enterprise is:", opts: ["Less than €1 million","Less than €2 million","Less than €10 million","Less than €50 million"], ans: 1, exp: "The EU sets a financial ceiling of less than €2 million for micro enterprises.", hint: "Topic: EU Classification", sec: "Definitions" },
+  { q: "Which characteristic of small business refers to the owner often making all major decisions alone?", opts: ["Simple structure","Personalized management style","Flexible in nature","Straightforward technical needs"], ans: 1, exp: "Personalized management style means the owner (who is also the manager) makes most decisions.", hint: "Topic: Characteristics", sec: "Definitions" },
+  { q: "Which type of small business CONVERTS raw materials into finished goods?", opts: ["Servicing","Retailing","Wholesaling","Manufacturing"], ans: 3, exp: "Manufacturing businesses convert raw materials into finished or semi-finished goods.", hint: "Topic: Types of Small Business", sec: "Definitions" },
+  { q: "Fish farming is an example of which type of small business?", opts: ["Extractive","Retailing","Agriculture","Manufacturing"], ans: 2, exp: "Fish farming is classified under agriculture — cultivating animals for food.", hint: "Topic: Types", sec: "Definitions" },
+  { q: "Mining and logging are examples of which type of small business?", opts: ["Servicing","Extractive","Wholesaling","Agriculture"], ans: 1, exp: "Extractive businesses extract natural resources such as minerals and timber.", hint: "Topic: Types", sec: "Definitions" },
+  { q: "Which of the following is an ADVANTAGE of small business?", opts: ["High rate of business failure","Death of owner ends the business","Encourages capital formation","No delegation of authority"], ans: 2, exp: "Small businesses encourage capital formation, which is a key advantage.", hint: "Topic: Advantages", sec: "Definitions" },
+  { q: "Which of the following is a DISADVANTAGE of small business?", opts: ["Low capital required","Fast decision making","Owners may lose private assets to creditors","Flexible operations"], ans: 2, exp: "A major disadvantage is that owners may lose personal assets if not operating as a limited liability company.", hint: "Topic: Disadvantages", sec: "Definitions" },
+  { q: "Which advantage of small business relates to reducing movement from villages to cities?", opts: ["Encourages capital formation","Help reduce rural-urban migration","Serve as feeder to large enterprises","Promote indigenous technology"], ans: 1, exp: "Small businesses help reduce rural-urban migration by creating local employment opportunities.", hint: "Topic: Advantages", sec: "Definitions" },
+
+  // --- ENTREPRENEURSHIP & SKILLS (obj2) ---
+  { q: "What is a 'Triggering Event' in starting a small business?", opts: ["A government regulation that forces a business to open","Factors (psychological, economic, sociological) that give birth to a new business venture","The moment a business plan is approved by a bank","A legal requirement to register the business"], ans: 1, exp: "A triggering event is any factor that initiates and develops a new business venture.", hint: "Topic: Starting a Business", sec: "Entrepreneurship" },
+  { q: "Which personal characteristic of an entrepreneur involves accepting the possibility of loss?", opts: ["Diligence","The willingness to assume calculated risk","Administrative ability","Decisiveness"], ans: 1, exp: "Willingness to assume calculated risk is a core trait — entrepreneurs accept potential losses for potential gains.", hint: "Topic: Self-Appraisal", sec: "Entrepreneurship" },
+  { q: "Entrepreneurial skills are BEST defined as:", opts: ["Only financial knowledge needed to run a business","The ability, knowledge, ideas, and competence to survive in any business setting","The legal rights of a business owner","Marketing strategies for small businesses"], ans: 1, exp: "Entrepreneurial skills broadly cover the ability, knowledge, ideas, and competence needed to survive in business.", hint: "Topic: Entrepreneurial Skills", sec: "Entrepreneurship" },
+  { q: "Which type of entrepreneurial skill covers planning, organising, controlling, leading, and directing?", opts: ["Technical Skills","Personal Skills","Managerial Skills","Interpersonal Skills"], ans: 2, exp: "Managerial skills are those that deal with planning, organising, controlling, leading, and directing.", hint: "Topic: Types of Skills", sec: "Entrepreneurship" },
+  { q: "Which type of entrepreneurial skill covers how you interact, communicate, and negotiate?", opts: ["Financial Skills","Technical Skills","Managerial Skills","Interpersonal Skills"], ans: 3, exp: "Interpersonal skills cover the way you interact, communicate, and negotiate with others.", hint: "Topic: Types of Skills", sec: "Entrepreneurship" },
+  { q: "Which of the following is NOT listed as a process for developing entrepreneurial skills?", opts: ["Self development","Mentorship and nurturing","Practical experience","Attending political rallies"], ans: 3, exp: "Attending political rallies is not a process for developing entrepreneurial skills.", hint: "Topic: Developing Skills", sec: "Entrepreneurship" },
+  { q: "Entrepreneurial thinking is BEST described as a mental process that includes:", opts: ["Only financial planning and budgeting","Identifying threats, mobilizing resources, recognizing opportunities, and implementing innovative solutions","Focusing exclusively on past business models","Relying solely on government support"], ans: 1, exp: "Entrepreneurial development is the mental process of identifying threats, mobilizing resources, recognizing opportunities, and implementing innovative solutions.", hint: "Topic: Entrepreneurial Thinking", sec: "Entrepreneurship" },
+  { q: "Which is NOT a key characteristic of entrepreneurial thinking?", opts: ["Opportunity recognition","Risk management","Adaptability","Dependency on others"], ans: 3, exp: "Dependency on others contradicts the independent, problem-solving nature of entrepreneurial thinking.", hint: "Topic: Characteristics of Entrepreneurial Thinking", sec: "Entrepreneurship" },
+  { q: "Which INTERNAL factor influences one to become a good entrepreneurial thinker?", opts: ["Family background","Government policies","Technological advancement","Self confidence"], ans: 3, exp: "Self confidence is an internal factor; the others listed are external factors.", hint: "Topic: Internal vs External Factors", sec: "Entrepreneurship" },
+  { q: "Which EXTERNAL factor influences entrepreneurial thinking?", opts: ["Personality traits","Motivation","Cultural environment","Skills and knowledge"], ans: 2, exp: "Cultural environment is an external factor. The others are internal factors.", hint: "Topic: External Factors", sec: "Entrepreneurship" },
+  { q: "How many steps are in the process of starting and launching a small business (as per the notes)?", opts: ["5","7","10","12"], ans: 2, exp: "There are 10 steps from Triggering Event to Putting Administrative Support System in place.", hint: "Topic: Starting a Business", sec: "Entrepreneurship" },
+  { q: "The step of 'Self-Appraisal' in launching a business involves:", opts: ["Choosing a bank to finance the business","Asking yourself if you can start and sustain the business","Filing for company registration","Finding a business location"], ans: 1, exp: "Self-appraisal involves the owner asking themselves if they could start the business and meet the needs.", hint: "Topic: Starting a Business", sec: "Entrepreneurship" },
+  { q: "Which of the following is a role of the government in promoting entrepreneurship development?", opts: ["Increase import duties on all goods","Provide infrastructure","Discourage foreign investment","Reduce the size of SMEs"], ans: 1, exp: "The government must provide infrastructure as a key role in promoting entrepreneurship development.", hint: "Topic: Government Role", sec: "Entrepreneurship" },
+  { q: "Which importance of entrepreneurship in national development relates to reducing poverty?", opts: ["Innovation and technological advancement","Development of social resources","Creates employment and reduces poverty","Provision of export"], ans: 2, exp: "Creating employment and reducing poverty is a direct importance of entrepreneurship in national development.", hint: "Topic: Importance of Entrepreneurship", sec: "Entrepreneurship" },
+  { q: "Which of the following is a socio-economic contribution of small business?", opts: ["Increases income concentration among the wealthy","Redistribution of income and wealth","Dependence on foreign technology","Concentration of economic activities in cities"], ans: 1, exp: "Redistribution of income and wealth is a core socio-economic contribution of small businesses.", hint: "Topic: Socio-Economic Contributions", sec: "Entrepreneurship" },
+
+  // --- FINANCE, ENVIRONMENT & HRM (obj3) ---
+  { q: "Which is an INTERNAL source of finance for small businesses?", opts: ["Commercial bank loans","Government grants","Personal savings of the owner","Venture capital"], ans: 2, exp: "Personal savings is an internal source of finance — it comes from within the owner.", hint: "Topic: Sources of Finance", sec: "Finance & HRM" },
+  { q: "Which is an EXTERNAL source of finance for small businesses?", opts: ["Retained earnings","Sale of personal assets","Personal savings","Trade credit from suppliers"], ans: 3, exp: "Trade credit from suppliers is an external source; the others are internal sources.", hint: "Topic: Sources of Finance", sec: "Finance & HRM" },
+  { q: "Which challenge of financing small businesses in Nigeria relates to the cost of borrowing being too high?", opts: ["Lack of collateral","High interest rates","Poor credit history","Bureaucratic bottlenecks"], ans: 1, exp: "High interest rates make borrowing too expensive, which is a major financing challenge.", hint: "Topic: Financing Challenges", sec: "Finance & HRM" },
+  { q: "The CBN's intervention funds for SMEs are targeted at which sectors?", opts: ["Only the oil sector","Agricultural, manufacturing, and service sectors","Only technology start-ups","Only export businesses"], ans: 1, exp: "The CBN has created targeted funds for agricultural, manufacturing, and service sectors.", hint: "Topic: CBN Intervention Funds", sec: "Finance & HRM" },
+  { q: "Which factor is NOT a consideration for choosing a business location?", opts: ["Proximity to target customers","Availability of raw materials","The owner's favourite colour","Infrastructure"], ans: 2, exp: "The owner's favourite colour is not a business location factor.", hint: "Topic: Location Decision", sec: "Finance & HRM" },
+  { q: "The 4Ps of marketing stand for:", opts: ["People, Profit, Place, Process","Product, Price, Place, Promotion","Plan, Produce, Promote, Profit","Product, Profit, People, Performance"], ans: 1, exp: "The 4Ps of marketing are Product, Price, Place, and Promotion.", hint: "Topic: Marketing", sec: "Finance & HRM" },
+  { q: "Which social media platform is specifically mentioned in BUA 312 notes for small business marketing?", opts: ["Twitter/X","TikTok","WhatsApp Business","LinkedIn"], ans: 2, exp: "The notes specifically mention Facebook, Instagram, and WhatsApp Business for small business marketing.", hint: "Topic: Marketing Tools", sec: "Finance & HRM" },
+  { q: "Proper accounting for small businesses does NOT typically include:", opts: ["Recording income and expenses","Preparing financial statements","Speculating on foreign currency markets","Filing tax returns"], ans: 2, exp: "Speculating on foreign currency markets is not part of small business accounting practice.", hint: "Topic: Accounting", sec: "Finance & HRM" },
+  { q: "The small business environment refers to:", opts: ["Only the physical location of the business","Internal and external factors that affect operation, survival, and growth of small businesses","Only government policies affecting businesses","The marketing environment of large corporations"], ans: 1, exp: "The small business environment encompasses all internal and external factors that affect operation, survival, and growth.", hint: "Topic: Business Environment", sec: "Finance & HRM" },
+  { q: "Which of the following is part of the INTERNAL environment of a small business?", opts: ["Government policies","Competitors' strategies","Organizational culture","Inflation rates"], ans: 2, exp: "Organizational culture is internal — it is controlled by the owner/manager of the business.", hint: "Topic: Internal Environment", sec: "Finance & HRM" },
+  { q: "Inflation, interest rates, and exchange rates are part of which macro environment factor?", opts: ["Political / Legal","Economic","Socio-Cultural","Technological"], ans: 1, exp: "Inflation, interest rates, and exchange rates are economic factors in the macro environment.", hint: "Topic: PESTLE", sec: "Finance & HRM" },
+  { q: "Which symptom signals impending business failure?", opts: ["Increasing sales","Decreasing debt ratio","Deteriorating working capital","Rising profit margins"], ans: 2, exp: "Deteriorating working capital is one of the five key symptoms of business failure.", hint: "Topic: Symptoms of Failure", sec: "Finance & HRM" },
+  { q: "Which challenge of small businesses in Nigeria involves taxes from multiple government levels?", opts: ["Infrastructure deficiency","Multiple taxation","Insecurity","Low patronage"], ans: 1, exp: "Multiple taxation refers to small businesses facing various taxes from federal, state, and local governments.", hint: "Topic: Challenges", sec: "Finance & HRM" },
+  { q: "The AfCFTA provides what opportunity for Nigerian small businesses?", opts: ["Access to European subsidies","Market access across Africa","Elimination of all local taxes","Free foreign exchange"], ans: 1, exp: "The African Continental Free Trade Area (AfCFTA) provides market access across the entire African continent.", hint: "Topic: Prospects", sec: "Finance & HRM" },
+  { q: "HRM in small businesses is typically performed by:", opts: ["A dedicated HR department","An outsourced HR firm","The owner personally","The government labour office"], ans: 2, exp: "In small firms, the owner typically performs all HRM functions personally due to limited resources.", hint: "Topic: HRM", sec: "Finance & HRM" },
+  { q: "Which HRM function involves setting targets, evaluating, and providing feedback to employees?", opts: ["Recruitment and Selection","Training and Development","Performance Management","Compensation and Benefits"], ans: 2, exp: "Performance management involves setting targets, evaluating performance, and providing feedback.", hint: "Topic: HRM Functions", sec: "Finance & HRM" },
+  { q: "Which HRM challenge is UNIQUE to small businesses regarding family employees?", opts: ["Excessive salaries for family members","Emotional ties can compromise professional decisions","Family members receive no training","Government bans family employment in SMEs"], ans: 1, exp: "Managing family members as employees is unique to SMEs — emotional ties can compromise professional decisions.", hint: "Topic: HRM Challenges", sec: "Finance & HRM" },
+  { q: "The recommended HRM hiring strategy for small businesses is to:", opts: ["Hire for qualifications and skills only","Hire for attitude and train for skills","Hire only experienced workers","Hire based on family connections"], ans: 1, exp: "The recommended strategy is to hire for attitude and train for skills, as training is more controllable.", hint: "Topic: HRM Strategies", sec: "Finance & HRM" },
+  { q: "Which accounting software is mentioned in BUA 312 for small businesses?", opts: ["Microsoft Excel only","SAP Enterprise","QuickBooks and Sage","Oracle Financials"], ans: 2, exp: "The notes specifically mention QuickBooks and Sage as accounting software for small businesses.", hint: "Topic: Accounting", sec: "Finance & HRM" },
+  { q: "Poor record keeping as a challenge means:", opts: ["Businesses keep too many financial records","Absence of proper accounts makes it difficult to access credit or attract investors","All small businesses are required to use IFRS","Accountants refuse to work for small businesses"], ans: 1, exp: "Poor record keeping means the absence of proper accounts, which makes credit access and investor attraction difficult.", hint: "Topic: Challenges in Nigeria", sec: "Finance & HRM" },
+  { q: "Which of the following is a PROSPECT for small businesses in Nigeria?", opts: ["Shrinking youth population","Declining digital economy","Government support programmes like SMEDAN and BOI","Decreasing consumer purchasing power"], ans: 2, exp: "Government support programmes including SMEDAN, BOI, and CBN intervention funds are significant prospects.", hint: "Topic: Prospects in Nigeria", sec: "Finance & HRM" },
+  { q: "Which manufacturing concern is specifically listed for small manufacturing businesses?", opts: ["International trade negotiations","Quality control and assurance","Stock market listing","Franchise agreements"], ans: 1, exp: "Quality control and assurance is one of the manufacturing considerations listed in the notes.", hint: "Topic: Manufacturing", sec: "Finance & HRM" },
+  { q: "Customers and their preferences are part of which business environment?", opts: ["Internal environment","Macro environment","Micro environment","Global environment"], ans: 2, exp: "Customers are part of the micro environment — the immediate business surroundings.", hint: "Topic: Business Environment", sec: "Finance & HRM" },
+  { q: "Which non-financial benefit can small businesses offer employees as an HRM strategy?", opts: ["Company car for all staff","Flexible hours and recognition","Annual overseas trips","Stock options"], ans: 1, exp: "Flexible hours and recognition are practical, low-cost non-financial benefits small businesses can offer.", hint: "Topic: HRM Strategies", sec: "Finance & HRM" },
+  { q: "The concept of 'Hire Purchase and Leasing' is listed under which source of finance?", opts: ["Internal source","Government grants","External source","Central Bank funding"], ans: 2, exp: "Hire purchase and leasing are external sources of finance available to small businesses.", hint: "Topic: Sources of Finance", sec: "Finance & HRM" },
+  { q: "Which of the following BEST describes 'Venture Capital' as a source of finance?", opts: ["A personal loan from a family member","Government grant with no conditions","Investment from external investors in exchange for equity or returns","A cooperative society contribution"], ans: 2, exp: "Venture capital and angel investors provide external investment in exchange for equity or expected returns.", hint: "Topic: External Finance", sec: "Finance & HRM" },
+  { q: "Labour law compliance in small businesses specifically includes:", opts: ["Hiring only graduates","Adhering to minimum wage, overtime, and workplace safety regulations","Providing free accommodation to all staff","Paying staff in foreign currency"], ans: 1, exp: "Compliance with labour laws covers minimum wage, overtime, and workplace safety regulations.", hint: "Topic: Labour Management", sec: "Finance & HRM" },
+  { q: "The 'Micro Environment' of a small business includes:", opts: ["Inflation rates and exchange rates","Competitors and their strategies","Government policies and laws","Technological innovations"], ans: 1, exp: "Competitors and their strategies are part of the micro (immediate) environment.", hint: "Topic: Business Environment", sec: "Finance & HRM" },
+  { q: "Which challenge of small businesses relates to Nigeria's population being a market opportunity?", opts: ["Low patronage","Large consumer market of 200+ million","Multiple taxation","Poor infrastructure"], ans: 1, exp: "Nigeria's large consumer market of over 200 million is listed as a key prospect, not a challenge.", hint: "Topic: Prospects", sec: "Finance & HRM" },
+  { q: "Which HRM function focuses on building employee skills to improve performance?", opts: ["Recruitment and Selection","Training and Development","Performance Management","Employee Relations"], ans: 1, exp: "Training and Development specifically aims to build employee skills to improve performance and productivity.", hint: "Topic: HRM Functions", sec: "Finance & HRM" },
+];
+
+let pool = [], cur = 0, score = 0, answers = [], timerInt, elapsed = 0, userName = '', startTime;
+
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+function startQuiz() {
+  userName = document.getElementById('nameInput')?.value.trim() || 'Student';
+  const diff = document.getElementById('diffSelect')?.value || 'all';
+  const count = parseInt(document.getElementById('qRange')?.value || 30);
+  let filtered = BANK;
+  if (diff === 'obj1') filtered = BANK.filter(q => q.sec === 'Definitions');
+  else if (diff === 'obj2') filtered = BANK.filter(q => q.sec === 'Entrepreneurship');
+  else if (diff === 'obj3') filtered = BANK.filter(q => q.sec === 'Finance & HRM');
+  pool = shuffle([...filtered]).slice(0, Math.min(count, filtered.length));
+  cur = 0; score = 0; answers = []; elapsed = 0;
+  show('quiz');
+  document.getElementById('hdrName').textContent = userName;
+  renderQ();
+  clearInterval(timerInt);
+  startTime = Date.now();
+  timerInt = setInterval(() => {
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const m = String(Math.floor(elapsed/60)).padStart(2,'0');
+    const s = String(elapsed%60).padStart(2,'0');
+    const tb = document.getElementById('timerBadge');
+    document.getElementById('timerTxt').textContent = `${m}:${s}`;
+    tb.classList.toggle('warn', elapsed > pool.length * 60);
+  }, 1000);
+  buildNav();
+}
+
+function renderQ() {
+  const q = pool[cur];
+  const total = pool.length;
+  document.getElementById('qNumTag').textContent = `Question ${cur+1} of ${total}`;
+  document.getElementById('qSecTag').textContent = q.sec;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('progFill').style.width = `${((cur)/total)*100}%`;
+  document.getElementById('progLabel').textContent = `${cur}/${total}`;
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box';
+  document.getElementById('nextBtn').disabled = true;
+  const opts = document.getElementById('optionsEl');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    const letter = String.fromCharCode(65+i);
+    btn.innerHTML = `<span class="opt-letter">${letter}</span>${o}`;
+    btn.onclick = () => selectOpt(i, btn);
+    opts.appendChild(btn);
+  });
+  updateNav();
+}
+
+function selectOpt(idx, btn) {
+  const q = pool[cur];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.classList.add('locked'));
+  btn.classList.add('selected');
+  const correct = idx === q.ans;
+  if (correct) { score++; btn.classList.add('correct'); }
+  else { btn.classList.add('wrong'); btns[q.ans].classList.add('correct'); }
+  answers[cur] = { chosen: idx, correct };
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box show';
+  document.getElementById('fbLabel').className = 'fb-label ' + (correct ? 'ok' : 'bad');
+  document.getElementById('fbLabel').textContent = correct ? '✓ Correct!' : '✗ Incorrect';
+  document.getElementById('fbText').textContent = q.exp;
+  document.getElementById('fbHint').textContent = q.hint;
+  document.getElementById('nextBtn').disabled = false;
+  document.getElementById('nextBtn').textContent = cur < pool.length - 1 ? 'Next →' : 'Finish';
+  updateNav();
+}
+
+function nextQ() {
+  if (cur < pool.length - 1) { cur++; renderQ(); }
+  else showResults();
+}
+
+function buildNav() {
+  const nav = document.getElementById('qNav');
+  nav.innerHTML = '';
+  pool.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'nav-dot' + (i === cur ? ' active' : '');
+    d.textContent = i+1;
+    d.onclick = () => { if (answers[i] !== undefined || i === cur) { cur = i; renderQ(); }};
+    nav.appendChild(d);
+  });
+}
+
+function updateNav() {
+  const dots = document.querySelectorAll('.nav-dot');
+  dots.forEach((d, i) => {
+    d.className = 'nav-dot';
+    if (i === cur) d.classList.add('active');
+    if (answers[i] !== undefined) d.classList.add(answers[i].correct ? 'done-ok' : 'done-bad');
+  });
+}
+
+function showResults() {
+  clearInterval(timerInt);
+  show('results');
+  const pct = Math.round((score/pool.length)*100);
+  document.getElementById('scorePct').textContent = pct + '%';
+  const ring = document.getElementById('scoreRing');
+  ring.className = 'score-ring' + (pct >= 60 ? ' good' : ' bad');
+  document.getElementById('resultTitle').textContent = pct >= 80 ? '🎉 Excellent Work!' : pct >= 60 ? '👍 Good Effort!' : '📖 Keep Studying!';
+  document.getElementById('resultSub').textContent = `${userName}, you scored ${score} out of ${pool.length} questions.`;
+  document.getElementById('rsCorrect').textContent = score;
+  document.getElementById('rsWrong').textContent = pool.length - score;
+  const m = String(Math.floor(elapsed/60)).padStart(2,'0');
+  const s = String(elapsed%60).padStart(2,'0');
+  document.getElementById('rsTime').textContent = `${m}:${s}`;
+  const rl = document.getElementById('reviewList');
+  rl.innerHTML = '';
+  pool.forEach((q, i) => {
+    const a = answers[i];
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `<div class="ri-q">${i+1}. ${q.q}</div>
+      <div class="ri-row">
+        <span class="ri-tag ${a && a.correct ? 'ok' : 'bad'}">${a && a.correct ? '✓ Correct' : '✗ Wrong'}</span>
+        <span style="font-size:11.5px;color:#4b5577;">Answer: ${q.opts[q.ans]}</span>
+      </div>`;
+    rl.appendChild(div);
+  });
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goHome() { clearInterval(timerInt); show('landing'); }
+</script>
+</body>
+</html>
