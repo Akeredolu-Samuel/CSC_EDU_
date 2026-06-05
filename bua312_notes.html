@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUA 312 — Study Notes</title>
+  <meta name="description" content="Compiled study notes for BUA 312: Small Business Management — definitions, entrepreneurship, financing, HRM, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --blue:#f97316;--blue-dim:rgba(249,115,22,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--amber:#f59e0b;--purple:#a855f7;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:12px;}
+    .btn-back{display:flex;align-items:center;gap:6px;background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;}
+    .btn-back:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .tb-title{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:7px;}
+    .tb-badge{font-size:10px;background:rgba(249,115,22,0.12);border:0.5px solid rgba(249,115,22,0.3);color:#f97316;border-radius:99px;padding:2px 10px;}
+    .btn-quiz-link{display:flex;align-items:center;gap:6px;background:#f97316;border:none;color:#fff;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background 0.2s;text-decoration:none;}
+    .btn-quiz-link:hover{background:#ea6c08;}
+
+    .notes-layout{display:flex;max-width:1100px;margin:0 auto;gap:0;}
+
+    .sidebar{width:240px;min-width:240px;border-right:0.5px solid var(--border);padding:1.5rem 1rem;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;flex-shrink:0;}
+    .sidebar::-webkit-scrollbar{width:4px;}
+    .sidebar::-webkit-scrollbar-track{background:transparent;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+    .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);margin-bottom:0.8rem;padding:0 0.5rem;}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.15s;margin-bottom:2px;cursor:pointer;border:none;background:transparent;font-family:var(--font);text-align:left;width:100%;line-height:1.4;}
+    .sb-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+    .sb-link.active{background:rgba(249,115,22,0.1);color:#f97316;font-weight:500;}
+    .sb-num{min-width:16px;font-size:10px;color:var(--dim);margin-top:2px;}
+
+    .notes-main{flex:1;padding:2rem 2.5rem;min-width:0;}
+
+    .notes-hero{background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(239,68,68,0.06));border:0.5px solid rgba(249,115,22,0.2);border-radius:14px;padding:1.8rem;margin-bottom:2.5rem;}
+    .nh-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;color:#f97316;margin-bottom:0.7rem;display:flex;align-items:center;gap:6px;}
+    .nh-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .nh-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;}
+    .topic-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .topic-tag{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:99px;padding:3px 12px;font-size:11px;color:var(--muted);}
+
+    .notes-section{margin-bottom:3rem;scroll-margin-top:70px;}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:0.5px solid var(--border);}
+    .sec-num{background:rgba(249,115,22,0.12);border:0.5px solid rgba(249,115,22,0.3);color:#f97316;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    .sec-src{font-size:10.5px;color:var(--dim);margin-top:1px;}
+
+    p{font-size:13.5px;color:var(--muted);margin-bottom:0.9rem;line-height:1.7;}
+    h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:0.6rem;margin-top:1.4rem;}
+    h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:0.5rem;margin-top:1.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+    .bullet-list{margin:0.5rem 0 1rem 0;display:flex;flex-direction:column;gap:5px;}
+    .bullet-list li{font-size:13px;color:var(--muted);list-style:none;padding-left:1.2rem;position:relative;line-height:1.6;}
+    .bullet-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:#f97316;opacity:0.6;}
+
+    .def-box{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid #f97316;border-radius:0 8px 8px 0;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .def-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#f97316;margin-bottom:0.4rem;font-weight:600;}
+    .def-box p{font-size:13px;margin-bottom:0;color:var(--text);}
+
+    .highlight-box{background:rgba(34,197,94,0.06);border:0.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .highlight-box.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
+    .highlight-box.purple{background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.2);}
+    .hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:0.5rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+    .hb-label.amber{color:var(--amber);}
+    .hb-label.purple{color:var(--purple);}
+    .highlight-box p{font-size:13px;margin-bottom:0;}
+
+    .table-wrap{overflow-x:auto;margin:1rem 0;}
+    .summary-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .summary-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;}
+    .summary-table td{padding:9px 12px;border-bottom:0.5px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:top;line-height:1.5;}
+    .summary-table td:first-child{color:var(--text);font-weight:500;}
+    .summary-table tr:last-child td{border-bottom:none;}
+    .summary-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+    .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:1rem 0;}
+    .info-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .ic-num{font-size:10px;color:#f97316;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+    .ic-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+    .ic-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    .stages-grid{display:flex;flex-direction:column;gap:8px;margin:1rem 0;}
+    .stage-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem 1rem;transition:border-color 0.2s;}
+    .stage-row:hover{border-color:rgba(249,115,22,0.25);}
+    .stage-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;background:rgba(249,115,22,0.12);color:#fb923c;}
+    .stage-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .stage-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+    .divider{height:0.5px;background:var(--border);margin:2rem 0;}
+
+    .hub-footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--dim);border-top:0.5px solid var(--border);letter-spacing:0.05em;margin-top:2rem;}
+    .hub-footer span{color:#f97316;}
+
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .notes-main{padding:1.5rem 1.2rem;}
+      .grid-cards{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .grid-cards{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <div class="tb-left">
+    <a class="btn-back" href="index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Home</a>
+    <div class="tb-title"><i class="ti ti-briefcase" style="font-size:15px;color:#f97316"></i> BUA 312 — Study Notes</div>
+    <span class="tb-badge">Active</span>
+  </div>
+  <a class="btn-quiz-link" href="bua312_quiz.html"><i class="ti ti-player-play" style="font-size:13px"></i> Take Quiz</a>
+</nav>
+
+<div class="notes-layout">
+  <aside class="sidebar">
+    <div class="sb-label">Contents</div>
+    <button class="sb-link active" onclick="scrollTo('sec1')"><span class="sb-num">1</span> Introduction & Definitions</button>
+    <button class="sb-link" onclick="scrollTo('sec2')"><span class="sb-num">2</span> Characteristics & Types</button>
+    <button class="sb-link" onclick="scrollTo('sec3')"><span class="sb-num">3</span> Advantages & Disadvantages</button>
+    <button class="sb-link" onclick="scrollTo('sec4')"><span class="sb-num">4</span> Socio-Economic Contributions</button>
+    <button class="sb-link" onclick="scrollTo('sec5')"><span class="sb-num">5</span> Problems & Symptoms</button>
+    <button class="sb-link" onclick="scrollTo('sec6')"><span class="sb-num">6</span> Starting a Small Business</button>
+    <button class="sb-link" onclick="scrollTo('sec7')"><span class="sb-num">7</span> Entrepreneurial Skills</button>
+    <button class="sb-link" onclick="scrollTo('sec8')"><span class="sb-num">8</span> Entrepreneurial Thinking</button>
+    <button class="sb-link" onclick="scrollTo('sec9')"><span class="sb-num">9</span> Financing Small Business</button>
+    <button class="sb-link" onclick="scrollTo('sec10')"><span class="sb-num">10</span> Location, Marketing & Labour</button>
+    <button class="sb-link" onclick="scrollTo('sec11')"><span class="sb-num">11</span> Small Business Environment</button>
+    <button class="sb-link" onclick="scrollTo('sec12')"><span class="sb-num">12</span> Challenges in Nigeria</button>
+    <button class="sb-link" onclick="scrollTo('sec13')"><span class="sb-num">13</span> Human Resource Management</button>
+  </aside>
+
+  <main class="notes-main">
+    <div class="notes-hero">
+      <div class="nh-tag"><i class="ti ti-briefcase" style="font-size:12px"></i> BUA 312 &nbsp;·&nbsp; Business Administration</div>
+      <div class="nh-title">Small Business Management</div>
+      <div class="nh-sub">Compiled study notes — definitions, entrepreneurship, financing, HRM, and the Nigerian business environment.</div>
+      <div class="topic-tags">
+        <span class="topic-tag">Definitions</span>
+        <span class="topic-tag">Entrepreneurship</span>
+        <span class="topic-tag">Financing</span>
+        <span class="topic-tag">Marketing</span>
+        <span class="topic-tag">HRM</span>
+        <span class="topic-tag">Nigerian Context</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="notes-section" id="sec1">
+      <div class="sec-header">
+        <div class="sec-num">1</div>
+        <div>
+          <div class="sec-title">Introduction &amp; Definitions</div>
+          <div class="sec-src">Chapter 1 — BUA 312</div>
+        </div>
+      </div>
+
+      <p>Several regulatory bodies in Nigeria and internationally have defined 'small business' from different perspectives. Below are the key definitions you must know.</p>
+
+      <h3>SMEDAN Definition</h3>
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>A small business has <strong>10–49 employees</strong> with an asset base (excluding land and building) valued between <strong>₦5 million and ₦50 million</strong>.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="summary-table">
+          <tr><th>Category</th><th>Employees</th><th>Capital Outlay</th></tr>
+          <tr><td>Micro</td><td>Below 10</td><td>Below ₦500,000</td></tr>
+          <tr><td>Small</td><td>10–49</td><td>₦5m – less than ₦50m</td></tr>
+          <tr><td>Medium</td><td>50–199</td><td>₦50m – less than ₦500m</td></tr>
+        </table>
+      </div>
+
+      <h3>Other Nigerian Definitions</h3>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num">NTA</div><div><div class="stage-title">Nigeria Tax Act</div><div class="stage-desc">Any business earning up to ₦50m per annum with fixed assets not exceeding ₦250m. Professional service businesses are excluded.</div></div></div>
+        <div class="stage-row"><div class="stage-num">CAMA</div><div><div class="stage-title">Companies &amp; Allied Matters Act 2020</div><div class="stage-desc">Annual turnover ≤ ₦120m and net assets ≤ ₦60m. No foreign member. Director holds ≥ 51% of share capital.</div></div></div>
+        <div class="stage-row"><div class="stage-num">CBN</div><div><div class="stage-title">Central Bank of Nigeria</div><div class="stage-desc">Assets between ₦5m and ₦500m (excl. land &amp; building); 11–200 employees.</div></div></div>
+        <div class="stage-row"><div class="stage-num">BOI</div><div><div class="stage-title">Bank of Industry (2020)</div><div class="stage-desc">Small: 11–50 employees; assets ₦5m–₦100m; turnover ≤ ₦100m; loan ₦1m–₦100m.</div></div></div>
+      </div>
+
+      <h3>European Union (EU) Definition</h3>
+      <div class="def-box">
+        <div class="def-label">EU Definition</div>
+        <p>Fewer than <strong>50 employees</strong> and annual turnover or balance sheet total not exceeding <strong>€10 million</strong>. The entity must be independent.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="summary-table">
+          <tr><th>Category</th><th>Employees</th><th>Financial Ceiling (€)</th></tr>
+          <tr><td>Micro</td><td>&lt; 10</td><td>&lt; €2 million</td></tr>
+          <tr><td>Small</td><td>&lt; 50</td><td>&lt; €10 million</td></tr>
+          <tr><td>Medium</td><td>&lt; 250</td><td>&lt; €50m turnover / €43m balance sheet</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2 -->
+    <section class="notes-section" id="sec2">
+      <div class="sec-header">
+        <div class="sec-num">2</div>
+        <div><div class="sec-title">Characteristics &amp; Types</div></div>
+      </div>
+
+      <h3>Characteristics of Small Business</h3>
+      <div class="grid-cards">
+        <div class="info-card"><div class="ic-num">01</div><div class="ic-title">Few Employees</div><div class="ic-desc">Small workforce relative to larger enterprises.</div></div>
+        <div class="info-card"><div class="ic-num">02</div><div class="ic-title">Low Investment</div><div class="ic-desc">Low capital outlay and annual turnover.</div></div>
+        <div class="info-card"><div class="ic-num">03</div><div class="ic-title">Owner = Manager</div><div class="ic-desc">Managers are often the owners themselves.</div></div>
+        <div class="info-card"><div class="ic-num">04</div><div class="ic-title">Simple Structure</div><div class="ic-desc">Flat, simple organizational hierarchy.</div></div>
+        <div class="info-card"><div class="ic-num">05</div><div class="ic-title">Flexible</div><div class="ic-desc">Able to adapt quickly to market changes.</div></div>
+        <div class="info-card"><div class="ic-num">06</div><div class="ic-title">Customer Proximity</div><div class="ic-desc">Maintain close contact with customers and clients.</div></div>
+        <div class="info-card"><div class="ic-num">07</div><div class="ic-title">Fast Decisions</div><div class="ic-desc">Decision making is often quick due to flat hierarchy.</div></div>
+        <div class="info-card"><div class="ic-num">08</div><div class="ic-title">Personalized Style</div><div class="ic-desc">Personalized management style by the owner.</div></div>
+      </div>
+
+      <h3>Types of Small Business Enterprises</h3>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num">1</div><div><div class="stage-title">Servicing</div><div class="stage-desc">Offers intangible goods (services). Examples: salons, repair shops, consultancy, event planning.</div></div></div>
+        <div class="stage-row"><div class="stage-num">2</div><div><div class="stage-title">Retailing</div><div class="stage-desc">Sells products directly to end users. Examples: clothing stores, grocery shops, online stores.</div></div></div>
+        <div class="stage-row"><div class="stage-num">3</div><div><div class="stage-title">Wholesaling</div><div class="stage-desc">Sells products in bulk to retailers or businesses. Examples: distributors, bulk food sellers.</div></div></div>
+        <div class="stage-row"><div class="stage-num">4</div><div><div class="stage-title">Manufacturing</div><div class="stage-desc">Converts raw materials into finished/semi-finished goods. Examples: bakeries, garment factories.</div></div></div>
+        <div class="stage-row"><div class="stage-num">5</div><div><div class="stage-title">Agriculture</div><div class="stage-desc">Cultivates plants/animals for food or raw materials. Examples: poultry farms, fish farming.</div></div></div>
+        <div class="stage-row"><div class="stage-num">6</div><div><div class="stage-title">Extractive Business</div><div class="stage-desc">Extracts natural resources. Examples: mining, logging, fishing.</div></div></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3 -->
+    <section class="notes-section" id="sec3">
+      <div class="sec-header">
+        <div class="sec-num">3</div>
+        <div><div class="sec-title">Advantages &amp; Disadvantages</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div>
+          <div class="highlight-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2);">
+            <div class="hb-label"><i class="ti ti-circle-check" style="font-size:12px"></i> Advantages</div>
+            <ul class="bullet-list" style="margin:0;">
+              <li>Low capital required for establishment</li>
+              <li>Provide employment opportunities</li>
+              <li>Feeder to large enterprises</li>
+              <li>Help conserve foreign exchange</li>
+              <li>Promote indigenous technology</li>
+              <li>Reduce rural-urban migration</li>
+              <li>Encourage capital formation</li>
+              <li>Quick decision making</li>
+              <li>Flexible operations</li>
+              <li>Not subject to rigid legal control</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="highlight-box amber">
+            <div class="hb-label amber"><i class="ti ti-alert-triangle" style="font-size:12px"></i> Disadvantages</div>
+            <ul class="bullet-list" style="margin:0;">
+              <li>High rate of business failure</li>
+              <li>Owners may lose private assets to creditors</li>
+              <li>Often lack sufficient capital</li>
+              <li>Excessive control by owner</li>
+              <li>Death of owner may end the business</li>
+    <li>Weak ability to face competition</li>
+              <li>Lack of delegation of authority</li>
+              <li>No separation between business and owner</li>
+              <li>Limited skills and competencies</li>
+              <li>No planned staff training</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4 -->
+    <section class="notes-section" id="sec4">
+      <div class="sec-header">
+        <div class="sec-num">4</div>
+        <div><div class="sec-title">Socio-Economic Contributions</div></div>
+      </div>
+      <p>Small businesses play a major role in the economic and social development of any nation.</p>
+      <ul class="bullet-list">
+        <li>Transformation of traditional indigenous industry into modern enterprise</li>
+        <li>Stimulation of indigenous entrepreneurship and technology</li>
+        <li>Creation of jobs and employment in the community</li>
+        <li>Provision of social welfare services</li>
+        <li>Redistribution of income and wealth</li>
+        <li>Dispersal and diversification of economic activities</li>
+        <li>Utilization of local raw materials and human resources</li>
+        <li>Translating new information into new market techniques and goods</li>
+        <li>Seeking and discovering economic opportunities</li>
+        <li>Evaluating economic opportunities</li>
+      </ul>
+
+      <h3>Importance of Entrepreneurship in National Development</h3>
+      <ul class="bullet-list">
+        <li>Improves overall social, political, economic and technological well-being of a country</li>
+        <li>Increases productivity, standard of living, and enables poverty reduction</li>
+        <li>Creates employment and drives sustainable growth</li>
+        <li>Increases investment and savings</li>
+        <li>Drives innovation and technological advancement</li>
+        <li>Develops social resources and provides an enabling business environment</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 5 -->
+    <section class="notes-section" id="sec5">
+      <div class="sec-header">
+        <div class="sec-num">5</div>
+        <div><div class="sec-title">Problems &amp; Symptoms of Failure</div></div>
+      </div>
+      <p>Small businesses have limitations that often account for failure. It is important to distinguish between <strong>symptoms</strong> (warning signs) and the actual problems.</p>
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-alert-circle" style="font-size:12px"></i> 5 Key Symptoms of Business Failure</div>
+        <ul class="bullet-list" style="margin:0.3rem 0 0;">
+          <li>Deteriorating working capital</li>
+          <li>High debt ratio</li>
+          <li>Declining sales</li>
+          <li>Declining profit</li>
+          <li>Declining capacity utilisation</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 6 -->
+    <section class="notes-section" id="sec6">
+      <div class="sec-header">
+        <div class="sec-num">6</div>
+        <div><div class="sec-title">Starting and Launching a Small Business</div></div>
+      </div>
+      <p>To effectively plan and launch a small business, certain processes must be followed:</p>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num">1</div><div><div class="stage-title">Triggering Event</div><div class="stage-desc">Factors that give birth to a new venture — psychological, economical, sociological, or historical in nature.</div></div></div>
+        <div class="stage-row"><div class="stage-num">2</div><div><div class="stage-title">Self-Appraisal</div><div class="stage-desc">Asking yourself if you can start and sustain the business. Involves diligence, initiative, risk tolerance, technical competence, and leadership.</div></div></div>
+        <div class="stage-row"><div class="stage-num">3</div><div><div class="stage-title">Conceptualization of Business Idea</div><div class="stage-desc">Formulate the core business concept clearly.</div></div></div>
+        <div class="stage-row"><div class="stage-num">4</div><div><div class="stage-title">Analysing the Opportunity</div><div class="stage-desc">Evaluate feasibility and market potential.</div></div></div>
+        <div class="stage-row"><div class="stage-num">5</div><div><div class="stage-title">Developing a Business Plan</div><div class="stage-desc">Create a credible, detailed business plan.</div></div></div>
+        <div class="stage-row"><div class="stage-num">6</div><div><div class="stage-title">Assembling Resources</div><div class="stage-desc">Gather financial, human, and material resources needed.</div></div></div>
+        <div class="stage-row"><div class="stage-num">7</div><div><div class="stage-title">Location Decision</div><div class="stage-desc">Identify site, location, and layout for the business.</div></div></div>
+        <div class="stage-row"><div class="stage-num">8</div><div><div class="stage-title">Legal Form</div><div class="stage-desc">Choose a legal form of business organisation (sole proprietorship, partnership, limited liability, etc.).</div></div></div>
+        <div class="stage-row"><div class="stage-num">9</div><div><div class="stage-title">Launching the Business</div><div class="stage-desc">Begin full operations.</div></div></div>
+        <div class="stage-row"><div class="stage-num">10</div><div><div class="stage-title">Administrative Support System</div><div class="stage-desc">Establish policies, communication systems, record-keeping, budgeting, and reward systems.</div></div></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 7 -->
+    <section class="notes-section" id="sec7">
+      <div class="sec-header">
+        <div class="sec-num">7</div>
+        <div><div class="sec-title">Entrepreneurial Skills</div></div>
+      </div>
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>Entrepreneurial skills are the ability, knowledge, ideas, and competence required to survive in any business setting.</p>
+      </div>
+
+      <h3>Types of Entrepreneurial Skills</h3>
+      <div class="grid-cards">
+        <div class="info-card"><div class="ic-num">01</div><div class="ic-title">Managerial Skills</div><div class="ic-desc">Planning, organising, controlling, leading, and directing.</div></div>
+        <div class="info-card"><div class="ic-num">02</div><div class="ic-title">Personal Skills</div><div class="ic-desc">Skills in production, machine operation, etc.</div></div>
+        <div class="info-card"><div class="ic-num">03</div><div class="ic-title">Technical Skills</div><div class="ic-desc">Technical know-how to run business operations.</div></div>
+        <div class="info-card"><div class="ic-num">04</div><div class="ic-title">Interpersonal Skills</div><div class="ic-desc">Interaction, communication, and negotiation.</div></div>
+        <div class="info-card"><div class="ic-num">05</div><div class="ic-title">Financial Skills</div><div class="ic-desc">Managing finances, budgeting, and accounting.</div></div>
+      </div>
+
+      <h3>Process of Developing Entrepreneurial Skills</h3>
+      <ul class="bullet-list">
+        <li>Self development — self determination and commitment</li>
+        <li>Conversation with people (networking)</li>
+        <li>Mentorship and nurturing</li>
+        <li>Practical experience</li>
+        <li>Education and training</li>
+      </ul>
+
+      <h3>Challenges in Developing Entrepreneurial Skills</h3>
+      <ul class="bullet-list">
+        <li>Lack of access to quality education</li>
+        <li>Limited financial resources</li>
+        <li>Fear of failure</li>
+        <li>Inadequate mentorship</li>
+        <li>Poor business environment</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 8 -->
+    <section class="notes-section" id="sec8">
+      <div class="sec-header">
+        <div class="sec-num">8</div>
+        <div><div class="sec-title">Entrepreneurial Thinking</div></div>
+      </div>
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>A mental process in which individuals identify threats, mobilize resources, recognize opportunities, and implement innovative solutions to achieve organizational goals.</p>
+      </div>
+
+      <h3>Key Characteristics of Entrepreneurial Thinking</h3>
+      <div class="grid-cards">
+        <div class="info-card"><div class="ic-num">01</div><div class="ic-title">Opportunity Recognition</div><div class="ic-desc">Ability to identify and evaluate opportunities.</div></div>
+        <div class="info-card"><div class="ic-num">02</div><div class="ic-title">Decision Making</div><div class="ic-desc">Ability to make timely, effective decisions.</div></div>
+        <div class="info-card"><div class="ic-num">03</div><div class="ic-title">Risk Management</div><div class="ic-desc">Taking calculated risks, not reckless ones.</div></div>
+        <div class="info-card"><div class="ic-num">04</div><div class="ic-title">Problem Solving</div><div class="ic-desc">Orientation toward finding creative solutions.</div></div>
+        <div class="info-card"><div class="ic-num">05</div><div class="ic-title">Adaptability</div><div class="ic-desc">Flexibility to adjust to change.</div></div>
+        <div class="info-card"><div class="ic-num">06</div><div class="ic-title">Creativity</div><div class="ic-desc">Generating novel ideas and approaches.</div></div>
+      </div>
+
+      <h3>Internal vs External Factors That Shape Thinking</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;">
+        <div class="highlight-box" style="background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.2);">
+          <div class="hb-label" style="color:#60a5fa;"><i class="ti ti-user" style="font-size:12px"></i> Internal Factors</div>
+          <ul class="bullet-list" style="margin:0;">
+            <li>Personality traits</li>
+            <li>Self motivation</li>
+            <li>Education</li>
+            <li>Skills and knowledge</li>
+            <li>Self confidence</li>
+          </ul>
+        </div>
+        <div class="highlight-box purple">
+          <div class="hb-label purple"><i class="ti ti-world" style="font-size:12px"></i> External Factors</div>
+          <ul class="bullet-list" style="margin:0;">
+            <li>Family background</li>
+            <li>Economic conditions</li>
+            <li>Government policies</li>
+            <li>Technological advancement</li>
+            <li>Cultural environment</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 9 -->
+    <section class="notes-section" id="sec9">
+      <div class="sec-header">
+        <div class="sec-num">9</div>
+        <div><div class="sec-title">Financing Small Businesses</div></div>
+      </div>
+      <p>Access to finance is one of the most critical factors in the survival and growth of small businesses. Funds come from internal or external sources.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="highlight-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2);">
+          <div class="hb-label"><i class="ti ti-home" style="font-size:12px"></i> Internal Sources</div>
+          <ul class="bullet-list" style="margin:0;">
+            <li>Personal savings of the owner</li>
+            <li>Retained earnings / profits ploughed back</li>
+            <li>Sale of personal assets</li>
+          </ul>
+        </div>
+        <div class="highlight-box amber">
+          <div class="hb-label amber"><i class="ti ti-building-bank" style="font-size:12px"></i> External Sources</div>
+          <ul class="bullet-list" style="margin:0;">
+            <li>Commercial bank loans</li>
+            <li>Microfinance banks</li>
+            <li>Cooperative societies and thrift</li>
+            <li>Government grants (CBN, BOI)</li>
+            <li>Venture capital and angel investors</li>
+            <li>Trade credit from suppliers</li>
+            <li>Hire purchase and leasing</li>
+            <li>NGO and development agency funding</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Challenges of Financing in Nigeria</h3>
+      <ul class="bullet-list">
+        <li>Lack of collateral for bank loans</li>
+        <li>High interest rates</li>
+        <li>Poor credit history</li>
+        <li>Inadequate financial records</li>
+        <li>Limited awareness of available funding programmes</li>
+        <li>Bureaucratic bottlenecks in accessing government funds</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 10 -->
+    <section class="notes-section" id="sec10">
+      <div class="sec-header">
+        <div class="sec-num">10</div>
+        <div><div class="sec-title">Location, Marketing &amp; Labour</div></div>
+      </div>
+
+      <h3>Business Location Decision Factors</h3>
+      <ul class="bullet-list">
+        <li>Proximity to target customers and markets</li>
+        <li>Availability of raw materials</li>
+        <li>Availability of labour</li>
+        <li>Infrastructure (roads, power, water)</li>
+        <li>Cost of premises (rent or purchase)</li>
+        <li>Proximity to competitors</li>
+        <li>Government regulations and zoning laws</li>
+        <li>Safety and security of the area</li>
+      </ul>
+
+      <h3>Marketing for Small Businesses</h3>
+      <div class="def-box">
+        <div class="def-label">Key Concept</div>
+        <p>Marketing involves identifying customer needs and satisfying them profitably. The core framework is the <strong>4Ps: Product, Price, Place, and Promotion.</strong></p>
+      </div>
+      <p>Common tools: word of mouth, social media (Facebook, Instagram, WhatsApp Business), local advertising, promotions, and customer relationship management.</p>
+
+      <h3>Labour Management Issues</h3>
+      <ul class="bullet-list">
+        <li>Recruitment and selection of employees</li>
+        <li>Staff training and development</li>
+        <li>Motivation and incentives</li>
+        <li>Compliance with labour laws (minimum wage, work hours)</li>
+        <li>Managing family employees who may complicate decisions</li>
+      </ul>
+
+      <h3>Accounting for Small Businesses</h3>
+      <ul class="bullet-list">
+        <li>Recording income and expenses (bookkeeping)</li>
+        <li>Preparing financial statements — income statement, balance sheet, cash flow</li>
+        <li>Managing cash flow to avoid insolvency</li>
+        <li>Filing tax returns and meeting regulatory obligations</li>
+        <li>Using accounting software (e.g., QuickBooks, Sage)</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 11 -->
+    <section class="notes-section" id="sec11">
+      <div class="sec-header">
+        <div class="sec-num">11</div>
+        <div><div class="sec-title">Small Business Environment</div></div>
+      </div>
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>The internal and external factors that affect the operation, survival, and growth of small businesses.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div>
+          <h3>Internal Environment (Controllable)</h3>
+          <ul class="bullet-list">
+            <li>Management structure and style</li>
+            <li>Financial resources and capital base</li>
+            <li>Human resources (skills, experience)</li>
+            <li>Technology and equipment</li>
+            <li>Organizational culture</li>
+          </ul>
+        </div>
+        <div>
+          <h3>External — Micro Environment</h3>
+          <ul class="bullet-list">
+            <li>Customers and their preferences</li>
+            <li>Competitors and their strategies</li>
+            <li>Suppliers and their reliability</li>
+            <li>Creditors and financial institutions</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>External — Macro Environment (PESTLE)</h3>
+      <div class="grid-cards">
+        <div class="info-card"><div class="ic-num">P</div><div class="ic-title">Political / Legal</div><div class="ic-desc">Government policies, regulations, tax laws.</div></div>
+        <div class="info-card"><div class="ic-num">E</div><div class="ic-title">Economic</div><div class="ic-desc">Inflation, interest rates, exchange rates.</div></div>
+        <div class="info-card"><div class="ic-num">S</div><div class="ic-title">Socio-Cultural</div><div class="ic-desc">Demographics, consumer trends, cultural values.</div></div>
+        <div class="info-card"><div class="ic-num">T</div><div class="ic-title">Technological</div><div class="ic-desc">Innovations, automation, e-commerce.</div></div>
+        <div class="info-card"><div class="ic-num">E</div><div class="ic-title">Environmental</div><div class="ic-desc">Climate, natural resources.</div></div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 12 -->
+    <section class="notes-section" id="sec12">
+      <div class="sec-header">
+        <div class="sec-num">12</div>
+        <div><div class="sec-title">Challenges in Nigeria &amp; Prospects</div></div>
+      </div>
+
+      <h3>Major Challenges</h3>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num">1</div><div><div class="stage-title">Access to Finance</div><div class="stage-desc">Difficulty obtaining loans due to lack of collateral, high interest rates, and poor credit history.</div></div></div>
+        <div class="stage-row"><div class="stage-num">2</div><div><div class="stage-title">Infrastructure Deficiency</div><div class="stage-desc">Poor roads, unstable electricity, and inadequate water raise operating costs significantly.</div></div></div>
+        <div class="stage-row"><div class="stage-num">3</div><div><div class="stage-title">Multiple Taxation</div><div class="stage-desc">Various taxes and levies from multiple government tiers reduce profitability.</div></div></div>
+        <div class="stage-row"><div class="stage-num">4</div><div><div class="stage-title">Lack of Managerial Skills</div><div class="stage-desc">Many owners lack formal training in management, marketing, and finance.</div></div></div>
+        <div class="stage-row"><div class="stage-num">5</div><div><div class="stage-title">Competition</div><div class="stage-desc">Unfair competition from large corporations and imported goods.</div></div></div>
+        <div class="stage-row"><div class="stage-num">6</div><div><div class="stage-title">Insecurity</div><div class="stage-desc">Theft, vandalism, and general insecurity increase risks and costs.</div></div></div>
+        <div class="stage-row"><div class="stage-num">7</div><div><div class="stage-title">Poor Record Keeping</div><div class="stage-desc">Absence of proper accounts makes it difficult to access credit or attract investors.</div></div></div>
+        <div class="stage-row"><div class="stage-num">8</div><div><div class="stage-title">Low Patronage</div><div class="stage-desc">Low consumer purchasing power limits market size.</div></div></div>
+        <div class="stage-row"><div class="stage-num">9</div><div><div class="stage-title">Lack of Technology</div><div class="stage-desc">Limited access to modern technology hampers productivity and efficiency.</div></div></div>
+        <div class="stage-row"><div class="stage-num">10</div><div><div class="stage-title">Unfavourable Policies</div><div class="stage-desc">Regulatory inconsistency and bureaucracy create an unfavourable environment.</div></div></div>
+      </div>
+
+      <h3>Prospects for Small Businesses in Nigeria</h3>
+      <div class="highlight-box" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2);">
+        <div class="hb-label"><i class="ti ti-trending-up" st
