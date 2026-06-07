@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT 304 — Study Notes</title>
+  <meta name="description" content="Compiled study notes for EDT 308: Distance Learning: Concepts Models and Technologies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--amber:#f59e0b;--purple:#a855f7;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+    /* TOP BAR */
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:12px;}
+    .btn-back{display:flex;align-items:center;gap:6px;background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;}
+    .btn-back:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .tb-title{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:7px;}
+    .tb-badge{font-size:10px;background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);color:var(--blue);border-radius:99px;padding:2px 10px;}
+    .btn-quiz-link{display:flex;align-items:center;gap:6px;background:var(--blue);border:none;color:#fff;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background 0.2s;text-decoration:none;}
+    .btn-quiz-link:hover{background:#2563eb;}
+
+    /* LAYOUT */
+    .notes-layout{display:flex;max-width:1100px;margin:0 auto;gap:0;}
+
+    /* SIDEBAR */
+    .sidebar{width:240px;min-width:240px;border-right:0.5px solid var(--border);padding:1.5rem 1rem;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;flex-shrink:0;}
+    .sidebar::-webkit-scrollbar{width:4px;}
+    .sidebar::-webkit-scrollbar-track{background:transparent;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+    .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);margin-bottom:0.8rem;padding:0 0.5rem;}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.15s;margin-bottom:2px;cursor:pointer;border:none;background:transparent;font-family:var(--font);text-align:left;width:100%;line-height:1.4;}
+    .sb-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+    .sb-link.active{background:var(--blue-dim);color:var(--blue);font-weight:500;}
+    .sb-num{min-width:16px;font-size:10px;color:var(--dim);margin-top:2px;}
+
+    /* MAIN CONTENT */
+    .notes-main{flex:1;padding:2rem 2.5rem;min-width:0;}
+
+    /* HERO BOX */
+    .notes-hero{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.06));border:0.5px solid rgba(59,130,246,0.2);border-radius:14px;padding:1.8rem;margin-bottom:2.5rem;}
+    .nh-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.7rem;display:flex;align-items:center;gap:6px;}
+    .nh-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .nh-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;}
+    .topic-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .topic-tag{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:99px;padding:3px 12px;font-size:11px;color:var(--muted);}
+
+    /* SECTIONS */
+    .notes-section{margin-bottom:3rem;scroll-margin-top:70px;}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:0.5px solid var(--border);}
+    .sec-num{background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);color:var(--blue);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    .sec-src{font-size:10.5px;color:var(--dim);margin-top:1px;}
+
+    p{font-size:13.5px;color:var(--muted);margin-bottom:0.9rem;line-height:1.7;}
+    h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:0.6rem;margin-top:1.4rem;}
+    h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:0.5rem;margin-top:1.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+    .bullet-list{margin:0.5rem 0 1rem 0;display:flex;flex-direction:column;gap:5px;}
+    .bullet-list li{font-size:13px;color:var(--muted);list-style:none;padding-left:1.2rem;position:relative;line-height:1.6;}
+    .bullet-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:0.6;}
+
+    .def-box{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid var(--blue);border-radius:0 8px 8px 0;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .def-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:0.4rem;font-weight:600;}
+    .def-box p{font-size:13px;margin-bottom:0;color:var(--text);}
+
+    .highlight-box{background:rgba(34,197,94,0.06);border:0.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .highlight-box.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
+    .highlight-box.purple{background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.2);}
+    .hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:0.5rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+    .hb-label.amber{color:var(--amber);}
+    .hb-label.purple{color:var(--purple);}
+    .highlight-box p{font-size:13px;margin-bottom:0;}
+
+    /* STAGES */
+    .stages-grid{display:flex;flex-direction:column;gap:8px;margin:1rem 0;}
+    .stage-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem 1rem;transition:border-color 0.2s;}
+    .stage-row:hover{border-color:rgba(59,130,246,0.25);}
+    .stage-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+    .stage-row:nth-child(1) .stage-num{background:rgba(59,130,246,0.15);color:#60a5fa;}
+    .stage-row:nth-child(2) .stage-num{background:rgba(34,197,94,0.12);color:#4ade80;}
+    .stage-row:nth-child(3) .stage-num{background:rgba(245,158,11,0.12);color:#fbbf24;}
+    .stage-row:nth-child(4) .stage-num{background:rgba(168,85,247,0.12);color:#c084fc;}
+    .stage-row:nth-child(5) .stage-num{background:rgba(239,68,68,0.12);color:#f87171;}
+    .stage-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .stage-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+    /* SKILLS GRID */
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:1rem 0;}
+    .skill-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .skill-num{font-size:10px;color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+    .skill-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+    .skill-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    /* ETIVITY COMPONENTS */
+    .etivity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin:1rem 0;}
+    .etivity-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .ec-num{width:24px;height:24px;background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--blue);margin-bottom:7px;}
+    .ec-name{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .ec-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    /* TABLE */
+    .summary-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12.5px;}
+    .summary-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;}
+    .summary-table td{padding:9px 12px;border-bottom:0.5px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:top;line-height:1.5;}
+    .summary-table td:first-child{color:var(--text);font-weight:500;white-space:nowrap;}
+    .summary-table tr:last-child td{border-bottom:none;}
+    .summary-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+    .divider{height:0.5px;background:var(--border);margin:2rem 0;}
+
+    /* FOOTER */
+    .hub-footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--dim);border-top:0.5px solid var(--border);letter-spacing:0.05em;margin-top:2rem;}
+    .hub-footer span{color:var(--blue);}
+
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .notes-main{padding:1.5rem 1.2rem;}
+      .skills-grid{grid-template-columns:1fr 1fr;}
+      .etivity-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .skills-grid,.etivity-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body style="background: #0a0f1e; margin: 0;">
+
+<nav class="top-bar">
+  <div class="tb-left">
+    <a class="btn-back" href="index.html" id="back-btn"><i class="ti ti-arrow-left" style="font-size:13px"></i> Home</a>
+    <div class="tb-title"><i class="ti ti-book-2" style="font-size:15px;color:#06b6d4"></i> EDT 304 — Study Notes</div>
+    <span class="tb-badge" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">Active</span>
+  </div>
+  <a class="btn-quiz-link" href="edt304_quiz.html" id="take-quiz-btn" style="background:#06b6d4;"><i class="ti ti-player-play" style="font-size:13px"></i> Take Quiz</a>
+</nav>
+
+<div class="notes-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-label">Contents</div>
+    <a class="sb-link active" href="#sec1" id="sb-1"><span class="sb-num">1</span> Theories in Distance Learning</a>
+    <a class="sb-link" href="#sec2" id="sb-2"><span class="sb-num">2</span> Paradigm Shift</a>
+    <a class="sb-link" href="#sec3" id="sb-3"><span class="sb-num">3</span> Models of Distance Learning</a>
+    <a class="sb-link" href="#sec4" id="sb-4"><span class="sb-num">4</span> Open Model in Distance Learning</a>
+    <a class="sb-link" href="#sec5" id="sb-5"><span class="sb-num">5</span> Required Skills</a>
+    <a class="sb-link" href="#sec6" id="sb-6"><span class="sb-num">6</span> Sync & Async Platforms</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="notes-main">
+
+    <div class="notes-hero" style="background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(139,92,246,0.06));border:0.5px solid rgba(6,182,212,0.2);">
+      <div class="nh-tag" style="color:#06b6d4;"><i class="ti ti-school" style="font-size:13px"></i> Compiled Study Notes</div>
+      <div class="nh-title">Distance Learning: Concepts Models and Technologies</div>
+      <div class="nh-sub">Lecturer: Dr. Ayinde &nbsp;&middot;&nbsp; Resources from Uthtech Solutions</div>
+      <div class="topic-tags">
+        <span class="topic-tag">Transactional Distance</span>
+        <span class="topic-tag">MOOCs</span>
+        <span class="topic-tag">Connectivism</span>
+        <span class="topic-tag">ODL</span>
+        <span class="topic-tag">Sync & Async</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="notes-section" id="sec1">
+      <div class="sec-header">
+        <div class="sec-num" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">1</div>
+        <div><div class="sec-title">Theories relating to Distance Learning</div><div class="sec-src">Objective 1</div></div>
+      </div>
+      
+      <p>Distance Learning is also called distance education. It is a form of education in which the teacher and student are physically separated for most or all of the instructional process. Learning occurs without attending a traditional classroom.</p>
+      <p>Distance learning has evolved significantly with technology, shifting from paper-based correspondence to fully digital and interactive platforms. It serves learners who cannot attend conventional schooling due to location, work, disability, or personal circumstances.</p>
+
+      <h3>1. Transactional Distance Theory (TDT)</h3>
+      <p>Founded by Michael Moore (1973), this was one of the most important and specific theories for distance education. Its core idea is that distance in distance education is not just physical (kilometres apart). It is a psychological and communication gap between learners and the teacher.</p>
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-info-circle"></i> Transactional Distance Gap</div>
+        <p>Moore called this gap 'Transactional Distance.' He argued that the gap increases when there is less dialogue and more rigid course structure. Good course design reduces this gap even when learners are far away.</p>
+      </div>
+
+      <h3>2. E-Learning Theory</h3>
+      <p>Associated with scholars like Ruth Clark and Richard Mayer, addresses how digital tools and multimedia facilitate effective online learning. It draws from cognitive science, emphasizing that learners process information better when visuals and audio are well-coordinated.</p>
+      <p>The core argument is that e-learning is most effective when technology is used to purposefully support, not replace – sound instructional design.</p>
+
+      <h3>3. Community of Inquiry Theory (COI)</h3>
+      <p>Developed by Garrison, Anderson & Archer, COI posits that meaningful online learning occurs through three overlapping presences:</p>
+      <ul class="bullet-list">
+        <li><strong>Social Presence:</strong> real interaction between participants</li>
+        <li><strong>Cognitive Presence:</strong> critical thinking and problem-solving</li>
+        <li><strong>Teaching Presence:</strong> design and facilitation of learning</li>
+      </ul>
+
+      <h3>4. Connectivism Theory</h3>
+      <p>Developed by George Siemens, Connectivism is often called the 'learning theory for the digital age.' It argues that knowledge is distributed across networks, and learning is the process of connecting nodes or sources of information; both human and digital.</p>
+
+      <h3>5. Andragogy Theory</h3>
+      <p>Malcolm Knowles' Andragogy theory focuses on adult learners. It argues that adults are self-directed, bring prior experience to learning, are motivated by relevance, and prefer problem-centred approaches. This is especially relevant in distance education where most learners are adults.</p>
+
+      <h3>6. Constructivism Theory</h3>
+      <p>Constructivism holds that learners actively build (construct) their own understanding from experiences. In distance learning, this means instructional design should include activities, discussions, and projects {not just passive content delivery}.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2 -->
+    <section class="notes-section" id="sec2">
+      <div class="sec-header">
+        <div class="sec-num" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">2</div>
+        <div><div class="sec-title">Paradigm Shift in Distance Learning</div><div class="sec-src">Objective 2</div></div>
+      </div>
+      
+      <p>The paradigm shift in distance learning refers to how the mode and approach to distance education has changed from the 19th to the 21st century.</p>
+      <p>A paradigm shift means a fundamental change in the way something is understood or practiced. In distance learning, each era introduced new tools that radically changed how learning was delivered and experienced.</p>
+
+      <ul class="bullet-list">
+        <li><strong>1. Correspondence to Connectivity (19th–20th Century):</strong> During this period, learning was paper-based. Students received printed materials by mail and submitted assignments the same way.</li>
+        <li><strong>2. Broadcast and Multimedia Expansion (Mid-20th Century):</strong> Radio and television were used for learning and instruction during this period. This stage made learning more accessible, as it could reach learners in remote areas.</li>
+        <li><strong>3. Digital Beginning (1980–1990):</strong> The computer was introduced and used for learning. This period marked the beginning of digital education infrastructure. Early computer-based learning was mostly offline using CDs and floppy disks, but it set the groundwork for internet-based learning.</li>
+        <li><strong>4. Internet and Online Learning (1990–2000s):</strong> Learners could learn through emails, forums, and Learning Management Systems (LMS). This era embraced two-way communication. Students could interact with peers and instructors across borders. LMS platforms like Moodle and Blackboard emerged during this era.</li>
+        <li><strong>5. Massive Open Online Courses and Globalisation (MOOCs):</strong> In this era, education became scalable, flexible, and affordable. MOOCs allowed thousands of learners globally to access courses from top institutions at little or no cost.</li>
+        <li><strong>6. Current Paradigm – [Personalised and Hybrid Learning]:</strong> The current paradigm includes AI-driven platforms, Mobile learning, and Hybrid learning.</li>
+      </ul>
+
+      <p>AI platforms now personalise learning experiences by adapting content to a learner's pace and performance. Hybrid learning blends online and in-person elements for a more flexible, student-centred experience.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3 -->
+    <section class="notes-section" id="sec3">
+      <div class="sec-header">
+        <div class="sec-num" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">3</div>
+        <div><div class="sec-title">Models of Distance Learning</div><div class="sec-src">Objective 3</div></div>
+      </div>
+
+      <p>Distance learning models describe the different structural approaches through which distance education is delivered. Each model has unique features suited to different learner needs and institutional capacities.</p>
+
+      <h3>1. Fully Online Learning Model</h3>
+      <p>This model is delivered entirely via the internet using platforms like Moodle, Blackboard, or Canvas. Features: Videos, Discussion Forums, Online assignments and assessments.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Flexibility, Global reach, Cost-effective.</li>
+        <li><strong>Disadvantages:</strong> Requires strong digital literacy and reliable internet access. Highly dependent on technology infrastructure.</li>
+      </ul>
+
+      <h3>2. Blended [Hybrid] Learning</h3>
+      <p>This model combines physical classroom instruction with online components. Features: Students attend physical classes but also engage in online discussion, live quizzes, and access to resources. Increasingly popular post-COVID-19.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Balances human interaction with digital flexibility.</li>
+        <li><strong>Disadvantages:</strong> Needs careful integration to avoid duplication or confusion.</li>
+      </ul>
+
+      <h3>3. Mobile Learning (M-Learning)</h3>
+      <p>Learning approach that takes place through smart phones, tablets, and handheld devices. Features: apps, podcasts, WhatsApp, study groups, SMS-based learning.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Highly accessible, especially in regions with limited infrastructure.</li>
+        <li><strong>Disadvantages:</strong> Small screen size, Data cost, Distraction.</li>
+      </ul>
+
+      <h3>4. Competency-Based Learning</h3>
+      <p>Student progress by demonstrating mastery of skills rather than completing a fixed time period. Features: Self-paced modules, Assessment tied to competencies.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Encourages personal learning, Outcome-focused, Efficient for skills acquisition.</li>
+        <li><strong>Disadvantages:</strong> Requires robust assessment framework and accreditation standards.</li>
+      </ul>
+
+      <h3>5. Massive Open Online Courses (MOOCs)</h3>
+      <p>Free or low-cost courses offered online to large numbers of learners. Platforms like Coursera, edX, and FutureLearn are popular. Despite high enrolment, completion rates average around 5-15%.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Democratizes education, Encourages global accessibility and scalability.</li>
+        <li><strong>Disadvantages:</strong> Limits personal interaction, Brings about a high dropout rate.</li>
+      </ul>
+
+      <h3>6. Virtual University</h3>
+      <p>A fully online institution that exists entirely online and offers full degree certification. Features: Structured curricula, Accreditation, Online faculty support.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4 -->
+    <section class="notes-section" id="sec4">
+      <div class="sec-header">
+        <div class="sec-num" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">4</div>
+        <div><div class="sec-title">Open Model in Distance Learning</div><div class="sec-src">Objective 4</div></div>
+      </div>
+
+      <p>The Open Model refers to Open and Distance Learning (ODL). These are educational approaches which minimise or remove traditional barriers to access, participation, and success. ODL is the dominant model used by many national universities in Africa and developing countries.</p>
+
+      <h3>Characteristics of the Open Model</h3>
+      <ul class="bullet-list">
+        <li><strong>1. Open Admission:</strong> Minimal entry requirements. Recognition of prior learning (RPL) is often accepted.</li>
+        <li><strong>2. Open Access:</strong> Available regardless of location, socio-economic status, gender, or disability. Also age-based (no age restrictions).</li>
+        <li><strong>3. Open Pace:</strong> Encourages self-pace or flexible scheduling. Learners progress at their own speed.</li>
+        <li><strong>4. Open Content/Resources:</strong> Makes heavy use of Open Educational Resources (OER) – reusable materials under Creative Commons licenses (e.g. MIT OpenCourseWare).</li>
+      </ul>
+
+      <h3>Institutional Models in ODL</h3>
+      <ul class="bullet-list">
+        <li><strong>Single-Mode Institution:</strong> Dedicate solely to distance education (e.g. NOUN, Open University UK).</li>
+        <li><strong>Dual-Mode Institution:</strong> Traditional universities offering both on-campus and distance programmes simultaneously (e.g. LASU, Unilag).</li>
+      </ul>
+
+      <h3>Advantages and Disadvantages of ODL</h3>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Supports lifelong learning and equity, cost-effective, democratises higher education.</li>
+        <li><strong>Disadvantages:</strong> High dropout rate, digital divide (internet/electricity), quality and assessment integrity issues, hidden costs.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 5 -->
+    <section class="notes-section" id="sec5">
+      <div class="sec-header">
+        <div class="sec-num" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">5</div>
+        <div><div class="sec-title">Required Skills in Distance Learning</div><div class="sec-src">Objective 5</div></div>
+      </div>
+
+      <p>Distance learners must develop certain skills to succeed without the constant physical presence of instructors.</p>
+      
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-name" style="color:#06b6d4">1. Self-Regulated Learning (SRL)</div>
+          <div class="skill-desc">Advanced time management, goal setting, self-motivation. Without it, learners struggle with procrastination.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:#06b6d4">2. Digital and Information Literacy</div>
+          <div class="skill-desc">Mastery of LMS (like NOUN & LASU Platforms), critical evaluation of resources, data/file management.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:#06b6d4">3. Communication & Collaboration</div>
+          <div class="skill-desc">Ability to communicate effectively in writing (emails, forums) and participate in virtual group work.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:#06b6d4">4. Critical Thinking & Problem Solving</div>
+          <div class="skill-desc">Analyze complex material without immediate lecturer support.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name" style="color:#06b6d4">5. Lifelong Learning & Adaptability</div>
+          <div class="skill-desc">Building a personal learning network (PLN) and embracing continuous self-development.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 6 -->
+    <section class="notes-section" id="sec6">
+      <div class="sec-header">
+        <div class="sec-num" style="color:#06b6d4; border-color:rgba(6,182,212,0.3); background:rgba(6,182,212,0.1);">6</div>
+        <div><div class="sec-title">Synchronous and Asynchronous Platforms</div><div class="sec-src">Objective 6</div></div>
+      </div>
+
+      <h3>1. Synchronous Learning</h3>
+      <p>Real-time, live interaction between instructors and learners at the same time. Examples: Zoom, Google Meet, Microsoft Teams, Live Webinars.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Immediate interaction reduces transactional distance, builds Social Presence (Community of Inquiry Theory), enables instant clarification.</li>
+        <li><strong>Disadvantages:</strong> Requires stable internet at a fixed time, does not support Open Pace, time zone differences.</li>
+      </ul>
+
+      <h3>2. Asynchronous Learning</h3>
+      <p>Learning that does not happen in real-time. Learners access materials and interact at their own chosen time. Examples: Moodle, WhatsApp Groups, Pre-recorded Lectures, Podcasts.</p>
+      <ul class="bullet-list">
+        <li><strong>Advantages:</strong> Supports Self-Regulated Learning (SRL), compatible with Open Pace, accessible via mobile devices offline.</li>
+        <li><strong>Disadvantages:</strong> Delayed feedback can increase transactional distance, requires strong self-motivation, can feel isolating.</li>
+      </ul>
+      
+      <p><strong>Conclusion:</strong> The current paradigm of Hybrid/Blended Learning offers the best solution – combining both approaches for a flexible, student-centred experience.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer class="hub-footer">
+  EDT 304 &nbsp;&middot;&nbsp; <span>Resources from Uthtech Solutions &nbsp;&middot;&nbsp; Built by samwissy</span>
+</footer>
+
+</body>
+</html>

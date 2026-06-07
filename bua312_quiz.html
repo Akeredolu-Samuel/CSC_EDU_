@@ -57,7 +57,7 @@
     .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
 
     /* QUIZ BODY */
-    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .quiz-body { background: #0a0f1e; flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
     .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
     .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; }
     .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
@@ -355,6 +355,7 @@ function renderQ() {
 }
 
 function selectOpt(idx, btn) {
+  if (answers[cur] !== undefined) return;
   const q = pool[cur];
   const btns = document.querySelectorAll('.opt-btn');
   btns.forEach(b => b.classList.add('locked'));

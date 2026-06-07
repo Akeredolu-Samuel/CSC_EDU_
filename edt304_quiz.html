@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT 304 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quizzes for EDT 304: Distance Learning: Concepts Models and Technologies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    /* LANDING */
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #06b6d4; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(6,182,212,0.08); }
+    .logo-ring i { font-size: 28px; color: #06b6d4; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(6,182,212,0.07); border: 0.5px solid rgba(6,182,212,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #06b6d4; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input, .form-group select { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus, .form-group select:focus { border-color: #06b6d4; }
+    .form-group input::placeholder { color: #3d4460; }
+    .form-group select option { background: #0d1325; color: #e8eaf0; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #06b6d4; }
+    .q-count-val { background: rgba(6,182,212,0.15); border: 0.5px solid rgba(6,182,212,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #06b6d4; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #06b6d4; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #0891b2; }
+
+    /* HEADER */
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #06b6d4; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #06b6d4; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    /* QUIZ BODY */
+    .quiz-body { background: #0a0f1e; flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #06b6d4; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(6,182,212,0.08); border-color: rgba(6,182,212,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(6,182,212,0.12); border-color: #06b6d4; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #06b6d4; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    /* NAVIGATOR */
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(6,182,212,0.4); color: #06b6d4; }
+    .nav-dot.active { border-color: #06b6d4; color: #06b6d4; background: rgba(6,182,212,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    /* FOOTER */
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #06b6d4; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #0891b2; }
+    .btn-secondary { background: transparent; color: #6b7594; border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 9px 18px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); transition: all 0.15s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: #e8eaf0; }
+
+    /* RESULTS */
+    #results { align-items: center; justify-content: flex-start; padding: 2rem 1.5rem; }
+    .results-inner { max-width: 520px; width: 100%; margin: 0 auto; }
+    .score-ring { width: 110px; height: 110px; border-radius: 50%; border: 3px solid #06b6d4; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1.5rem; background: rgba(6,182,212,0.07); }
+    .score-pct { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
+    .score-lbl { font-size: 10px; color: #6b7594; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+    .score-ring.good { border-color: #22c55e; background: rgba(34,197,94,0.07); }
+    .score-ring.bad { border-color: #ef4444; background: rgba(239,68,68,0.07); }
+    .result-title { font-size: 20px; font-weight: 600; color: #fff; text-align: center; margin-bottom: 0.4rem; }
+    .result-sub { font-size: 13px; color: #6b7594; text-align: center; margin-bottom: 1.5rem; }
+    .result-stats { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .rstat { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.1rem; text-align: center; }
+    .rstat-num { font-size: 20px; font-weight: 600; color: #fff; }
+    .rstat-lbl { font-size: 10px; color: #4b5577; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .review-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .review-item { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.9rem 1rem; }
+    .ri-q { font-size: 12.5px; color: #c8cfe0; margin-bottom: 6px; line-height: 1.5; }
+    .ri-row { display: flex; gap: 8px; font-size: 11.5px; flex-wrap: wrap; }
+    .ri-tag { padding: 2px 9px; border-radius: 99px; }
+    .ri-tag.ok { background: rgba(34,197,94,0.1); color: #4ade80; border: 0.5px solid rgba(34,197,94,0.3); }
+    .ri-tag.bad { background: rgba(239,68,68,0.1); color: #f87171; border: 0.5px solid rgba(239,68,68,0.3); }
+    .result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    .footer-tag { text-align: center; padding: 1rem; font-size: 10.5px; color: #2a3050; letter-spacing: 0.05em; border-top: 0.5px solid rgba(255,255,255,0.05); margin-top: 0.5rem; }
+    .footer-tag span { color: #06b6d4; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+<!-- LANDING -->
+<div id="landing" class="screen active">
+  <div class="brand-pill">EduHub · CBT Practice</div>
+  <div class="logo-ring"><i class="ti ti-briefcase"></i></div>
+  <h1 class="main-title">EDT 304 — Distance Learning</h1>
+  <p class="main-sub">CBT practice quiz · 15 questions · Timed</p>
+
+  <div class="read-box">
+    <div class="read-box-title"><i class="ti ti-info-circle" style="font-size:13px"></i> Topics Covered</div>
+    <ul>
+      <li>Theories relating to Distance Learning</li>
+      <li>Paradigm Shift in Distance Learning</li>
+      <li>Models of Distance Learning</li>
+      <li>Open Model in Distance Learning</li>
+      <li>Required Skills in Distance Learning</li>
+      <li>Synchronous and Asynchronous Platforms in Distance Learning</li>
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <label>Your Name</label>
+    <input type="text" id="nameInput" placeholder="Enter your name…">
+  </div>
+  <div class="form-group">
+    <label>Difficulty</label>
+    <select id="diffSelect">
+      <option value="all">All Questions (Mixed)</option>
+      <option value="obj1">Theories & Paradigm Shift</option>
+      <option value="obj2">Models & Open Model</option>
+      <option value="obj3">Skills & Platforms</option>
+    </select>
+  </div>
+  <div class="q-count-row">
+    <label>Questions</label>
+    <input type="range" id="qRange" min="10" max="60" step="5" value="30" oninput="document.getElementById('qVal').textContent=this.value">
+    <div class="q-count-val" id="qVal">30</div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()"><i class="ti ti-player-play" style="font-size:15px"></i> Start Quiz</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="qh-left">
+      <span class="qh-logo"><i class="ti ti-briefcase"></i> EDT 304</span>
+      <span class="qh-user" id="hdrName"></span>
+    </div>
+    <div class="qh-right">
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+      <span class="prog-label" id="progLabel"></span>
+      <div class="timer-badge" id="timerBadge"><i class="ti ti-clock" style="font-size:12px"></i> <span id="timerTxt">--:--</span></div>
+    </div>
+  </div>
+
+  <div class="quiz-body">
+    <div class="q-meta">
+      <span class="q-num-tag" id="qNumTag"></span>
+      <span class="q-section-tag" id="qSecTag"></span>
+    </div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="optionsEl"></div>
+    <div class="feedback-box" id="feedbackBox">
+      <div class="fb-label" id="fbLabel"></div>
+      <div class="fb-text" id="fbText"></div>
+      <div class="fb-hint" id="fbHint"></div>
+    </div>
+  </div>
+
+  <div class="q-nav" id="qNav"></div>
+
+  <div class="quiz-footer">
+    <button class="btn-secondary" onclick="goHome()"><i class="ti ti-home" style="font-size:13px"></i> Home</button>
+    <button class="btn-action" id="nextBtn" onclick="nextQ()" disabled>Next <i class="ti ti-arrow-right" style="font-size:13px"></i></button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="screen">
+  <div class="results-inner">
+    <div class="score-ring" id="scoreRing">
+      <div class="score-pct" id="scorePct"></div>
+      <div class="score-lbl">Score</div>
+    </div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-sub" id="resultSub"></div>
+    <div class="result-stats">
+      <div class="rstat"><div class="rstat-num" id="rsCorrect"></div><div class="rstat-lbl">Correct</div></div>
+      <div class="rstat"><div class="rstat-num" id="rsWrong"></div><div class="rstat-lbl">Wrong</div></div>
+      <div class="rstat"><div class="rstat-num" id="rsTime"></div><div class="rstat-lbl">Time Used</div></div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+    <div class="result-actions">
+      <button class="btn-secondary" onclick="goHome()"><i class="ti ti-home" style="font-size:13px"></i> Home</button>
+      <button class="btn-action" onclick="startQuiz()"><i class="ti ti-refresh" style="font-size:13px"></i> Try Again</button>
+      <button class="btn-secondary" onclick="window.location.href='edt304_notes.html'"><i class="ti ti-book-2" style="font-size:13px"></i> Review Notes</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer-tag">EDT 304 &nbsp;·&nbsp; <span>Resources from UTHTECH solution &nbsp;·&nbsp; Built by samwissy</span></div>
+</div>
+
+<script>
+const BANK = [
+  { q: "Which theory focuses on the psychological and communication gap between learners and the teacher?", opts: ["E-Learning Theory","Community of Inquiry Theory","Transactional Distance Theory","Connectivism Theory"], ans: 2, exp: "Transactional Distance Theory (Moore, 1973) states that distance is psychological, requiring dialogue to bridge the gap.", hint: "Topic: TDT", sec: "Theories" },
+  { q: "According to Community of Inquiry (COI) Theory, meaningful learning requires three presences: Social, Teaching, and...", opts: ["Physical Presence","Cognitive Presence","Technological Presence","Psychological Presence"], ans: 1, exp: "COI posits learning requires Social, Cognitive, and Teaching presences.", hint: "Topic: COI", sec: "Theories" },
+  { q: "Which theory is often called the 'learning theory for the digital age'?", opts: ["Andragogy Theory","Connectivism Theory","Constructivism Theory","E-Learning Theory"], ans: 1, exp: "Connectivism (Siemens) argues that knowledge is distributed across networks.", hint: "Topic: Connectivism", sec: "Theories" },
+  { q: "The era of learning characterised by paper-based learning delivered through mail is known as:", opts: ["Digital Beginning","Correspondence to Connectivity","Broadcast and Multimedia Expansion","MOOCs"], ans: 1, exp: "The 19th-20th century era used printed materials sent via mail.", hint: "Topic: Paradigm Shift", sec: "Paradigm Shift" },
+  { q: "Which distance learning model describes free or low-cost courses offered online to thousands of learners?", opts: ["Blended Learning","Mobile Learning","Massive Open Online Courses (MOOCs)","Virtual University"], ans: 2, exp: "MOOCs democratize education by reaching massive numbers globally.", hint: "Topic: MOOCs", sec: "Models" },
+  { q: "What does 'Open Pace' mean in Open and Distance Learning (ODL)?", opts: ["No age restrictions","Free educational materials","Learners progress at their own speed/flexible scheduling","Minimal entry requirements"], ans: 2, exp: "Open Pace encourages self-pace and flexible scheduling.", hint: "Topic: ODL Characteristics", sec: "Open Model" },
+  { q: "A traditional university that offers both on-campus and distance programmes is called a:", opts: ["Single-Mode Institution","Virtual University","Dual-Mode Institution","MOOC"], ans: 2, exp: "Dual-Mode Institutions like LASU and Unilag offer both face-to-face and distance learning.", hint: "Topic: Institutional Models", sec: "Open Model" },
+  { q: "Which required skill is perhaps the most critical for preventing procrastination in distance learning?", opts: ["Digital Literacy","Self-Regulated Learning (SRL)","Communication Skills","Critical Thinking"], ans: 1, exp: "SRL involves advanced time management and self-motivation to combat procrastination.", hint: "Topic: Required Skills", sec: "Skills" },
+  { q: "Which is an example of an Asynchronous Platform?", opts: ["Zoom","Live Webinars","Microsoft Teams","Discussion Forums on Moodle"], ans: 3, exp: "Forums are asynchronous because learners participate at different times.", hint: "Topic: Platforms", sec: "Platforms" },
+  { q: "Which of the following is a disadvantage of Synchronous Learning?", opts: ["Delayed feedback","Requires stable internet at a fixed time","Can feel isolating","High schedule flexibility"], ans: 1, exp: "Synchronous learning requires stable internet at a specific, fixed time, reducing flexibility.", hint: "Topic: Sync vs Async", sec: "Platforms" },
+  { q: "When designing a program for rural students with limited internet, which strategy reduces the psychological gap according to Transactional Distance Theory?", opts: ["Mandatory 3-hour Zoom sessions","Asynchronous Audio/SMS check-ins","Extensive high-definition video lectures","Virtual Reality simulations"], ans: 1, exp: "Audio/SMS check-ins increase dialogue without requiring high bandwidth.", hint: "Topic: Test Question 1", sec: "Case Study" },
+  { q: "In the context of Nigerian distance education, how does the shift to AI-driven personalized learning impact learners?", opts: ["It reduces learner autonomy.","It increases engagement through instant feedback loops.","It entirely replaces the need for human instructors.","It causes absolute disengagement in all scenarios."], ans: 1, exp: "AI-driven platforms adapt to learners, increasing autonomy and engagement via instant feedback.", hint: "Topic: Test Question 2", sec: "Case Study" },
+  { q: "Andragogy Theory focuses primarily on:", opts: ["Children's learning","Digital network nodes","Adult learners","Multimedia processing"], ans: 2, exp: "Malcolm Knowles' Andragogy focuses on adult learners who are self-directed.", hint: "Topic: Theories", sec: "Theories" },
+  { q: "Which model combines physical classroom instruction with online components?", opts: ["Fully Online Learning Model","Virtual University","Competency-Based Learning","Blended [Hybrid] Learning"], ans: 3, exp: "Blended or Hybrid learning balances face-to-face with digital flexibility.", hint: "Topic: Models", sec: "Models" },
+  { q: "According to the notes, what is the completion rate average for MOOCs?", opts: ["50-60%","70-80%","90-100%","5-15%"], ans: 3, exp: "Despite high enrollment numbers, MOOC completion rates tend to be low, averaging 5-15%.", hint: "Topic: MOOCs", sec: "Models" }
+];
+
+let pool = [], cur = 0, score = 0, answers = [], timerInt, elapsed = 0, userName = '', startTime;
+
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+function startQuiz() {
+  userName = document.getElementById('nameInput')?.value.trim() || 'Student';
+  const diff = document.getElementById('diffSelect')?.value || 'all';
+  const count = parseInt(document.getElementById('qRange')?.value || 30);
+  let filtered = BANK;
+  if (diff === 'obj1') filtered = BANK.filter(q => q.sec === 'Definitions');
+  else if (diff === 'obj2') filtered = BANK.filter(q => q.sec === 'Entrepreneurship');
+  else if (diff === 'obj3') filtered = BANK.filter(q => q.sec === 'Finance & HRM');
+  pool = shuffle([...filtered]).slice(0, Math.min(count, filtered.length));
+  cur = 0; score = 0; answers = []; elapsed = 0;
+  show('quiz');
+  document.getElementById('hdrName').textContent = userName;
+  renderQ();
+  clearInterval(timerInt);
+  startTime = Date.now();
+  timerInt = setInterval(() => {
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const m = String(Math.floor(elapsed/60)).padStart(2,'0');
+    const s = String(elapsed%60).padStart(2,'0');
+    const tb = document.getElementById('timerBadge');
+    document.getElementById('timerTxt').textContent = `${m}:${s}`;
+    tb.classList.toggle('warn', elapsed > pool.length * 60);
+  }, 1000);
+  buildNav();
+}
+
+function renderQ() {
+  const q = pool[cur];
+  const total = pool.length;
+  document.getElementById('qNumTag').textContent = `Question ${cur+1} of ${total}`;
+  document.getElementById('qSecTag').textContent = q.sec;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('progFill').style.width = `${((cur)/total)*100}%`;
+  document.getElementById('progLabel').textContent = `${cur}/${total}`;
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box';
+  document.getElementById('nextBtn').disabled = true;
+  const opts = document.getElementById('optionsEl');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    const letter = String.fromCharCode(65+i);
+    btn.innerHTML = `<span class="opt-letter">${letter}</span>${o}`;
+    btn.onclick = () => selectOpt(i, btn);
+    opts.appendChild(btn);
+  });
+  updateNav();
+}
+
+function selectOpt(idx, btn) {
+  if (answers[cur] !== undefined) return;
+  const q = pool[cur];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.classList.add('locked'));
+  btn.classList.add('selected');
+  const correct = idx === q.ans;
+  if (correct) { score++; btn.classList.add('correct'); }
+  else { btn.classList.add('wrong'); btns[q.ans].classList.add('correct'); }
+  answers[cur] = { chosen: idx, correct };
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box show';
+  document.getElementById('fbLabel').className = 'fb-label ' + (correct ? 'ok' : 'bad');
+  document.getElementById('fbLabel').textContent = correct ? '✓ Correct!' : '✗ Incorrect';
+  document.getElementById('fbText').textContent = q.exp;
+  document.getElementById('fbHint').textContent = q.hint;
+  document.getElementById('nextBtn').disabled = false;
+  document.getElementById('nextBtn').textContent = cur < pool.length - 1 ? 'Next →' : 'Finish';
+  updateNav();
+}
+
+function nextQ() {
+  if (cur < pool.length - 1) { cur++; renderQ(); }
+  else showResults();
+}
+
+function buildNav() {
+  const nav = document.getElementById('qNav');
+  nav.innerHTML = '';
+  pool.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'nav-dot' + (i === cur ? ' active' : '');
+    d.textContent = i+1;
+    d.onclick = () => { if (answers[i] !== undefined || i === cur) { cur = i; renderQ(); }};
+    nav.appendChild(d);
+  });
+}
+
+function updateNav() {
+  const dots = document.querySelectorAll('.nav-dot');
+  dots.forEach((d, i) => {
+    d.className = 'nav-dot';
+    if (i === cur) d.classList.add('active');
+    if (answers[i] !== undefined) d.classList.add(answers[i].correct ? 'done-ok' : 'done-bad');
+  });
+}
+
+function showResults() {
+  clearInterval(timerInt);
+  show('results');
+  const pct = Math.round((score/pool.length)*100);
+  document.getElementById('scorePct').textContent = pct + '%';
+  const ring = document.getElementById('scoreRing');
+  ring.className = 'score-ring' + (pct >= 60 ? ' good' : ' bad');
+  document.getElementById('resultTitle').textContent = pct >= 80 ? '🎉 Excellent Work!' : pct >= 60 ? '👍 Good Effort!' : '📖 Keep Studying!';
+  document.getElementById('resultSub').textContent = `${userName}, you scored ${score} out of ${pool.length} questions.`;
+  document.getElementById('rsCorrect').textContent = score;
+  document.getElementById('rsWrong').textContent = pool.length - score;
+  const m = String(Math.floor(elapsed/60)).padStart(2,'0');
+  const s = String(elapsed%60).padStart(2,'0');
+  document.getElementById('rsTime').textContent = `${m}:${s}`;
+  const rl = document.getElementById('reviewList');
+  rl.innerHTML = '';
+  pool.forEach((q, i) => {
+    const a = answers[i];
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `<div class="ri-q">${i+1}. ${q.q}</div>
+      <div class="ri-row">
+        <span class="ri-tag ${a && a.correct ? 'ok' : 'bad'}">${a && a.correct ? '✓ Correct' : '✗ Wrong'}</span>
+        <span style="font-size:11.5px;color:#4b5577;">Answer: ${q.opts[q.ans]}</span>
+      </div>`;
+    rl.appendChild(div);
+  });
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goHome() { clearInterval(timerInt); show('landing'); }
+</script>
+</body>
+</html>
