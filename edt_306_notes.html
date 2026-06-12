@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT 306 — Study Notes</title>
+  <meta name="description" content="Compiled study notes for EDT 306: Learning Management Systems – Moodle Installation, Configuration & Practical Use.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--amber:#f59e0b;--purple:#a855f7;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:12px;}
+    .btn-back{display:flex;align-items:center;gap:6px;background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;}
+    .btn-back:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .tb-title{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:7px;}
+    .tb-badge{font-size:10px;background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);color:var(--blue);border-radius:99px;padding:2px 10px;}
+    .btn-quiz-link{display:flex;align-items:center;gap:6px;background:var(--blue);border:none;color:#fff;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background 0.2s;text-decoration:none;}
+    .btn-quiz-link:hover{background:#2563eb;}
+
+    .notes-layout{display:flex;max-width:1100px;margin:0 auto;gap:0;}
+
+    .sidebar{width:240px;min-width:240px;border-right:0.5px solid var(--border);padding:1.5rem 1rem;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;flex-shrink:0;}
+    .sidebar::-webkit-scrollbar{width:4px;}
+    .sidebar::-webkit-scrollbar-track{background:transparent;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+    .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);margin-bottom:0.8rem;padding:0 0.5rem;}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.15s;margin-bottom:2px;cursor:pointer;border:none;background:transparent;font-family:var(--font);text-align:left;width:100%;line-height:1.4;}
+    .sb-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+    .sb-link.active{background:var(--blue-dim);color:var(--blue);font-weight:500;}
+    .sb-num{min-width:16px;font-size:10px;color:var(--dim);margin-top:2px;}
+
+    .notes-main{flex:1;padding:2rem 2.5rem;min-width:0;}
+
+    .notes-hero{background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.06));border:0.5px solid rgba(59,130,246,0.2);border-radius:14px;padding:1.8rem;margin-bottom:2.5rem;}
+    .nh-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:0.7rem;display:flex;align-items:center;gap:6px;}
+    .nh-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .nh-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;}
+    .topic-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .topic-tag{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:99px;padding:3px 12px;font-size:11px;color:var(--muted);}
+
+    .notes-section{margin-bottom:3rem;scroll-margin-top:70px;}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:0.5px solid var(--border);}
+    .sec-num{background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);color:var(--blue);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    .sec-src{font-size:10.5px;color:var(--dim);margin-top:1px;}
+
+    p{font-size:13.5px;color:var(--muted);margin-bottom:0.9rem;line-height:1.7;}
+    h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:0.6rem;margin-top:1.4rem;}
+    h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:0.5rem;margin-top:1.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+    .bullet-list{margin:0.5rem 0 1rem 0;display:flex;flex-direction:column;gap:5px;}
+    .bullet-list li{font-size:13px;color:var(--muted);list-style:none;padding-left:1.2rem;position:relative;line-height:1.6;}
+    .bullet-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:0.6;}
+
+    .def-box{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid var(--blue);border-radius:0 8px 8px 0;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .def-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:0.4rem;font-weight:600;}
+    .def-box p{font-size:13px;margin-bottom:0.4rem;color:var(--text);}
+    .def-box p:last-child{margin-bottom:0;}
+
+    .highlight-box{background:rgba(34,197,94,0.06);border:0.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .highlight-box.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
+    .highlight-box.purple{background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.2);}
+    .hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:0.5rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+    .hb-label.amber{color:var(--amber);}
+    .hb-label.purple{color:var(--purple);}
+    .highlight-box p{font-size:13px;margin-bottom:0;}
+
+    .steps-list{display:flex;flex-direction:column;gap:10px;margin:1rem 0;}
+    .step-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem 1rem;transition:border-color 0.2s;}
+    .step-row:hover{border-color:rgba(59,130,246,0.25);}
+    .step-num{width:30px;height:30px;border-radius:8px;background:var(--blue-dim);border:0.5px solid rgba(59,130,246,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);flex-shrink:0;}
+    .step-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .step-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:1rem 0;}
+    .info-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .ic-label{font-size:10px;color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+    .ic-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+    .ic-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    .summary-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12.5px;}
+    .summary-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;}
+    .summary-table td{padding:9px 12px;border-bottom:0.5px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:top;line-height:1.5;}
+    .summary-table td:first-child{color:var(--text);font-weight:500;}
+    .summary-table tr:last-child td{border-bottom:none;}
+    .summary-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+    .divider{height:0.5px;background:var(--border);margin:2rem 0;}
+
+    .hub-footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--dim);border-top:0.5px solid var(--border);letter-spacing:0.05em;margin-top:2rem;}
+    .hub-footer span{color:var(--blue);}
+
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .notes-main{padding:1.5rem 1.2rem;}
+      .card-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .card-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <div class="tb-left">
+    <a class="btn-back" href="index.html"><i class="ti ti-arrow-left" style="font-size:13px"></i> Home</a>
+    <div class="tb-title"><i class="ti ti-server" style="font-size:15px;color:#3b82f6"></i> EDT 306 — Study Notes</div>
+    <span class="tb-badge">Active</span>
+  </div>
+  <a class="btn-quiz-link" href="edt306_cbt_quiz.html"><i class="ti ti-player-play" style="font-size:13px"></i> Take Quiz</a>
+</nav>
+
+<div class="notes-layout">
+
+  <aside class="sidebar">
+    <div class="sb-label">Contents</div>
+    <a class="sb-link active" href="#sec1"><span class="sb-num">1</span> What is an LMS?</a>
+    <a class="sb-link" href="#sec2"><span class="sb-num">2</span> Overview of Moodle</a>
+    <a class="sb-link" href="#sec3"><span class="sb-num">3</span> Open-Source vs Proprietary</a>
+    <a class="sb-link" href="#sec4"><span class="sb-num">4</span> Deployment Options</a>
+    <a class="sb-link" href="#sec5"><span class="sb-num">5</span> Installing Moodle (Windows)</a>
+    <a class="sb-link" href="#sec6"><span class="sb-num">6</span> Admin Setup & Config</a>
+    <a class="sb-link" href="#sec7"><span class="sb-num">7</span> Homepage Customisation</a>
+    <a class="sb-link" href="#sec8"><span class="sb-num">8</span> Categories & Course Creation</a>
+    <a class="sb-link" href="#sec9"><span class="sb-num">9</span> Lecturer's 9-Step Lesson Setup</a>
+    <a class="sb-link" href="#sec10"><span class="sb-num">10</span> Adding Content & Activities</a>
+    <a class="sb-link" href="#sec11"><span class="sb-num">11</span> Quiz Config & Integrity</a>
+    <a class="sb-link" href="#sec12"><span class="sb-num">12</span> User Management & Roles</a>
+    <a class="sb-link" href="#sec13"><span class="sb-num">13</span> Key Concepts Summary</a>
+  </aside>
+
+  <main class="notes-main">
+
+    <div class="notes-hero">
+      <div class="nh-tag"><i class="ti ti-school" style="font-size:13px"></i> Compiled Study Notes</div>
+      <div class="nh-title">Learning Management Systems</div>
+      <div class="nh-sub">Focus: Moodle LMS — Installation, Configuration & Practical Use &nbsp;·&nbsp; Dr. Oladejo &nbsp;·&nbsp; Compiled by UTHTECH Solutions</div>
+      <div class="topic-tags">
+        <span class="topic-tag">LMS Concepts</span>
+        <span class="topic-tag">Moodle</span>
+        <span class="topic-tag">Open-Source</span>
+        <span class="topic-tag">Installation</span>
+        <span class="topic-tag">Course Design</span>
+        <span class="topic-tag">Quiz Config</span>
+        <span class="topic-tag">User Roles</span>
+        <span class="topic-tag">Academic Integrity</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="notes-section" id="sec1">
+      <div class="sec-header">
+        <div class="sec-num">1</div>
+        <div><div class="sec-title">Introduction to Learning Management Systems</div><div class="sec-src">Section 1</div></div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>An LMS is a software platform designed to <strong>create, deliver, manage, and track</strong> educational content and learner activities. It is the digital backbone of modern e-learning used by schools, universities, and organisations to administer training at scale.</p>
+      </div>
+
+      <h3>1.1 What an LMS Provides</h3>
+      <ul class="bullet-list">
+        <li>Course enrolment and access control</li>
+        <li>Content delivery (text, video, documents)</li>
+        <li>Assessment management (quizzes, assignments)</li>
+        <li>A gradebook to track and record learner performance</li>
+        <li>Completion tracking and reports</li>
+        <li>Communication tools (forums, messaging)</li>
+      </ul>
+
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-alert-triangle"></i> Critical Distinction</div>
+        <p>A platform that only offers AI-based reading recommendations or discussion tools is <strong>NOT an LMS</strong>. An LMS must manage enrolment, record assessment results, and produce evidence of learning at scale. Collaboration tools alone do not make a platform an LMS.</p>
+      </div>
+
+      <h3>1.2 Why LMS Matters</h3>
+      <ul class="bullet-list">
+        <li>Standard tools in modern Nigerian tertiary education</li>
+        <li>Enable Computer-Based Testing (CBT) — the format used for many university exams</li>
+        <li>Allow lecturers to deliver courses flexibly, beyond classroom hours</li>
+        <li>Provide measurable, auditable records of student participation and performance</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2 -->
+    <section class="notes-section" id="sec2">
+      <div class="sec-header">
+        <div class="sec-num">2</div>
+        <div><div class="sec-title">Overview of Moodle</div><div class="sec-src">Section 2</div></div>
+      </div>
+
+      <p>Moodle stands for <strong>Modular Object-Oriented Dynamic Learning Environment</strong>. Developed by <strong>Martin Dougiamas in 2002</strong>, it is the world's most widely used open-source LMS, powering over <strong>300 million learners</strong> globally.</p>
+
+      <h3>2.1 Key Characteristics</h3>
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="ic-label">License</div>
+          <div class="ic-title">Open-Source (GPL)</div>
+          <div class="ic-desc">Free to download and modify. Source code is publicly available.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Language</div>
+          <div class="ic-title">PHP</div>
+          <div class="ic-desc">Written in PHP (server-side). Database: MySQL, PostgreSQL, MariaDB, or MS SQL Server.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">OS Support</div>
+          <div class="ic-title">Linux, Windows, macOS</div>
+          <div class="ic-desc">Linux recommended for production environments.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Hosting</div>
+          <div class="ic-title">Self or Cloud</div>
+          <div class="ic-desc">Self-hosted or cloud-hosted via Moodle Cloud / MoodleNet.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Plugins</div>
+          <div class="ic-title">1,700+ Free Plugins</div>
+          <div class="ic-desc">Available from the official Moodle Plugin Directory.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3 -->
+    <section class="notes-section" id="sec3">
+      <div class="sec-header">
+        <div class="sec-num">3</div>
+        <div><div class="sec-title">Open-Source vs. Proprietary LMS</div><div class="sec-src">Section 3</div></div>
+      </div>
+
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Open-Source (e.g., Moodle)</th>
+            <th>Proprietary (e.g., Blackboard, Canvas)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cost</td>
+            <td>Free to download and install</td>
+            <td>Requires paid licences/subscriptions</td>
+          </tr>
+          <tr>
+            <td>Source Code</td>
+            <td>Publicly accessible — full code-level modification allowed</td>
+            <td>Restricted; customisation limited to vendor tools</td>
+          </tr>
+          <tr>
+            <td>Plugins/Themes</td>
+            <td>Community-driven plugins and themes</td>
+            <td>Built-in features pre-packaged by vendor</td>
+          </tr>
+          <tr>
+            <td>Maintenance</td>
+            <td>Requires IT expertise to manage</td>
+            <td>Vendor manages updates, hosting, and support</td>
+          </tr>
+          <tr>
+            <td>Scalability</td>
+            <td>Can scale with proper configuration</td>
+            <td>Designed to support large populations out-of-the-box</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-key"></i> Key Test Point</div>
+        <p>The KEY distinction: open-source LMSs allow <strong>code-level modification</strong>, while proprietary LMSs usually restrict such access. This does NOT mean open-source always has more features — it means you have the freedom to change the code itself.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4 -->
+    <section class="notes-section" id="sec4">
+      <div class="sec-header">
+        <div class="sec-num">4</div>
+        <div><div class="sec-title">Moodle Deployment Options</div><div class="sec-src">Section 4</div></div>
+      </div>
+
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="ic-label">Option 1</div>
+          <div class="ic-title">Moodle Cloud</div>
+          <div class="ic-desc">Fully hosted by Moodle HQ. No server setup. Automatic upgrades. Best for small classes, quick pilots, testing.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Option 2</div>
+          <div class="ic-title">Managed Hosting</div>
+          <div class="ic-desc">Third-party hosts manage servers and upgrades. Best for schools wanting managed services without full IT overhead.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Option 3</div>
+          <div class="ic-title">Self-Hosted</div>
+          <div class="ic-desc">Install Moodle on your own server (Linux recommended). Full control. Best for universities needing customisation and scalability.</div>
+        </div>
+      </div>
+
+      <h3>4.1 Installation Methods</h3>
+      <ul class="bullet-list">
+        <li><strong>Installer Packages (e.g., MoodleWindowsInstaller / XAMPP bundle):</strong> Best for small/testing setups. Quick to deploy but less flexible.</li>
+        <li><strong>Manual Install:</strong> Download source, configure web server + database separately. Preferred for scalable institutional deployments. Supports scripted, repeatable installation (command-line install).</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 5 -->
+    <section class="notes-section" id="sec5">
+      <div class="sec-header">
+        <div class="sec-num">5</div>
+        <div><div class="sec-title">Installing Moodle on Windows (Step-by-Step)</div><div class="sec-src">Section 5</div></div>
+      </div>
+
+      <p>In EDT 306 practicals, Moodle was installed locally on a Windows computer using the <strong>MoodleWindowsInstaller</strong> package — recommended for personal/pilot use.</p>
+
+      <h3>5.1 Prerequisites</h3>
+      <ul class="bullet-list">
+        <li>Windows 10 or 11</li>
+        <li>At least 4 GB RAM and 2 GB free disk space</li>
+        <li>Internet connection (for initial download)</li>
+        <li>Administrator privileges on your computer</li>
+      </ul>
+
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Download the Installer</div>
+            <div class="step-desc">Go to <strong>https://download.moodle.org/windows/</strong>. Download the MoodleWindowsInstaller package (a .zip bundle that includes Apache, PHP, and MariaDB).</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Extract the ZIP File</div>
+            <div class="step-desc">Right-click the .zip and select "Extract All...". Extract to a simple path — ideally <strong>C:\moodle</strong>. AVOID paths with spaces or special characters (e.g., C:\Program Files\...).</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Run Start Moodle</div>
+            <div class="step-desc">Open the extracted folder and double-click <strong>Start Moodle.exe</strong>. Two terminal windows open — one for Apache (web server at http://localhost) and one for MariaDB (database). Leave both open.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Open the Browser</div>
+            <div class="step-desc">Navigate to <strong>http://localhost</strong>. If the installer wizard doesn't appear, try <strong>http://localhost/moodle</strong>.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-title">Follow the Installation Wizard</div>
+            <div class="step-desc">Select language → Confirm paths (accept defaults) → Database settings (default user: root, no password) → Accept GPL licence → Server environment check (all green ticks).</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">6</div>
+          <div>
+            <div class="step-title">Create Admin Account</div>
+            <div class="step-desc">Enter a username (e.g., admin), strong password, full name, and email. <strong>Remember these credentials — this is your master login.</strong></div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">7</div>
+          <div>
+            <div class="step-title">Set the Site Name & Save</div>
+            <div class="step-desc">Give your Moodle site a name (e.g., "EDT 306 Course Site"). Provide a short name (used in breadcrumbs). Click Save Changes.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">8</div>
+          <div>
+            <div class="step-title">Stopping Moodle</div>
+            <div class="step-desc">Run <strong>Stop Moodle.exe</strong> or close the Apache/MariaDB terminals. Always stop properly to avoid database corruption.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 6 -->
+    <section class="notes-section" id="sec6">
+      <div class="sec-header">
+        <div class="sec-num">6</div>
+        <div><div class="sec-title">First Launch: Admin Setup & Site Configuration</div><div class="sec-src">Section 6</div></div>
+      </div>
+
+      <h3>6.1 Key Navigation Areas</h3>
+      <ul class="bullet-list">
+        <li><strong>Site Home:</strong> The public-facing front page of your Moodle site</li>
+        <li><strong>Dashboard:</strong> Your personal control panel when logged in</li>
+        <li><strong>My Courses:</strong> Courses you are enrolled in or managing</li>
+        <li><strong>Site Administration:</strong> Master control panel — ONLY visible to the Administrator role</li>
+      </ul>
+
+      <h3>6.2 Key Initial Settings</h3>
+      <table class="summary-table">
+        <thead>
+          <tr><th>Setting</th><th>Path</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Site Name & Time Zone</td><td>Site Administration → General → Site Home Settings</td></tr>
+          <tr><td>Email (SMTP) Setup</td><td>Site Administration → Server → Email → Outgoing Mail Configuration</td></tr>
+          <tr><td>User Registration</td><td>Site Administration → Users → Registration</td></tr>
+          <tr><td>Themes (Appearance)</td><td>Site Administration → Appearance → Themes → Theme Selector</td></tr>
+          <tr><td>Front Page Settings</td><td>Site Administration → Front Page → Front Page Settings</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 7 -->
+    <section class="notes-section" id="sec7">
+      <div class="sec-header">
+        <div class="sec-num">7</div>
+        <div><div class="sec-title">Customising the Moodle Homepage</div><div class="sec-src">Section 7</div></div>
+      </div>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-route"></i> Correct Workflow (Test Q12)</div>
+        <p><strong>Login as admin → Site Home → Enable Editing → Configure front page settings → Add structured content → Save Changes</strong><br>
+        This is the ONLY correct sequence. Do not go through Reports, Users, or Courses.</p>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div><div class="step-title">Go to Site Home</div><div class="step-desc">Click 'Site Home' in the left navigation drawer.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div><div class="step-title">Enable Editing</div><div class="step-desc">Click the 'Turn editing on' button (top-right). This reveals editing icons and controls.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div><div class="step-title">Configure Front Page Settings</div><div class="step-desc">Click the Settings cog → 'Edit settings'. Set the full name, short name, summary, and what appears to logged-in/logged-out users.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div><div class="step-title">Add Structured Content</div><div class="step-desc">Add Blocks (Calendar, HTML, etc.) via 'Add a block'. Add welcome text or category listings to the page body.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div><div class="step-title">Save & Turn Editing Off</div><div class="step-desc">Click Save changes. Then click 'Turn editing off' so students see the clean view.</div></div>
+        </div>
+      </div>
+
+      <h3>7.2 Adding a Welcome Activity with a Video</h3>
+      <ul class="bullet-list">
+        <li>Enter the course → Turn editing on → Add an activity or resource → Choose 'Page'</li>
+        <li>Name it "Welcome to EDT 306" and write a brief welcome message</li>
+        <li>To add a video: paste the YouTube URL using "Insert media" or "Insert link"</li>
+        <li><strong>Never upload video files directly</strong> — use a URL resource pointing to externally hosted video. This keeps Moodle storage lean and backups small.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 8 -->
+    <section class="notes-section" id="sec8">
+      <div class="sec-header">
+        <div class="sec-num">8</div>
+        <div><div class="sec-title">Organising Courses: Categories & Course Creation</div><div class="sec-src">Section 8</div></div>
+      </div>
+
+      <h3>8.1 Moodle Hierarchical Structure</h3>
+      <table class="summary-table">
+        <thead>
+          <tr><th>Level</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Site</td><td>LASU Learning Portal</td></tr>
+          <tr><td>Category</td><td>Undergraduate / Postgraduate / Diploma</td></tr>
+          <tr><td>Sub-Category (optional)</td><td>Faculty of Education / Faculty of Science</td></tr>
+          <tr><td>Course</td><td>EDT 306: Learning Management Systems</td></tr>
+          <tr><td>Section / Topic</td><td>Week 1: Introduction to LMS</td></tr>
+          <tr><td>Activity / Resource</td><td>Forum, Quiz, Assignment, Page, URL, File, Label</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-route"></i> Correct Admin Path (Test Q20)</div>
+        <p><strong>Site Administration → Courses → Manage Courses and Categories → Create Category → Create Course under the Category</strong></p>
+      </div>
+
+      <h3>8.2 Creating a Course — Key Fields</h3>
+      <table class="summary-table">
+        <thead>
+          <tr><th>Field</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Course Full Name</td><td>EDT 306: Learning Management Systems</td></tr>
+          <tr><td>Short Name</td><td>EDT306 (no spaces — used in breadcrumbs)</td></tr>
+          <tr><td>Course Format</td><td>Weekly (week-by-week) or Topics</td></tr>
+          <tr><td>Number of Sections</td><td>E.g., 15 for a full semester</td></tr>
+          <tr><td>Course Visibility</td><td>Show (visible to enrolled students) or Hide (while setting up)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 9 -->
+    <section class="notes-section" id="sec9">
+      <div class="sec-header">
+        <div class="sec-num">9</div>
+        <div><div class="sec-title">Lecturer's 9-Step Lesson Setup</div><div class="sec-src">Section 9</div></div>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div><div class="step-title">Get Your Timetable Ready</div><div class="step-desc">Plan your lesson schedule before logging in. Example: Monday – Lecture, Wednesday – Practical, Friday – Quiz.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div><div class="step-title">Prepare Content and Materials</div><div class="step-desc">Gather notes (Word/PDF), relevant photos, discussion forum topics, video links (YouTube URLs — not downloaded files), and quiz questions.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div><div class="step-title">Log in to Moodle</div><div class="step-desc">Go to http://localhost or your institution's URL. Enter your admin/lecturer credentials.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div><div class="step-title">Go to Site Administration</div><div class="step-desc">Click 'Site Administration' in the left navigation drawer. Only visible to admins and managers.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div><div class="step-title">Go to Courses</div><div class="step-desc">Click 'Courses' to access management options: Manage Courses, Add a category/course, Default Settings, and Backup/Restore.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">6</div>
+          <div><div class="step-title">Go to Manage Courses and Categories</div><div class="step-desc">The central organiser for your Moodle site's course structure.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">7</div>
+          <div><div class="step-title">Create New Categories</div><div class="step-desc">E.g., "Junior Class" (100–200 Level), "Senior Class" (300–400 Level), "Undergraduate". Add 2–3 lines of description each.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">8</div>
+          <div><div class="step-title">Click the Relevant Category</div><div class="step-desc">Click the category name where your new course belongs (e.g., "Senior Class" for EDT 306).</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">9</div>
+          <div><div class="step-title">Create New Course</div><div class="step-desc">Click "Create new course". Set Course Format: Weekly, Number of Weeks: 15, Start Date: First lecture day. Click "Save and display".</div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 10 -->
+    <section class="notes-section" id="sec10">
+      <div class="sec-header">
+        <div class="sec-num">10</div>
+        <div><div class="sec-title">Adding Course Content & Activities</div><div class="sec-src">Section 10</div></div>
+      </div>
+
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-alert-triangle"></i> Common Problem (Test Q18)</div>
+        <p>If a lecturer cannot find "Add an activity or resource", the most common cause is that <strong>Editing is NOT enabled</strong>. Simply click "Turn editing on" and the button will appear.</p>
+      </div>
+
+      <h3>10.1 Adding a Discussion Forum</h3>
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-route"></i> Correct Workflow</div>
+        <p>Turn editing on → Choose course section (e.g., Week 3) → Click "Add an activity or resource" → Select "Forum" → Configure settings → Save</p>
+      </div>
+
+      <table class="summary-table">
+        <thead>
+          <tr><th>Forum Setting</th><th>What It Does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Forum Type</td><td>Standard (anyone starts a topic), Q&amp;A (must post first), Single Discussion (one thread)</td></tr>
+          <tr><td>Group Mode</td><td>Found in Common Module Settings. Options: No groups, Separate groups, Visible groups.</td></tr>
+          <tr><td>Availability</td><td>Set open and close dates for when students can post</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-key"></i> Test Q13</div>
+        <p>Group mode is configured in <strong>Common Module Settings</strong> — at the bottom of any activity's settings page. Not in Site Administration or inside the post editor.</p>
+      </div>
+
+      <h3>10.2 Adding a URL Resource (Video Link)</h3>
+      <ul class="bullet-list">
+        <li>Turn editing on → Add activity or resource → Select "URL"</li>
+        <li>Enter a name (e.g., "Watch: Introduction to Moodle – YouTube")</li>
+        <li>Paste the full YouTube or video URL in the External URL field</li>
+        <li>Under Appearance, set Display to "Embed" or "Open"</li>
+      </ul>
+
+      <h3>10.3 Adding a File Resource (Lesson Notes)</h3>
+      <ul class="bullet-list">
+        <li>Turn editing on → Add activity or resource → Select "File"</li>
+        <li>Name it (e.g., "Week 3 Lesson Note – LMS Overview")</li>
+        <li>Drag-and-drop or upload your PDF/Word document</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 11 -->
+    <section class="notes-section" id="sec11">
+      <div class="sec-header">
+        <div class="sec-num">11</div>
+        <div><div class="sec-title">Quiz Configuration & Academic Integrity</div><div class="sec-src">Section 11</div></div>
+      </div>
+
+      <div class="def-box" style="border-left-color:var(--amber);">
+        <div class="def-label" style="color:var(--amber);">Critical Distinction — Open/Close Dates vs. Time Limit</div>
+        <p><strong>Open/Close Dates:</strong> Control WHEN attempts may begin (like the exam room door). Setting: 8:00 AM opens — 10:00 AM closes.</p>
+        <p><strong>Time Limit:</strong> Controls HOW LONG a student has once they START (e.g., 30 minutes from when they click "Start Attempt").</p>
+        <p>These are <strong>INDEPENDENT</strong> settings. Setting one does NOT automatically set the other.</p>
+      </div>
+
+      <h3>11.1 Practical Example</h3>
+      <ul class="bullet-list">
+        <li>Quiz opens: 8:00 AM Friday; Closes: 10:00 AM Friday; Time limit: 30 minutes</li>
+        <li>Student starting at 8:00 AM has until 8:30 AM</li>
+        <li>Student starting at 9:45 AM has until 10:00 AM (close date cuts them off)</li>
+        <li>Student visiting before open date sees the introduction but <strong>cannot attempt</strong></li>
+      </ul>
+
+      <h3>11.2 Quiz Creation Steps</h3>
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div><div class="step-title">Add the Quiz Activity</div><div class="step-desc">Turn editing on → Add activity or resource → Select "Quiz".</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div><div class="step-title">Configure Timing</div><div class="step-desc">Enable Open/Close dates. Enable Time Limit (e.g., 30 minutes). Set "When time expires" to "Open attempts are submitted automatically".</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div><div class="step-title">Configure Attempts & Behaviour</div><div class="step-desc">Attempts allowed: 1 (for exam conditions). Question behaviour: Deferred feedback. Shuffle questions: Yes. Shuffle within questions: Yes.</div></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div><div class="step-title">Add Questions</div><div class="step-desc">Click "Edit quiz" → "Add" → "a new question" or "from question bank". Types: Multiple Choice, True/False, Short Answer, Essay, Matching.</div></div>
+        </div>
+      </div>
+
+      <h3>11.3 User Overrides for Accessibility</h3>
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-user-check"></i> Test Point</div>
+        <p>Use <strong>User Overrides</strong> (not Group Overrides) when accommodation is for one specific individual. Path: Inside the Quiz → Quiz Administration → User Overrides → Add Override → Select the student → Set their specific time limit.</p>
+      </div>
+
+      <h3>11.4 Academic Integrity (LMS-Centred Approach)</h3>
+      <ul class="bullet-list">
+        <li>Shuffle questions and answers to reduce cheating</li>
+        <li>Set strict time limits and allow only one attempt</li>
+        <li>Use Moodle's attempt logs (records exactly when and what each student answered)</li>
+        <li>Controlled settings + recording attempts = LMS-centred integrity (Test Q14)</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 12 -->
+    <section class="notes-section" id="sec12">
+      <div class="sec-header">
+        <div class="sec-num">12</div>
+        <div><div class="sec-title">User Management & Enrolment</div><div class="sec-src">Section 12</div></div>
+      </div>
+
+      <h3>12.1 Enrolment Methods</h3>
+      <table class="summary-table">
+        <thead>
+          <tr><th>Method</th><th>How It Works</th><th>Use Case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Manual Enrolment</td><td>Admin/teacher individually adds each verified student</td><td>Verified groups, controlled access</td></tr>
+          <tr><td>Self-Enrolment</td><td>Students enroll themselves (optionally with a key/password)</td><td>Open courses, seminars</td></tr>
+          <tr><td>Guest Access</td><td>Anyone can browse without a Moodle account (read-only)</td><td>Public demo courses</td></tr>
+          <tr><td>Cohort Sync</td><td>Automatically enrolls all members of a cohort</td><td>Large institutions with student info systems</td></tr>
+        </tbody>
+      </table>
+
+      <h3>12.2 Moodle Roles</h3>
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="ic-label">Administrator</div>
+          <div class="ic-title">Full Site Control</div>
+          <div class="ic-desc">Installs plugins, manages all users and settings.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Manager</div>
+          <div class="ic-title">Courses & Users</div>
+          <div class="ic-desc">Manages courses and users but not system-level settings.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Teacher (Editing)</div>
+          <div class="ic-title">Full Course Edit</div>
+          <div class="ic-desc">Can add, edit, and delete content in assigned courses.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Non-Editing Teacher</div>
+          <div class="ic-title">View & Grade</div>
+          <div class="ic-desc">Can view and grade but not edit course content.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Student</div>
+          <div class="ic-title">Enrolled Access</div>
+          <div class="ic-desc">Can access enrolled courses and complete activities.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-label">Guest</div>
+          <div class="ic-title">Browse Only</div>
+          <div class="ic-desc">Can view but not participate (if guest access is enabled).</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 13 -->
+    <section class="notes-section" id="sec13">
+      <div class="sec-header">
+        <div class="sec-num">13</div>
+        <div><div class="sec-title">Key Concepts Summary (Test Revision)</div><div class="sec-src">Section 13</div></div>
+      </div>
+
+      <table class="summary-table">
+        <thead>
+          <tr><th>Concept</th><th>Correct Answer</th><th>Key Reasoning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Enrolment for verified participants</td><td>Manual Enrolment</td><td>Invitations sent individually = manual</td></tr>
+          <tr><td>Open-source vs Proprietary distinction</td><td>Open-source allows code-level modification</td><td>THE defining technical difference</td></tr>
+          <tr><td>Time Limit vs Open/Close Dates</td><td>Open/Close = window; Time limit = duration</td><td>They are independent, not interchangeable</td></tr>
+          <tr><td>Moodle for small cohort, no IT overhead</td><td>Moodle Cloud or Managed Hosting</td><td>Quick setup, auto-upgrades, no server admin</td></tr>
+          <tr><td>Repeatable deployment across machines</td><td>Command-line install</td><td>Scriptable and consistent across multiple machines</td></tr>
+          <tr><td>Adding a forum to Week 3</td><td>Turn editing on → section → Add activity → Forum</td><td>Editing must be on; go through course, not Site Admin</td></tr>
+          <tr><td>Customising Moodle homepage</td><td>Admin → Site Home → Enable editing → Configure → Save</td><td>Must go through Site Home, not Reports or Users</td></tr>
+          <tr><td>Large video files in Moodle</td><td>URL resource pointing to external video</td><td>Keeps backups small; avoids server storage bloat</td></tr>
+          <tr><td>Quiz before open date</td><td>Student sees introduction but cannot attempt</td><td>Open date controls when attempts begin</td></tr>
+          <tr><td>Group mode for a forum</td><td>Common Module Settings</td><td>Found at the bottom of any activity settings page</td></tr>
+          <tr><td>Academic integrity in online quiz</td><td>Controlled settings + record attempts</td><td>LMS-centred approach</td></tr>
+          <tr><td>Extra time for one student</td><td>User Overrides</td><td>Targeted, individual accommodation — not group-wide</td></tr>
+          <tr><td>Missing "Add activity" button</td><td>Editing is not enabled</td><td>Most common cause — turn editing on</td></tr>
+          <tr><td>Admin path to organise courses</td><td>Site Admin → Courses → Manage Courses & Categories</td><td>Only correct admin navigation path</td></tr>
+          <tr><td>AI reading recommender vs LMS</td><td>Not an LMS — lacks enrolment & assessment management</td><td>Collaboration tools alone do not make an LMS</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+<footer class="hub-footer">
+  EDT 306 &nbsp;·&nbsp; <span>Compiled by UTHTECH Solutions BUilt by samwisssy &nbsp;·&nbsp; Academic Practice Portal</span>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('.notes-section');
+  const navLinks = document.querySelectorAll('.sidebar .sb-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }, { root: null, rootMargin: '-5% 0px -75% 0px', threshold: 0 });
+  sections.forEach(s => observer.observe(s));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT 306 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quiz for EDT 306: Learning Management Systems – Moodle Installation, Configuration & Practical Use.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font-sans: 'Inter', system-ui, -apple-system, sans-serif; }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #3b82f6; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(59,130,246,0.08); }
+    .logo-ring i { font-size: 28px; color: #3b82f6; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(59,130,246,0.07); border: 0.5px solid rgba(59,130,246,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus { border-color: #3b82f6; }
+    .form-group input::placeholder { color: #3d4460; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #3b82f6; }
+    .q-count-val { background: rgba(59,130,246,0.15); border: 0.5px solid rgba(59,130,246,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #3b82f6; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #2563eb; }
+
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #3b82f6; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #3b82f6; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(59,130,246,0.12); border-color: #3b82f6; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #3b82f6; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(59,130,246,0.4); color: #3b82f6; }
+    .nav-dot.active { border-color: #3b82f6; color: #3b82f6; background: rgba(59,130,246,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #2563eb; }
+    .btn-ghost { background: transparent; border: 0.5px solid rgba(255,255,255,0.12); color: #9ba3b8; border-radius: 8px; padding: 9px 18px; font-size: 12.5px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #e8eaf0; }
+    .btn-finish { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.4); color: #4ade80; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-finish:hover { background: rgba(34,197,94,0.22); }
+
+    #results { align-items: center; justify-content: flex-start; padding: 1.5rem 1.25rem 1rem; background: #0a0f1e; overflow-y: auto; }
+    .res-top { text-align: center; margin-bottom: 1.5rem; width: 100%; }
+    .score-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #3b82f6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .score-ring.great { border-color: #22c55e; }
+    .score-ring.mid { border-color: #f59e0b; }
+    .score-ring.low { border-color: #ef4444; }
+    .score-num { font-size: 28px; font-weight: 500; color: #fff; }
+    .score-denom { font-size: 11px; color: #6b7594; }
+    .res-name { font-size: 17px; color: #e8eaf0; margin-bottom: 0.3rem; }
+    .res-pct { font-size: 13px; color: #6b7594; margin-bottom: 0.2rem; }
+    .res-msg { font-size: 12.5px; color: #4b5577; margin-bottom: 1.2rem; }
+
+    .stats-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center; min-width: 80px; }
+    .stat-val { font-size: 20px; font-weight: 500; }
+    .stat-lbl { font-size: 10.5px; color: #4b5577; margin-top: 2px; }
+    .stat-card.ok .stat-val { color: #4ade80; }
+    .stat-card.bad .stat-val { color: #f87171; }
+    .stat-card.skip .stat-val { color: #f59e0b; }
+
+    .breakdown { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; max-width: 500px; width: 100%; margin: 0 auto 1.2rem; overflow: hidden; }
+    .bd-header { padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-bottom: 0.5px solid rgba(255,255,255,0.07); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5577; display: flex; justify-content: space-between; }
+    .bd-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 1rem; border-bottom: 0.5px solid rgba(255,255,255,0.04); gap: 8px; }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-q { font-size: 12px; color: #6b7594; flex: 1; }
+    .bd-badge { font-size: 10.5px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+    .bd-badge.ok { background: rgba(34,197,94,0.13); color: #4ade80; }
+    .bd-badge.bad { background: rgba(239,68,68,0.11); color: #f87171; }
+    .bd-badge.skip { background: rgba(245,158,11,0.13); color: #fbbf24; }
+
+    .res-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn-retry2 { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 7px; }
+    .btn-retry2:hover { background: #2563eb; }
+    .btn-home { background: transparent; border: 0.5px solid rgba(255,255,255,0.15); color: #9ba3b8; border-radius: 8px; padding: 10px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-home:hover { border-color: rgba(255,255,255,0.3); color: #e8eaf0; }
+
+    .footer-tag { text-align: center; padding: 0.65rem; font-size: 10px; color: #4b5577; border-top: 0.5px solid rgba(255,255,255,0.04); background: #0a0f1e; letter-spacing: 0.05em; }
+    .footer-tag span { color: #3b82f6; }
+  </style>
+</head>
+<body style="background:#0a0f1e;margin:0;">
+<div id="app">
+
+  <!-- LANDING -->
+  <div id="landing" class="screen active">
+    <div style="width:100%;display:flex;justify-content:flex-start;padding:15px;position:absolute;top:0;left:0;">
+      <a href="edt306_study_notes.html" class="btn-ghost" style="padding:5px 12px;font-size:11.5px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:4px;"><i class="ti ti-arrow-left"></i> Notes</a>
+    </div>
+    <div class="brand-pill" style="margin-top:2rem;">EDT 306 &nbsp;|&nbsp; CBT Practice</div>
+    <div class="logo-ring"><i class="ti ti-server" aria-hidden="true"></i></div>
+    <h1 class="main-title">EDT 306 Quiz</h1>
+    <p class="main-sub">Learning Management Systems &middot; Moodle &middot; Installation &middot; Configuration</p>
+
+    <div class="read-box">
+      <div class="read-box-title"><i class="ti ti-book-2" style="font-size:14px"></i> Quiz Coverage Areas</div>
+      <ul>
+        <li>Section 1: LMS definition, purpose, and what makes an LMS</li>
+        <li>Section 2: Moodle overview — history, key characteristics</li>
+        <li>Section 3: Open-source vs proprietary LMS differences</li>
+        <li>Section 4: Deployment options — Cloud, Managed, Self-hosted</li>
+        <li>Section 5: Moodle Windows installation steps</li>
+        <li>Section 6: Admin setup, dashboard navigation, initial settings</li>
+        <li>Section 7: Homepage customisation workflow</li>
+        <li>Section 8: Categories, course creation, Moodle hierarchy</li>
+        <li>Section 9: Lecturer's 9-step lesson setup</li>
+        <li>Section 10: Forums, URL resources, group mode settings</li>
+        <li>Section 11: Quiz config — open/close dates vs time limits, integrity</li>
+        <li>Section 12: Enrolment methods and Moodle roles</li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="uname">Your name</label>
+      <input id="uname" type="text" placeholder="e.g. Samuel Adeyemi" maxlength="40" autocomplete="off" />
+    </div>
+
+    <div class="q-count-row">
+      <label for="qslider">Questions</label>
+      <input id="qslider" type="range" min="20" max="60" step="5" value="25" oninput="document.getElementById('qcval').textContent=this.value" />
+      <span class="q-count-val" id="qcval">25</span>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">
+      <i class="ti ti-player-play"></i> Start CBT
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="qh-left">
+        <a href="edt306_study_notes.html" class="btn-ghost" style="padding:4px 10px;font-size:11px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:4px;"><i class="ti ti-arrow-left"></i> Notes</a>
+        <span class="qh-logo"><i class="ti ti-server"></i> EDT 306</span>
+        <span class="qh-user" id="hdr-user"></span>
+      </div>
+      <div class="qh-right">
+        <div class="timer-badge" id="timer-badge"><i class="ti ti-clock" style="font-size:13px"></i><span id="timer-txt">--:--</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <span class="prog-label" id="prog-label">1/25</span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="q-meta">
+        <span class="q-num-tag" id="q-num-tag">Question 1</span>
+        <span class="q-section-tag" id="q-sec-tag"></span>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback-box" id="feedback">
+        <div class="fb-label" id="fb-label"></div>
+        <div class="fb-text" id="fb-text"></div>
+        <div class="fb-hint" id="fb-hint"></div>
+      </div>
+    </div>
+
+    <div class="q-nav" id="q-nav"></div>
+
+    <div class="quiz-footer">
+      <button class="btn-ghost" id="btn-prev" onclick="goQ(cur-1)"><i class="ti ti-arrow-left"></i> Prev</button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action" id="btn-submit" onclick="submitAns()" disabled>Submit</button>
+        <button class="btn-ghost" id="btn-next" onclick="goQ(cur+1)" style="display:none">Next <i class="ti ti-arrow-right"></i></button>
+        <button class="btn-finish" id="btn-finish" onclick="confirmFinish()" style="display:none"><i class="ti ti-flag"></i> Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="screen">
+    <div class="res-top">
+      <div class="brand-pill">Session Complete</div>
+      <div class="score-ring" id="score-ring">
+        <span class="score-num" id="res-score">0</span>
+        <span class="score-denom" id="res-denom">/ 25</span>
+      </div>
+      <p class="res-name" id="res-name"></p>
+      <p class="res-pct" id="res-pct"></p>
+      <p class="res-msg" id="res-msg"></p>
+    </div>
+    <div class="stats-row" id="stats-row"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="res-actions">
+      <button class="btn-retry2" onclick="retryQuiz()"><i class="ti ti-refresh"></i> Retry Same</button>
+      <button class="btn-home" onclick="goHome()"><i class="ti ti-home"></i> New Session</button>
+    </div>
+  </div>
+
+</div>
+<div class="footer-tag">EDT 306 &nbsp;&middot;&nbsp; <span>Compiled by UTHTECH Solutions &nbsp;&middot;&nbsp; Academic Practice Portal</span></div>
+
+<script>
+const BANK = [
+  // Section 1 – LMS
+  { q:"What does LMS stand for?", opts:["Learning Module System","Learning Management System","Lecture Management Software","Learning Media Suite"], ans:1, exp:"LMS stands for Learning Management System — software designed to create, deliver, manage, and track educational content and learner activities.", hint:"Section 1: Introduction to LMS", sec:"Section 1" },
+  { q:"Which of the following is NOT a function that an LMS typically provides?", opts:["Course enrolment and access control","Generating electricity billing reports","Assessment management (quizzes, assignments)","Gradebook to track learner performance"], ans:1, exp:"An LMS handles educational functions like enrolment, assessment, and gradebooks. Electricity billing is completely unrelated.", hint:"Section 1.1: What an LMS Provides", sec:"Section 1" },
+  { q:"A platform that only offers AI-based reading recommendations and discussion tools is best described as:", opts:["A full LMS","A learning experience or personalisation tool, NOT an LMS","A cloud-hosted Moodle instance","An open-source LMS"], ans:1, exp:"An LMS must manage enrolment, record assessment results, and produce evidence of learning. AI reading recommenders and discussion tools alone do not constitute an LMS.", hint:"Section 1: Critical Distinction", sec:"Section 1" },
+  { q:"Which of the following best defines a Learning Management System (LMS)?", opts:["A software platform for social networking among students","A software platform designed to create, deliver, manage, and track educational content and learner activities","A video conferencing tool for live lectures","A content creation tool for building animations"], ans:1, exp:"An LMS is specifically defined as software for creating, delivering, managing, and tracking educational content and learner activities.", hint:"Section 1: Definition", sec:"Section 1" },
+  { q:"Why is understanding LMS platforms particularly important for Nigerian tertiary education students?", opts:["LMS platforms are mandatory for all international scholarships","They enable CBT — the format now used for many university exams — and provide auditable records","They replace all physical textbooks in Nigerian universities","They are required for obtaining JAMB results"], ans:1, exp:"LMS platforms enable Computer-Based Testing (CBT), allow flexible course delivery, and provide measurable records of student participation and performance.", hint:"Section 1.2: Why LMS Matters", sec:"Section 1" },
+
+  // Section 2 – Moodle Overview
+  { q:"What does Moodle stand for?", opts:["Modular Object-Oriented Dynamic Learning Environment","Modern Online Distance Learning Environment","Modular Open-source Digital Learning Engine","Multiple Object-Oriented Data Learning Extension"], ans:0, exp:"Moodle is an acronym for Modular Object-Oriented Dynamic Learning Environment.", hint:"Section 2: Overview of Moodle", sec:"Section 2" },
+  { q:"Who developed Moodle and in what year?", opts:["Linus Torvalds in 1998","Martin Dougiamas in 2002","Bill Gates in 2005","Larry Page in 2000"], ans:1, exp:"Moodle was developed by Martin Dougiamas in 2002 and has grown to power over 300 million learners globally.", hint:"Section 2: Overview of Moodle", sec:"Section 2" },
+  { q:"What programming language is Moodle written in?", opts:["Python","Java","PHP","Ruby"], ans:2, exp:"Moodle is written in PHP (server-side programming language).", hint:"Section 2.1: Key Characteristics", sec:"Section 2" },
+  { q:"Which operating system is recommended for Moodle production environments?", opts:["Windows 11","macOS Ventura","Linux","Chrome OS"], ans:2, exp:"While Moodle supports Linux, Windows, and macOS, Linux is specifically recommended for production environments.", hint:"Section 2.1: Key Characteristics", sec:"Section 2" },
+  { q:"Approximately how many free plugins are available in the Moodle Plugin Directory?", opts:["Over 500","Over 1,700","Over 50","Over 10,000"], ans:1, exp:"The Moodle Plugin Directory offers over 1,700 free plugins.", hint:"Section 2.1: Key Characteristics", sec:"Section 2" },
+
+  // Section 3 – Open Source vs Proprietary
+  { q:"What is the KEY technical distinction between open-source and proprietary LMS platforms?", opts:["Open-source platforms always have more features","Open-source LMSs allow code-level modification while proprietary LMSs restrict it","Proprietary LMSs are always faster to install","Open-source LMSs charge higher annual fees"], ans:1, exp:"The defining technical difference is that open-source LMSs allow code-level modification of the source code, while proprietary LMSs restrict such access.", hint:"Section 3: Open-Source vs Proprietary", sec:"Section 3" },
+  { q:"Who is responsible for updates, hosting, and support in a proprietary LMS?", opts:["The institution's IT department","Community volunteers","The LMS vendor","Students themselves"], ans:2, exp:"In a proprietary LMS, the vendor manages updates, hosting, and support. In contrast, open-source requires the institution's IT team to manage these.", hint:"Section 3: Open-Source vs Proprietary", sec:"Section 3" },
+  { q:"Moodle is licensed under which open-source licence?", opts:["MIT Licence","Apache Licence 2.0","GPL (General Public Licence)","Creative Commons"], ans:2, exp:"Moodle is licensed under the GPL (General Public Licence) — meaning it is free to download and modify.", hint:"Section 2.1 / Section 3", sec:"Section 3" },
+  { q:"Which of these is an example of a proprietary LMS?", opts:["Moodle","WordPress","Blackboard","GIMP"], ans:2, exp:"Blackboard (and Canvas) are proprietary LMS platforms that require paid licences or subscriptions.", hint:"Section 3: Open-Source vs Proprietary", sec:"Section 3" },
+
+  // Section 4 – Deployment
+  { q:"A university lecturer needs Moodle for a small pilot class immediately with no server management. Which deployment option is best?", opts:["Self-hosted on a Linux server","Manual install on Windows","Moodle Cloud","Command-line install"], ans:2, exp:"Moodle Cloud is fully hosted by Moodle HQ with automatic upgrades — perfect for small classes and quick pilots with no IT overhead.", hint:"Section 4: Deployment Options", sec:"Section 4" },
+  { q:"What deployment method is preferred when a university needs full customisation and scalability for large student populations?", opts:["Moodle Cloud","Managed Hosting","Self-Hosted Manual Install","Windows Installer Package"], ans:2, exp:"Self-hosted (manual install) gives institutions full control and is preferred for universities needing customisation and scalability.", hint:"Section 4: Deployment Options", sec:"Section 4" },
+  { q:"Which installation method supports scripted, repeatable deployment across many machines?", opts:["MoodleWindowsInstaller package","XAMPP bundle","Command-line (manual) install","Moodle Cloud"], ans:2, exp:"The command-line (manual) install is scriptable and consistent, making it ideal for repeatable deployment across multiple machines.", hint:"Section 4.1: Installation Methods", sec:"Section 4" },
+  { q:"Installer packages like MoodleWindowsInstaller are best suited for:", opts:["Large-scale university deployments","Small or testing setups — quick to deploy but less flexible","Corporate LMS deployments with thousands of users","Command-line automation scripts"], ans:1, exp:"Installer packages are designed for quick deployment on small or testing setups, not scalable institutional use.", hint:"Section 4.1: Installation Methods", sec:"Section 4" },
+
+  // Section 5 – Installation
+  { q:"When extracting Moodle's Windows installer, where should you place the extracted folder?", opts:["C:\\Program Files\\moodle","C:\\moodle (a simple path with no spaces)","Desktop\\Moodle Files\\New Folder","C:\\Users\\Public\\Documents\\Moodle Install"], ans:1, exp:"Moodle should be extracted to a simple path like C:\\moodle. Avoid paths with spaces or special characters as these can cause PHP errors.", hint:"Section 5: Installing Moodle on Windows", sec:"Section 5" },
+  { q:"What two services are started when you run Start Moodle.exe?", opts:["MySQL and Nginx","Apache (web server) and MariaDB (database)","PHP and Python","IIS and Microsoft SQL Server"], ans:1, exp:"Running Start Moodle.exe opens two terminal windows — one for Apache (web server at http://localhost) and one for MariaDB (database).", hint:"Section 5.3: Run Start Moodle", sec:"Section 5" },
+  { q:"What is the default database username when using the MoodleWindowsInstaller package?", opts:["admin","moodle","root","postgres"], ans:2, exp:"The default database user in the Windows package is 'root' with no password — these defaults should be accepted.", hint:"Section 5.4: Web-Based Installation Wizard", sec:"Section 5" },
+  { q:"Why must you always use Stop Moodle.exe rather than just closing the browser when you finish?", opts:["To save bandwidth","To avoid database corruption by properly shutting down Apache and MariaDB","To log out of Moodle","To clear the browser cache"], ans:1, exp:"Always stop Moodle properly using Stop Moodle.exe to avoid database corruption from an improperly closed database service.", hint:"Section 5: Stopping Moodle", sec:"Section 5" },
+  { q:"During the installation wizard, what should you do if any PHP environment checks show a red failure?", opts:["Ignore them and proceed","Note the issue and consult Moodle documentation","Uninstall Moodle and start again","Reinstall Windows"], ans:1, exp:"If environment checks fail, note the issue and consult Moodle documentation to resolve the specific requirement before proceeding.", hint:"Section 5.4: Installation Wizard", sec:"Section 5" },
+
+  // Section 6 – Admin Setup
+  { q:"Which navigation area in Moodle is ONLY visible to users with the Administrator role?", opts:["Dashboard","My Courses","Site Home","Site Administration"], ans:3, exp:"Site Administration is the master control panel and is only visible to users with the Administrator role. Students and teachers see a simpler interface.", hint:"Section 6.1: Key Navigation Areas", sec:"Section 6" },
+  { q:"Where in Moodle do you configure outgoing email (SMTP) settings?", opts:["Site Administration → Front Page → Front Page Settings","Site Administration → Server → Email → Outgoing Mail Configuration","Site Administration → Appearance → Themes","Site Administration → Users → Registration"], ans:1, exp:"Outgoing mail (SMTP) configuration is found at Site Administration → Server → Email → Outgoing Mail Configuration.", hint:"Section 6.2: Key Initial Settings", sec:"Section 6" },
+  { q:"To change the appearance theme of your Moodle site, navigate to:", opts:["Site Administration → General → Site Home Settings","Dashboard → My Profile → Preferences","Site Administration → Appearance → Themes → Theme Selector","Site Home → Edit Settings → Design"], ans:2, exp:"Moodle themes are changed under Site Administration → Appearance → Themes → Theme Selector.", hint:"Section 6.2: Key Initial Settings", sec:"Section 6" },
+
+  // Section 7 – Homepage
+  { q:"What is the correct workflow for customising the Moodle homepage?", opts:["Reports → Dashboard → Edit → Save","Login as admin → Site Home → Enable Editing → Configure front page settings → Add content → Save","Courses → Manage → Edit Front Page → Save","Users → Preferences → Homepage → Edit → Save"], ans:1, exp:"The only correct sequence is: Login as admin → Site Home → Enable Editing → Configure front page settings → Add structured content → Save Changes.", hint:"Section 7: Homepage Customisation (Test Q12)", sec:"Section 7" },
+  { q:"Why should you 'Turn editing off' after customising the Moodle homepage?", opts:["To increase page loading speed","So students see the clean view without editing controls","To prevent other admins from making changes","To submit changes to Moodle HQ for approval"], ans:1, exp:"Turning editing off ensures students see the clean, finalized view of the homepage without editing icons and controls.", hint:"Section 7: Homepage Customisation", sec:"Section 7" },
+  { q:"When adding a video to a Moodle course, which approach is recommended?", opts:["Upload the video file directly into Moodle","Add a URL resource pointing to externally hosted video (YouTube, Vimeo)","Convert video to PDF and upload","Share the video via email to all students"], ans:1, exp:"Videos should never be uploaded directly — use a URL resource linking to externally hosted video. This keeps Moodle storage lean and course backups small.", hint:"Section 7.2: Adding a Welcome Activity with Video", sec:"Section 7" },
+
+  // Section 8 – Categories
+  { q:"In Moodle's hierarchy, what level comes directly below a Category?", opts:["Section","Activity","Course","Site"], ans:2, exp:"The Moodle hierarchy is: Site → Category → Course → Section/Topic → Activity/Resource.", hint:"Section 8.1: Moodle Hierarchical Structure", sec:"Section 8" },
+  { q:"What is the correct admin path for creating a new course category in Moodle?", opts:["Dashboard → Courses → Add Category","Site Administration → Courses → Manage Courses and Categories → Create Category","Site Home → Edit Settings → Categories → New","Reports → Categories → Create"], ans:1, exp:"The only correct path is: Site Administration → Courses → Manage Courses and Categories → Create Category (Test Q20).", hint:"Section 8: Correct Admin Path (Test Q20)", sec:"Section 8" },
+  { q:"What is the purpose of the Course Short Name field when creating a course in Moodle?", opts:["It appears as the page title in the student's browser","It is used in breadcrumbs — no spaces recommended","It is the name that appears in the gradebook column","It determines the number of enrolled students"], ans:1, exp:"The Short Name is used in Moodle's breadcrumb navigation and other compact displays. No spaces are recommended.", hint:"Section 8.3: Creating a Course", sec:"Section 8" },
+  { q:"Which course format displays course content week-by-week?", opts:["Topics format","Grid format","SCORM format","Weekly format"], ans:3, exp:"The 'Weekly' course format displays content in weekly sections, matching a semester timetable.", hint:"Section 8.3: Course Format", sec:"Section 8" },
+
+  // Section 9 – 9-Step Setup
+  { q:"In the lecturer's 9-step Moodle setup, what should be done FIRST before even logging in?", opts:["Create student accounts","Get your timetable ready — plan your lesson schedule","Install plugins from the Moodle Plugin Directory","Record video lectures for upload"], ans:1, exp:"Step 1 is to get the timetable ready — planning the lesson schedule (lectures, practicals, quizzes) before logging in prevents confusion when setting activity dates.", hint:"Section 9: Lecturer's 9-Step Lesson Setup", sec:"Section 9" },
+  { q:"In Step 7 of the 9-step setup, the lecturer creates categories such as 'Junior Class' and 'Senior Class'. Why?", opts:["To separate students by gender","To distinguish between 100–200 Level courses and 300–400 Level courses","To hide courses from the admin","To prevent guest access"], ans:1, exp:"Categories like Junior Class (100–200 Level) and Senior Class (300–400 Level) help organise courses logically, making navigation clear for users.", hint:"Section 9: Step 7 — Create Categories", sec:"Section 9" },
+  { q:"After creating a course in Moodle, clicking 'Save and display' takes you to:", opts:["The site homepage","The newly created course page, ready to add content","The gradebook","Site Administration"], ans:1, exp:"'Save and display' saves the course settings and navigates directly to the newly created course page where content can be added.", hint:"Section 9: Step 9", sec:"Section 9" },
+
+  // Section 10 – Activities
+  { q:"A lecturer says they cannot find the 'Add an activity or resource' button on the course page. What is the most likely cause?", opts:["The course has no students enrolled","The course was archived","Editing is not enabled — they need to click 'Turn editing on'","The LMS server is down"], ans:2, exp:"The most common cause is that editing is not enabled. Clicking 'Turn editing on' reveals the Add activity/resource button (Test Q18).", hint:"Section 10: Common Problem (Test Q18)", sec:"Section 10" },
+  { q:"What forum type requires students to post their own reply before they can see other students' posts?", opts:["Standard Forum","Single Discussion","Q&A Forum","Teacher Forum"], ans:2, exp:"A Q&A Forum requires students to post their own contribution before they can read other participants' replies, encouraging original thought.", hint:"Section 10.1: Adding a Discussion Forum", sec:"Section 10" },
+  { q:"Where in Moodle is group mode configured for a forum or other activity?", opts:["Inside the post editor when writing a forum thread","Site Administration → Courses","Common Module Settings (at the bottom of the activity settings page)","Dashboard → My Courses → Groups"], ans:2, exp:"Group mode is always configured in Common Module Settings — found at the bottom of any activity's settings page (Test Q13).", hint:"Section 10.1: Group Mode (Test Q13)", sec:"Section 10" },
+  { q:"What are the three Group Mode options in Moodle's Common Module Settings?", opts:["None, Private, Public","No groups, Separate groups, Visible groups","Single, Multiple, Mixed","Individual, Paired, Collaborative"], ans:1, exp:"The three Group Mode options are: No groups, Separate groups (each group sees only their own threads), and Visible groups (groups can see others' threads).", hint:"Section 10.1: Forum Group Mode", sec:"Section 10" },
+
+  // Section 11 – Quiz
+  { q:"What is the correct understanding of a quiz's 'Open the quiz' and 'Close the quiz' dates?", opts:["They control how many minutes a student has once they start","They control the window of time during which students may begin their attempt","They are the same as the time limit setting","They determine when quiz marks are released"], ans:1, exp:"Open/Close dates control the window when students may begin the quiz (like an exam room door). They are independent from the Time Limit setting.", hint:"Section 11: Open/Close Dates vs Time Limit", sec:"Section 11" },
+  { q:"A quiz opens at 8:00 AM, closes at 10:00 AM, and has a 30-minute time limit. A student starts at 9:45 AM. How long do they have?", opts:["30 minutes (until 10:15 AM)","15 minutes (until 10:00 AM)","45 minutes","They cannot start because only 15 minutes remain"], ans:1, exp:"The close date (10:00 AM) cuts the student off regardless of the time limit. Starting at 9:45 AM with a 10:00 AM close means only 15 minutes of work time.", hint:"Section 11.1: Practical Example", sec:"Section 11" },
+  { q:"A student visits a Moodle quiz page before the quiz open date. What will they see?", opts:["An error message saying the quiz doesn't exist","The quiz introduction but they cannot attempt the questions yet","All quiz questions and answers","A blank page"], ans:1, exp:"Before the open date, students can see the quiz introduction/description but cannot begin an attempt. The open date controls when attempts may start.", hint:"Section 11.1: Before Open Date", sec:"Section 11" },
+  { q:"Which quiz behaviour setting is best for exam conditions — showing feedback only after full submission?", opts:["Interactive with multiple tries","Immediate feedback","Deferred feedback","Adaptive mode"], ans:2, exp:"'Deferred feedback' shows results only after the student submits the entire quiz, which is appropriate for exam-like conditions.", hint:"Section 11.2: Quiz Configuration", sec:"Section 11" },
+  { q:"To give one specific student extra time on a quiz without changing settings for the entire class, you should use:", opts:["Group Overrides","Change the course time limit","User Overrides — inside the Quiz → Quiz Administration → User Overrides","Site Administration → Accessibility → Time Extensions"], ans:2, exp:"User Overrides (not Group Overrides) are used when accommodation is for one specific individual. Path: Quiz → Quiz Administration → User Overrides → Add Override.", hint:"Section 11.3: User Overrides (Test Q)", sec:"Section 11" },
+  { q:"What is the LMS-centred best practice approach for maintaining academic integrity in online quizzes?", opts:["Use only essay questions that AI cannot mark","Move all assessments to physical exams","Use controlled settings (shuffle, time limits, single attempts) and record attempt logs","Allow students to collaborate openly on shared documents"], ans:2, exp:"The LMS-centred approach is: shuffle questions/answers, enforce time limits and single attempts, and use Moodle's attempt logs that record exactly what each student answered and when.", hint:"Section 11.4: Academic Integrity (Test Q14)", sec:"Section 11" },
+
+  // Section 12 – Users & Roles
+  { q:"Which enrolment method is most appropriate when a lecturer needs to individually verify and add each student to a course?", opts:["Self-Enrolment","Cohort Sync","Guest Access","Manual Enrolment"], ans:3, exp:"Manual Enrolment is used when students are individually verified and added — invitations are sent one-by-one.", hint:"Section 12.1: Enrolment Methods", sec:"Section 12" },
+  { q:"Which Moodle role can add, edit, and delete content in an assigned course but does NOT control system-level settings?", opts:["Administrator","Manager","Teacher (Editing Teacher)","Course Creator"], ans:2, exp:"An Editing Teacher can add, edit, and delete content in their assigned courses but cannot access system-level administration settings.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
+  { q:"A Moodle user who can view and grade submissions but cannot edit course content has which role?", opts:["Student","Guest","Non-Editing Teacher","Manager"], ans:2, exp:"A Non-Editing Teacher can view course content and grade student work but cannot edit or add content to the course.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
+  { q:"Which enrolment method automatically adds all members of a defined group to a course — useful in large institutions?", opts:["Manual Enrolment","Self-Enrolment","Guest Access","Cohort Sync"], ans:3, exp:"Cohort Sync automatically enrolls all members of a defined cohort into a course, making it ideal for large institutions that sync with student information systems.", hint:"Section 12.1: Enrolment Methods", sec:"Section 12" },
+  { q:"A Guest user on a Moodle site can:", opts:["Submit quiz attempts and post in forums","Edit course content if the teacher approves","Browse and view course content only — cannot participate","Access Site Administration settings"], ans:2, exp:"Guest users can only view/browse content (if guest access is enabled). They cannot submit activities, post in forums, or participate in any graded work.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" }
+];
+
+let username='', totalQ=25, quizQ=[], userAns=[], cur=0, score=0;
+let timerInterval=null, timeLeft=0;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(){
+  const inp=document.getElementById('uname');
+  username=inp.value.trim();
+  if(!username){inp.focus();inp.style.borderColor='#ef4444';return;}
+  inp.style.borderColor='';
+  totalQ=parseInt(document.getElementById('qslider').value);
+  const shuffled=shuffle([...BANK]);
+  quizQ=shuffled.slice(0,totalQ);
+  userAns=new Array(totalQ).fill(null);
+  cur=0; score=0;
+  timeLeft=totalQ*90;
+  showScreen('quiz');
+  document.getElementById('hdr-user').textContent=username;
+  buildNav();
+  renderQ();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft<=0){clearInterval(timerInterval);showResults();}
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60),s=timeLeft%60;
+  document.getElementById('timer-txt').textContent=m+':'+(s<10?'0':'')+s;
+  const b=document.getElementById('timer-badge');
+  if(timeLeft<60)b.classList.add('warn');else b.classList.remove('warn');
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function buildNav(){
+  const nav=document.getElementById('q-nav');
+  nav.innerHTML='';
+  for(let i=0;i<totalQ;i++){
+    const d=document.createElement('button');
+    d.className='nav-dot';d.textContent=i+1;d.id='nd'+i;
+    d.onclick=(()=>{const idx=i;return()=>goQ(idx);})();
+    nav.appendChild(d);
+  }
+}
+
+function updateNav(){
+  for(let i=0;i<totalQ;i++){
+    const d=document.getElementById('nd'+i);
+    if(!d)continue;
+    d.className='nav-dot';
+    if(i===cur)d.classList.add('active');
+    else if(userAns[i]!==null)d.classList.add(userAns[i]===quizQ[i].ans?'done-ok':'done-bad');
+  }
+}
+
+function renderQ(){
+  const q=quizQ[cur];
+  document.getElementById('q-num-tag').textContent='Question '+(cur+1)+' of '+totalQ;
+  document.getElementById('q-sec-tag').textContent=q.sec;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('prog-fill').style.width=((cur+1)/totalQ*100)+'%';
+  document.getElementById('prog-label').textContent=(cur+1)+'/'+totalQ;
+
+  const opts=document.getElementById('options');
+  opts.innerHTML='';
+  const letters=['A','B','C','D'];
+  const answered=userAns[cur]!==null;
+
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn'+(answered?' locked':'');
+    btn.innerHTML=`<span class="opt-letter">${letters[i]}</span><span>${o}</span>`;
+    if(!answered)btn.onclick=()=>selectOpt(i);
+    if(answered){
+      if(i===q.ans)btn.classList.add('correct');
+      else if(i===userAns[cur]&&userAns[cur]!==q.ans)btn.classList.add('wrong');
+    }
+    opts.appendChild(btn);
+  });
+
+  const fb=document.getElementById('feedback');
+  const fbl=document.getElementById('fb-label');
+  if(answered){
+    const ok=userAns[cur]===q.ans;
+    fb.classList.add('show');
+    fbl.className='fb-label '+(ok?'ok':'bad');
+    fbl.textContent=ok?'Correct!':'Incorrect.';
+    document.getElementById('fb-text').textContent=q.exp;
+    document.getElementById('fb-hint').textContent=q.hint;
+    document.getElementById('btn-submit').style.display='none';
+    document.getElementById('btn-next').style.display='flex';
+  } else {
+    fb.classList.remove('show');
+    document.getElementById('btn-submit').style.display='block';
+    document.getElementById('btn-submit').disabled=true;
+    document.getElementById('btn-next').style.display='none';
+  }
+  document.getElementById('btn-prev').style.display=cur>0?'flex':'none';
+  const allAnswered=userAns.every(a=>a!==null);
+  document.getElementById('btn-finish').style.display=(cur===totalQ-1||allAnswered)?'flex':'none';
+  updateNav();
+}
+
+function selectOpt(i){
+  if(userAns[cur]!==null)return;
+  document.querySelectorAll('.opt-btn').forEach((b,idx)=>{b.classList.toggle('selected',idx===i);});
+  document.getElementById('btn-submit').disabled=false;
+  document.getElementById('btn-submit').dataset.sel=i;
+}
+
+function submitAns(){
+  const sel=parseInt(document.getElementById('btn-submit').dataset.sel);
+  if(isNaN(sel)||userAns[cur]!==null)return;
+  userAns[cur]=sel;
+  const q=quizQ[cur];
+  if(sel===q.ans)score++;
+  const btns=document.querySelectorAll('.opt-btn');
+  btns.forEach((b,i)=>{
+    b.classList.add('locked');b.classList.remove('selected');
+    if(i===q.ans)b.classList.add('correct');
+    else if(i===sel&&sel!==q.ans)b.classList.add('wrong');
+  });
+  const ok=sel===q.ans;
+  const fb=document.getElementById('feedback');
+  fb.classList.add('show');
+  const fbl=document.getElementById('fb-label');
+  fbl.className='fb-label '+(ok?'ok':'bad');
+  fbl.textContent=ok?'Correct!':'Incorrect.';
+  document.getElementById('fb-text').textContent=q.exp;
+  document.getElementById('fb-hint').textContent=q.hint;
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-next').style.display='flex';
+  const allAnswered=userAns.every(a=>a!==null);
+  document.getElementById('btn-finish').style.display=(cur===totalQ-1||allAnswered)?'flex':'none';
+  updateNav();
+}
+
+function goQ(idx){
+  if(idx<0||idx>=totalQ)return;
+  cur=idx;renderQ();
+}
+
+function confirmFinish(){
+  const unanswered=userAns.filter(a=>a===null).length;
+  if(unanswered>0&&!confirm(unanswered+' question(s) unanswered. Finish anyway?'))return;
+  clearInterval(timerInterval);showResults();
+}
+
+function showResults(){
+  clearInterval(timerInterval);
+  showScreen('results');
+  const pct=Math.round(score/totalQ*100);
+  const ring=document.getElementById('score-ring');
+  ring.className='score-ring '+(pct>=70?'great':pct>=50?'mid':'low');
+  document.getElementById('res-score').textContent=score;
+  document.getElementById('res-denom').textContent='/ '+totalQ;
+  document.getElementById('res-name').textContent=username+"'s Result";
+  document.getElementById('res-pct').textContent=pct+'% — '+score+' correct out of '+totalQ;
+  let msg='';
+  if(pct>=90)msg='Excellent! You have mastered the EDT 306 material.';
+  else if(pct>=75)msg='Great performance! Review the few you missed.';
+  else if(pct>=60)msg='Good effort. Go back to your study notes and retry.';
+  else if(pct>=50)msg='You are getting there — more review needed before the exam.';
+  else msg='Keep studying! Work through your EDT 306 notes carefully.';
+  document.getElementById('res-msg').textContent=msg;
+
+  const correct=userAns.filter((a,i)=>a===quizQ[i].ans).length;
+  const wrong=userAns.filter((a,i)=>a!==null&&a!==quizQ[i].ans).length;
+  const skipped=userAns.filter(a=>a===null).length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card ok"><div class="stat-val">${correct}</div><div class="stat-lbl">Correct</div></div>
+    <div class="stat-card bad"><div class="stat-val">${wrong}</div><div class="stat-lbl">Wrong</div></div>
+    <div class="stat-card skip"><div class="stat-val">${skipped}</div><div class="stat-lbl">Skipped</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#3b82f6">${pct}%</div><div class="stat-lbl">Score</div></div>`;
+
+  const bd=document.getElementById('breakdown');
+  bd.innerHTML=`<div class="bd-header"><span>Question</span><span>Result</span></div>`;
+  quizQ.forEach((q,i)=>{
+    const ua=userAns[i];const ok=ua===q.ans;const skp=ua===null;
+    const row=document.createElement('div');row.className='bd-row';
+    const qtext=q.q.length>58?q.q.slice(0,58)+'…':q.q;
+    row.innerHTML=`<span class="bd-q">Q${i+1}. ${qtext}</span><span class="bd-badge ${skp?'skip':ok?'ok':'bad'}">${skp?'Skipped':ok?'Correct':'Wrong'}</span>`;
+    bd.appendChild(row);
+  });
+}
+
+function retryQuiz(){
+  score=0;cur=0;userAns=new Array(totalQ).fill(null);
+  shuffle(quizQ);timeLeft=totalQ*90;
+  showScreen('quiz');buildNav();renderQ();startTimer();
+}
+
+function goHome(){clearInterval(timerInterval);showScreen('landing');}
+</script>
+</body>
+</html>
