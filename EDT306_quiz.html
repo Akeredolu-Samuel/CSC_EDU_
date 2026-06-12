@@ -173,8 +173,8 @@
 
     <div class="q-count-row">
       <label for="qslider">Questions</label>
-      <input id="qslider" type="range" min="20" max="60" step="5" value="25" oninput="document.getElementById('qcval').textContent=this.value" />
-      <span class="q-count-val" id="qcval">25</span>
+      <input id="qslider" type="range" min="20" max="60" step="5" value="30" oninput="document.getElementById('qcval').textContent=this.value" />
+      <span class="q-count-val" id="qcval">30</span>
     </div>
 
     <button class="btn-start" onclick="startQuiz()">
@@ -186,7 +186,7 @@
   <div id="quiz" class="screen">
     <div class="quiz-header">
       <div class="qh-left">
-        <a href="edt306_study_notes.html" class="btn-ghost" style="padding:4px 10px;font-size:11px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:4px;"><i class="ti ti-arrow-left"></i> Notes</a>
+        <a href="edt_306_notes.html" class="btn-ghost" style="padding:4px 10px;font-size:11px;border-radius:6px;text-decoration:none;display:flex;align-items:center;gap:4px;"><i class="ti ti-arrow-left"></i> Notes</a>
         <span class="qh-logo"><i class="ti ti-server"></i> EDT 306</span>
         <span class="qh-user" id="hdr-user"></span>
       </div>
@@ -244,9 +244,44 @@
   </div>
 
 </div>
-<div class="footer-tag">EDT 306 &nbsp;&middot;&nbsp; <span>Compiled by UTHTECH Solutions built by samwissy  &nbsp;&middot;&nbsp; Academic Practice Portal</span></div>
+<div class="footer-tag">EDT 306 &nbsp;&middot;&nbsp; <span>Compiled by UTHTECH Solutions &nbsp;&middot;&nbsp; Academic Practice Portal</span></div>
 
 <script>
+// ── TRACKING CONFIG ──────────────────────────────────────────
+// After setting up JSONBin (see edt306_admin_dashboard.html),
+// paste your credentials here:
+const JSONBIN_KEY    = '';   // e.g. '$2a$10$abc...'
+const JSONBIN_BIN_ID = '';   // e.g. '64f3a1b2e376a...'
+
+async function saveResult(name, correct, total, pct) {
+  if (!JSONBIN_KEY || !JSONBIN_BIN_ID) return; // skip if not configured
+  try {
+    // 1. fetch current records
+    const get = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_KEY }
+    });
+    const data = await get.json();
+    const records = (data.record && data.record.records) ? data.record.records : [];
+
+    // 2. append new record
+    records.push({
+      name, correct, total, pct,
+      date: new Date().toISOString(),
+      time: new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' })
+    });
+
+    // 3. save back
+    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+      method: 'PUT',
+      headers: { 'X-Master-Key': JSONBIN_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ records })
+    });
+  } catch(e) {
+    console.warn('Tracking error:', e);
+  }
+}
+// ─────────────────────────────────────────────────────────────
+
 const BANK = [
   // Section 1 – LMS
   { q:"What does LMS stand for?", opts:["Learning Module System","Learning Management System","Lecture Management Software","Learning Media Suite"], ans:1, exp:"LMS stands for Learning Management System — software designed to create, deliver, manage, and track educational content and learner activities.", hint:"Section 1: Introduction to LMS", sec:"Section 1" },
@@ -321,7 +356,21 @@ const BANK = [
   { q:"Which Moodle role can add, edit, and delete content in an assigned course but does NOT control system-level settings?", opts:["Administrator","Manager","Teacher (Editing Teacher)","Course Creator"], ans:2, exp:"An Editing Teacher can add, edit, and delete content in their assigned courses but cannot access system-level administration settings.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
   { q:"A Moodle user who can view and grade submissions but cannot edit course content has which role?", opts:["Student","Guest","Non-Editing Teacher","Manager"], ans:2, exp:"A Non-Editing Teacher can view course content and grade student work but cannot edit or add content to the course.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
   { q:"Which enrolment method automatically adds all members of a defined group to a course — useful in large institutions?", opts:["Manual Enrolment","Self-Enrolment","Guest Access","Cohort Sync"], ans:3, exp:"Cohort Sync automatically enrolls all members of a defined cohort into a course, making it ideal for large institutions that sync with student information systems.", hint:"Section 12.1: Enrolment Methods", sec:"Section 12" },
-  { q:"A Guest user on a Moodle site can:", opts:["Submit quiz attempts and post in forums","Edit course content if the teacher approves","Browse and view course content only — cannot participate","Access Site Administration settings"], ans:2, exp:"Guest users can only view/browse content (if guest access is enabled). They cannot submit activities, post in forums, or participate in any graded work.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" }
+  { q:"A Guest user on a Moodle site can:", opts:["Submit quiz attempts and post in forums","Edit course content if the teacher approves","Browse and view course content only — cannot participate","Access Site Administration settings"], ans:2, exp:"Guest users can only view/browse content (if guest access is enabled). They cannot submit activities, post in forums, or participate in any graded work.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
+
+  // New questions – Section 8 / 9 / 10 / 11 / 12 (topics not yet covered)
+  { q:"Which Moodle role has the specific ability to create new courses but does NOT have full site administration access?", opts:["Administrator","Manager","Course Creator","Non-Editing Teacher"], ans:2, exp:"The Course Creator role exists specifically to allow users to create new courses without granting them full site-wide administrator privileges.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
+  { q:"In Moodle's 9-step lesson setup, what materials should a lecturer prepare in Step 2 BEFORE logging in?", opts:["Student usernames and passwords","Lesson notes, photos, forum topics, YouTube video links, and quiz questions","The Moodle plugin directory list","Server hosting credentials"], ans:1, exp:"Step 2 requires gathering all lesson materials first — notes (Word/PDF), relevant photos, a forum question, YouTube URLs (not downloaded files), and quiz questions — so the Moodle session runs smoothly.", hint:"Section 9: Step 2 — Prepare Content", sec:"Section 9" },
+  { q:"What is the 'moodledata' folder and why is it important during installation?", opts:["A folder where Moodle stores its PHP source code","The folder where Moodle stores all uploaded files, course content, and user data — separate from the web root","A backup folder created automatically every 24 hours","A temporary folder deleted after installation completes"], ans:1, exp:"The moodledata directory is Moodle's data store — it holds all uploaded files and course content. It must be outside the web root for security and is confirmed during the installation wizard path setup.", hint:"Section 5.4: Installation Wizard — Confirm Paths", sec:"Section 5" },
+  { q:"When adding a File resource in Moodle (e.g., lesson notes), what is the correct final step after uploading the document?", opts:["Click 'Publish to web'","Click 'Save and return to course'","Click 'Submit for grading'","Click 'Export to gradebook'"], ans:1, exp:"After configuring a File resource and uploading the document, you click 'Save and return to course' — this saves the resource and returns you to the course page where it now appears.", hint:"Section 10.4: Adding a File Resource", sec:"Section 10" },
+  { q:"What ICANN fee applies to .com, .net, and .org domain registrations on all platforms including Moodle-hosted sites?", opts:["$0.10 per domain per year","$0.20 per domain per year","$1.00 per domain per year","No fee — ICANN is free"], ans:1, exp:"ICANN charges a mandatory $0.20 per domain per year for .com, .net, and .org registrations. This applies regardless of which registrar is used.", hint:"Section 13: Key Concepts", sec:"Section 13" },
+  { q:"In the Moodle gradebook, which role can VIEW and ENTER grades but cannot modify course content or settings?", opts:["Student","Guest","Course Creator","Non-Editing Teacher"], ans:3, exp:"A Non-Editing Teacher can view course content and enter/edit grades in the gradebook but has no permission to add, edit, or delete course activities or resources.", hint:"Section 12.2: Moodle Roles", sec:"Section 12" },
+  { q:"Which of these correctly describes 'Separate Groups' mode in a Moodle forum?", opts:["All students see all posts regardless of their group","Each group can only see and interact with posts from their own group","Groups can see other groups' posts but not reply to them","Separate groups mode disables the forum entirely"], ans:1, exp:"In Separate Groups mode, each group works in isolation — they can only see and post within their own group's forum thread, not those of other groups.", hint:"Section 10.1: Forum Group Mode", sec:"Section 10" },
+  { q:"What happens if a lecturer sets 'Number of Sections' to 15 when creating a course in Weekly format?", opts:["The course will run for 15 days only","Moodle creates 15 week-by-week sections matching a full semester timetable","The course allows only 15 student enrolments","15 quizzes are automatically generated"], ans:1, exp:"Setting 15 sections in Weekly format creates one section per week, perfectly matching a standard 15-week Nigerian university semester schedule.", hint:"Section 8.3: Creating a Course", sec:"Section 8" },
+  { q:"Which Moodle backup/restore feature is listed under Site Administration → Courses?", opts:["It is not available — Moodle has no backup feature","Backup/Restore — allows courses to be saved and transferred between Moodle sites","Auto-delete — removes old courses after one year","Live sync — mirrors the course to a second server in real time"], ans:1, exp:"Under Site Administration → Courses, the Backup/Restore option allows admins to save a full course package and restore it — useful for transferring courses between Moodle installations.", hint:"Section 9: Step 5 — Go to Courses", sec:"Section 9" },
+
+  // Practical Group Question
+  { q:"During the EDT 306 Moodle practical session, which group finished their task first?", opts:["Group 2 — Computer Education","Group 4 — Biology","Group 2 — Chemistry","Group 11 — Computer Education"], ans:3, exp:"Group 11 (Computer Education) finished first during the EDT 306 practical session.", hint:"EDT 306 Practical Session", sec:"Practical" }
 ];
 
 let username='', totalQ=25, quizQ=[], userAns=[], cur=0, score=0;
@@ -487,6 +536,7 @@ function showResults(){
   clearInterval(timerInterval);
   showScreen('results');
   const pct=Math.round(score/totalQ*100);
+  saveResult(username, score, totalQ, pct);
   const ring=document.getElementById('score-ring');
   ring.className='score-ring '+(pct>=70?'great':pct>=50?'mid':'low');
   document.getElementById('res-score').textContent=score;
