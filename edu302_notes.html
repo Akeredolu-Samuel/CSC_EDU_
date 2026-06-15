@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDU 302 — Study Notes</title>
+  <meta name="description" content="Compiled study notes for EDU 302: Educational Measurements, Tests, Research Methods and Statistics.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1533030534131705" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --accent:#8b5cf6;--accent-dim:rgba(139,92,246,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--amber:#f59e0b;--blue:#3b82f6;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+    /* TOP BAR */
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:12px;}
+    .btn-back{display:flex;align-items:center;gap:6px;background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;}
+    .btn-back:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .tb-title{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:7px;}
+    .tb-badge{font-size:10px;background:var(--accent-dim);border:0.5px solid rgba(139,92,246,0.3);color:var(--accent);border-radius:99px;padding:2px 10px;}
+    .btn-quiz-link{display:flex;align-items:center;gap:6px;background:var(--accent);border:none;color:#fff;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background 0.2s;text-decoration:none;}
+    .btn-quiz-link:hover{background:#7c3aed;}
+
+    /* LAYOUT */
+    .notes-layout{display:flex;max-width:1100px;margin:0 auto;gap:0;}
+
+    /* SIDEBAR */
+    .sidebar{width:240px;min-width:240px;border-right:0.5px solid var(--border);padding:1.5rem 1rem;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;flex-shrink:0;}
+    .sidebar::-webkit-scrollbar{width:4px;}
+    .sidebar::-webkit-scrollbar-track{background:transparent;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+    .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);margin-bottom:0.8rem;padding:0 0.5rem;}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.15s;margin-bottom:2px;cursor:pointer;border:none;background:transparent;font-family:var(--font);text-align:left;width:100%;line-height:1.4;}
+    .sb-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+    .sb-link.active{background:var(--accent-dim);color:var(--accent);font-weight:500;}
+    .sb-num{min-width:16px;font-size:10px;color:var(--dim);margin-top:2px;}
+
+    /* MAIN CONTENT */
+    .notes-main{flex:1;padding:2rem 2.5rem;min-width:0;}
+
+    /* HERO BOX */
+    .notes-hero{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(59,130,246,0.06));border:0.5px solid rgba(139,92,246,0.2);border-radius:14px;padding:1.8rem;margin-bottom:2.5rem;}
+    .nh-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.7rem;display:flex;align-items:center;gap:6px;}
+    .nh-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .nh-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;}
+    .topic-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .topic-tag{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:99px;padding:3px 12px;font-size:11px;color:var(--muted);}
+
+    /* SECTIONS */
+    .notes-section{margin-bottom:3rem;scroll-margin-top:70px;}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:0.5px solid var(--border);}
+    .sec-num{background:var(--accent-dim);border:0.5px solid rgba(139,92,246,0.3);color:var(--accent);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    .sec-src{font-size:10.5px;color:var(--dim);margin-top:1px;}
+
+    p{font-size:13.5px;color:var(--muted);margin-bottom:0.9rem;line-height:1.7;}
+    h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:0.6rem;margin-top:1.4rem;}
+    h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:0.5rem;margin-top:1.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+    .bullet-list{margin:0.5rem 0 1rem 0;display:flex;flex-direction:column;gap:5px;}
+    .bullet-list li{font-size:13px;color:var(--muted);list-style:none;padding-left:1.2rem;position:relative;line-height:1.6;}
+    .bullet-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0.6;}
+
+    .def-box{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .def-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:0.4rem;font-weight:600;}
+    .def-box p{font-size:13px;margin-bottom:0;color:var(--text);}
+
+    .highlight-box{background:rgba(34,197,94,0.06);border:0.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .highlight-box.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
+    .highlight-box.purple{background:rgba(139,92,246,0.06);border-color:rgba(139,92,246,0.2);}
+    .highlight-box.blue{background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.2);}
+    .hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:0.5rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+    .hb-label.amber{color:var(--amber);}
+    .hb-label.purple{color:var(--accent);}
+    .hb-label.blue{color:var(--blue);}
+    .highlight-box p{font-size:13px;margin-bottom:0;}
+
+    /* STAGES */
+    .stages-grid{display:flex;flex-direction:column;gap:8px;margin:1rem 0;}
+    .stage-row{display:flex;align-items:flex-start;gap:12px;background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem 1rem;transition:border-color 0.2s;}
+    .stage-row:hover{border-color:rgba(139,92,246,0.25);}
+    .stage-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;color:#fff;}
+    .stage-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+    .stage-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+    /* TABLE */
+    .summary-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12.5px;}
+    .summary-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;}
+    .summary-table td{padding:9px 12px;border-bottom:0.5px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:top;line-height:1.5;}
+    .summary-table td:first-child{color:var(--text);font-weight:500;}
+    .summary-table tr:last-child td{border-bottom:none;}
+    .summary-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+    /* CONCEPT CARDS */
+    .concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:1rem 0;}
+    .concept-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .cc-tag{font-size:10px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+    .cc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+    .cc-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    .divider{height:0.5px;background:var(--border);margin:2rem 0;}
+
+    /* FOOTER */
+    .hub-footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--dim);border-top:0.5px solid var(--border);letter-spacing:0.05em;margin-top:2rem;}
+    .hub-footer span{color:var(--accent);}
+
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .notes-main{padding:1.5rem 1.2rem;}
+      .concept-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      .concept-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="top-bar">
+  <div class="tb-left">
+    <a class="btn-back" href="index.html" id="back-btn"><i class="ti ti-arrow-left" style="font-size:13px"></i> Home</a>
+    <div class="tb-title"><i class="ti ti-certificate" style="font-size:15px;color:#8b5cf6"></i> EDU 302 — Study Notes</div>
+    <span class="tb-badge">Active</span>
+  </div>
+  <a class="btn-quiz-link" href="edu302_quiz.html" id="take-quiz-btn"><i class="ti ti-player-play" style="font-size:13px"></i> Take Quiz</a>
+</nav>
+
+<div class="notes-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-label">Contents</div>
+    <a class="sb-link active" href="#sec1" id="sb-1"><span class="sb-num">1</span> Measurement & Tests</a>
+    <a class="sb-link" href="#sec2" id="sb-2"><span class="sb-num">2</span> Test Development & Item Analysis</a>
+    <a class="sb-link" href="#sec3" id="sb-3"><span class="sb-num">3</span> Validity & Reliability</a>
+    <a class="sb-link" href="#sec4" id="sb-4"><span class="sb-num">4</span> Research: Meaning & Types</a>
+    <a class="sb-link" href="#sec5" id="sb-5"><span class="sb-num">5</span> Research Process & Variables</a>
+    <a class="sb-link" href="#sec6" id="sb-6"><span class="sb-num">6</span> Hypotheses & Proposal</a>
+    <a class="sb-link" href="#sec7" id="sb-7"><span class="sb-num">7</span> Research Designs</a>
+    <a class="sb-link" href="#sec8" id="sb-8"><span class="sb-num">8</span> Literature & Frameworks</a>
+    <a class="sb-link" href="#sec9" id="sb-9"><span class="sb-num">9</span> Sampling Techniques</a>
+    <a class="sb-link" href="#sec10" id="sb-10"><span class="sb-num">10</span> Data Types & Instruments</a>
+    <a class="sb-link" href="#sec11" id="sb-11"><span class="sb-num">11</span> Data Analysis & Statistics</a>
+    <a class="sb-link" href="#sec12" id="sb-12"><span class="sb-num">12</span> Hypothesis Testing</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="notes-main">
+
+    <div class="notes-hero">
+      <div class="nh-tag"><i class="ti ti-school" style="font-size:13px"></i> Compiled Study Notes</div>
+      <div class="nh-title">Educational Measurements, Tests, Research Methods & Statistics</div>
+      <div class="nh-sub">EDU 302 &nbsp;·&nbsp; Compiled by: Uthtech Solutions</div>
+      <div class="topic-tags">
+        <span class="topic-tag">Measurement & Assessment</span>
+        <span class="topic-tag">Test Construction</span>
+        <span class="topic-tag">Research Designs</span>
+        <span class="topic-tag">Sampling</span>
+        <span class="topic-tag">Inferential Statistics</span>
+        <span class="topic-tag">Hypothesis Testing</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <section class="notes-section" id="sec1">
+      <div class="sec-header">
+        <div class="sec-num">1</div>
+        <div><div class="sec-title">Educational Measurement, Tests & Domains of Learning</div><div class="sec-src">Unit 1</div></div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Key Distinctions</div>
+        <p><strong>Measurement</strong> — assigning numbers/scores to characteristics (How much?). <strong>Assessment</strong> — broader gathering of evidence using multiple tools. <strong>Evaluation</strong> — making a value judgment about results (pass/fail).</p>
+      </div>
+
+      <h3>Types of Educational Measurement</h3>
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="cc-tag">Norm-Referenced</div>
+          <div class="cc-desc">Student's performance compared to others (normative group). E.g., ranking students 1st to last.</div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-tag">Criterion-Referenced</div>
+          <div class="cc-desc">Performance compared to a fixed standard. E.g., 50% and above = pass.</div>
+        </div>
+        <div class="concept-card">
+          <div class="cc-tag">Ipsative</div>
+          <div class="cc-desc">Performance compared to one's own previous results — assesses individual growth.</div>
+        </div>
+      </div>
+
+      <h3>Types of Tests</h3>
+      <table class="summary-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Aptitude Test</td><td>Measures potential/ability to learn. E.g., IQ tests.</td></tr>
+          <tr><td>Achievement Test</td><td>Measures what has been learned. E.g., WAEC, NECO.</td></tr>
+          <tr><td>Diagnostic Test</td><td>Identifies specific areas of difficulty.</td></tr>
+          <tr><td>Formative Test</td><td>During learning — monitors progress. E.g., class quizzes.</td></tr>
+          <tr><td>Summative Test</td><td>End of period — evaluates overall achievement. E.g., semester exams.</td></tr>
+          <tr><td>Standardised Test</td><td>Uniform procedures, consistent administration. E.g., SAT, JAMB.</td></tr>
+          <tr><td>Teacher-made Test</td><td>Constructed by classroom teachers for specific content.</td></tr>
+          <tr><td>Objective Test</td><td>One correct answer. E.g., MCQ, true/false, matching.</td></tr>
+          <tr><td>Essay Test</td><td>Extended responses; assesses higher-order thinking.</td></tr>
+          <tr><td>Speed Test</td><td>Easy items; score depends on number completed in time.</td></tr>
+          <tr><td>Power Test</td><td>No strict time limit; items become progressively harder.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-bulb"></i> Key Distinction</div>
+        <p>Aptitude tests <strong>predict future performance</strong>; Achievement tests measure <strong>past/current learning</strong>.</p>
+      </div>
+
+      <h3>Domains of Learning (Bloom)</h3>
+
+      <h4>A. Cognitive Domain (Bloom's Taxonomy)</h4>
+      <table class="summary-table">
+        <thead><tr><th>Level</th><th>Description</th><th>Example Verbs</th></tr></thead>
+        <tbody>
+          <tr><td>1. Remember</td><td>Recall of facts and basic concepts</td><td>Define, List, Name, State</td></tr>
+          <tr><td>2. Understand</td><td>Explain ideas or concepts</td><td>Describe, Explain, Summarise</td></tr>
+          <tr><td>3. Apply</td><td>Use information in a new situation</td><td>Solve, Calculate, Demonstrate</td></tr>
+          <tr><td>4. Analyse</td><td>Draw connections among ideas</td><td>Compare, Differentiate, Examine</td></tr>
+          <tr><td>5. Evaluate</td><td>Justify a decision or course of action</td><td>Judge, Defend, Criticise</td></tr>
+          <tr><td>6. Create</td><td>Produce new or original work</td><td>Design, Construct, Develop</td></tr>
+        </tbody>
+      </table>
+
+      <h4>B. Affective Domain — Krathwohl's Taxonomy [RRVOC]</h4>
+      <p>Deals with feelings, emotions, values, and attitudes.</p>
+      <ul class="bullet-list">
+        <li><strong>Receiving:</strong> Being aware/willing to hear. E.g., listening attentively.</li>
+        <li><strong>Responding:</strong> Actively participating. E.g., class discussions.</li>
+        <li><strong>Valuing:</strong> Attaching worth to an idea. E.g., showing concern for others.</li>
+        <li><strong>Organisation:</strong> Prioritising values. E.g., accepting ethical standards.</li>
+        <li><strong>Characterisation:</strong> Values guiding behaviour consistently.</li>
+      </ul>
+
+      <h4>C. Psychomotor Domain — Simpson's Taxonomy [PSGMCAO]</h4>
+      <p>Deals with physical movement, coordination, and motor skills.</p>
+      <ul class="bullet-list">
+        <li><strong>Perception:</strong> Using sensory cues to guide motor activity.</li>
+        <li><strong>Set:</strong> Readiness to act.</li>
+        <li><strong>Guided Response:</strong> Learning through imitation and trial & error.</li>
+        <li><strong>Mechanism:</strong> Habitual performance at intermediate skill level.</li>
+        <li><strong>Complex Overt Response:</strong> Performing complex movements with expertise.</li>
+        <li><strong>Adaptation:</strong> Modifying skills for special requirements.</li>
+        <li><strong>Origination:</strong> Creating new movement patterns.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2 -->
+    <section class="notes-section" id="sec2">
+      <div class="sec-header">
+        <div class="sec-num">2</div>
+        <div><div class="sec-title">Test Development & Item Analysis</div><div class="sec-src">Unit 1 (cont.)</div></div>
+      </div>
+
+      <h3>Steps in Test Development</h3>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num" style="background:rgba(139,92,246,0.2);color:#c084fc;">1</div><div><div class="stage-title">Plan the Test</div><div class="stage-desc">Define purpose, content, and type of items.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(59,130,246,0.2);color:#60a5fa;">2</div><div><div class="stage-title">Prepare a Test Blueprint</div><div class="stage-desc">A Table of Specifications mapping content to cognitive levels.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(34,197,94,0.15);color:#4ade80;">3</div><div><div class="stage-title">Write Test Items</div><div class="stage-desc">Draft questions aligned with the blueprint.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(245,158,11,0.15);color:#fbbf24;">4</div><div><div class="stage-title">Review & Edit Items</div><div class="stage-desc">Expert review for clarity, correctness, and bias.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(239,68,68,0.15);color:#f87171;">5</div><div><div class="stage-title">Conduct Item Analysis</div><div class="stage-desc">Pilot test + statistical analysis of each item.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(139,92,246,0.2);color:#c084fc;">6</div><div><div class="stage-title">Finalize the Test</div><div class="stage-desc">Select best items, arrange, write instructions.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(59,130,246,0.2);color:#60a5fa;">7</div><div><div class="stage-title">Administer the Test</div><div class="stage-desc">Give test under standardised conditions.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(34,197,94,0.15);color:#4ade80;">8</div><div><div class="stage-title">Score & Interpret</div><div class="stage-desc">Apply consistent marking scheme; use scores for decisions.</div></div></div>
+      </div>
+
+      <h3>Item Analysis</h3>
+      <p>A statistical technique used after administration to evaluate the quality of individual test items.</p>
+
+      <h4>A. Difficulty Index (p)</h4>
+      <div class="def-box">
+        <div class="def-label">Formula</div>
+        <p>p = Number correct ÷ Total number of students<br>
+        Ideal: 0.30 ≤ p ≤ 0.70. Near 1.0 = very easy; near 0.0 = very difficult.</p>
+      </div>
+
+      <h4>B. Discrimination Index (D)</h4>
+      <div class="def-box">
+        <div class="def-label">Formula</div>
+        <p>D = (Upper 27% correct – Lower 27% correct) ÷ Number in each group<br>
+        D &gt; 0.30 = acceptable. D &gt; 0.40 = excellent. Negative D = problematic item.</p>
+      </div>
+
+      <h4>C. Distractor Analysis</h4>
+      <p>Each wrong option (distractor) should attract some students — especially lower-group students. Non-functional distractors should be replaced.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3 -->
+    <section class="notes-section" id="sec3">
+      <div class="sec-header">
+        <div class="sec-num">3</div>
+        <div><div class="sec-title">Validity & Reliability of Instruments</div><div class="sec-src">Unit 1 (cont.)</div></div>
+      </div>
+
+      <h3>A. Validity</h3>
+      <p>The degree to which a test measures what it is supposed to measure. A test can be reliable but not valid; it cannot be valid without being reliable.</p>
+      <table class="summary-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Content Validity</td><td>Test covers all important aspects of the content domain. Assessed via expert judgment and blueprint.</td></tr>
+          <tr><td>Construct Validity</td><td>Test measures the theoretical construct it claims to measure.</td></tr>
+          <tr><td>Criterion-Related Validity</td><td>Correlation between test scores and an external criterion.</td></tr>
+          <tr><td>Concurrent Validity</td><td>Scores correlate with another established measure administered at the same time.</td></tr>
+          <tr><td>Predictive Validity</td><td>Test scores predict future performance on a related measure.</td></tr>
+          <tr><td>Face Validity</td><td>The test appears (on the surface) to measure what it should — subjective.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>B. Reliability</h3>
+      <p>The consistency of a test — it produces similar results under consistent conditions.</p>
+      <table class="summary-table">
+        <thead><tr><th>Method</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Test-Retest</td><td>Same test administered to same group on two occasions; scores correlated.</td></tr>
+          <tr><td>Parallel/Alternate Forms</td><td>Two equivalent test versions; scores correlated.</td></tr>
+          <tr><td>Split-Half</td><td>Test divided into two halves (odd/even); halves correlated.</td></tr>
+          <tr><td>Cronbach Alpha</td><td>Average correlation among all items; best for multiple-item tests.</td></tr>
+          <tr><td>KR-20/KR-21</td><td>Kuder-Richardson formula for dichotomous (right/wrong) scoring.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box purple">
+        <div class="hb-label purple"><i class="ti ti-star"></i> Core Principle</div>
+        <p>Validity is MORE important than reliability — a test that doesn't measure what it should is useless regardless of its consistency.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4 -->
+    <section class="notes-section" id="sec4">
+      <div class="sec-header">
+        <div class="sec-num">4</div>
+        <div><div class="sec-title">Research: Meaning, Characteristics & Types</div><div class="sec-src">Unit 2</div></div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>Research is a formal, systematic, and intensive process of scientific investigation aimed at generating new knowledge.</p>
+      </div>
+
+      <h3>Characteristics of Research [FLERIISD]</h3>
+      <ul class="bullet-list">
+        <li><strong>Formal:</strong> Follows established procedures and standards.</li>
+        <li><strong>Systematic:</strong> Follows a logical sequence of steps.</li>
+        <li><strong>Investigative:</strong> Seeks answers to specific problems.</li>
+        <li><strong>Intensive:</strong> Requires careful, detailed attention.</li>
+        <li><strong>Logical:</strong> Based on sound reasoning.</li>
+        <li><strong>Empirical:</strong> Based on observable evidence, not just theory.</li>
+        <li><strong>Replicable:</strong> Results can be reproduced by other researchers.</li>
+        <li><strong>Deductive.</strong></li>
+      </ul>
+
+      <h3>Types of Research</h3>
+      <h4>By Purpose</h4>
+      <ul class="bullet-list">
+        <li><strong>Basic (Pure) Research:</strong> Knowledge for its own sake, no immediate practical application.</li>
+        <li><strong>Applied Research:</strong> Solves specific practical problems.</li>
+      </ul>
+      <h4>By Knowledge Generated</h4>
+      <ul class="bullet-list">
+        <li><strong>Inductive:</strong> Specific observations → general conclusions.</li>
+        <li><strong>Deductive:</strong> General theory → specific predictions → tested.</li>
+      </ul>
+      <h4>By Method</h4>
+      <table class="summary-table">
+        <thead><tr><th>Type</th><th>Description</th><th>Focus</th></tr></thead>
+        <tbody>
+          <tr><td>Descriptive</td><td>Describes conditions without manipulation</td><td>What is the current situation?</td></tr>
+          <tr><td>Historical</td><td>Studies past events using primary & secondary sources</td><td>What happened in the past?</td></tr>
+          <tr><td>Experimental</td><td>Manipulates IV to observe effect on DV</td><td>What is the cause?</td></tr>
+          <tr><td>Correlational</td><td>Examines relationships between variables</td><td>Are variables related?</td></tr>
+          <tr><td>Case Study</td><td>In-depth study of a single unit</td><td>Deep understanding of a specific case</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 5 -->
+    <section class="notes-section" id="sec5">
+      <div class="sec-header">
+        <div class="sec-num">5</div>
+        <div><div class="sec-title">The Research Process & Variables</div><div class="sec-src">Unit 2 (cont.)</div></div>
+      </div>
+
+      <h3>Steps in the Research Process</h3>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num" style="background:rgba(139,92,246,0.2);color:#c084fc;">1</div><div><div class="stage-title">Identify & Define the Problem</div><div class="stage-desc">What question needs to be answered?</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(59,130,246,0.2);color:#60a5fa;">2</div><div><div class="stage-title">Review the Literature</div><div class="stage-desc">What do we already know about this topic?</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(34,197,94,0.15);color:#4ade80;">3</div><div><div class="stage-title">State Research Questions & Hypotheses</div><div class="stage-desc">What do you expect to find?</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(245,158,11,0.15);color:#fbbf24;">4</div><div><div class="stage-title">Design the Study</div><div class="stage-desc">Research design, population, sample, instruments.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(239,68,68,0.15);color:#f87171;">5</div><div><div class="stage-title">Collect Data</div><div class="stage-desc">Gather information using selected instruments.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(139,92,246,0.2);color:#c084fc;">6</div><div><div class="stage-title">Process & Analyse Data</div><div class="stage-desc">Apply statistical tools to the data.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(59,130,246,0.2);color:#60a5fa;">7</div><div><div class="stage-title">Interpret Findings</div><div class="stage-desc">Make meaning of results relative to research questions.</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(34,197,94,0.15);color:#4ade80;">8</div><div><div class="stage-title">Draw Conclusions & Report</div><div class="stage-desc">What do findings imply? Write up and disseminate.</div></div></div>
+      </div>
+
+      <h3>Types of Variables</h3>
+      <table class="summary-table">
+        <thead><tr><th>Variable Type</th><th>Description & Example</th></tr></thead>
+        <tbody>
+          <tr><td>Dependent (DV)</td><td>The outcome being studied. E.g., students' test scores.</td></tr>
+          <tr><td>Independent (IV)</td><td>The variable manipulated by the researcher. E.g., teaching method.</td></tr>
+          <tr><td>Moderator</td><td>Secondary IV that affects the IV–DV relationship. E.g., gender.</td></tr>
+          <tr><td>Control</td><td>Held constant to eliminate its effect. E.g., prior knowledge.</td></tr>
+          <tr><td>Intervening</td><td>Between IV and DV; cannot be directly measured. E.g., motivation.</td></tr>
+          <tr><td>Extraneous</td><td>Unwanted variable that may confound results. E.g., classroom noise.</td></tr>
+          <tr><td>Continuous</td><td>Any value within a range, including decimals. E.g., height, scores.</td></tr>
+          <tr><td>Discrete</td><td>Whole number values only. E.g., number of students.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 6 -->
+    <section class="notes-section" id="sec6">
+      <div class="sec-header">
+        <div class="sec-num">6</div>
+        <div><div class="sec-title">Research Questions, Hypotheses & Proposals</div><div class="sec-src">Unit 2 (cont.)</div></div>
+      </div>
+
+      <h3>Research Questions</h3>
+      <p>Specific questions derived from the research problem that guide the study. They break the broad problem into manageable, investigable parts.</p>
+
+      <h3>Hypotheses</h3>
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>A tentative, testable statement conjecturing the expected relationship between variables. An educated guess derived from theory that can be tested statistically.</p>
+      </div>
+
+      <h4>Characteristics of a Good Hypothesis</h4>
+      <ul class="bullet-list">
+        <li>Stated clearly and unambiguously in declarative form.</li>
+        <li>Conjectures a relationship between two or more variables.</li>
+        <li>Testable with empirical data.</li>
+        <li>Consistent with known facts.</li>
+        <li>Specific — must not use vague adjectives (e.g., "bright students").</li>
+      </ul>
+
+      <h4>Types of Hypotheses</h4>
+      <table class="summary-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Null (H₀)</td><td>States NO significant difference/relationship. Used in statistical testing.</td></tr>
+          <tr><td>Alternative (H₁/Hₐ)</td><td>States there IS a significant difference/relationship. Can be directional (one-tailed) or non-directional (two-tailed).</td></tr>
+          <tr><td>Scientific</td><td>A suggested solution/intelligent informed guess.</td></tr>
+          <tr><td>Statistical</td><td>A statement about an unknown parameter testable through data.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box blue">
+        <div class="hb-label blue"><i class="ti ti-info-circle"></i> Important</div>
+        <p>In educational research, hypotheses are usually stated in <strong>null form (H₀)</strong> for testing, because statistical tests are designed to reject or fail to reject the null hypothesis.</p>
+      </div>
+
+      <h3>Research Proposal Structure</h3>
+      <ul class="bullet-list">
+        <li>Title</li>
+        <li>Introduction (Background & Problem Statement)</li>
+        <li>Research Questions & Hypotheses</li>
+        <li>Scope and Limitations</li>
+        <li>Review of Related Literature</li>
+        <li>Theoretical/Conceptual Framework</li>
+        <li>Research Methodology (design, population, sample, instruments, analysis)</li>
+        <li>References</li>
+        <li>Appendices</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 7 -->
+    <section class="notes-section" id="sec7">
+      <div class="sec-header">
+        <div class="sec-num">7</div>
+        <div><div class="sec-title">Research Designs</div><div class="sec-src">Unit 3</div></div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>A systematic plan/framework a researcher adopts to answer research questions. It defines the type of study, variables, data collection methods, and analysis plan. Think of it as the <em>blueprint of a building</em>.</p>
+      </div>
+
+      <h3>Experimental Research Designs</h3>
+      <table class="summary-table">
+        <thead><tr><th>Design Type</th><th>Random Assignment</th><th>Control Group</th><th>Strength</th></tr></thead>
+        <tbody>
+          <tr><td>Pre-Experimental</td><td>No</td><td>Usually No</td><td>Weak</td></tr>
+          <tr><td>True Experimental</td><td>Yes</td><td>Yes</td><td>Strongest</td></tr>
+          <tr><td>Quasi-Experimental</td><td>No</td><td>Usually Yes</td><td>Moderate</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Pre-Experimental Designs</h4>
+      <ul class="bullet-list">
+        <li><strong>One-Shot Case Study:</strong> Treatment → Observation only. No baseline. [X → O]</li>
+        <li><strong>One-Group Pretest-Posttest:</strong> Same group tested before and after. [O₁ → X → O₂]</li>
+        <li><strong>Static Group Comparison:</strong> Two existing groups; one receives treatment. [X→O₁ vs O₂]</li>
+      </ul>
+
+      <h4>True Experimental Designs</h4>
+      <ul class="bullet-list">
+        <li><strong>Posttest-Only Control Group:</strong> Random assignment; only posttest. [R→X→O₁ vs R→O₂]</li>
+        <li><strong>Pretest-Posttest Control Group:</strong> Both groups tested before and after. [R→O₁→X→O₂ vs R→O₃→O₄]</li>
+        <li><strong>Solomon Four-Group:</strong> Combines above two designs to control for testing effects.</li>
+      </ul>
+
+      <h4>Quasi-Experimental Designs</h4>
+      <ul class="bullet-list">
+        <li><strong>Non-Equivalent Control Group:</strong> Two existing groups; pretest and posttest.</li>
+        <li><strong>One-Group Pretest-Posttest:</strong> Single group measured before and after.</li>
+        <li><strong>Interrupted Time-Series:</strong> Repeated observations before and after treatment.</li>
+      </ul>
+
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-bulb"></i> Practical Note</div>
+        <p>True experimental designs require random assignment (gold standard for causality). In schools, random assignment is rarely possible, so <strong>quasi-experimental designs are most common</strong> in educational research.</p>
+      </div>
+
+      <h3>Key Symbols</h3>
+      <p style="color:var(--text);"><strong>X</strong> = Treatment/Intervention &nbsp;|&nbsp; <strong>O</strong> = Observation/Test &nbsp;|&nbsp; <strong>R</strong> = Random Assignment</p>
+
+      <h3>Other Research Designs</h3>
+      <ul class="bullet-list">
+        <li><strong>Descriptive:</strong> Describes existing conditions without manipulation. Sub-types: Survey, Case Study, Document Analysis, Trend Study, Correlational.</li>
+        <li><strong>Historical:</strong> Describes and interprets past events using primary (first-hand) and secondary (not first-hand) sources.</li>
+        <li><strong>Correlational:</strong> Examines relationships between variables. Ranges from -1 to +1. Correlation ≠ Causation.</li>
+        <li><strong>Causal-Comparative (Ex Post Facto):</strong> Examines how an existing past IV affects the DV. No manipulation.</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 8 -->
+    <section class="notes-section" id="sec8">
+      <div class="sec-header">
+        <div class="sec-num">8</div>
+        <div><div class="sec-title">Literature Review, Theoretical & Conceptual Frameworks</div><div class="sec-src">Unit 4</div></div>
+      </div>
+
+      <p>Literature review is the systematic study, evaluation, and synthesis of all existing works relevant to the research topic. No meaningful research can be conducted without it.</p>
+
+      <h3>Purposes of Literature Review</h3>
+      <ul class="bullet-list">
+        <li>Keeps the researcher updated on developments in the field.</li>
+        <li>Identifies gaps in existing knowledge.</li>
+        <li>Helps refine research questions and hypotheses.</li>
+        <li>Provides possible research designs and methodologies.</li>
+        <li>Provides a backdrop for interpreting results.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-alert-circle"></i> Important Distinction</div>
+        <p>Literature review is <strong>NOT</strong> a list of summaries — it is a critical discussion of what is known, showing areas of agreement, disagreement, and knowledge gaps.</p>
+      </div>
+
+      <h3>Theoretical vs. Conceptual Framework</h3>
+      <table class="summary-table">
+        <thead><tr><th>Feature</th><th>Theoretical Framework</th><th>Conceptual Framework</th></tr></thead>
+        <tbody>
+          <tr><td>Source</td><td>Drawn from existing theories by scholars</td><td>Developed by the researcher from concepts</td></tr>
+          <tr><td>Scope</td><td>Narrower — focuses on one theory</td><td>Broader — covers the whole research project</td></tr>
+          <tr><td>Purpose</td><td>Provides theoretical grounding</td><td>Maps variables and their relationships</td></tr>
+          <tr><td>Representation</td><td>Usually described in prose</td><td>Often shown as a diagram or model</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Citation & Referencing (APA Style)</h3>
+      <ul class="bullet-list">
+        <li><strong>Paraphrase (end):</strong> (Okonkwo & Osundiji, 2003)</li>
+        <li><strong>Paraphrase (start):</strong> Okonkwo and Osundiji (2003) note that…</li>
+        <li><strong>Direct quote:</strong> According to Osundiji (2006:71), '…'</li>
+        <li><strong>3+ authors:</strong> First citation: Osundiji, Salawu, and Aiyedun (2006); subsequently: Osundiji et al. (2006)</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 9 -->
+    <section class="notes-section" id="sec9">
+      <div class="sec-header">
+        <div class="sec-num">9</div>
+        <div><div class="sec-title">Sample & Sampling Techniques</div><div class="sec-src">Unit 5</div></div>
+      </div>
+
+      <table class="summary-table">
+        <thead><tr><th>Concept</th><th>Definition</th></tr></thead>
+        <tbody>
+          <tr><td>Population</td><td>All members of a defined group sharing specific characteristics.</td></tr>
+          <tr><td>Element</td><td>A single member of a given population.</td></tr>
+          <tr><td>Sample</td><td>A subset of the population selected for study.</td></tr>
+          <tr><td>Sampling</td><td>The process of selecting a sample from the population.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>A. Probability Sampling</h3>
+      <p>Every member has a known, equal chance of selection — allows generalisation.</p>
+      <table class="summary-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Simple Random</td><td>Equal chance; lottery, random number tables, or computer-generated numbers.</td></tr>
+          <tr><td>Systematic</td><td>Select every nth element from a list. n = N ÷ sample size.</td></tr>
+          <tr><td>Stratified</td><td>Divide into strata; randomly sample each. Proportionate or Disproportionate.</td></tr>
+          <tr><td>Cluster</td><td>Naturally occurring clusters randomly selected; study members within clusters.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>B. Non-Probability Sampling</h3>
+      <p>Members do not have equal chances. Cannot be statistically generalised — useful for qualitative/exploratory research.</p>
+      <table class="summary-table">
+        <thead><tr><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Purposive/Judgemental</td><td>Deliberately selects subjects based on specific traits.</td></tr>
+          <tr><td>Convenience/Accidental</td><td>Any easily available participant. Fast but least representative.</td></tr>
+          <tr><td>Quota</td><td>Subgroups; convenience sampling until each quota is filled.</td></tr>
+          <tr><td>Snowball</td><td>Initial participants refer others. Useful for hard-to-reach populations.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Sample Size Formulas</h3>
+      <div class="def-box">
+        <div class="def-label">Yamane's Formula</div>
+        <p>n = N ÷ (1 + Ne²), where N = population size, e = margin of error (usually 0.05).<br>
+        Rule of thumb: at least 10% of population is generally acceptable.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 10 -->
+    <section class="notes-section" id="sec10">
+      <div class="sec-header">
+        <div class="sec-num">10</div>
+        <div><div class="sec-title">Types of Data & Data Gathering Instruments</div><div class="sec-src">Unit 6</div></div>
+      </div>
+
+      <h3>Scales of Measurement</h3>
+      <table class="summary-table">
+        <thead><tr><th>Scale</th><th>Properties</th><th>Examples</th><th>Statistics</th></tr></thead>
+        <tbody>
+          <tr><td>Nominal</td><td>Categories with no order</td><td>Gender, religion, school type</td><td>Mode, frequency, chi-square</td></tr>
+          <tr><td>Ordinal</td><td>Meaningful order; unequal intervals</td><td>Class rank, Likert scale</td><td>Median, percentile, Spearman's rho</td></tr>
+          <tr><td>Interval</td><td>Equal intervals; no absolute zero</td><td>Temperature, IQ scores, standardised test scores</td><td>Mean, SD, Pearson's r, t-test</td></tr>
+          <tr><td>Ratio</td><td>Equal intervals + absolute zero</td><td>Height, weight, income, number of students</td><td>All statistics including geometric mean</td></tr>
+        </tbody>
+      </table>
+      <p>As you move from Nominal → Ratio, data becomes richer and more powerful statistical tools can be applied.</p>
+
+      <h3>Data Gathering Instruments</h3>
+      <table class="summary-table">
+        <thead><tr><th>Instrument</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr><td>Questionnaire</td><td>Written questions. Open-ended or closed-ended. Cheap; low return rate risk.</td></tr>
+          <tr><td>Interview</td><td>Verbal interaction. Structured, semi-structured, or unstructured. Allows probing.</td></tr>
+          <tr><td>Observation</td><td>Directly watches behaviour. Participant or non-participant. Records actual behaviour.</td></tr>
+          <tr><td>Tests/Examinations</td><td>Objective scoring; widely accepted.</td></tr>
+          <tr><td>Focus Group Discussion</td><td>6–12 participants. Rich interactive data; dominant voices may suppress others.</td></tr>
+          <tr><td>Documentary Analysis</td><td>Existing records/documents. Unobtrusive; may be incomplete or biased.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 11 -->
+    <section class="notes-section" id="sec11">
+      <div class="sec-header">
+        <div class="sec-num">11</div>
+        <div><div class="sec-title">Data Processing, Analysis & Descriptive Statistics</div><div class="sec-src">Unit 7</div></div>
+      </div>
+
+      <h3>Data Processing Steps</h3>
+      <ul class="bullet-list">
+        <li><strong>Editing:</strong> Check for completeness, legibility, and consistency.</li>
+        <li><strong>Coding:</strong> Assign numbers/symbols. E.g., Male=1, Female=2.</li>
+        <li><strong>Classification:</strong> Group data into meaningful categories.</li>
+        <li><strong>Tabulation:</strong> Organise into frequency tables and cross-tabulations.</li>
+        <li><strong>Data Cleaning:</strong> Fix errors, duplicates, missing values, outliers.</li>
+      </ul>
+
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-alert-triangle"></i> GIGO Principle</div>
+        <p><strong>Garbage In, Garbage Out</strong> — inaccurate or poorly processed data produces meaningless or misleading results.</p>
+      </div>
+
+      <h3>Measures of Central Tendency</h3>
+      <table class="summary-table">
+        <thead><tr><th>Measure</th><th>Meaning & When to Use</th></tr></thead>
+        <tbody>
+          <tr><td>Mean</td><td>Sum ÷ N. Best for interval/ratio data with no extreme outliers.</td></tr>
+          <tr><td>Median</td><td>Middle value when ordered. Best when data has extreme values or is skewed.</td></tr>
+          <tr><td>Mode</td><td>Most frequent value. Best for nominal data.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Measures of Dispersion</h3>
+      <table class="summary-table">
+        <thead><tr><th>Measure</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Range</td><td>Maximum − Minimum. Simple but affected by extreme values.</td></tr>
+          <tr><td>Variance</td><td>Average of squared deviations from the mean.</td></tr>
+          <tr><td>Standard Deviation (SD)</td><td>√Variance. Average distance of each score from the mean. Smaller SD = more clustered.</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Computing SD — 5 Steps</h4>
+      <div class="stages-grid">
+        <div class="stage-row"><div class="stage-num" style="background:rgba(139,92,246,0.2);color:#c084fc;">1</div><div><div class="stage-title">Calculate the Mean</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(59,130,246,0.2);color:#60a5fa;">2</div><div><div class="stage-title">Subtract the Mean from each score</div><div class="stage-desc">(X − Mean)</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(34,197,94,0.15);color:#4ade80;">3</div><div><div class="stage-title">Square each deviation</div><div class="stage-desc">(X − Mean)²</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(245,158,11,0.15);color:#fbbf24;">4</div><div><div class="stage-title">Calculate Variance</div><div class="stage-desc">Σ(X−Mean)² ÷ (N−1)</div></div></div>
+        <div class="stage-row"><div class="stage-num" style="background:rgba(239,68,68,0.15);color:#f87171;">5</div><div><div class="stage-title">Take the Square Root</div><div class="stage-desc">√Variance = Standard Deviation</div></div></div>
+      </div>
+
+      <h3>Inferential Statistics — Common Tools</h3>
+      <table class="summary-table">
+        <thead><tr><th>Tool</th><th>What it Does</th><th>When to Use</th></tr></thead>
+        <tbody>
+          <tr><td>t-test (Independent)</td><td>Compares means of 2 independent groups</td><td>Male vs female</td></tr>
+          <tr><td>t-test (Paired)</td><td>Compares means of same group at 2 time points</td><td>Pre-test vs post-test</td></tr>
+          <tr><td>ANOVA</td><td>Compares means of 3+ groups using F-test</td><td>3+ teaching methods</td></tr>
+          <tr><td>ANCOVA</td><td>Like ANOVA but controls for a covariate</td><td>Pre-existing differences</td></tr>
+          <tr><td>Chi-Square (χ²)</td><td>Tests relationship between 2 categorical variables</td><td>Nominal/frequency data</td></tr>
+          <tr><td>Pearson's r</td><td>Linear relationship strength/direction (interval/ratio)</td><td>Two continuous variables</td></tr>
+          <tr><td>Spearman's Rho</td><td>Like Pearson's but for ordinal/non-normal data</td><td>Ranked/ordinal data</td></tr>
+          <tr><td>Regression</td><td>Predicts one variable's value based on another</td><td>Predictive analysis</td></tr>
+          <tr><td>MANOVA</td><td>Compares 3+ groups on multiple DVs simultaneously</td><td>Multiple dependent variables</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 12 -->
+    <section class="notes-section" id="sec12">
+      <div class="sec-header">
+        <div class="sec-num">12</div>
+        <div><div class="sec-title">Hypothesis Testing & Error Types</div><div class="sec-src">Unit 7 (cont.)</div></div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>Hypothesis testing is a statistical procedure used to determine whether there is enough evidence to reject the null hypothesis (H₀) in favour of the alternative (H₁).</p>
+      </div>
+
+      <h3>Critical Values & Significance Level (α)</h3>
+      <p>The significance level (α) is the probability of making a Type I error. Common values: α = 0.05 (5%) or α = 0.01 (1%).</p>
+      <ul class="bullet-list">
+        <li>If the computed test statistic exceeds the critical value → reject H₀.</li>
+        <li>If it does not exceed → fail to reject H₀.</li>
+      </ul>
+
+      <h3>Types of Errors in Hypothesis Testing</h3>
+      <table class="summary-table">
+        <thead><tr><th>Error Type</th><th>Decision</th><th>Reality</th><th>Consequence</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Type I Error (α)</strong></td><td>Reject H₀</td><td>H₀ is true</td><td>False positive — conclude effect exists when it doesn't.</td></tr>
+          <tr><td><strong>Type II Error (β)</strong></td><td>Fail to reject H₀</td><td>H₀ is false</td><td>False negative — miss a real effect.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Qualitative Data Analysis</h3>
+      <table class="summary-table">
+        <thead><tr><th>Method</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Thematic Analysis</td><td>Identifying recurring patterns (themes) across a dataset.</td></tr>
+          <tr><td>Content Analysis</td><td>Systematic coding of text into categories to count/quantify themes.</td></tr>
+          <tr><td>Grounded Theory</td><td>Theory emerges from data through iterative coding.</td></tr>
+          <tr><td>Narrative Analysis</td><td>Analysing the structure and content of personal stories.</td></tr>
+          <tr><td>Discourse Analysis</td><td>Examining how language constructs meaning in context.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box purple">
+        <div class="hb-label purple"><i class="ti ti-chart-bar"></i> Descriptive vs. Inferential</div>
+        <p><strong>Descriptive:</strong> Summarises and describes the data you have — does not generalise beyond the data.<br>
+        <strong>Inferential:</strong> Uses sample data to make predictions or generalise to a larger population.</p>
+      </div>
+
+      <h3>Research Ethics</h3>
+      <ul class="bullet-list">
+        <li>Obtain informed consent from participants.</li>
+        <li>Ensure confidentiality and anonymity of data.</li>
+        <li>Do no harm (physical, psychological, social).</li>
+        <li>Report findings honestly without fabrication or falsification.</li>
+        <li>Acknowledge all sources (avoid plagiarism).</li>
+        <li>Obtain necessary institutional approvals.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer class="hub-footer">
+  EDU 302 &nbsp;·&nbsp; <span>Resources from Uthtech Solutions &nbsp;·&nbsp; Built by samwissy</span>
+</footer>
+
+<script>
+  // Sidebar active state on scroll
+  const sections = document.querySelectorAll('.notes-section');
+  const sbLinks = document.querySelectorAll('.sb-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        sbLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sb-link[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

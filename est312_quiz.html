@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EST 312 — CBT Practice Quiz | AI & Machine Learning</title>
+  <meta name="description" content="CBT practice quiz for EST 312: Pedagogical Techniques in AI & Machine Learning I — theory, objectives, and Python code questions.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1533030534131705" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --accent:#f59e0b;--accent-dim:rgba(245,158,11,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--green-dim:rgba(34,197,94,0.12);
+      --red:#ef4444;--red-dim:rgba(239,68,68,0.12);
+      --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.1);
+      --purple:#a855f7;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
+
+    /* SCREENS */
+    .screen{display:none;min-height:100vh;}
+    .screen.active{display:flex;flex-direction:column;}
+
+    /* ───────── LANDING ───────── */
+    .landing{align-items:center;justify-content:center;padding:2rem 1rem;position:relative;overflow:hidden;}
+    .landing-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(245,158,11,0.08),transparent);pointer-events:none;}
+    .landing-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:20px;padding:2.5rem 2rem;max-width:500px;width:100%;text-align:center;position:relative;z-index:1;}
+    .lc-icon{width:64px;height:64px;background:var(--accent-dim);border:0.5px solid rgba(245,158,11,0.3);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:28px;color:var(--accent);}
+    .lc-course{font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);margin-bottom:0.5rem;font-weight:600;}
+    .lc-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;line-height:1.3;}
+    .lc-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+    .lc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.8rem;}
+    .lc-stat{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.8rem 0.5rem;}
+    .lc-stat-val{font-size:20px;font-weight:700;color:#fff;display:block;}
+    .lc-stat-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+    .btn-start{width:100%;padding:13px;background:var(--accent);color:#000;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn-start:hover{background:#d97706;transform:translateY(-1px);}
+    .lc-note{font-size:11px;color:var(--dim);margin-top:1rem;}
+    .lc-links{display:flex;gap:10px;margin-top:1rem;}
+    .lc-link{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:transparent;border:0.5px solid var(--border);border-radius:8px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.2s;}
+    .lc-link:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+
+    /* ───────── TOP BAR ───────── */
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.6rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .tb-title{font-size:12px;font-weight:600;color:#fff;}
+    .tb-info{font-size:11px;color:var(--muted);}
+    .progress-wrap{flex:1;min-width:120px;max-width:200px;height:5px;background:var(--bg3);border-radius:99px;border:0.5px solid var(--border);overflow:hidden;}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),#f97316);border-radius:99px;transition:width 0.4s ease;width:0%;}
+    .btn-quit{background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:7px;padding:5px 12px;font-size:11px;cursor:pointer;font-family:var(--font);transition:all 0.2s;}
+    .btn-quit:hover{border-color:var(--red);color:var(--red);}
+
+    /* ───────── QUIZ SCREEN ───────── */
+    .quiz-screen{flex:1;display:flex;flex-direction:column;}
+    .quiz-body{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:1.5rem 1rem;}
+    .quiz-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:16px;max-width:700px;width:100%;padding:1.8rem;}
+    .qc-meta{display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+    .qc-num{font-size:11px;color:var(--muted);}
+    .qc-type{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;border-radius:99px;padding:2px 9px;}
+    .qc-type.obj{background:var(--blue-dim);color:var(--blue);border:0.5px solid rgba(59,130,246,0.2);}
+    .qc-type.theory{background:var(--accent-dim);color:var(--accent);border:0.5px solid rgba(245,158,11,0.2);}
+    .qc-type.code{background:rgba(168,85,247,0.1);color:var(--purple);border:0.5px solid rgba(168,85,247,0.2);}
+    .qc-sec{font-size:10px;color:var(--dim);background:var(--bg3);border:0.5px solid var(--border);border-radius:99px;padding:2px 8px;}
+    .hint-btn{background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:99px;padding:2px 10px;font-size:10px;cursor:pointer;font-family:var(--font);margin-left:auto;transition:all 0.2s;display:flex;align-items:center;gap:4px;}
+    .hint-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .hint-box{background:rgba(245,158,11,0.06);border:0.5px solid rgba(245,158,11,0.2);border-radius:8px;padding:0.6rem 0.8rem;font-size:11.5px;color:var(--muted);margin-bottom:0.8rem;display:none;}
+    .hint-box.visible{display:block;}
+    .q-text{font-size:15px;font-weight:500;color:#fff;margin-bottom:1.3rem;line-height:1.65;}
+    .q-code{background:#080d1a;border:0.5px solid rgba(245,158,11,0.2);border-radius:8px;padding:0.8rem 1rem;font-family:'Courier New',Courier,monospace;font-size:12px;color:#e2e8f0;margin-bottom:1.2rem;overflow-x:auto;line-height:1.7;white-space:pre;}
+    .opts{display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem;}
+    .opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:0.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.15s;background:transparent;position:relative;}
+    .opt:hover:not(.disabled){border-color:rgba(245,158,11,0.4);background:var(--accent-dim);}
+    .opt.selected{border-color:var(--accent);background:var(--accent-dim);}
+    .opt.correct{border-color:var(--green)!important;background:var(--green-dim)!important;}
+    .opt.wrong{border-color:var(--red)!important;background:var(--red-dim)!important;}
+    .opt.disabled{cursor:default;}
+    .opt-letter{width:22px;height:22px;border-radius:6px;border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--muted);flex-shrink:0;margin-top:1px;transition:all 0.15s;}
+    .opt.selected .opt-letter{background:var(--accent);border-color:var(--accent);color:#000;}
+    .opt.correct .opt-letter{background:var(--green);border-color:var(--green);color:#000;}
+    .opt.wrong .opt-letter{background:var(--red);border-color:var(--red);color:#fff;}
+    .opt-text{font-size:13px;color:var(--muted);line-height:1.5;text-align:left;}
+    .opt.correct .opt-text,.opt.wrong .opt-text{color:var(--text);}
+    .explanation{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:0.8rem 1rem;margin-bottom:1rem;display:none;}
+    .explanation.visible{display:block;}
+    .exp-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:4px;font-weight:600;}
+    .exp-text{font-size:12.5px;color:var(--muted);line-height:1.6;}
+    .quiz-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .btn-nav{display:flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.2s;border:none;}
+    .btn-prev{background:var(--bg3);border:0.5px solid var(--border);color:var(--muted);}
+    .btn-prev:hover:not(:disabled){background:rgba(255,255,255,0.07);color:var(--text);}
+    .btn-prev:disabled{opacity:0.3;cursor:default;}
+    .btn-next{background:var(--accent);color:#000;}
+    .btn-next:hover:not(:disabled){background:#d97706;}
+    .btn-next:disabled{opacity:0.4;cursor:default;}
+    .q-counter{font-size:12px;color:var(--muted);}
+
+    /* GRID NAV */
+    .grid-nav{padding:0.8rem 1rem;display:flex;flex-wrap:wrap;gap:5px;justify-content:center;border-top:0.5px solid var(--border);background:var(--bg2);}
+    .gn-btn{width:30px;height:30px;border-radius:6px;border:0.5px solid var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:var(--font);transition:all 0.15s;font-weight:500;}
+    .gn-btn.answered{background:var(--accent-dim);border-color:rgba(245,158,11,0.35);color:var(--accent);}
+    .gn-btn.current{background:var(--accent);border-color:var(--accent);color:#000;font-weight:700;}
+
+    /* ───────── RESULTS ───────── */
+    .results-screen{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1rem;}
+    .results-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:20px;max-width:560px;width:100%;padding:2rem;text-align:center;}
+    .score-ring{width:110px;height:110px;border-radius:50%;margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;}
+    .score-ring svg{position:absolute;top:0;left:0;transform:rotate(-90deg);}
+    .score-val{font-size:28px;font-weight:800;color:#fff;position:relative;z-index:1;}
+    .score-lbl{font-size:10px;color:var(--muted);position:relative;z-index:1;}
+    .result-grade{font-size:18px;font-weight:700;margin-bottom:0.3rem;}
+    .result-msg{font-size:13px;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;}
+    .result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;}
+    .rs-cell{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.8rem;}
+    .rs-val{font-size:18px;font-weight:700;display:block;}
+    .rs-lbl{font-size:10px;color:var(--muted);margin-top:2px;}
+    .result-btns{display:flex;flex-direction:column;gap:8px;}
+    .btn-r{width:100%;padding:11px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.2s;border:none;display:flex;align-items:center;justify-content:center;gap:6px;}
+    .btn-r.primary{background:var(--accent);color:#000;}
+    .btn-r.primary:hover{background:#d97706;}
+    .btn-r.sec{background:transparent;border:0.5px solid var(--border);color:var(--muted);}
+    .btn-r.sec:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .aoc-coverage{background:var(--bg3);border:0.5px solid var(--border);border-radius:12px;padding:1rem;margin-top:1.2rem;text-align:left;}
+    .aoc-cov-title{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:0.6rem;text-transform:uppercase;letter-spacing:0.06em;}
+    .aoc-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+    .aoc-bar-label{font-size:10.5px;color:var(--muted);min-width:95px;}
+    .aoc-bar-track{flex:1;height:5px;background:var(--bg);border-radius:99px;overflow:hidden;}
+    .aoc-bar-fill{height:100%;border-radius:99px;background:var(--accent);}
+    .aoc-bar-pct{font-size:10px;color:var(--dim);min-width:28px;text-align:right;}
+
+    @media(max-width:480px){.lc-stats{grid-template-columns:repeat(3,1fr);}.result-stats{grid-template-columns:repeat(3,1fr);}.grid-nav{gap:4px;}.gn-btn{width:27px;height:27px;font-size:10px;}}
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     LANDING SCREEN
+══════════════════════════════════════════ -->
+<div class="screen landing active" id="screen-landing">
+  <div class="landing-bg"></div>
+  <div class="landing-card">
+    <div class="lc-icon"><i class="ti ti-brain"></i></div>
+    <div class="lc-course">EST 312 — CBT Practice</div>
+    <div class="lc-title">AI & Machine Learning I</div>
+    <div class="lc-sub">Comprehensive practice questions covering all major topics in the course. Mix of objective, theory-application, and Python code questions. Prepared by samwissy.</div>
+    <div class="lc-stats">
+      <div class="lc-stat"><span class="lc-stat-val" id="stat-q">65</span><div class="lc-stat-lbl">Questions</div></div>
+      <div class="lc-stat"><span class="lc-stat-val">60</span><div class="lc-stat-lbl">Seconds/Q</div></div>
+      <div class="lc-stat"><span class="lc-stat-val">10</span><div class="lc-stat-lbl">Topics</div></div>
+    </div>
+    <button class="btn-start" id="btn-start-quiz" onclick="startQuiz()"><i class="ti ti-player-play" style="font-size:15px"></i> Start Practice</button>
+    <div class="lc-note">Instant feedback after each answer · Explanations included</div>
+    <div class="lc-links">
+      <a class="lc-link" href="index.html" id="land-home"><i class="ti ti-home" style="font-size:13px"></i> Home</a>
+      <a class="lc-link" href="est312_notes.html" id="land-notes"><i class="ti ti-book" style="font-size:13px"></i> Study Notes</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     QUIZ SCREEN
+══════════════════════════════════════════ -->
+<div class="screen quiz-screen" id="screen-quiz">
+  <div class="top-bar">
+    <div class="tb-left">
+      <span class="tb-title">EST 312 Quiz</span>
+      <span class="tb-info" id="tb-info">Q 1 / 65</span>
+    </div>
+    <div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
+    <button class="btn-quit" onclick="confirmQuit()">Quit</button>
+  </div>
+
+  <div class="quiz-body">
+    <div class="quiz-card">
+      <div class="qc-meta">
+        <span class="qc-num" id="qc-num">Question 1</span>
+        <span class="qc-type obj" id="qc-type">Objective</span>
+        <span class="qc-sec" id="qc-sec" style="display:none"></span>
+        <button class="hint-btn" id="hint-btn" onclick="toggleHint()"><i class="ti ti-bulb" style="font-size:11px"></i> Hint</button>
+      </div>
+      <div class="hint-box" id="hint-box"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="q-code" id="q-code" style="display:none"></div>
+      <div class="opts" id="opts"></div>
+      <div class="explanation" id="explanation"><div class="exp-label">Explanation</div><div class="exp-text" id="exp-text"></div></div>
+      <div class="quiz-nav">
+        <button class="btn-nav btn-prev" id="btn-prev" onclick="goTo(current-1)" disabled><i class="ti ti-chevron-left"></i> Prev</button>
+        <span class="q-counter" id="q-counter">1 / 65</span>
+        <button class="btn-nav btn-next" id="btn-next" onclick="nextQuestion()">Next <i class="ti ti-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-nav" id="grid-nav"></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     RESULTS SCREEN
+══════════════════════════════════════════ -->
+<div class="screen results-screen" id="screen-results">
+  <div class="results-card">
+    <div class="score-ring" id="score-ring">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <circle cx="55" cy="55" r="48" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/>
+        <circle id="score-arc" cx="55" cy="55" r="48" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6"/>
+      </svg>
+      <div class="score-val" id="score-val">0%</div>
+      <div class="score-lbl">Score</div>
+    </div>
+    <div class="result-grade" id="result-grade"></div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="result-stats">
+      <div class="rs-cell"><span class="rs-val" id="rs-correct" style="color:var(--green)">0</span><div class="rs-lbl">Correct</div></div>
+      <div class="rs-cell"><span class="rs-val" id="rs-wrong" style="color:var(--red)">0</span><div class="rs-lbl">Wrong</div></div>
+      <div class="rs-cell"><span class="rs-val" id="rs-skipped" style="color:var(--muted)">0</span><div class="rs-lbl">Skipped</div></div>
+    </div>
+    <div class="aoc-coverage" id="aoc-coverage" style="display:none"></div>
+    <div class="result-btns" style="margin-top:1rem;">
+      <button class="btn-r primary" onclick="restartQuiz()"><i class="ti ti-refresh"></i> Retry Quiz</button>
+      <button class="btn-r sec" onclick="location.href='est312_notes.html'"><i class="ti ti-book"></i> Review Notes</button>
+      <button class="btn-r sec" onclick="location.href='index.html'"><i class="ti ti-home"></i> Back to Home</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const BANK = [
+  {q:"According to UNICEF (2021), Artificial Intelligence is best described as:",opts:["Machines that autonomously think exactly like humans","Machine-based systems that, given human-defined objectives, make predictions, recommendations, or decisions","Software that can write its own source code without human input","Hardware components designed to process images at high speed"],ans:1,exp:"UNICEF (2021) defines AI as 'machine-based systems that can, given a set of human-defined objectives, make predictions, recommendations, or decisions that influence real or virtual environments.'",hint:"The keyword is 'human-defined objectives.'",sec:"Topic 1",type:"obj"},
+
+  {q:"Machine Learning (ML) is best described as:",opts:["A type of hardware that speeds up computation","A subset of AI that learns from data without being explicitly programmed for every task","A programming language used only for robotics","The same thing as Artificial Intelligence"],ans:1,exp:"As defined by Dhanalaxmi (2020), ML is a subset of AI where computer systems learn from patterns and inference rather than definitive instructions.",hint:"Think: Data + Answers → discovers the rules.",sec:"Topic 1",type:"obj"},
+
+  {q:"Which of the following correctly describes the hierarchy of AI, ML, and Deep Learning?",opts:["Deep Learning ⊃ ML ⊃ AI","AI ⊃ ML ⊃ Deep Learning","ML ⊃ AI ⊃ Deep Learning","Deep Learning ⊃ AI ⊃ ML"],ans:1,exp:"AI is the broadest concept; ML is a subset of AI; Deep Learning is a subset of ML using multi-layered neural networks.",hint:"Think of nested circles: biggest is AI.",sec:"Topic 1",type:"obj"},
+
+  {q:"In the context of Nigerian education, which of the following is a real-world AI application?",opts:["A physical chalkboard","An AI-powered JAMB/WAEC adaptive preparation platform","A printed textbook","A manual attendance register"],ans:1,exp:"Adaptive learning platforms that personalise JAMB/WAEC preparation based on a student's performance are a direct AI application in Nigerian education.",hint:"Think adaptive and personalised learning for Nigerian students.",sec:"Topic 1",type:"theory"},
+
+  {q:"A Nigerian bank's system automatically flags unusual mobile money transactions for review. This is an example of AI applied to:",opts:["Natural Language Processing","Computer Vision","Fraud detection in Finance","Expert Systems in Agriculture"],ans:2,exp:"Fraud detection systems in banking — including Nigerian mobile money platforms — use supervised ML to flag suspicious transactions in real time.",hint:"Banks → money → unusual transactions → which sector?",sec:"Topic 1",type:"obj"},
+
+  {q:"Which type of AI is the ONLY one that actually exists and is widely used today?",opts:["Super AI","General AI (Strong AI)","Narrow AI (Weak AI)","Sentient AI"],ans:2,exp:"Narrow AI, also called Weak AI, is designed to perform one specific task very well but cannot operate outside that task. General and Super AI remain hypothetical or theoretical.",hint:"All practical work in this course focuses on this type.",sec:"Topic 1",type:"obj"},
+
+  {q:"Algorithmic bias in Machine Learning primarily occurs because:",opts:["Python code contains syntax errors","The model learns and reproduces patterns of bias present in the historical training data","GPU processors overheat during training","The programmer uses the wrong library"],ans:1,exp:"If historical training data contains bias (e.g., past hiring decisions that favoured one group), the ML model will learn and replicate those biases, potentially discriminating against certain groups.",hint:"The model learns from data — so if data is biased...",sec:"Topic 2",type:"obj"},
+
+  {q:"Joy Buolamwini's research at MIT documented that facial recognition AI systems were significantly less accurate for:",opts:["Elderly men with beards","Lighter-skinned individuals","Darker-skinned women","Children under age 10"],ans:2,exp:"Joy Buolamwini's work at MIT (Algorithmic Justice League) found that commercial facial recognition systems had significantly higher error rates for darker-skinned individuals, especially women.",hint:"Her work is related to the Algorithmic Justice League.",sec:"Topic 2",type:"obj"},
+
+  {q:"At which stage of a Machine Learning pipeline can bias be introduced through skewed data collection?",opts:["Only at the model deployment stage","At the data collection stage, if certain groups are over- or under-represented","Only during hyperparameter tuning","Only when selecting the programming language"],ans:1,exp:"Bias can enter a ML pipeline as early as data collection. If training data over- or under-represents certain groups, the model will learn a skewed view of reality.",hint:"The very first stage of any ML project.",sec:"Topic 2",type:"theory"},
+
+  {q:"In the context of education, an ML model trained to predict student dropout rates using only data from elite private schools would be biased because:",opts:["It uses too many features","The data does not represent students from public or under-resourced schools, skewing predictions","Elite schools have better internet connections","The model would run too slowly"],ans:1,exp:"Feature selection and data collection bias: a model trained on elite school data fails to account for the different patterns and challenges faced by students in public or under-resourced schools.",hint:"Is the training data representative of ALL students?",sec:"Topic 2",type:"theory"},
+
+  {q:"The principle 'Garbage in, Garbage out' in Machine Learning refers to:",opts:["The need to clean the server room","The fact that poorly understood or dirty data leads to a poorly performing model","The importance of using only Python for ML","The rule that models should not be tested"],ans:1,exp:"EDA is critical because a poorly understood dataset leads to a poorly performing model. If you feed garbage data into an ML model, you get garbage predictions out.",hint:"This principle is about the relationship between data quality and model quality.",sec:"Topic 5",type:"obj"},
+
+  {q:"Which of the following is NOT one of the five steps of Exploratory Data Analysis?",opts:["Load and Inspect","Handle Missing Values","Train the final production model","Visualise the Data"],ans:2,exp:"The 5 EDA steps are: (1) Load & Inspect, (2) Handle Missing Values, (3) Identify & Handle Outliers, (4) Visualise the Data, (5) Feature Engineering. Training the production model comes AFTER EDA.",hint:"EDA comes BEFORE model training, not during.",sec:"Topic 5",type:"obj"},
+
+  {q:"A student dataset has a highly skewed distribution of exam scores. The BEST measure of central tendency to use is:",opts:["Mean, because it uses all data points","Mode, because it only considers the most common score","Median, because it is less affected by outliers and skew","Standard deviation, because it measures spread"],ans:2,exp:"With a skewed distribution or outliers, the median is preferred over the mean because the mean is pulled in the direction of the skew/outliers and becomes an unrepresentative measure.",hint:"Which measure is NOT affected by extreme values?",sec:"Topic 5",type:"theory"},
+
+  {q:"Which chart type is BEST for detecting outliers in a dataset?",opts:["Pie chart","Bar chart","Box plot","Line chart"],ans:2,exp:"A box plot shows the median, quartiles (IQR), and individual outlier points beyond the whiskers — making it the best standard chart for detecting outliers visually.",hint:"Think quartiles and whiskers.",sec:"Topic 5",type:"obj"},
+
+  {q:"In Python/Pandas, which command is used to fill all missing values in a dataframe with the column mean?",opts:["df.dropna(inplace=True)","df.fillna(df.mean(), inplace=True)","df.replace(0, df.mean())","df.mean().fillna()"],ans:1,exp:"df.fillna(df.mean(), inplace=True) replaces NaN (missing) values in each column with that column's mean value — a common imputation strategy.",hint:"Fill Not Available → fillna.",sec:"Topic 5",type:"code"},
+
+  {q:"The key difference between Supervised and Unsupervised Learning is:",opts:["Supervised learning uses Python; unsupervised uses R","Supervised learning uses labelled data (inputs + correct outputs); unsupervised uses unlabelled data","Supervised learning is faster than unsupervised","Unsupervised learning always produces better accuracy"],ans:1,exp:"In supervised learning, training data includes both inputs (features) AND correct outputs (labels). In unsupervised learning, there are no labels — the algorithm discovers hidden patterns on its own.",hint:"The word 'supervised' implies guidance — who or what provides that guidance?",sec:"Topic 3",type:"obj"},
+
+  {q:"Predicting whether a student will PASS or FAIL based on attendance and test scores is an example of:",opts:["Unsupervised Clustering","Supervised Classification","Unsupervised Association","Reinforcement Learning"],ans:1,exp:"This is Supervised Classification: the model is trained on labelled historical data (past students with known Pass/Fail outcomes) and predicts the categorical class for new students.",hint:"There IS a correct answer (Pass/Fail) in the training data.",sec:"Topic 3",type:"obj"},
+
+  {q:"A university uses ML to group students into different learning-style profiles without any pre-defined categories. This is an example of:",opts:["Supervised Classification","Linear Regression","Unsupervised Clustering","Reinforcement Learning"],ans:2,exp:"Unsupervised Clustering (e.g., K-Means) groups data points by similarity without pre-defined labels. The model discovers the student groups itself.",hint:"No labels, no predefined categories → which type?",sec:"Topic 3",type:"theory"},
+
+  {q:"Which of the following algorithms is used for UNSUPERVISED learning?",opts:["Logistic Regression","Random Forest","K-Means Clustering","Support Vector Machine (SVM)"],ans:2,exp:"K-Means Clustering is an unsupervised learning algorithm that partitions data into K groups based on similarity. The other options (Logistic Regression, Random Forest, SVM) are all supervised learning algorithms.",hint:"Which one groups data without being told the correct groups?",sec:"Topic 3",type:"obj"},
+
+  {q:"In Reinforcement Learning, an agent learns by:",opts:["Being given thousands of labelled examples","Grouping similar data points together","Interacting with an environment and receiving rewards or penalties for its actions","Applying dimensionality reduction to raw data"],ans:2,exp:"In Reinforcement Learning, an agent explores an environment, takes actions, and receives rewards (for correct actions) or penalties (for incorrect ones), learning to maximise cumulative reward over time.",hint:"Think of how you train a dog with treats.",sec:"Topic 3",type:"obj"},
+
+  {q:"A teacher wants to use AI to identify students at risk of failing. The MOST appropriate type of Machine Learning is:",opts:["Unsupervised Clustering to group students","Supervised Classification using historical Pass/Fail data","Reinforcement Learning with a game-based reward system","Dimensionality Reduction using PCA"],ans:1,exp:"Supervised Classification is most appropriate because we have historical labelled data (previous students with known Pass/Fail outcomes) that the model can learn from to predict at-risk students.",hint:"We KNOW which students passed/failed in the past — that is our labelled training data.",sec:"Topic 2",type:"theory"},
+
+  {q:"Which of the following would be the MOST relevant input feature for an AI model predicting at-risk students?",opts:["The student's full name","The student's attendance rate, assignment submission rate, and mid-term scores","The student's shoe size","The colour of the school's website"],ans:1,exp:"Relevant features must be academically predictive: attendance rate, assignment completion, mid-term scores, prior grades, and LMS engagement are all strongly correlated with academic outcome.",hint:"Which variables actually correlate with whether a student passes or fails?",sec:"Topic 2",type:"obj"},
+
+  {q:"Before deploying an AI model to flag at-risk students, a teacher MUST ethically ensure that:",opts:["The model is published in an academic journal first","Student and parent consent is obtained, data privacy is protected, and the model is audited for demographic bias","The model achieves 100% accuracy on the training data","Only students with smartphones are included in the dataset"],ans:1,exp:"Ethical deployment requires informed consent, data privacy protection, demographic bias audits, and ensuring that AI flags are reviewed by human teachers — not used as final judgments.",hint:"Think about consent, privacy, bias, and human oversight.",sec:"Topic 2",type:"theory"},
+
+  {q:"AI automation replacing routine jobs without support for affected workers is a consequence of:",opts:["Over-reliance on cloud computing","Insufficient training data","Deploying AI without adequate ethical review of its employment impact","Using Python instead of Java"],ans:2,exp:"Job displacement is a key societal consequence of AI deployment. Without ethical review and planning for workforce transition (reskilling, new roles), AI can cause significant unemployment and social disruption.",hint:"Think about societal consequences of unreviewed AI deployment.",sec:"Topic 2",type:"theory"},
+
+  {q:"AI-generated deepfakes (realistic fake videos/images) are PRIMARILY a threat to:",opts:["Database storage capacity","Information integrity and public trust — they can spread dangerous disinformation","Network bandwidth","Cloud server uptime"],ans:1,exp:"Deepfakes weaponise AI to generate convincing fake media, which can spread disinformation, manipulate public opinion, damage reputations, and undermine democratic processes.",hint:"What happens to 'truth' when anyone can generate a convincing fake video?",sec:"Topic 2",type:"obj"},
+
+  {q:"The principle of TRANSPARENCY in Responsible AI means:",opts:["Publishing all source code on GitHub","Users should be able to understand how AI systems make their decisions","The AI system must be visible on a screen at all times","AI models must be trained using transparent (clear) plastic hardware"],ans:1,exp:"Transparency means that users, regulators, and affected individuals can understand the reasoning behind AI decisions — essential for trust, accountability, and detecting errors or bias.",hint:"One of the five principles of Responsible AI discussed in Topic 2.",sec:"Topic 2",type:"obj"},
+
+  {q:"In Nigeria and other African countries, the 'digital divide' in AI access refers to:",opts:["The gap between AI researchers and politicians","Unequal access to AI tools and technology due to differences in wealth, infrastructure, and electricity supply","The difference between English and local-language AI systems","The space between two computer monitors"],ans:1,exp:"As Moemeke (2024) notes, 'inequalities in education could be made worse if certain students are unable to access AI-driven resources.' The digital divide is worsened by unreliable electricity and limited device ownership.",hint:"Think about who can and who cannot access technology in Nigeria.",sec:"Topic 2",type:"theory"},
+
+  {q:"Which Pandas command is used to display the FIRST 10 rows of a DataFrame?",opts:["df.tail(10)","df.show(10)","df.head(10)","df.rows(10)"],ans:2,exp:"df.head(n) returns the first n rows of a DataFrame. By default, head() returns 5 rows. Specifying df.head(10) returns the first 10.",hint:"The 'head' of a list is its beginning.",sec:"Topic 4",type:"code"},
+
+  {q:"To count the number of missing values in EACH COLUMN of a DataFrame, the correct Pandas command is:",opts:["df.isnull().count()","df.isnull().sum()","df.missing().count()","df.nullcount()"],ans:1,exp:"df.isnull() returns a boolean DataFrame (True where values are missing). .sum() then counts the True values per column, giving the number of missing values in each column.",hint:"Think: is null → sum up the trues.",sec:"Topic 4",type:"code"},
+
+  {q:"After loading school_results.csv with Pandas, which command gives the count of 'Pass' vs 'Fail' in the Result column?",opts:["df['Result'].count()","df['Result'].sum()","df['Result'].value_counts()","df['Result'].describe()"],ans:2,exp:"value_counts() returns the frequency of each unique value in a Series. For a 'Pass'/'Fail' column, it returns how many rows are 'Pass' and how many are 'Fail'.",hint:"Count the VALUES in the column.",sec:"Topic 4",type:"code"},
+
+  {q:"Which Pandas command shows the data types of all columns and checks for missing values at a glance?",opts:["df.describe()","df.head()","df.info()","df.summary()"],ans:2,exp:"df.info() provides a concise summary: column names, data types (int64, float64, object), and the count of non-null entries — letting you spot columns with missing values.",hint:"Need INFO-rmation about the dataset structure.",sec:"Topic 4",type:"code"},
+
+  {q:"When splitting a dataset for Machine Learning, train_test_split(X, y, test_size=0.2, random_state=42) means:",opts:["80% for testing, 20% for training","20% for training, 80% for validation","80% for training, 20% for testing, with a fixed random seed","50% for training, 50% for testing"],ans:2,exp:"test_size=0.2 allocates 20% of data to testing and 80% to training. random_state=42 sets a seed for reproducibility — running the code again gives the same split.",hint:"test_size=0.2 means 20% test → what does that leave for training?",sec:"Topic 6",type:"code"},
+
+  {q:"In a Scikit-learn Logistic Regression workflow, after model.fit(X_train, y_train), the NEXT step is:",opts:["model.score(X_train)","y_pred = model.predict(X_test)","model.compile(optimizer='adam')","from sklearn import train_test_split"],ans:1,exp:"After training with .fit(), you generate predictions on the unseen test set using model.predict(X_test). These predictions are then compared against y_test using evaluation metrics.",hint:"After training the model, what do you do with X_test?",sec:"Topic 6",type:"code"},
+
+  {q:"Why is evaluating a model on its TRAINING data misleading?",opts:["Training data is always too small to use","The model will give the exact same output every time","The model has memorised the training answers, giving unrealistically high accuracy that doesn't reflect real-world performance","Python's accuracy_score function does not work on training data"],ans:2,exp:"A model evaluated on its own training data has already 'seen the answers' — like marking your own homework. The accuracy will be unrealistically high and won't reflect how the model performs on new, unseen data.",hint:"Would you trust a student who marked their own exam paper?",sec:"Topic 7",type:"theory"},
+
+  {q:"The formula for PRECISION is:",opts:["TP / (TP + FN)","(TP + TN) / Total","TP / (TP + FP)","2 × (Precision × Recall) / (Precision + Recall)"],ans:2,exp:"Precision = TP / (TP + FP). Of all cases the model predicted as POSITIVE, what fraction actually were? High precision means few false alarms.",hint:"Precision: of what I PREDICTED positive, how many were ACTUALLY positive?",sec:"Topic 7",type:"obj"},
+
+  {q:"A COVID-19 screening model should prioritise HIGH RECALL because:",opts:["False positives are more costly than false negatives in disease screening","Missing an infected person (False Negative) is far more dangerous than a false alarm","Recall is always more important than precision in all situations","High recall means fewer tests are needed"],ans:1,exp:"In disease screening, a False Negative (missing an infected person) could lead to further disease spread. Therefore, Recall = TP / (TP + FN) must be maximised, even at the cost of some false alarms.",hint:"Think: which is worse — falsely clearing an infected person, or falsely flagging a healthy person?",sec:"Topic 7",type:"theory"},
+
+  {q:"The F1-Score is best used when:",opts:["The dataset has perfectly balanced classes","Both false positives AND false negatives are costly, or when classes are imbalanced","Only false positives are costly","Only regression models are being evaluated"],ans:1,exp:"The F1-Score is the harmonic mean of Precision and Recall. It balances both metrics and is ideal when class imbalance exists or when both types of errors carry significant costs.",hint:"F1 balances two metrics — which two?",sec:"Topic 7",type:"theory"},
+
+  {q:"Accuracy can be a MISLEADING metric when:",opts:["The dataset is very large","The model uses a Decision Tree algorithm","One class is far more common than the other (class imbalance)","The test set is 20% of the data"],ans:2,exp:"With class imbalance (e.g., 95% Pass, 5% Fail), a model that predicts 'Pass' for everyone would have 95% accuracy but completely fail to identify any at-risk students — which is useless.",hint:"If 95% of data is one class, a naive model predicting only that class gets ___% accuracy?",sec:"Topic 7",type:"obj"},
+
+  {q:"Which regression evaluation metric is expressed in the SAME UNITS as the target variable, making it easiest to interpret?",opts:["R-squared (R²)","Mean Squared Error (MSE)","Root Mean Squared Error (RMSE)","Mean Absolute Error (MAE) divided by variance"],ans:2,exp:"RMSE = √MSE. By taking the square root, RMSE is expressed in the same units as the output variable (e.g., if predicting exam scores, RMSE is in 'points'). This makes it more interpretable than MSE.",hint:"Square root returns the metric to the original unit scale.",sec:"Topic 7",type:"obj"},
+
+  {q:"A model achieves 98% accuracy on training data but only 55% on the test set. This is a classic case of:",opts:["Underfitting — the model is too simple","Good generalisation — this is expected","Overfitting — the model memorised training data and fails to generalise","A data privacy violation"],ans:2,exp:"Overfitting occurs when a model learns training data TOO well — including noise and random fluctuations — resulting in excellent training accuracy but poor test accuracy. The model memorised instead of generalising.",hint:"Great on training, terrible on test = which problem?",sec:"Topic 7",type:"obj"},
+
+  {q:"Which of the following is a corrective technique for OVERFITTING?",opts:["Adding more layers to the neural network","Removing the test set from evaluation","Adding more relevant features to the dataset","Applying regularisation (L1 or L2) to penalise model complexity"],ans:3,exp:"Regularisation (L1/Lasso or L2/Ridge) adds a penalty term for large weights, discouraging the model from fitting noise. Other techniques include: using simpler models, getting more training data, and using dropout in neural networks.",hint:"We need to REDUCE the model's complexity or tendency to over-learn.",sec:"Topic 7",type:"obj"},
+
+  {q:"A model performs poorly on BOTH the training set and the test set. This indicates:",opts:["Overfitting","Underfitting — the model is too simple to learn the underlying patterns","Perfect generalisation","A good train/test split"],ans:1,exp:"Underfitting occurs when the model is too simple to capture the underlying patterns. Unlike overfitting, performance is poor on BOTH training and test data — the model hasn't learned anything useful.",hint:"Overfitting is great on train but bad on test. Underfitting is bad on ___.",sec:"Topic 7",type:"obj"},
+
+  {q:"K-Fold Cross Validation is preferred over a single train/test split because:",opts:["It trains k separate models for production use","It is faster to compute","It provides a more reliable performance estimate by averaging results across k different train/test configurations","It eliminates the need for a test set entirely"],ans:2,exp:"K-fold cross-validation trains the model k times on different data splits and averages the performance. This reduces variance in the performance estimate and makes better use of limited data.",hint:"More evaluations → more reliable average → better estimate.",sec:"Topic 7",type:"theory"},
+
+  {q:"Which type of Machine Learning is MOST suitable for diagnosing diseases from X-ray images in Nigerian hospitals?",opts:["Unsupervised Clustering (K-Means)","Supervised Classification using CNNs (Convolutional Neural Networks)","Reinforcement Learning","Association Rule Mining (Apriori)"],ans:1,exp:"Diagnosing from images is an image classification task. CNNs (a supervised learning architecture) are the dominant method for image classification and have achieved near-expert performance in medical imaging tasks.",hint:"What kind of data are X-ray images? What network is best for images?",sec:"Topic 1",type:"theory"},
+
+  {q:"AI-powered drones identifying diseased cassava plants in Ogun State farms is an example of AI applied to:",opts:["Finance — fraud detection","Education — personalised learning","Agriculture — crop monitoring and disease detection","Transportation — route optimisation"],ans:2,exp:"Using AI and computer vision on drone imagery to detect crop diseases (like cassava mosaic disease) is a direct application of ML in African agriculture, with potential to dramatically improve food security.",hint:"Ogun State + cassava + drones — which sector?",sec:"Topic 1",type:"obj"},
+
+  {q:"For an AI system that translates English text into Yoruba or Igbo, the MOST appropriate ML sub-field is:",opts:["Computer Vision","Reinforcement Learning","Natural Language Processing (NLP)","Dimensionality Reduction"],ans:2,exp:"NLP focuses on enabling computers to understand, interpret, and generate human language. Machine translation (e.g., English to Yoruba) is a core NLP task, often powered by RNNs, LSTMs, or Transformer models.",hint:"The task involves human language — which sub-field handles language?",sec:"Topic 1",type:"obj"},
+
+  {q:"In a Convolutional Neural Network, the PRIMARY function of a Convolutional Layer is to:",opts:["Reduce the spatial dimensions of the input","Classify the image into its final output category","Slide a learnable filter across the image to create feature maps highlighting patterns like edges and textures","Flatten a 3D tensor into a 1D vector"],ans:2,exp:"The convolutional layer applies a filter (kernel) — a small grid of learnable weights — across the input image via element-wise multiplication and summation at each position, creating a feature map that highlights where specific patterns occur.",hint:"Think: filter slides → produces a MAP of features.",sec:"Topic 9",type:"obj"},
+
+  {q:"What is the purpose of MAX POOLING in a CNN?",opts:["To randomly set some neurons to zero during training to prevent overfitting","To apply the ReLU activation function","To reduce spatial dimensions while retaining the most prominent features, providing translational invariance","To connect every neuron to every other neuron"],ans:2,exp:"Max pooling takes the maximum value from a region of the feature map, reducing its spatial dimensions while preserving the strongest features. This also provides translational invariance — the CNN recognises features regardless of their exact position in the image.",hint:"Pool → reduce size. MAX pool → keep the MAXIMUM value.",sec:"Topic 9",type:"obj"},
+
+  {q:"The correct order of layers in a typical CNN for image classification is:",opts:["Dense → Conv2D → MaxPooling → Flatten → Softmax","Softmax → Dense → Flatten → MaxPooling → Conv2D","Conv2D → ReLU → MaxPooling → Flatten → Dense → Softmax","Flatten → Dense → Conv2D → ReLU → MaxPooling → Softmax"],ans:2,exp:"The standard CNN pipeline: Convolutional layers (with ReLU) extract features → Pooling layers reduce dimensions → Flattening converts 3D to 1D → Dense layers perform high-level reasoning → Softmax outputs class probabilities.",hint:"You can't flatten before you convolve!",sec:"Topic 9",type:"obj"},
+
+  {q:"The MNIST dataset, commonly used as a 'Hello World' dataset for deep learning, contains:",opts:["70,000 colour photographs of animals","70,000 grayscale images of handwritten digits (0–9)","10,000 audio recordings of spoken words","50,000 satellite images of Nigerian farmland"],ans:1,exp:"MNIST contains 70,000 grayscale 28×28 images of handwritten digits (60,000 training + 10,000 test). It is the standard beginner dataset for image classification with CNNs, freely available in TensorFlow/Keras.",hint:"Digits 0 through 9 — how many images?",sec:"Topic 9",type:"obj"},
+
+  {q:"Why do standard (fully connected) neural networks fail when applied directly to large images?",opts:["They cannot run on GPU hardware","Flattening a large image into a 1D vector results in an enormous number of parameters, making training computationally expensive and prone to overfitting","Images must first be converted to audio before being processed","Neural networks can only process square numbers of inputs"],ans:1,exp:"A 224×224 colour image has 150,528 values. Connecting this to 1,000 hidden neurons requires 150 million parameters — making the network computationally expensive, slow to train, and highly prone to overfitting. CNNs solve this through weight sharing.",hint:"224×224×3 = 150,528 values × 1,000 neurons = ?",sec:"Topic 9",type:"theory"},
+
+  {q:"Recurrent Neural Networks (RNNs) are preferred over standard feedforward networks for NLP tasks because:",opts:["RNNs use more parameters and are therefore more powerful","RNNs maintain a hidden state that carries information across sequential steps, allowing context from earlier in a sequence to influence later predictions","RNNs do not require any training data","RNNs use convolutional filters to process text"],ans:1,exp:"Unlike feedforward networks that process each input independently, RNNs maintain a hidden state updated at each step based on the current input AND the previous state — giving them a form of 'memory' essential for understanding language sequences.",hint:"What makes an RNN 'recurrent' (repeating)?",sec:"Topic 10",type:"theory"},
+
+  {q:"The VANISHING GRADIENT PROBLEM in basic RNNs refers to:",opts:["The model's loss function becoming negative during training","Gradients becoming extremely small during backpropagation through many time steps, causing the network to forget distant past information","The learning rate gradually decreasing to zero","GPU memory running out during training"],ans:1,exp:"During backpropagation through time, gradients are multiplied together at each step. For long sequences, these multiplications cause gradients to shrink exponentially (vanish), meaning the network cannot learn from events far back in the sequence.",hint:"What happens when you multiply many small numbers together repeatedly?",sec:"Topic 10",type:"obj"},
+
+  {q:"LSTMs solve the vanishing gradient problem through:",opts:["Increasing the learning rate automatically","A cell state and three gates (Forget, Input, Output) that selectively remember and discard information across long sequences","Using only ReLU activation functions throughout the network","Reducing the number of training epochs"],ans:1,exp:"LSTMs (Hochreiter & Schmidhuber, 1997) use: (1) Forget Gate — discards irrelevant information, (2) Input Gate — adds new relevant information, (3) Output Gate — decides what to pass forward. These allow selective, long-term memory.",hint:"Three gates + cell state = the LSTM's memory management system.",sec:"Topic 10",type:"obj"},
+
+  {q:"Which of the following is the BEST application for an RNN / LSTM model?",opts:["Classifying whether a photograph is of a cat or a dog","Detecting cancerous tumours in X-ray scans","Translating an English sentence to Yoruba word-by-word","Reducing 100 features to 10 principal components"],ans:2,exp:"Machine translation (English → Yoruba) is a sequential language task where word order and context matter across the full sentence — a perfect fit for LSTMs. The other options are better suited to CNNs (image tasks) or PCA (dimensionality reduction).",hint:"Which task is about LANGUAGE and SEQUENCES?",sec:"Topic 10",type:"obj"},
+
+  {q:"The GRU (Gated Recurrent Unit) is best described as:",opts:["A type of CNN used for video processing","A simplified version of LSTM with fewer parameters that trains faster and often performs comparably","A pooling layer variant for text data","An activation function used in the output layer of RNNs"],ans:1,exp:"The GRU simplifies the LSTM by combining the Forget and Input gates into a single 'Update Gate' and merging the cell state and hidden state. It trains faster due to fewer parameters and often achieves comparable performance to LSTMs.",hint:"Fewer parameters than LSTM → trains faster.",sec:"Topic 10",type:"obj"},
+
+  {q:"When designing a lesson on Supervised Learning for SS3 students with NO prior coding experience, the FIRST recommended strategy is to:",opts:["Begin immediately with Python code in Google Colab","Start with an unplugged activity — e.g., a card-sorting exercise — to introduce the concept concretely without technology","Assign a 2,000-word essay on the history of Machine Learning","Show a 3-hour lecture video on neural networks"],ans:1,exp:"An unplugged (low-tech) activity makes abstract concepts concrete before introducing code. For example, having students manually sort and label image cards (cat/dog) mirrors how labelled training data works in supervised learning.",hint:"Think: what activity introduces the concept before coding?",sec:"Topic 8",type:"theory"},
+
+  {q:"A formative assessment strategy suitable for the END of a 45-minute AI lesson is:",opts:["A 3-hour written examination","A peer-reviewed research paper","An exit ticket — each student writes one definition, one example, and one remaining question","A full ML project submitted over 2 weeks"],ans:2,exp:"An exit ticket is a brief, formative check-for-understanding at lesson end. It reveals misconceptions in real time without the high stakes of a summative exam, allowing the teacher to adjust the next lesson accordingly.",hint:"Quick, at the END of class, checks understanding → what type of assessment?",sec:"Topic 8",type:"theory"},
+
+  {q:"Which of the following is a correct learning objective for a Supervised Learning lesson (SS3 level)?",opts:["Students will be able to build a full production-ready ML pipeline with 99% accuracy","Students will define supervised learning, distinguish classification from regression, and provide one real-world example of each","Students will memorise all 47 scikit-learn algorithm names","Students will implement a CNN for image recognition from scratch"],ans:1,exp:"Good learning objectives are specific, achievable, and measurable within the lesson timeframe. Defining supervised learning, distinguishing problem types, and providing examples are appropriate and achievable objectives for beginners.",hint:"Learning objectives must be achievable within 45 minutes for beginners.",sec:"Topic 8",type:"theory"},
+
+  {q:"Which of the following is the STRONGEST argument AGAINST the claim that AI will completely replace teachers?",opts:["AI systems are too expensive for most schools to afford","Teachers perform essential human-centred roles — mentoring, emotional support, inspiring creativity, and developing social/ethical values — that current AI cannot replicate","AI systems frequently crash and are unreliable","AI cannot connect to the internet without a teacher's help"],ans:1,exp:"AI lacks empathy, judgment, and the interpersonal skills needed for mentoring, emotional support, behaviour management, and moral development. These uniquely human responsibilities mean AI is best positioned as a complement to teachers, not a replacement.",hint:"Think about what a teacher does BEYOND delivering information.",sec:"Topic 1",type:"theory"},
+
+  {q:"The MOST accurate description of the future relationship between AI and teaching is:",opts:["AI will fully replace all teachers within 10 years","AI and teachers will collaborate — AI enhancing efficiency while human teachers guide, motivate, and support students holistically","AI will only be used for grading, not teaching","All teaching will move entirely to self-directed AI chatbots"],ans:1,exp:"The consensus in educational technology is a collaborative model: AI handles personalisation, automated feedback, and administrative tasks, freeing teachers to focus on meaningful human interactions, critical thinking facilitation, and moral development.",hint:"The notes discuss a 'collaborative' future for AI and teaching.",sec:"Topic 1",type:"obj"},
+
+  {q:"An AI system that automatically grades multiple-choice exams and recommends remedial content to struggling students is BEST described as:",opts:["A replacement for the classroom teacher","A tool that augments teacher effectiveness by freeing time for meaningful student interactions","A violation of educational ethics","A General AI system"],ans:1,exp:"This describes AI as a complement to the teacher: automated grading removes administrative burden, and personalised recommendations identify struggling students — allowing the teacher to invest time where it matters most: human connection and deeper guidance.",hint:"Augment = add to, support. Replace = take over entirely.",sec:"Topic 1",type:"theory"},
+
+  // ── BONUS: Python & Keras Neural Network Code ──
+  {q:"In the Keras code: keras.layers.Dense(1, activation='sigmoid'), what does the '1' and 'sigmoid' tell us about this layer?",opts:["1 hidden neuron using ReLU — for multi-class classification","1 output neuron using the sigmoid function — this is the output layer for BINARY classification","1 input neuron that receives raw data","1 pooling layer for image processing"],ans:1,exp:"Dense(1, activation='sigmoid') defines 1 output neuron with sigmoid activation. Sigmoid maps any value to (0,1), producing a probability. If > 0.5 → class 1; otherwise → class 0. This structure is standard for binary classification problems.",hint:"Sigmoid maps to (0,1). 1 neuron for output. Binary = 2 classes (pass/fail).",sec:"Topic 8",type:"code"},
+
+  {q:"What is the role of the 'optimizer' in model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])?",opts:["It defines the number of training epochs","It is the algorithm that updates the model's weights during training to minimise the loss","It specifies which dataset to load","It sets the number of hidden layers in the model"],ans:1,exp:"The optimizer (Adam in this case) is the algorithm that adjusts the model's weights during backpropagation. Adam (Adaptive Moment Estimation) is a popular choice that adapts the learning rate automatically for faster, more stable convergence.",hint:"After calculating the loss, something must UPDATE the weights — that's the optimizer.",sec:"Topic 8",type:"code"},
+
+  {q:"In the CNN Keras code: keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(64,64,3)), what does '32' represent?",opts:["The image width in pixels","The number of filters (feature detectors) in this convolutional layer","The batch size during training","The number of output classes"],ans:1,exp:"32 is the number of filters (kernels) in the convolutional layer. Each filter independently slides across the image and detects a different spatial pattern (e.g., horizontal edge, curve, texture). More filters → richer feature representation.",hint:"Filters are the learnable detectors. How many detectors does this layer use?",sec:"Topic 9",type:"code"},
+
+  {q:"A model that predicts a student's exact exam SCORE (e.g., 72.4 out of 100) from their study hours is performing:",opts:["Binary Classification","Clustering","Regression","Dimensionality Reduction"],ans:2,exp:"Predicting a continuous numerical value (like an exam score) is a Regression task. Linear Regression is the classic algorithm for this. If the output were a category (Pass/Fail), it would be Classification.",hint:"Score = 72.4 is a number, not a category.",sec:"Topic 6",type:"obj"},
+
+  {q:"Which of the following sub-fields of AI allows a computer program to understand, process, and generate human language?",opts:["Computer Vision","Robotics","Natural Language Processing (NLP)","Expert Systems"],ans:2,exp:"NLP (Natural Language Processing) focuses on enabling machines to understand human language. Applications include Google Translate, chatbots, sentiment analysis, and voice assistants like Siri and Alexa.",hint:"'Natural Language' = human language. Which sub-field handles language?",sec:"Topic 1",type:"obj"},
+
+  {q:"The equation Y = mX + b in Machine Learning represents:",opts:["The sigmoid activation function for logistic regression","The formula for calculating cross-entropy loss","The linear regression equation, where m is the slope and b is the y-intercept","The backpropagation update rule"],ans:2,exp:"Y = mX + b is the equation of a straight line — the foundation of Linear Regression. Y is the predicted output, X is the input feature, m is the slope (coefficient), and b is the bias (y-intercept).",hint:"y = mx + b — you've seen this in secondary school mathematics!",sec:"Topic 6",type:"obj"},
+];
+
+let current=0, userAnswers={}, hintShown=false;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startQuiz(){
+  document.getElementById('stat-q').textContent=BANK.length;
+  buildGridNav();
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function buildGridNav(){
+  const g=document.getElementById('grid-nav');
+  g.innerHTML='';
+  BANK.forEach((_,i)=>{
+    const b=document.createElement('button');
+    b.className='gn-btn';b.textContent=i+1;b.id=`gn-${i}`;
+    b.onclick=()=>goTo(i);
+    g.appendChild(b);
+  });
+}
+
+function updateGridNav(){
+  BANK.forEach((_,i)=>{
+    const b=document.getElementById(`gn-${i}`);
+    if(!b)return;
+    b.className='gn-btn';
+    if(i===current)b.classList.add('current');
+    else if(userAnswers[i]!==undefined)b.classList.add('answered');
+  });
+}
+
+function renderQuestion(){
+  const q=BANK[current];
+  document.getElementById('tb-info').textContent=`Q ${current+1} / ${BANK.length}`;
+  document.getElementById('q-counter').textContent=`${current+1} / ${BANK.length}`;
+  document.getElementById('progress-fill').style.width=`${((current+1)/BANK.length)*100}%`;
+  document.getElementById('qc-num').textContent=`Question ${current+1}`;
+
+  const typeEl=document.getElementById('qc-type');
+  typeEl.className='qc-type';
+  if(q.type==='code'){typeEl.classList.add('code');typeEl.textContent='Code';}
+  else if(q.type==='theory'){typeEl.classList.add('theory');typeEl.textContent='Theory';}
+  else{typeEl.classList.add('obj');typeEl.textContent='Objective';}
+
+  document.getElementById('qc-sec').textContent=q.sec;
+  document.getElementById('q-text').textContent=q.q;
+
+  const codeEl=document.getElementById('q-code');
+  if(q.code){codeEl.style.display='block';codeEl.textContent=q.code;}
+  else{codeEl.style.display='none';}
+
+  const hintBox=document.getElementById('hint-box');
+  hintBox.textContent='💡 '+q.hint;
+  hintBox.classList.remove('visible');
+  hintShown=false;
+
+  const expEl=document.getElementById('explanation');
+  expEl.classList.remove('visible');
+
+  const opts=document.getElementById('opts');
+  opts.innerHTML='';
+  const letters=['A','B','C','D'];
+  q.opts.forEach((o,i)=>{
+    const d=document.createElement('div');
+    d.className='opt';d.id=`opt-${i}`;
+    d.innerHTML=`<div class="opt-letter">${letters[i]}</div><div class="opt-text">${o}</div>`;
+    const answered=userAnswers[current]!==undefined;
+    if(answered){
+      d.classList.add('disabled');
+      if(i===q.ans)d.classList.add('correct');
+      else if(i===userAnswers[current])d.classList.add('wrong');
+      document.getElementById('explanation').classList.add('visible');
+      document.getElementById('exp-text').textContent=q.exp;
+    } else {
+      d.onclick=()=>selectOpt(i);
+    }
+    opts.appendChild(d);
+  });
+
+  if(userAnswers[current]!==undefined){
+    document.getElementById('explanation').classList.add('visible');
+    document.getElementById('exp-text').textContent=q.exp;
+  }
+
+  document.getElementById('btn-prev').disabled=current===0;
+  const nextBtn=document.getElementById('btn-next');
+  if(current===BANK.length-1){
+    nextBtn.innerHTML='Finish <i class="ti ti-flag"></i>';
+    nextBtn.disabled=false;
+  } else {
+    nextBtn.innerHTML='Next <i class="ti ti-chevron-right"></i>';
+    nextBtn.disabled=false;
+  }
+  updateGridNav();
+}
+
+function selectOpt(i){
+  if(userAnswers[current]!==undefined)return;
+  userAnswers[current]=i;
+  const q=BANK[current];
+  document.querySelectorAll('.opt').forEach((el,idx)=>{
+    el.classList.add('disabled');
+    el.onclick=null;
+    if(idx===q.ans)el.classList.add('correct');
+    else if(idx===i)el.classList.add('wrong');
+  });
+  document.getElementById('exp-text').textContent=q.exp;
+  document.getElementById('explanation').classList.add('visible');
+  updateGridNav();
+}
+
+function toggleHint(){
+  const h=document.getElementById('hint-box');
+  h.classList.toggle('visible');
+}
+
+function nextQuestion(){
+  if(current===BANK.length-1){showResults();return;}
+  goTo(current+1);
+}
+
+function goTo(i){
+  if(i<0||i>=BANK.length)return;
+  current=i;
+  renderQuestion();
+}
+
+function confirmQuit(){
+  if(confirm('Quit and go back to home?'))location.href='index.html';
+}
+
+function showResults(){
+  showScreen('screen-results');
+  let correct=0,wrong=0;
+  BANK.forEach((_,i)=>{
+    if(userAnswers[i]===undefined)return;
+    if(userAnswers[i]===BANK[i].ans)correct++;
+    else wrong++;
+  });
+  const skipped=BANK.length-correct-wrong;
+  const pct=Math.round((correct/BANK.length)*100);
+
+  document.getElementById('rs-correct').textContent=correct;
+  document.getElementById('rs-wrong').textContent=wrong;
+  document.getElementById('rs-skipped').textContent=skipped;
+  document.getElementById('score-val').textContent=pct+'%';
+
+  const arc=document.getElementById('score-arc');
+  const circ=2*Math.PI*48;
+  arc.setAttribute('stroke-dashoffset',(circ*(1-pct/100)).toFixed(1));
+  arc.setAttribute('stroke',pct>=70?'#22c55e':pct>=50?'#f59e0b':'#ef4444');
+
+  let grade,msg;
+  if(pct>=80){grade='Excellent! 🎉';msg='Outstanding performance. You have a strong grasp of the EST 312 course content.';}
+  else if(pct>=70){grade='Good Pass ✅';msg='Solid understanding. Review any questions you missed and you\'re exam-ready.';}
+  else if(pct>=50){grade='Average — Keep Studying 📚';msg='You understand the basics. Revisit the notes, especially Neural Networks and Model Evaluation.';}
+  else{grade='Needs Improvement ⚠️';msg='Go back to the study notes and review each topic thoroughly before the exam.';}
+
+  document.getElementById('result-grade').textContent=grade;
+  document.getElementById('result-grade').style.color=pct>=70?'#22c55e':pct>=50?'#f59e0b':'#ef4444';
+  document.getElementById('result-msg').textContent=msg;
+
+
+}
+
+function restartQuiz(){
+  userAnswers={};current=0;
+  showScreen('screen-quiz');
+  buildGridNav();
+  renderQuestion();
+}
+</script>
+</body>
+</html>
