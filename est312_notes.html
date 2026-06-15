@@ -144,6 +144,7 @@
     <a class="sb-link" href="#sec9" id="sb-9"><span class="sb-num">9</span> CNNs</a>
     <a class="sb-link" href="#sec10" id="sb-10"><span class="sb-num">10</span> RNNs & LSTMs</a>
     <a class="sb-link" href="#sec11" id="sb-11"><span class="sb-num">11</span> AI in Education</a>
+    <a class="sb-link" href="#sec-aoc" id="sb-aoc"><span class="sb-num" style="color:#f59e0b;">★</span> Exam Focus Areas</a>
   </aside>
 
   <main class="notes-main">
@@ -818,6 +819,104 @@ y_pred = model.<span class="fn">predict</span>(X_test)
         <li>Maintain data privacy and transparency about AI tools.</li>
         <li>Continuously update your own skills as AI evolves rapidly.</li>
       </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- EXAM FOCUS AREAS -->
+    <section class="notes-section" id="sec-aoc">
+      <div class="sec-header">
+        <div class="sec-num" style="background:rgba(245,158,11,0.2);color:#f59e0b;">★</div>
+        <div><div class="sec-title">Exam Focus Areas (Summary)</div><div class="sec-src">Study each topic below thoroughly — including all Python code</div></div>
+      </div>
+
+      <div class="highlight-box amber" style="margin-bottom:1.5rem;">
+        <div class="hb-label amber"><i class="ti ti-alert-triangle"></i> Important</div>
+        <p>The following 15 topics are the key areas to master before your examination. Study each concept in depth, understand the underlying theory, and practise all Python code examples on Google Colab.</p>
+      </div>
+
+      <div class="stages-grid">
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(245,158,11,0.2);color:#fbbf24;">1</div>
+          <div><div class="stage-title">AI &amp; ML — Definitions and African Examples</div>
+          <div class="stage-desc">Define Artificial Intelligence and Machine Learning. Explain clearly how they relate. Provide two real-world examples of each that are relevant to the Nigerian or African context (e.g., Zipline drones in Ghana, Jumia recommendations, crop disease detection).</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(239,68,68,0.15);color:#f87171;">2</div>
+          <div><div class="stage-title">Algorithmic Bias in ML Pipelines</div>
+          <div class="stage-desc">Define algorithmic bias. Using a concrete example from healthcare or education, explain how bias enters an ML pipeline at: (1) data collection, (2) feature selection, and (3) model evaluation. Suggest steps to reduce bias at each stage.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(59,130,246,0.15);color:#60a5fa;">3</div>
+          <div><div class="stage-title">Exploratory Data Analysis (EDA)</div>
+          <div class="stage-desc">Explain why EDA is essential before building any ML model. Identify two specific problems EDA can detect early. Describe how you would handle a feature with a highly skewed distribution and outliers (log transformation, IQR, winsorisation).</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(34,197,94,0.12);color:#4ade80;">4</div>
+          <div><div class="stage-title">Supervised vs. Unsupervised Learning</div>
+          <div class="stage-desc">Distinguish between both types. For each, provide one suitable dataset example and describe what a model trained on it would predict or discover. Know the key algorithms for each type.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(168,85,247,0.15);color:#c084fc;">5</div>
+          <div><div class="stage-title">AI for At-Risk Student Detection</div>
+          <div class="stage-desc">A teacher wants to use AI to detect students at risk of failing. Discuss: (a) the most appropriate type of ML; (b) relevant input features; (c) ethical considerations before deployment — consent, bias, transparency, stigmatisation.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(245,158,11,0.2);color:#fbbf24;">6</div>
+          <div><div class="stage-title">Societal Consequences of Unethical AI</div>
+          <div class="stage-desc">Describe four negative societal consequences of deploying AI without adequate ethical review (e.g., bias amplification, job displacement, surveillance, disinformation). Propose one practical mitigation strategy for each.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(239,68,68,0.15);color:#f87171;">7</div>
+          <div><div class="stage-title">Python (Pandas) — school_results.csv Program</div>
+          <div class="stage-desc">Write a Python program using Pandas that: loads school_results.csv (columns: StudentID, Mathematics, English, Attendance, Result); displays first 10 rows; checks for missing values; computes mean and std of Mathematics and English; displays Pass vs Fail count.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(59,130,246,0.15);color:#60a5fa;">8</div>
+          <div><div class="stage-title">Python (scikit-learn) — Logistic Regression</div>
+          <div class="stage-desc">Write Python code using scikit-learn to: split a student performance dataset 80/20; train a Logistic Regression classifier; generate predictions; print accuracy score and confusion matrix. Explain what each metric tells you about the model.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(34,197,94,0.12);color:#4ade80;">9</div>
+          <div><div class="stage-title">Model Performance Metrics</div>
+          <div class="stage-desc">Explain Accuracy, Precision, Recall, F1-Score, and ROC-AUC. State clearly when each is the most appropriate measure to use — with real-world examples for when FP vs FN costs differ.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(168,85,247,0.15);color:#c084fc;">10</div>
+          <div><div class="stage-title">Overfitting vs. Underfitting</div>
+          <div class="stage-desc">Compare both problems: how each is detected, and two corrective techniques for each. Know: regularisation (L1/L2), dropout, early stopping, more data (for overfitting); more complex model, more features, fewer epochs (for underfitting).</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(245,158,11,0.2);color:#fbbf24;">11</div>
+          <div><div class="stage-title">AI in Nigeria &amp; Africa — Sectors</div>
+          <div class="stage-desc">Identify and discuss three sectors in Nigeria or Africa where AI/ML is applied or has strong potential: (healthcare, agriculture, finance/fintech, education). For each: state the ML type most suitable and justify your choice.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(239,68,68,0.15);color:#f87171;">12</div>
+          <div><div class="stage-title">CNN Architecture for Handwritten Digit Classification</div>
+          <div class="stage-desc">Draw and label the architecture of a simple CNN for classifying handwritten digits (MNIST). Identify each layer type: Convolutional (feature detection), Pooling (spatial reduction), Fully Connected (classification), Softmax (probability output). Explain each layer's role.</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(59,130,246,0.15);color:#60a5fa;">13</div>
+          <div><div class="stage-title">RNNs, LSTMs &amp; Vanishing Gradients</div>
+          <div class="stage-desc">Explain why RNNs are preferred over standard feedforward networks for NLP tasks. State the limitation of RNNs (vanishing gradient problem during BPTT). Explain how LSTMs address it using cell state and three gates (Forget, Input, Output).</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(34,197,94,0.12);color:#4ade80;">14</div>
+          <div><div class="stage-title">Lesson Plan — Teaching Supervised Learning to SS3</div>
+          <div class="stage-desc">Design a detailed 45-minute lesson plan for teaching Supervised Learning to SS3 students with no prior coding experience. Must include: ≥3 learning objectives, structured timeline, one unplugged/low-tech activity, formative assessment strategy (e.g., exit ticket).</div></div>
+        </div>
+        <div class="stage-row">
+          <div class="stage-num" style="background:rgba(168,85,247,0.15);color:#c084fc;">15</div>
+          <div><div class="stage-title">Will AI Replace Teachers? (~200 Words)</div>
+          <div class="stage-desc">Write a well-reasoned ~200-word response to the claim "AI will soon replace all teachers." Draw on AI capabilities and limitations. Address: what AI can do (personalisation, grading, analytics); what teachers uniquely do (mentorship, empathy, moral guidance). Conclude with the collaboration model.</div></div>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="margin-top:1.2rem;">
+        <div class="hb-label"><i class="ti ti-checklist"></i> Exam Tip</div>
+        <p>Practise all Python code from Topics 7 and 8 until you can write it from memory. For theory questions, use the PEEL structure: <strong>Point → Explain → Example → Link back</strong>. For essay questions (Q6, Q15), write structured paragraphs with clear topic sentences.</p>
+      </div>
     </section>
 
   </main>
