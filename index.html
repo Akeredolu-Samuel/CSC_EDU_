@@ -256,19 +256,18 @@
     </div>
 
     <!-- MUS 356 -->
-    <div class="course-card coming" style="--card-color:#ec4899;--icon-bg:rgba(236,72,153,0.08);--icon-border:rgba(236,72,153,0.2)">
+    <div class="course-card available" style="--card-color:#ec4899;--icon-bg:rgba(236,72,153,0.08);--icon-border:rgba(236,72,153,0.2)">
       <div class="card-top">
         <div class="card-icon"><i class="ti ti-music"></i></div>
-        <span class="avail-badge soon">Coming Soon</span>
+        <span class="avail-badge active">&#x25CF; Active</span>
       </div>
       <div class="card-code">MUS 356</div>
       <div class="card-name">Music Education &amp; Technology</div>
       <div class="card-dept"><i class="ti ti-building" style="font-size:10px"></i> Music &amp; Arts</div>
       <div class="card-actions">
-        <a class="btn-card-quiz" id="mus356-quiz-btn"><i class="ti ti-player-play" style="font-size:13px"></i> Quiz</a>
-        <a class="btn-card-notes" id="mus356-notes-btn"><i class="ti ti-book-2" style="font-size:13px"></i> Notes</a>
+        <a class="btn-card-quiz" href="mus356_quiz.html" id="mus356-quiz-btn"><i class="ti ti-player-play" style="font-size:13px"></i> Quiz</a>
+        <a class="btn-card-notes" href="mus356_notes.html" id="mus356-notes-btn"><i class="ti ti-book-2" style="font-size:13px"></i> Notes</a>
       </div>
-      <div class="coming-overlay"><div class="coming-pill"><i class="ti ti-clock" style="font-size:11px"></i> Coming Soon</div></div>
     </div>
 
     <!-- BUA 312 — ACTIVE -->
@@ -379,7 +378,8 @@
   async function loadData() {
     try {
       // 1. Fetch Stats
-      const { data: statsData } = await supabase.from('leaderboard').select('total_score, quizzes_taken');
+      const { data: statsData, error: statsErr } = await supabase.from('leaderboard').select('total_score, quizzes_taken');
+      if (statsErr) throw statsErr;
       if (statsData) {
         document.getElementById('stat-users').textContent = statsData.length || 0;
         const totalQuizzes = statsData.reduce((acc, curr) => acc + (curr.quizzes_taken || 0), 0);
@@ -387,7 +387,8 @@
       }
 
       // 2. Fetch Leaderboard (Top 10)
-      const { data: lbData } = await supabase.from('leaderboard').select('*').order('total_score', { ascending: false }).limit(10);
+      const { data: lbData, error: lbErr } = await supabase.from('leaderboard').select('*').order('total_score', { ascending: false }).limit(10);
+      if (lbErr) throw lbErr;
       const lbBox = document.getElementById('leaderboard-list');
       if (lbData && lbData.length > 0) {
         lbBox.innerHTML = lbData.map((user, i) => `
@@ -405,7 +406,8 @@
       }
 
       // 3. Fetch Reviews
-      const { data: reviewsData } = await supabase.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false });
+      const { data: reviewsData, error: revErr } = await supabase.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false });
+      if (revErr) throw revErr;
       if (reviewsData && reviewsData.length > 0) {
         const marquee = document.querySelector('.reviews-marquee');
         const cardsHTML = reviewsData.map(r => `
@@ -417,7 +419,10 @@
         // Duplicate for seamless scroll
         marquee.innerHTML = cardsHTML + cardsHTML;
       }
-    } catch(err) { console.error('Error loading data:', err); }
+    } catch(err) { 
+      console.error('Error loading data:', err); 
+      document.getElementById('leaderboard-list').innerHTML = `<div style="text-align:center;font-size:12px;color:#f87171;padding:2rem;">Connection Error: ${err.message || JSON.stringify(err)}</div>`;
+    }
   }
 
   async function submitReview() {
@@ -439,7 +444,7 @@
     const { error } = await supabase.from('reviews').insert([{ user_name: name, content: text, approved: false }]);
     
     if(error) {
-      msg.textContent = 'Error submitting review. Please try again.';
+      msg.textContent = `Error: ${error.message || JSON.stringify(error)}`;
       msg.style.color = '#f87171';
     } else {
       msg.textContent = 'Review submitted successfully! It will appear once approved.';

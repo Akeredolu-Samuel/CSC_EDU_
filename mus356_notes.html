@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUS 356 Notes — EduHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:#111827;
+      --border:rgba(255,255,255,0.08);
+      --accent:#ec4899;--accent-dim:rgba(236,72,153,0.15);
+      --text:#e8eaf0;--muted:#94a3b8;
+      --font:'Inter',sans-serif;
+    }
+    body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;padding-bottom:40px;}
+    .nav{position:sticky;top:0;background:rgba(13,19,37,0.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;z-index:100;gap:15px;}
+    .nav-back{color:var(--muted);text-decoration:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.05);transition:0.2s;}
+    .nav-back:hover{background:var(--accent);color:#fff;}
+    .nav-title{font-weight:600;font-size:16px;color:#fff;}
+    .nav-subtitle{font-size:11px;color:var(--muted);font-weight:400;margin-top:2px;}
+    
+    .content{max-width:800px;margin:2rem auto;padding:0 1.5rem;}
+    .sec{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+    .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+    .sec-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-dim);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    
+    h3{color:#fff;font-size:15px;margin:1.5rem 0 0.8rem;}
+    h3:first-child{margin-top:0;}
+    p{color:var(--muted);font-size:14px;margin-bottom:1rem;}
+    ul,ol{color:var(--muted);font-size:14px;margin-bottom:1rem;padding-left:1.5rem;}
+    li{margin-bottom:0.5rem;}
+    strong{color:#e2e8f0;font-weight:600;}
+
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+    .box{background:var(--bg);border:1px solid var(--border);padding:1rem;border-radius:8px;}
+
+    /* FOOTER */
+    .hub-footer{text-align:center;padding:2rem 1.5rem;font-size:11px;color:var(--muted);border-top:0.5px solid var(--border);letter-spacing:0.05em;margin-top:3rem;}
+    .hub-footer span{color:var(--accent);}
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html" class="nav-back"><i class="ti ti-arrow-left"></i></a>
+  <div>
+    <div class="nav-title">MUS 356</div>
+    <div class="nav-subtitle">Music Education & Technology</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Sec 1 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-icon"><i class="ti ti-music"></i></div>
+      <div class="sec-title">Music Fundamentals</div>
+    </div>
+    
+    <h3>The Staff</h3>
+    <p>A staff (or stave) consists of <strong>5 lines and 4 spaces</strong> used for writing musical notes and signs.</p>
+
+    <h3>The Clef</h3>
+    <p>A musical sign placed at the beginning of the staff to give a permanent name and pitch to the lines and spaces.</p>
+    <ul>
+      <li><strong>Treble / G Clef:</strong> Used for high-pitched singers or instruments.</li>
+      <li><strong>Bass / F Clef:</strong> Used for notating music for lower pitch singers or instruments.</li>
+    </ul>
+
+    <div class="grid-2">
+      <div class="box">
+        <h3>Treble Clef Lines & Spaces</h3>
+        <p><strong>Lines (Bottom to Top):</strong><br>
+        E (Every) - G (Good) - B (Boy) - D (Deserves) - F (Food)</p>
+        <p><strong>Spaces (Bottom to Top):</strong><br>
+        F - A - C - E (Face)</p>
+      </div>
+      <div class="box">
+        <h3>Bass Clef Lines & Spaces</h3>
+        <p><strong>Lines (Bottom to Top):</strong><br>
+        G (Good) - B (Boys) - D (Deserve) - F (Food) - A (Always)</p>
+        <p><strong>Spaces (Bottom to Top):</strong><br>
+        A (All) - C (Cows) - E (Eat) - G (Grass)</p>
+      </div>
+    </div>
+
+    <h3>Solfa Notes & Technical Names</h3>
+    <ul>
+      <li><strong>Doh:</strong> Tonic</li>
+      <li><strong>Re:</strong> Supertonic</li>
+      <li><strong>Mi:</strong> Mediant</li>
+      <li><strong>Fah:</strong> Subdominant</li>
+      <li><strong>Soh:</strong> Dominant</li>
+      <li><strong>Lah:</strong> Submediant</li>
+      <li><strong>Ti:</strong> Leading Note</li>
+      <li><strong>Doh¹:</strong> Octave</li>
+    </ul>
+  </div>
+
+  <!-- Sec 2 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-icon"><i class="ti ti-vinyl"></i></div>
+      <div class="sec-title">Genres of Music</div>
+    </div>
+    <ul>
+      <li><strong>Classical or Western Chorus:</strong> Serious music with rules and western text (e.g., Hallelujah Chorus by J.G Handel).</li>
+      <li><strong>African Chorus:</strong> Classical music in an African context with African lyrics.</li>
+      <li><strong>R&B (Rhythm and Blues):</strong> Coolness and calmness in vocal performance (e.g., R.Kelly, Whitney Houston).</li>
+      <li><strong>Jazz & Blues:</strong> Originated from black America, mostly instrumental (e.g., Charlie Parker, Kenny G).</li>
+      <li><strong>Highlife & Afro:</strong> Strong rhythmic melody and heavy horns line (e.g., Fela, Victor Uwaifo).</li>
+      <li><strong>Reggae:</strong> Originated from Jamaica, known for strong rhythmic baseline (e.g., Bob Marley, Majek Fashek).</li>
+      <li><strong>Hip-Hop:</strong> Strong rhythmic pattern of beats originated by black americans.</li>
+      <li><strong>Juju:</strong> Originated from highlife, distinguished by string rhythmic pattern (e.g., King Sunny Ade).</li>
+      <li><strong>Fuji & Apala:</strong> Originated from Islamic believers in Nigeria, pure percussion (e.g., Sikiru Ayinde Barrister).</li>
+      <li><strong>Traditional Music:</strong> Expresses the way of life and do's/don'ts of a society.</li>
+    </ul>
+  </div>
+
+  <!-- Sec 3 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-icon"><i class="ti ti-microphone-2"></i></div>
+      <div class="sec-title">Stage Performance</div>
+    </div>
+    <p>Live presentation of music by musicians on a stage in front of an audience, encompassing musical expression, technical proficiency, and audience engagement.</p>
+    
+    <h3>Types of Performance Stages</h3>
+    <ul>
+      <li><strong>Proscenium Stage:</strong> Traditional stage with a framed opening (proscenium arch), providing clear separation between performers and audience.</li>
+      <li><strong>Thrust Stage:</strong> Extends into the audience area on three sides for a more intimate experience.</li>
+      <li><strong>Arena Stage:</strong> Theater-in-the-round, surrounded by audience seating on all sides.</li>
+      <li><strong>Outdoor Stage:</strong> Open-air venues like parks or amphitheaters.</li>
+      <li><strong>Platform Stage:</strong> Simple, raised platform without surrounding infrastructure.</li>
+    </ul>
+
+    <h3>Performance Tips</h3>
+    <div class="grid-2">
+      <div class="box"><strong>Practice:</strong> Rehearse music and stage movements thoroughly.</div>
+      <div class="box"><strong>Confidence:</strong> Project enthusiasm and passion.</div>
+      <div class="box"><strong>Stage Presence:</strong> Make eye contact, use body language.</div>
+      <div class="box"><strong>Connect:</strong> Acknowledge and interact with the audience.</div>
+    </div>
+  </div>
+
+  <!-- Sec 4 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-icon"><i class="ti ti-briefcase"></i></div>
+      <div class="sec-title">Music Licensing in Nigeria</div>
+    </div>
+    <p>The transfer of exclusive or non-exclusive rights permitting reproduction, publishing, performance, or distribution of musical works for commercial purposes.</p>
+
+    <h3>Types of Music Licensing</h3>
+    <ul>
+      <li><strong>Master License and Mechanical License:</strong> Granted by the owner of the master recording for commercial exploitation.</li>
+      <li><strong>Synchronization License:</strong> Grants the right to synchronize music with visual media (movies, games, TV).</li>
+      <li><strong>Broadcast or Performance License:</strong> Grants the right to perform, stream, or play sound recordings in public (radio, TV, concerts). Administered by CMOs like COSON and MCSN.</li>
+      <li><strong>Print License:</strong> Grants rights to transcribe or print physical copies of sheet music.</li>
+    </ul>
+
+    <h3>Copyright Organizations</h3>
+    <ul>
+      <li><strong>COSON (Copyright Society of Nigeria):</strong> Sole CMO approved by the Nigerian Copyright Commission.</li>
+      <li><strong>MCSN (Music Copyright Society of Nigeria):</strong> Incorporated collective association handling rights previously managed by UK's PRS and MCPS.</li>
+    </ul>
+  </div>
+
+  <!-- Sec 5 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="sec-icon"><i class="ti ti-guitar"></i></div>
+      <div class="sec-title">Western Orchestra Instruments</div>
+    </div>
+    
+    <h3>Classification</h3>
+    <ul>
+      <li><strong>String Instruments:</strong> Sound produced by vibrating strings (plucking, bowing). Examples: Violin, Viola, Cello, Double Bass, Guitar, Harp.</li>
+      <li><strong>Woodwind Instruments:</strong> Sound produced by vibrating air within a tube across a mouthpiece or reed. Examples: Flute, Clarinet, Saxophone, Bassoon, Piccolo.</li>
+      <li><strong>Brass Instruments:</strong> Sound produced by vibrating lips against a cup-shaped mouthpiece resonating in a metal tube. Examples: Trumpet, Trombone, French Horn, Euphonium, Tuba.</li>
+      <li><strong>Percussion Instruments:</strong> Sound produced by striking, shaking, or scraping. 
+        <ul>
+          <li><strong>Definite Pitch:</strong> Can play a tune (Xylophone, Marimba, Harp, Timpani/Kettle Drum, Tubular Bells).</li>
+          <li><strong>Indefinite Pitch:</strong> Produce rhythms only (Cymbals, Triangle, Conga, Snare Drum, Bass Drum, Maracas).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>The Piano (Bonus)</h3>
+    <p>Invented around 1720 by <strong>Bartholomeo Cristofori</strong> (Italian). Originally called Pianoforte. Types include Upright, Baby Grand, and Grand Piano.</p>
+  </div>
+
+</div>
+
+<footer class="hub-footer">
+  MUS 356 &nbsp;&middot;&nbsp; <span>Resources compiled for CSc EDU &nbsp;&middot;&nbsp; Built by <a href="https://instagram.com/samwissyy" target="_blank" style="color:inherit;">@samwissyy</a></span>
+</footer>
+
+</body>
+</html>

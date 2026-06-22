@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUS 356 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quizzes for MUS 356: Blended Learning, E-Moderation, E-tivities, Online Course Design.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1533030534131705" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    /* LANDING */
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #3b82f6; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(59,130,246,0.08); }
+    .logo-ring i { font-size: 28px; color: #3b82f6; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(59,130,246,0.07); border: 0.5px solid rgba(59,130,246,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input, .form-group select { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus, .form-group select:focus { border-color: #3b82f6; }
+    .form-group input::placeholder { color: #3d4460; }
+    .form-group select option { background: #0d1325; color: #e8eaf0; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #3b82f6; }
+    .q-count-val { background: rgba(59,130,246,0.15); border: 0.5px solid rgba(59,130,246,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #3b82f6; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #2563eb; }
+
+    /* HEADER */
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #3b82f6; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #3b82f6; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    /* QUIZ BODY */
+    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #3b82f6; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(59,130,246,0.12); border-color: #3b82f6; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #3b82f6; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    /* NAVIGATOR */
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(59,130,246,0.4); color: #3b82f6; }
+    .nav-dot.active { border-color: #3b82f6; color: #3b82f6; background: rgba(59,130,246,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    /* FOOTER */
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #2563eb; }
+    .btn-ghost { background: transparent; border: 0.5px solid rgba(255,255,255,0.12); color: #9ba3b8; border-radius: 8px; padding: 9px 18px; font-size: 12.5px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #e8eaf0; }
+    .btn-finish { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.4); color: #4ade80; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-finish:hover { background: rgba(34,197,94,0.22); }
+
+    /* RESULTS */
+    #results { align-items: center; justify-content: flex-start; padding: 1.5rem 1.25rem 1rem; background: #0a0f1e; overflow-y: auto; }
+    .res-top { text-align: center; margin-bottom: 1.5rem; width: 100%; }
+    .score-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #3b82f6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .score-ring.great { border-color: #22c55e; }
+    .score-ring.mid { border-color: #f59e0b; }
+    .score-ring.low { border-color: #ef4444; }
+    .score-num { font-size: 28px; font-weight: 500; color: #fff; }
+    .score-denom { font-size: 11px; color: #6b7594; }
+    .res-name { font-size: 17px; color: #e8eaf0; margin-bottom: 0.3rem; }
+    .res-pct { font-size: 13px; color: #6b7594; margin-bottom: 0.2rem; }
+    .res-msg { font-size: 12.5px; color: #4b5577; margin-bottom: 1.2rem; }
+
+    .stats-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center; min-width: 80px; }
+    .stat-val { font-size: 20px; font-weight: 500; }
+    .stat-lbl { font-size: 10.5px; color: #4b5577; margin-top: 2px; }
+    .stat-card.ok .stat-val { color: #4ade80; }
+    .stat-card.bad .stat-val { color: #f87171; }
+    .stat-card.skip .stat-val { color: #f59e0b; }
+
+    .breakdown { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; max-width: 500px; width: 100%; margin: 0 auto 1.2rem; overflow: hidden; }
+    .bd-header { padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-bottom: 0.5px solid rgba(255,255,255,0.07); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5577; display: flex; justify-content: space-between; }
+    .bd-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 1rem; border-bottom: 0.5px solid rgba(255,255,255,0.04); gap: 8px; }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-q { font-size: 12px; color: #6b7594; flex: 1; }
+    .bd-badge { font-size: 10.5px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+    .bd-badge.ok { background: rgba(34,197,94,0.13); color: #4ade80; }
+    .bd-badge.bad { background: rgba(239,68,68,0.11); color: #f87171; }
+    .bd-badge.skip { background: rgba(245,158,11,0.13); color: #fbbf24; }
+
+    .res-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn-retry2 { background: #3b82f6; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 7px; }
+    .btn-retry2:hover { background: #2563eb; }
+    .btn-home { background: transparent; border: 0.5px solid rgba(255,255,255,0.15); color: #9ba3b8; border-radius: 8px; padding: 10px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-home:hover { border-color: rgba(255,255,255,0.3); color: #e8eaf0; }
+
+    .footer-tag { text-align: center; padding: 0.65rem; font-size: 10px; color: #4b5577; border-top: 0.5px solid rgba(255,255,255,0.04); background: #0a0f1e; letter-spacing: 0.05em; }
+    .footer-tag span { color: #3b82f6; }
+  </style>
+</head>
+<body style="background: #0a0f1e; margin: 0;">
+
+<div id="app">
+
+  <!-- LANDING -->
+  <div id="landing" class="screen active">
+    <!-- Back to Portal top link -->
+    <div style="width: 100%; display: flex; justify-content: flex-start; padding: 15px; position: absolute; top: 0; left: 0;">
+      <a href="index.html" class="btn-ghost" style="padding: 5px 12px; font-size: 11.5px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Portal</a>
+    </div>
+
+    <div class="brand-pill" style="margin-top: 2rem;">MUS 356 &nbsp;|&nbsp; CBT Practice</div>
+    <div class="logo-ring"><i class="ti ti-school" aria-hidden="true"></i></div>
+    <h1 class="main-title">MUS 356 Quiz</h1>
+    <p class="main-sub">Music Education &middot; Technology &middot; Performance</p>
+
+    <div class="read-box">
+      <div class="read-box-title"><i class="ti ti-book-2" aria-hidden="true" style="font-size:14px"></i> Quiz Coverage Areas</div>
+      <ul>
+        <li>Objective 1: The Staff and Clefs</li>
+        <li>Objective 2: Lines and Spaces</li>
+        <li>Objective 3: Solfa Notes & Technical Names</li>
+        <li>Objective 4: Genres of Music</li>
+        <li>Objective 5: Stage Performance Types</li>
+        <li>Objective 6: Performance Tips</li>
+        <li>Objective 7: Music Licensing in Nigeria</li>
+        <li>Objective 8: Copyright Organizations (COSON, MCSN)</li>
+        <li>Objective 9: Western Orchestra Instruments</li>
+        <li>Objective 10: History of the Piano</li>
+      </ul>
+
+    </div>
+
+    <div class="form-group">
+      <label for="uname">Your name</label>
+      <input id="uname" type="text" placeholder="e.g. Samuel Adeyemi" maxlength="40" autocomplete="off" />
+    </div>
+
+    <div class="q-count-row">
+      <label for="qslider">Questions</label>
+      <input id="qslider" type="range" min="20" max="60" step="5" value="25" oninput="document.getElementById('qcval').textContent=this.value" />
+      <span class="q-count-val" id="qcval">25</span>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">
+      <i class="ti ti-player-play" aria-hidden="true"></i> Start CBT
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="qh-left" style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" class="btn-ghost" style="padding: 4px 10px; font-size: 11px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Home</a>
+        <span class="qh-logo"><i class="ti ti-school" aria-hidden="true"></i> MUS 356</span>
+        <span class="qh-user" id="hdr-user"></span>
+      </div>
+      <div class="qh-right">
+        <div class="timer-badge" id="timer-badge"><i class="ti ti-clock" aria-hidden="true" style="font-size:13px"></i><span id="timer-txt">--:--</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <span class="prog-label" id="prog-label">1/25</span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="q-meta">
+        <span class="q-num-tag" id="q-num-tag">Question 1</span>
+        <span class="q-section-tag" id="q-sec-tag"></span>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback-box" id="feedback">
+        <div class="fb-label" id="fb-label"></div>
+        <div class="fb-text" id="fb-text"></div>
+        <div class="fb-hint" id="fb-hint"></div>
+      </div>
+    </div>
+
+    <div class="q-nav" id="q-nav"></div>
+
+    <div class="quiz-footer">
+      <button class="btn-ghost" id="btn-prev" onclick="goQ(cur-1)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Prev</button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action" id="btn-submit" onclick="submitAns()" disabled>Submit</button>
+        <button class="btn-ghost" id="btn-next" onclick="goQ(cur+1)" style="display:none">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        <button class="btn-finish" id="btn-finish" onclick="confirmFinish()" style="display:none"><i class="ti ti-flag" aria-hidden="true"></i> Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="screen">
+    <div class="res-top">
+      <div class="brand-pill">Session Complete</div>
+      <div class="score-ring" id="score-ring">
+        <span class="score-num" id="res-score">0</span>
+        <span class="score-denom" id="res-denom">/ 25</span>
+      </div>
+      <p class="res-name" id="res-name"></p>
+      <p class="res-pct" id="res-pct"></p>
+      <p class="res-msg" id="res-msg"></p>
+    </div>
+    <div class="stats-row" id="stats-row"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="res-actions">
+      <button class="btn-retry2" onclick="retryQuiz()"><i class="ti ti-refresh" aria-hidden="true"></i> Retry Same</button>
+      <button class="btn-home" onclick="goHome()"><i class="ti ti-home" aria-hidden="true"></i> New Session</button>
+    </div>
+  </div>
+
+</div>
+<div class="footer-tag">MUS 356 &nbsp;&middot;&nbsp; <span>Resources from UTHTECH solution &nbsp;&middot;&nbsp; Built by <a href="https://instagram.com/samwissyy" target="_blank" style="color:inherit;">@samwissyy</a></span></div>
+
+<script>
+const BANK = [
+  { q: "What does a musical staff (or stave) consist of?", opts: ["4 lines and 5 spaces", "5 lines and 4 spaces", "6 lines and 3 spaces", "5 lines and 5 spaces"], ans: 1, exp: "A staff consists of 5 lines and 4 spaces.", hint: "", sec: "Music Fundamentals" },
+  { q: "Which clef is used for notating music for high-pitched singers or instruments?", opts: ["Bass Clef", "F Clef", "Treble / G Clef", "Alto Clef"], ans: 2, exp: "The Treble or G Clef is used for high pitch.", hint: "", sec: "Music Fundamentals" },
+  { q: "What are the letter names for the lines of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "G, B, D, F, A", "E, G, B, D, F", "A, C, E, G"], ans: 2, exp: "The lines are E, G, B, D, F (Every Good Boy Deserves Food).", hint: "", sec: "Music Fundamentals" },
+  { q: "What are the letter names for the spaces of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "E, G, B, D, F", "A, C, E, G", "G, B, D, F, A"], ans: 0, exp: "The spaces are F, A, C, E (Face).", hint: "", sec: "Music Fundamentals" },
+  { q: "What is the technical name for the Solfa note 'Doh'?", opts: ["Supertonic", "Tonic", "Mediant", "Dominant"], ans: 1, exp: "Doh is the Tonic.", hint: "", sec: "Music Fundamentals" },
+  { q: "What is the technical name for the Solfa note 'Soh'?", opts: ["Subdominant", "Leading Note", "Dominant", "Submediant"], ans: 2, exp: "Soh is the Dominant.", hint: "", sec: "Music Fundamentals" },
+  { q: "Which genre of music is known as 'serious music' and consists of western text and lyrics?", opts: ["R&B", "Jazz", "Reggae", "Classical or Western Chorus"], ans: 3, exp: "Classical music is known as serious music with rules.", hint: "", sec: "Genres of Music" },
+  { q: "Which Nigerian music genre originated from highlife and involves the use of 2 or more string instruments?", opts: ["Fuji", "Juju", "Afrobeat", "Apala"], ans: 1, exp: "Juju originated from highlife and uses multiple string instruments.", hint: "", sec: "Genres of Music" },
+  { q: "What type of stage is completely surrounded by audience seating on all sides?", opts: ["Proscenium Stage", "Thrust Stage", "Arena Stage", "Platform Stage"], ans: 2, exp: "An Arena Stage (theater-in-the-round) is surrounded by seating on all sides.", hint: "", sec: "Stage Performance" },
+  { q: "Which type of music license grants the right to synchronize sound with visual media like movies or TV?", opts: ["Master License", "Performance License", "Synchronization License", "Print License"], ans: 2, exp: "Synchronization license allows syncing music with visual media.", hint: "", sec: "Music Licensing" },
+  { q: "Which organization acts as the sole collective management organization (CMO) approved by the Nigerian Copyright Commission?", opts: ["MCSN", "COSON", "PMAN", "NCC"], ans: 1, exp: "COSON is the sole CMO approved by the NCC.", hint: "", sec: "Music Licensing" },
+  { q: "Which of the following is a Woodwind instrument?", opts: ["Violin", "Clarinet", "Trumpet", "Conga"], ans: 1, exp: "The clarinet is a woodwind instrument.", hint: "", sec: "Instruments" },
+  { q: "Who invented the piano around 1720?", opts: ["Claudio Monteverdi", "J.G Handel", "Bartholomeo Cristofori", "Arnold Schoenberg"], ans: 2, exp: "Bartholomeo Cristofori, an Italian carpenter, invented the piano.", hint: "", sec: "Instruments" },
+  { q: "What was the original full name for the piano?", opts: ["Pianoforte", "Harpsichord", "Clavichord", "Synthesizer"], ans: 0, exp: "The full name is Pianoforte because it could play soft (piano) and loud (forte).", hint: "", sec: "Instruments" },
+  { q: "In what year was Claudio Monteverdi's opera 'Orfeo' produced?", opts: ["1500", "1607", "1720", "1800"], ans: 1, exp: "His opera Orfeo was produced in 1607.", hint: "", sec: "Orchestra" },
+  { q: "Which of the following is a Brass instrument?", opts: ["Flute", "Trombone", "Cello", "Marimba"], ans: 1, exp: "The Trombone is a brass instrument.", hint: "", sec: "Instruments" },
+  { q: "What type of stage has a framed opening at the front, known as the arch?", opts: ["Proscenium Stage", "Thrust Stage", "Outdoor Stage", "Arena Stage"], ans: 0, exp: "Proscenium stage has a proscenium arch at the front.", hint: "", sec: "Stage Performance" },
+  { q: "Which music license is required to play a sound recording in public via radio, TV, or concerts?", opts: ["Print License", "Synchronization License", "Mechanical License", "Broadcast or Performance License"], ans: 3, exp: "Performance licenses cover public streaming and playing.", hint: "", sec: "Music Licensing" },
+  { q: "The Bass Clef is also known as what?", opts: ["G Clef", "C Clef", "F Clef", "D Clef"], ans: 2, exp: "The Bass Clef is known as the F Clef.", hint: "", sec: "Music Fundamentals" },
+  { q: "Which genre of music originated from Jamaica and is known for its strong rhythmic baseline?", opts: ["Highlife", "Hip-Hop", "Reggae", "Juju"], ans: 2, exp: "Reggae originated from Jamaica.", hint: "", sec: "Genres of Music" }
+];
+
+let username='', totalQ=25, quizQ=[], userAns=[], cur=0, score=0;
+let timerInterval=null, timeLeft=0;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(){
+  const inp=document.getElementById('uname');
+  username=inp.value.trim();
+  if(!username){inp.focus();inp.style.borderColor='#ef4444';return;}
+  inp.style.borderColor='';
+  totalQ=parseInt(document.getElementById('qslider').value);
+  const shuffled=shuffle([...BANK]);
+  quizQ=shuffled.slice(0,totalQ);
+  userAns=new Array(totalQ).fill(null);
+  cur=0; score=0;
+  timeLeft=totalQ*90;
+  showScreen('quiz');
+  document.getElementById('hdr-user').textContent=username;
+  buildNav();
+  renderQ();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimerDisplay();
+    if(timeLeft<=0){clearInterval(timerInterval);showResults();}
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timeLeft/60), s=timeLeft%60;
+  const txt=m+':'+(s<10?'0':'')+s;
+  document.getElementById('timer-txt').textContent=txt;
+  const badge=document.getElementById('timer-badge');
+  if(timeLeft<60) badge.classList.add('warn'); else badge.classList.remove('warn');
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function buildNav(){
+  const nav=document.getElementById('q-nav');
+  nav.innerHTML='';
+  for(let i=0;i<totalQ;i++){
+    const d=document.createElement('button');
+    d.className='nav-dot';
+    d.textContent=i+1;
+    d.id='nd'+i;
+    d.onclick=(()=>{const idx=i;return()=>goQ(idx);})();
+    nav.appendChild(d);
+  }
+}
+
+function updateNav(){
+  for(let i=0;i<totalQ;i++){
+    const d=document.getElementById('nd'+i);
+    if(!d) continue;
+    d.className='nav-dot';
+    if(i===cur) d.classList.add('active');
+    else if(userAns[i]!==null){
+      const correct=userAns[i]===quizQ[i].ans;
+      d.classList.add(correct?'done-ok':'done-bad');
+    }
+  }
+}
+
+function renderQ(){
+  const q=quizQ[cur];
+  document.getElementById('q-num-tag').textContent='Question '+(cur+1)+' of '+totalQ;
+  document.getElementById('q-sec-tag').textContent=q.sec;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('prog-fill').style.width=((cur+1)/totalQ*100)+'%';
+  document.getElementById('prog-label').textContent=(cur+1)+'/'+totalQ;
+
+  const opts=document.getElementById('options');
+  opts.innerHTML='';
+  const letters=['A','B','C','D'];
+  const answered=userAns[cur]!==null;
+
+  q.opts.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn'+(answered?' locked':'');
+    btn.innerHTML=`<span class="opt-letter">${letters[i]}</span><span>${o}</span>`;
+    if(!answered) btn.onclick=()=>selectOpt(i);
+    if(answered){
+      if(i===q.ans) btn.classList.add('correct');
+      else if(i===userAns[cur]&&userAns[cur]!==q.ans) btn.classList.add('wrong');
+    }
+    opts.appendChild(btn);
+  });
+
+  const fb=document.getElementById('feedback');
+  const fbl=document.getElementById('fb-label');
+  if(answered){
+    const ok=userAns[cur]===q.ans;
+    fb.classList.add('show');
+    fbl.className='fb-label '+(ok?'ok':'bad');
+    fbl.textContent=ok?'Correct!':'Incorrect.';
+    document.getElementById('fb-text').textContent=q.exp;
+    document.getElementById('fb-hint').textContent=q.hint;
+    document.getElementById('btn-submit').style.display='none';
+    document.getElementById('btn-next').style.display='flex';
+  } else {
+    fb.classList.remove('show');
+    document.getElementById('btn-submit').style.display='block';
+    document.getElementById('btn-submit').disabled=true;
+    document.getElementById('btn-next').style.display='none';
+  }
+
+  document.getElementById('btn-prev').style.display=cur>0?'flex':'none';
+  const allAnswered=userAns.every(a=>a!==null);
+  document.getElementById('btn-finish').style.display=(cur===totalQ-1||allAnswered)?'flex':'none';
+  updateNav();
+}
+
+function selectOpt(i){
+  if(userAns[cur]!==null) return;
+  document.querySelectorAll('.opt-btn').forEach((b,idx)=>{
+    b.classList.toggle('selected',idx===i);
+  });
+  document.getElementById('btn-submit').disabled=false;
+  document.getElementById('btn-submit').dataset.sel=i;
+}
+
+function submitAns(){
+  const sel=parseInt(document.getElementById('btn-submit').dataset.sel);
+  if(isNaN(sel)||userAns[cur]!==null) return;
+  userAns[cur]=sel;
+  const q=quizQ[cur];
+  if(sel===q.ans) score++;
+
+  const btns=document.querySelectorAll('.opt-btn');
+  btns.forEach((b,i)=>{
+    b.classList.add('locked');
+    b.classList.remove('selected');
+    if(i===q.ans) b.classList.add('correct');
+    else if(i===sel&&sel!==q.ans) b.classList.add('wrong');
+  });
+
+  const ok=sel===q.ans;
+  const fb=document.getElementById('feedback');
+  fb.classList.add('show');
+  const fbl=document.getElementById('fb-label');
+  fbl.className='fb-label '+(ok?'ok':'bad');
+  fbl.textContent=ok?'Correct!':'Incorrect.';
+  document.getElementById('fb-text').textContent=q.exp;
+  document.getElementById('fb-hint').textContent=q.hint;
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-next').style.display='flex';
+
+  const allAnswered=userAns.every(a=>a!==null);
+  document.getElementById('btn-finish').style.display=(cur===totalQ-1||allAnswered)?'flex':'none';
+  updateNav();
+}
+
+function goQ(idx){
+  if(idx<0||idx>=totalQ) return;
+  cur=idx;
+  renderQ();
+}
+
+function confirmFinish(){
+  const unanswered=userAns.filter(a=>a===null).length;
+  if(unanswered>0){
+    if(!confirm(unanswered+' question(s) unanswered. Finish anyway?')) return;
+  }
+  clearInterval(timerInterval);
+  showResults();
+}
+
+function showResults(){
+  clearInterval(timerInterval);
+  showScreen('results');
+  const pct=Math.round(score/totalQ*100);
+  const ring=document.getElementById('score-ring');
+  ring.className='score-ring '+(pct>=70?'great':pct>=50?'mid':'low');
+  document.getElementById('res-score').textContent=score;
+  document.getElementById('res-denom').textContent='/ '+totalQ;
+  document.getElementById('res-name').textContent=username+"'s Result";
+  document.getElementById('res-pct').textContent=pct+'% — '+score+' correct out of '+totalQ;
+  let msg='';
+  if(pct>=90) msg='Excellent! You have mastered the MUS 356 material.';
+  else if(pct>=75) msg='Great performance! Review the few you missed.';
+  else if(pct>=60) msg='Good effort. Go back to your study notes and retry.';
+  else if(pct>=50) msg='You are getting there — more review needed before the exam.';
+  else msg='Keep studying! Work through your MUS 356 notes carefully.';
+  document.getElementById('res-msg').textContent=msg;
+
+  const correct=userAns.filter((a,i)=>a===quizQ[i].ans).length;
+  const wrong=userAns.filter((a,i)=>a!==null&&a!==quizQ[i].ans).length;
+  const skipped=userAns.filter(a=>a===null).length;
+  document.getElementById('stats-row').innerHTML=`
+    <div class="stat-card ok"><div class="stat-val">${correct}</div><div class="stat-lbl">Correct</div></div>
+    <div class="stat-card bad"><div class="stat-val">${wrong}</div><div class="stat-lbl">Wrong</div></div>
+    <div class="stat-card skip"><div class="stat-val">${skipped}</div><div class="stat-lbl">Skipped</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#3b82f6">${pct}%</div><div class="stat-lbl">Score</div></div>`;
+
+  const bd=document.getElementById('breakdown');
+  bd.innerHTML=`<div class="bd-header"><span>Question</span><span>Result</span></div>`;
+  quizQ.forEach((q,i)=>{
+    const ua=userAns[i];
+    const ok=ua===q.ans;
+    const skp=ua===null;
+    const row=document.createElement('div');
+    row.className='bd-row';
+    const qtext=q.q.length>58?q.q.slice(0,58)+'…':q.q;
+    row.innerHTML=`<span class="bd-q">Q${i+1}. ${qtext}</span><span class="bd-badge ${skp?'skip':ok?'ok':'bad'}">${skp?'Skipped':ok?'Correct':'Wrong'}</span>`;
+    bd.appendChild(row);
+  });
+}
+
+function retryQuiz(){
+  score=0; cur=0;
+  userAns=new Array(totalQ).fill(null);
+  shuffle(quizQ);
+  timeLeft=totalQ*90;
+  showScreen('quiz');
+  buildNav();
+  renderQ();
+  startTimer();
+}
+
+function goHome(){
+  clearInterval(timerInterval);
+  showScreen('landing');
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = 'https://qinptqnacaakrlsevhyp.supabase.co';
+  const supabaseKey = 'sb_publishable_gs3jj4nhv6atcuDIdhT71g_9WJmp4xf';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function postScore(user, score) {
+    if (!user || user.toLowerCase() === 'student' || score === 0) return;
+    try {
+      const { data } = await supabase.from('leaderboard').select('*').eq('username', user).maybeSingle();
+      if (data) {
+        await supabase.from('leaderboard').update({ total_score: data.total_score + score, quizzes_taken: data.quizzes_taken + 1, last_updated: new Date().toISOString() }).eq('username', user);
+      } else {
+        await supabase.from('leaderboard').insert([{ username: user, total_score: score, quizzes_taken: 1 }]);
+      }
+    } catch(err) { console.error('Supabase error:', err); }
+  }
+</script>
+</body>
+
+</html>
