@@ -260,26 +260,80 @@
 
 <script>
 const BANK = [
+  // SECTION 1: STAFF & CLEFS
   { q: "What does a musical staff (or stave) consist of?", opts: ["4 lines and 5 spaces", "5 lines and 4 spaces", "6 lines and 3 spaces", "5 lines and 5 spaces"], ans: 1, exp: "A staff consists of 5 lines and 4 spaces.", hint: "", sec: "Music Fundamentals" },
+  { q: "What is another name for a musical staff?", opts: ["Clef", "Stave", "Score", "Bar"], ans: 1, exp: "Another name for a staff is a stave.", hint: "", sec: "Music Fundamentals" },
   { q: "Which clef is used for notating music for high-pitched singers or instruments?", opts: ["Bass Clef", "F Clef", "Treble / G Clef", "Alto Clef"], ans: 2, exp: "The Treble or G Clef is used for high pitch.", hint: "", sec: "Music Fundamentals" },
-  { q: "What are the letter names for the lines of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "G, B, D, F, A", "E, G, B, D, F", "A, C, E, G"], ans: 2, exp: "The lines are E, G, B, D, F (Every Good Boy Deserves Food).", hint: "", sec: "Music Fundamentals" },
-  { q: "What are the letter names for the spaces of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "E, G, B, D, F", "A, C, E, G", "G, B, D, F, A"], ans: 0, exp: "The spaces are F, A, C, E (Face).", hint: "", sec: "Music Fundamentals" },
+  { q: "The curly part of the Treble Clef ends at which line of the staff?", opts: ["First line", "Second line", "Third line", "Fourth line"], ans: 1, exp: "It ends at the second line, indicating that the note on that line is G.", hint: "", sec: "Music Fundamentals" },
+  { q: "What are the letter names for the lines of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "G, B, D, F, A", "E, G, B, D, F", "A, C, E, G"], ans: 2, exp: "E, G, B, D, F (Every Good Boy Deserves Food).", hint: "", sec: "Music Fundamentals" },
+  { q: "What are the letter names for the spaces of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "E, G, B, D, F", "A, C, E, G", "G, B, D, F, A"], ans: 0, exp: "F, A, C, E (Face).", hint: "", sec: "Music Fundamentals" },
+  { q: "The Bass Clef is also known as what?", opts: ["G Clef", "C Clef", "F Clef", "D Clef"], ans: 2, exp: "The Bass Clef is known as the F Clef.", hint: "", sec: "Music Fundamentals" },
+  { q: "What are the lines of a Bass Staff from bottom to top?", opts: ["G, B, D, F, A", "E, G, B, D, F", "A, C, E, G", "F, A, C, E"], ans: 0, exp: "G, B, D, F, A (Good Boys Deserve Food Always).", hint: "", sec: "Music Fundamentals" },
+  { q: "What are the spaces of a Bass Staff from bottom to top?", opts: ["A, C, E, G", "F, A, C, E", "G, B, D, F", "E, G, B, D"], ans: 0, exp: "A, C, E, G (All Cows Eat Grass).", hint: "", sec: "Music Fundamentals" },
+  { q: "A Grand Staff is formed by joining the treble and bass staffs together using a what?", opts: ["Bar line", "Clef", "Brace", "Ledger line"], ans: 2, exp: "They are joined together with a brace to form one staff.", hint: "", sec: "Music Fundamentals" },
+
+  // SECTION 2: SOLFA & NOTES
   { q: "What is the technical name for the Solfa note 'Doh'?", opts: ["Supertonic", "Tonic", "Mediant", "Dominant"], ans: 1, exp: "Doh is the Tonic.", hint: "", sec: "Music Fundamentals" },
   { q: "What is the technical name for the Solfa note 'Soh'?", opts: ["Subdominant", "Leading Note", "Dominant", "Submediant"], ans: 2, exp: "Soh is the Dominant.", hint: "", sec: "Music Fundamentals" },
+  { q: "Which of the following represents the 'Mediant'?", opts: ["Mi", "Re", "Fah", "Lah"], ans: 0, exp: "Mi is the Mediant.", hint: "", sec: "Music Fundamentals" },
+  { q: "Which solfa note is known as the 'Leading Note'?", opts: ["Soh", "Lah", "Ti", "Doh¹"], ans: 2, exp: "Ti is the Leading Note.", hint: "", sec: "Music Fundamentals" },
+  { q: "How many beats does a Semibreve note have?", opts: ["1 beat", "2 beats", "3 beats", "4 beats"], ans: 3, exp: "A semibreve (whole note) has 4 beats.", hint: "", sec: "Rhythm and Notes" },
+  { q: "Which note has 2 beats and sounds like 'taa-aa'?", opts: ["Crotchet", "Minim", "Quaver", "Semibreve"], ans: 1, exp: "A minim (half note) has 2 beats.", hint: "", sec: "Rhythm and Notes" },
+  { q: "A crotchet (quarter note) is equal to how many beats?", opts: ["1 beat", "2 beats", "1/2 beat", "1/4 beat"], ans: 0, exp: "A crotchet has 1 beat.", hint: "", sec: "Rhythm and Notes" },
+  { q: "What happens when a dot is added to a musical note?", opts: ["It doubles the note's value", "It cuts the note's value in half", "It adds half of the original value to the note", "It makes the note silent"], ans: 2, exp: "A dotted note gains half of its original value.", hint: "", sec: "Rhythm and Notes" },
+  { q: "How many beats does a dotted minim have?", opts: ["2 beats", "3 beats", "4 beats", "1.5 beats"], ans: 1, exp: "A minim has 2 beats. The dot adds 1 beat (half of 2). Total = 3 beats.", hint: "", sec: "Rhythm and Notes" },
+  { q: "Which musical term refers to the speed of the beat?", opts: ["Rhythm", "Tempo", "Bar", "Staff"], ans: 1, exp: "Tempo indicates how fast or slow the beat is.", hint: "", sec: "Rhythm and Notes" },
+
+  // SECTION 3: GENRES OF MUSIC
   { q: "Which genre of music is known as 'serious music' and consists of western text and lyrics?", opts: ["R&B", "Jazz", "Reggae", "Classical or Western Chorus"], ans: 3, exp: "Classical music is known as serious music with rules.", hint: "", sec: "Genres of Music" },
+  { q: "Which genre originated from the black Americans and is mostly instrumental?", opts: ["Highlife", "Jazz & Blues", "Fuji", "Traditional Music"], ans: 1, exp: "Jazz and blues originated from black America.", hint: "", sec: "Genres of Music" },
+  { q: "Which genre is recognized for its strong rhythmic baseline and originated from Jamaica?", opts: ["R&B", "Hip-Hop", "Reggae", "Juju"], ans: 2, exp: "Reggae originated from Jamaica.", hint: "", sec: "Genres of Music" },
   { q: "Which Nigerian music genre originated from highlife and involves the use of 2 or more string instruments?", opts: ["Fuji", "Juju", "Afrobeat", "Apala"], ans: 1, exp: "Juju originated from highlife and uses multiple string instruments.", hint: "", sec: "Genres of Music" },
-  { q: "What type of stage is completely surrounded by audience seating on all sides?", opts: ["Proscenium Stage", "Thrust Stage", "Arena Stage", "Platform Stage"], ans: 2, exp: "An Arena Stage (theater-in-the-round) is surrounded by seating on all sides.", hint: "", sec: "Stage Performance" },
+  { q: "Fuji and Apala music originated from the Islamic believers of Nigeria.", opts: ["True", "False", "Only Fuji", "Only Apala"], ans: 0, exp: "Both originated from Islamic believers and consists of percussion.", hint: "", sec: "Genres of Music" },
+  { q: "Who composed the 'Hallelujah Chorus'?", opts: ["Charlie Parker", "J.G Handel", "Bob Marley", "Victor Uwaifo"], ans: 1, exp: "J.G Handel composed the Hallelujah Chorus.", hint: "", sec: "Genres of Music" },
+  { q: "Which of the following is NOT an example of a Highlife artist?", opts: ["Victor Uwaifo", "Fela Kuti", "King Sunny Ade", "Victor Olaiya"], ans: 2, exp: "King Sunny Ade is a Juju musician.", hint: "", sec: "Genres of Music" },
+  
+  // SECTION 4: STAGE PERFORMANCE & TERMS
+  { q: "What type of stage has a framed opening at the front, known as the arch?", opts: ["Proscenium Stage", "Thrust Stage", "Outdoor Stage", "Arena Stage"], ans: 0, exp: "Proscenium stage has a proscenium arch at the front.", hint: "", sec: "Stage Performance" },
+  { q: "What type of stage is completely surrounded by audience seating on all sides?", opts: ["Proscenium Stage", "Thrust Stage", "Arena Stage", "Platform Stage"], ans: 2, exp: "An Arena Stage (theater-in-the-round) is surrounded by seating.", hint: "", sec: "Stage Performance" },
+  { q: "A stage that extends into the audience area on three sides for a more intimate experience is called what?", opts: ["Platform Stage", "Thrust Stage", "Arena Stage", "Outdoor Stage"], ans: 1, exp: "This is a Thrust Stage.", hint: "", sec: "Stage Performance" },
+  { q: "What does the musical term 'Crescendo' mean?", opts: ["Gradually getting softer", "Gradually getting faster", "Gradually getting louder", "Short and detached"], ans: 2, exp: "Crescendo means gradually getting louder.", hint: "", sec: "Musical Terms" },
+  { q: "What does the musical term 'Allegro' mean?", opts: ["Slow", "Quick", "At a walking pace", "Smooth"], ans: 1, exp: "Allegro means quick.", hint: "", sec: "Musical Terms" },
+  { q: "Which term means 'gradually getting slower'?", opts: ["Ritardando (rit.)", "Accelerando (accel.)", "Decrescendo", "Legato"], ans: 0, exp: "Ritardando means gradually getting slower.", hint: "", sec: "Musical Terms" },
+  { q: "What does 'Forte (f)' mean in music?", opts: ["Very loud", "Soft", "Loud", "Smooth"], ans: 2, exp: "Forte means loud.", hint: "", sec: "Musical Terms" },
+  { q: "What does 'Da capo (or D.C.)' mean?", opts: ["From the beginning", "To the end", "Gradually softer", "Very soft"], ans: 0, exp: "Da capo means from the beginning.", hint: "", sec: "Musical Terms" },
+
+  // SECTION 5: MUSIC LICENSING
   { q: "Which type of music license grants the right to synchronize sound with visual media like movies or TV?", opts: ["Master License", "Performance License", "Synchronization License", "Print License"], ans: 2, exp: "Synchronization license allows syncing music with visual media.", hint: "", sec: "Music Licensing" },
+  { q: "Which music license is required to play a sound recording in public via radio, TV, or concerts?", opts: ["Print License", "Synchronization License", "Mechanical License", "Broadcast or Performance License"], ans: 3, exp: "Performance licenses cover public streaming and playing.", hint: "", sec: "Music Licensing" },
   { q: "Which organization acts as the sole collective management organization (CMO) approved by the Nigerian Copyright Commission?", opts: ["MCSN", "COSON", "PMAN", "NCC"], ans: 1, exp: "COSON is the sole CMO approved by the NCC.", hint: "", sec: "Music Licensing" },
+  { q: "Before Nigeria gained independence, most Nigerian composers were registered with which UK societies?", opts: ["ASCAP and BMI", "PRS and MCPS", "COSON and MCSN", "BMI and SECAC"], ans: 1, exp: "They were registered with the Performing Rights Society (PRS) and Mechanical Copyright Protection Society (MCPS).", hint: "", sec: "Music Licensing" },
+  { q: "Which license grants the rights to transcribe or print physical copies of musical notes?", opts: ["Print License", "Mechanical License", "Master License", "Performance License"], ans: 0, exp: "A Print License covers physical or sheet music printing.", hint: "", sec: "Music Licensing" },
+  { q: "What does CMO stand for in the context of Nigerian music copyright?", opts: ["Copyright Management Office", "Collective Management Organization", "Central Music Organization", "Copyright Music Operator"], ans: 1, exp: "CMO stands for Collective Management Organization.", hint: "", sec: "Music Licensing" },
+  
+  // SECTION 6: INSTRUMENTS & ORCHESTRA
   { q: "Which of the following is a Woodwind instrument?", opts: ["Violin", "Clarinet", "Trumpet", "Conga"], ans: 1, exp: "The clarinet is a woodwind instrument.", hint: "", sec: "Instruments" },
+  { q: "Which of the following is a Brass instrument?", opts: ["Flute", "Trombone", "Cello", "Marimba"], ans: 1, exp: "The Trombone is a brass instrument.", hint: "", sec: "Instruments" },
+  { q: "Which type of instrument produces sound by vibrating a stretched membrane (animal skin)?", opts: ["Idiophones", "Membranophones", "Chordophones", "Aerophones"], ans: 1, exp: "Membranophones use stretched membranes (like drums).", hint: "", sec: "African Instruments" },
+  { q: "Which classification of African instruments produces sound by the vibration of their own body when struck or shaken?", opts: ["Idiophones", "Chordophones", "Membranophones", "Aerophones"], ans: 0, exp: "Idiophones (e.g. gongs, rattles) are self-sounding.", hint: "", sec: "African Instruments" },
+  { q: "An Aerophone produces sound primarily by causing a body of air to vibrate.", opts: ["True", "False", "Only in Western music", "Only in African music"], ans: 0, exp: "True. Aerophones use vibrating air (e.g. flutes, Kakaaki).", hint: "", sec: "African Instruments" },
+  { q: "Which of the following is a percussion instrument with a DEFINITE pitch (can play a tune)?", opts: ["Snare Drum", "Cymbals", "Xylophone", "Triangle"], ans: 2, exp: "A xylophone can play a tune, so it has a definite pitch.", hint: "", sec: "Instruments" },
+  { q: "Which percussion instrument has an INDEFINITE pitch (only produces rhythms)?", opts: ["Timpani", "Marimba", "Tubular Bells", "Conga"], ans: 3, exp: "Congas produce rhythms, not melodies.", hint: "", sec: "Instruments" },
   { q: "Who invented the piano around 1720?", opts: ["Claudio Monteverdi", "J.G Handel", "Bartholomeo Cristofori", "Arnold Schoenberg"], ans: 2, exp: "Bartholomeo Cristofori, an Italian carpenter, invented the piano.", hint: "", sec: "Instruments" },
   { q: "What was the original full name for the piano?", opts: ["Pianoforte", "Harpsichord", "Clavichord", "Synthesizer"], ans: 0, exp: "The full name is Pianoforte because it could play soft (piano) and loud (forte).", hint: "", sec: "Instruments" },
   { q: "In what year was Claudio Monteverdi's opera 'Orfeo' produced?", opts: ["1500", "1607", "1720", "1800"], ans: 1, exp: "His opera Orfeo was produced in 1607.", hint: "", sec: "Orchestra" },
-  { q: "Which of the following is a Brass instrument?", opts: ["Flute", "Trombone", "Cello", "Marimba"], ans: 1, exp: "The Trombone is a brass instrument.", hint: "", sec: "Instruments" },
-  { q: "What type of stage has a framed opening at the front, known as the arch?", opts: ["Proscenium Stage", "Thrust Stage", "Outdoor Stage", "Arena Stage"], ans: 0, exp: "Proscenium stage has a proscenium arch at the front.", hint: "", sec: "Stage Performance" },
-  { q: "Which music license is required to play a sound recording in public via radio, TV, or concerts?", opts: ["Print License", "Synchronization License", "Mechanical License", "Broadcast or Performance License"], ans: 3, exp: "Performance licenses cover public streaming and playing.", hint: "", sec: "Music Licensing" },
-  { q: "The Bass Clef is also known as what?", opts: ["G Clef", "C Clef", "F Clef", "D Clef"], ans: 2, exp: "The Bass Clef is known as the F Clef.", hint: "", sec: "Music Fundamentals" },
-  { q: "Which genre of music originated from Jamaica and is known for its strong rhythmic baseline?", opts: ["Highlife", "Hip-Hop", "Reggae", "Juju"], ans: 2, exp: "Reggae originated from Jamaica.", hint: "", sec: "Genres of Music" }
+  { q: "During the Renaissance, what word was used to refer to a group of instrumentalists playing together?", opts: ["Band", "Consort", "Choir", "Ensemble"], ans: 1, exp: "The word 'consort' was used.", hint: "", sec: "Orchestra" },
+  { q: "Which string instrument family eventually replaced the 'viol' family?", opts: ["The Guitar family", "The Violin family", "The Harp family", "The Lute family"], ans: 1, exp: "The violin family (violin, viola, cello, bass) replaced the viol family.", hint: "", sec: "Orchestra" },
+  { q: "Who led the orchestra's performance from his chair before batons and standing conductors became common?", opts: ["The First Violinist (Concertmaster)", "The Lead Cellist", "The Pianist", "The Drummer"], ans: 0, exp: "The concertmaster led the performance.", hint: "", sec: "Orchestra" },
+  { q: "Which composer is famous for writing a piece for a massive 150-piece orchestra?", opts: ["Claudio Monteverdi", "J.G Handel", "Arnold Schoenberg", "Carl Maria von Weber"], ans: 2, exp: "Arnold Schoenberg wrote for a 150-piece orchestra.", hint: "", sec: "Orchestra" },
+  
+  // EXTRA BALANCING QUESTIONS
+  { q: "What is the damper pedal on a piano used for?", opts: ["To play loud", "To sustain a note", "To play soft", "To tune the piano"], ans: 2, exp: "The damper pedal on the left side is used to play soft.", hint: "", sec: "Instruments" },
+  { q: "The sustain pedal on a piano is located on which side?", opts: ["Left side", "Middle", "Right side", "Under the seat"], ans: 2, exp: "The sustain (loud) pedal is on the right side.", hint: "", sec: "Instruments" },
+  { q: "Which type of piano is the biggest and used in grand opera halls?", opts: ["Upright piano", "Baby grand piano", "Grand piano", "Electronic keyboard"], ans: 2, exp: "The Grand piano is the biggest.", hint: "", sec: "Instruments" },
+  { q: "Which term describes 'at a walking pace'?", opts: ["Allegro", "Andante", "Adagio", "Moderato"], ans: 1, exp: "Andante means at a walking pace.", hint: "", sec: "Musical Terms" },
+  { q: "Which musical term means 'short and detached'?", opts: ["Legato", "Staccato", "Cantabile", "Adagio"], ans: 1, exp: "Staccato means short and detached.", hint: "", sec: "Musical Terms" },
+  { q: "How many beats does a 'Quaver' note have?", opts: ["1 beat", "2 beats", "1/2 beat", "1/4 beat"], ans: 2, exp: "A quaver has a 1/2 beat.", hint: "", sec: "Rhythm and Notes" }
 ];
 
 let username='', totalQ=25, quizQ=[], userAns=[], cur=0, score=0;
