@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENT 312 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quizzes for ENT 312: Developing and Communicating Business Models — Communication, Business Writing, Presentations, Negotiation, Business Model Canvas.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1533030534131705" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    /* LANDING */
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #f97316; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(249,115,22,0.08); }
+    .logo-ring i { font-size: 28px; color: #f97316; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(249,115,22,0.07); border: 0.5px solid rgba(249,115,22,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus { border-color: #f97316; }
+    .form-group input::placeholder { color: #3d4460; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #f97316; }
+    .q-count-val { background: rgba(249,115,22,0.15); border: 0.5px solid rgba(249,115,22,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #f97316; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #f97316; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #ea6e0a; }
+
+    /* HEADER */
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #f97316; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #f97316; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    /* QUIZ BODY */
+    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #f97316; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(249,115,22,0.12); border-color: #f97316; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #f97316; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    /* NAVIGATOR */
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(249,115,22,0.4); color: #f97316; }
+    .nav-dot.active { border-color: #f97316; color: #f97316; background: rgba(249,115,22,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    /* FOOTER */
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #f97316; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #ea6e0a; }
+    .btn-ghost { background: transparent; border: 0.5px solid rgba(255,255,255,0.12); color: #9ba3b8; border-radius: 8px; padding: 9px 18px; font-size: 12.5px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #e8eaf0; }
+    .btn-finish { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.4); color: #4ade80; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-finish:hover { background: rgba(34,197,94,0.22); }
+
+    /* RESULTS */
+    #results { align-items: center; justify-content: flex-start; padding: 1.5rem 1.25rem 1rem; background: #0a0f1e; overflow-y: auto; }
+    .res-top { text-align: center; margin-bottom: 1.5rem; width: 100%; }
+    .score-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #f97316; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .score-ring.great { border-color: #22c55e; }
+    .score-ring.mid { border-color: #f59e0b; }
+    .score-ring.low { border-color: #ef4444; }
+    .score-num { font-size: 28px; font-weight: 500; color: #fff; }
+    .score-denom { font-size: 11px; color: #6b7594; }
+    .res-name { font-size: 17px; color: #e8eaf0; margin-bottom: 0.3rem; }
+    .res-pct { font-size: 13px; color: #6b7594; margin-bottom: 0.2rem; }
+    .res-msg { font-size: 12.5px; color: #4b5577; margin-bottom: 1.2rem; }
+
+    .stats-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center; min-width: 80px; }
+    .stat-val { font-size: 20px; font-weight: 500; }
+    .stat-lbl { font-size: 10.5px; color: #4b5577; margin-top: 2px; }
+    .stat-card.ok .stat-val { color: #4ade80; }
+    .stat-card.bad .stat-val { color: #f87171; }
+    .stat-card.skip .stat-val { color: #f59e0b; }
+
+    .breakdown { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; max-width: 500px; width: 100%; margin: 0 auto 1.2rem; overflow: hidden; }
+    .bd-header { padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-bottom: 0.5px solid rgba(255,255,255,0.07); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5577; display: flex; justify-content: space-between; }
+    .bd-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 1rem; border-bottom: 0.5px solid rgba(255,255,255,0.04); gap: 8px; }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-q { font-size: 12px; color: #6b7594; flex: 1; }
+    .bd-badge { font-size: 10.5px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+    .bd-badge.ok { background: rgba(34,197,94,0.13); color: #4ade80; }
+    .bd-badge.bad { background: rgba(239,68,68,0.11); color: #f87171; }
+    .bd-badge.skip { background: rgba(245,158,11,0.13); color: #fbbf24; }
+
+    .res-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn-retry2 { background: #f97316; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 7px; }
+    .btn-retry2:hover { background: #ea6e0a; }
+    .btn-home { background: transparent; border: 0.5px solid rgba(255,255,255,0.15); color: #9ba3b8; border-radius: 8px; padding: 10px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-home:hover { border-color: rgba(255,255,255,0.3); color: #e8eaf0; }
+
+    .footer-tag { text-align: center; padding: 0.65rem; font-size: 10px; color: #4b5577; border-top: 0.5px solid rgba(255,255,255,0.04); background: #0a0f1e; letter-spacing: 0.05em; }
+    .footer-tag a { color: #f97316; text-decoration: none; }
+    .footer-tag a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body style="background: #0a0f1e; margin: 0;">
+
+<div id="app">
+
+  <!-- LANDING -->
+  <div id="landing" class="screen active">
+    <div style="width: 100%; display: flex; justify-content: flex-start; padding: 15px; position: absolute; top: 0; left: 0;">
+      <a href="index.html" class="btn-ghost" style="padding: 5px 12px; font-size: 11.5px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Portal</a>
+    </div>
+
+    <div class="brand-pill" style="margin-top: 2rem;">ENT 312 &nbsp;|&nbsp; CBT Practice</div>
+    <div class="logo-ring"><i class="ti ti-building-store" aria-hidden="true"></i></div>
+    <h1 class="main-title">ENT 312 Quiz</h1>
+    <p class="main-sub">Business Communication &middot; Writing &middot; Presentations &middot; Negotiation &middot; Business Models</p>
+
+    <div class="read-box">
+      <div class="read-box-title"><i class="ti ti-book-2" aria-hidden="true" style="font-size:14px"></i> Quiz Coverage Areas</div>
+      <ul>
+        <li>Topic 1: Nature &amp; Process of Communication</li>
+        <li>Topic 2: Dimensions of Business Communication</li>
+        <li>Topic 3: Business Letters, Proposals &amp; Reports</li>
+        <li>Topic 4: Presentation Styles &amp; Delivery</li>
+        <li>Topic 5: Negotiation Skills in Business</li>
+        <li>Topic 6: Meaning &amp; Concept of Business Model</li>
+        <li>Topic 7: Four Parts of a Business Model</li>
+        <li>Topic 8: Types of Business Models (12 types)</li>
+        <li>Topic 9: Business Model Canvas (9 Building Blocks)</li>
+        <li>Topic 10: Value Proposition &amp; CVP</li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="uname">Your name</label>
+      <input id="uname" type="text" placeholder="e.g. Samuel Adeyemi" maxlength="40" autocomplete="off" />
+    </div>
+
+    <div class="q-count-row">
+      <label for="qslider">Questions</label>
+      <input id="qslider" type="range" min="20" max="60" step="5" value="25" oninput="document.getElementById('qcval').textContent=this.value" />
+      <span class="q-count-val" id="qcval">25</span>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">
+      <i class="ti ti-player-play" aria-hidden="true"></i> Start CBT
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="qh-left" style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" class="btn-ghost" style="padding: 4px 10px; font-size: 11px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Home</a>
+        <span class="qh-logo"><i class="ti ti-building-store" aria-hidden="true"></i> ENT 312</span>
+        <span class="qh-user" id="hdr-user"></span>
+      </div>
+      <div class="qh-right">
+        <div class="timer-badge" id="timer-badge"><i class="ti ti-clock" aria-hidden="true" style="font-size:13px"></i><span id="timer-txt">--:--</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <span class="prog-label" id="prog-label">1/25</span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="q-meta">
+        <span class="q-num-tag" id="q-num-tag">Question 1</span>
+        <span class="q-section-tag" id="q-sec-tag"></span>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback-box" id="feedback">
+        <div class="fb-label" id="fb-label"></div>
+        <div class="fb-text" id="fb-text"></div>
+        <div class="fb-hint" id="fb-hint"></div>
+      </div>
+    </div>
+
+    <div class="q-nav" id="q-nav"></div>
+
+    <div class="quiz-footer">
+      <button class="btn-ghost" id="btn-prev" onclick="goQ(cur-1)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Prev</button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action" id="btn-submit" onclick="submitAns()" disabled>Submit</button>
+        <button class="btn-ghost" id="btn-next" onclick="goQ(cur+1)" style="display:none">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        <button class="btn-finish" id="btn-finish" onclick="confirmFinish()" style="display:none"><i class="ti ti-flag" aria-hidden="true"></i> Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="screen">
+    <div class="res-top">
+      <div class="brand-pill">Session Complete</div>
+      <div class="score-ring" id="score-ring">
+        <span class="score-num" id="res-score">0</span>
+        <span class="score-denom" id="res-denom">/ 25</span>
+      </div>
+      <p class="res-name" id="res-name"></p>
+      <p class="res-pct" id="res-pct"></p>
+      <p class="res-msg" id="res-msg"></p>
+    </div>
+    <div class="stats-row" id="stats-row"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="res-actions">
+      <button class="btn-retry2" onclick="retryQuiz()"><i class="ti ti-refresh" aria-hidden="true"></i> Retry Same</button>
+      <button class="btn-home" onclick="goHome()"><i class="ti ti-home" aria-hidden="true"></i> New Session</button>
+    </div>
+  </div>
+
+</div>
+<div class="footer-tag">ENT 312 &nbsp;&middot;&nbsp; ACADEMIC ACHIEVERS TUTORIAL BOARD &nbsp;&middot;&nbsp; Built by <a href="https://instagram.com/samwissyy" target="_blank">@samwissyy</a></div>
+
+<script>
+const BANK = [
+  // ── TOPIC 1: NATURE OF COMMUNICATION ──────────────────────────────────
+  {
+    q: "Communication is best described as",
+    opts: ["A one-way process of sending information", "A process by which we assign and convey meaning to create shared understanding", "The use of electronic media to relay messages", "A formal exchange of information in organisations"],
+    ans: 1,
+    exp: "Communication is a process by which we assign and convey meaning in an attempt to create shared understanding (Gamble & Gamble, 2013).",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+  {
+    q: "According to Dance and Larson (1974), how many interdisciplinary definitions of communication had been identified by that time?",
+    opts: ["Over 50", "Over 70", "Over 91", "Over 120"],
+    ans: 2,
+    exp: "Dance and Larson identified over 91 interdisciplinary definitions of communication, as reported by Burgoon and Ruffner (1979).",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+  {
+    q: "Which scholars popularised the definition of communication as a two-way process where the sender can equally become the receiver?",
+    opts: ["Burgoon and Ruffner", "Gamble and Gamble", "Locker et al.", "DeVito"],
+    ans: 1,
+    exp: "Gamble and Gamble (2013) described communication as a two-way process where the sender can equally become the receiver in a constant stream of role interchange.",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+  {
+    q: "The first key element found in any definition of communication is",
+    opts: ["The use of technology", "That something is transmitted (facts, feelings, ideas)", "The formal hierarchy of the organisation", "The absence of noise"],
+    ans: 1,
+    exp: "The first key element is transmission — something (facts, feelings, ideas) is transmitted, which implies there must be a receiver.",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+  {
+    q: "According to Locker et al (2024), the process of communication in every business context follows which flow?",
+    opts: ["Receiver → Channel → Sender", "Sender → Message → Channel → Receiver", "Channel → Sender → Receiver → Feedback", "Message → Receiver → Sender → Channel"],
+    ans: 1,
+    exp: "Locker et al (2024) emphasise that every communication encounter goes through: Sender → (message) → Channel → Receiver.",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+  {
+    q: "The greater the degree of understanding in communication, the more likely",
+    opts: ["Conflict will arise", "Human action will proceed towards accomplishment of goals", "The message will be distorted", "The sender will repeat the message"],
+    ans: 1,
+    exp: "The greater the degree of understanding present in communication, the more likely human action will proceed in the direction of accomplishing goals.",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+  {
+    q: "Communication cuts across which of the following disciplines?",
+    opts: ["Only sociology and psychology", "Only business and technology", "Sociology, psychology, anthropology, business, technology, philosophy, and many more", "Only politics and religion"],
+    ans: 2,
+    exp: "Communication is interdisciplinary — it spans sociology, psychology, anthropology, politics, business, technology, teaching and learning, philosophy, and many more.",
+    hint: "Topic 1: Nature of Communication",
+    sec: "Nature of Communication"
+  },
+
+  // ── TOPIC 2: DIMENSIONS OF COMMUNICATION ──────────────────────────────
+  {
+    q: "Which dimension of business communication follows the established hierarchy and is structured and documented?",
+    opts: ["Informal communication", "Horizontal communication", "Formal communication", "Technological communication"],
+    ans: 2,
+    exp: "Formal communication follows the established hierarchy, is structured, planned, and often documented — examples include memos, reports, and official emails.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "Grapevine and rumours are examples of which type of communication in business?",
+    opts: ["Formal communication", "Vertical communication", "Informal communication", "External communication"],
+    ans: 2,
+    exp: "Grapevine/rumours are classic examples of informal communication — arising from social interactions and personal relationships, less structured and often spontaneous.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "Downward communication in an organisation refers to information flowing from",
+    opts: ["Employees to management", "Management to employees", "Departments at the same level", "The organisation to external stakeholders"],
+    ans: 1,
+    exp: "Downward communication flows from management to employees — examples include instructions, policies, and feedback.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "Communication between individuals or departments at the same organisational level is called",
+    opts: ["Vertical communication", "External communication", "Horizontal communication", "Downward communication"],
+    ans: 2,
+    exp: "Horizontal communication occurs between individuals or departments at the same organisational level — essential for coordination, teamwork, and problem-solving.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "Body language, facial expressions, tone of voice, and eye contact are all examples of",
+    opts: ["Verbal communication", "Written communication", "Nonverbal communication", "Formal communication"],
+    ans: 2,
+    exp: "Nonverbal communication encompasses body language (haptics, oculesics, proxemics, paralanguage, chronemics) — conveying emotions and attitudes that words alone cannot.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "Which dimension of communication has drastically changed business communication by providing speed, efficiency, and global reach?",
+    opts: ["Formal communication", "Vertical communication", "Technological communication", "External communication"],
+    ans: 2,
+    exp: "Technological communication (email, video conferencing, social media, collaboration tools) provides speed, efficiency, and global reach but also presents challenges like information overload.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "The scientific term for the study of physical proximity in communication is",
+    opts: ["Oculesics", "Chronemics", "Proxemics", "Haptics"],
+    ans: 2,
+    exp: "Proxemics refers to the study of physical proximity or the use of space in communication.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+  {
+    q: "Internal communication primarily aims to",
+    opts: ["Build relationships with external stakeholders", "Foster employee engagement and build a strong organisational culture", "Attract new customers", "Manage legal correspondence"],
+    ans: 1,
+    exp: "Internal communication aims to foster employee engagement, share information and knowledge, build a strong organisational culture, and improve internal processes.",
+    hint: "Topic 2: Dimensions of Communication",
+    sec: "Dimensions of Communication"
+  },
+
+  // ── TOPIC 3: BUSINESS WRITING ──────────────────────────────────────────
+  {
+    q: "Which of the following is NOT one of the five steps in the writing process?",
+    opts: ["Prewriting", "Draft", "Editing", "Distribution planning"],
+    ans: 3,
+    exp: "The five steps are: Prewriting, Draft, Revision, Editing, and Submittal. 'Distribution planning' is not one of them.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "The step in the writing process that involves review, modification and organisation by the writer is",
+    opts: ["Prewriting", "Draft", "Revision", "Editing"],
+    ans: 2,
+    exp: "Revision involves the writer reviewing, modifying, and organising the drafted content.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "A business letter primarily serves to",
+    opts: ["Entertain readers", "Provide formal, structured, and documented communication between organisations or stakeholders", "Replace verbal discussions entirely", "Create social media content"],
+    ans: 1,
+    exp: "Business letters serve as a structured and documented way to exchange ideas or information between organisations, employees, clients, or stakeholders.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "According to Argenti (2009), which component of a business letter is the formal farewell?",
+    opts: ["Salutation", "Inside Address", "Closing", "Signature"],
+    ans: 2,
+    exp: "The Closing is the formal farewell of a business letter — examples include 'Sincerely,' and 'Yours faithfully.'",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "A business proposal that responds to a published Request for Proposal (RFP) is classified as",
+    opts: ["Unsolicited proposal", "Solicited proposal", "Informal proposal", "Cold proposal"],
+    ans: 1,
+    exp: "A solicited business proposal responds to a Request for Proposal (RFP) or Invitation for Bid (IFB), meeting specific requirements of the requesting party.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "An unsolicited business proposal is best compared to",
+    opts: ["A court order", "Collateral marketing material such as a brochure", "A formal contract", "An arbitration document"],
+    ans: 1,
+    exp: "An unsolicited proposal is like collateral marketing material — broad-spectrum, not addressing a particular company by name, used to introduce a product or service to potential customers (Wagner, 1994).",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "The most important section of a business report, often the only section read by busy executives, is the",
+    opts: ["Table of Contents", "Methodology", "Executive Summary", "Appendices"],
+    ans: 2,
+    exp: "The Executive Summary (350–550 words) is often the most important section as busy readers may only read this — it covers objectives, main findings, conclusions, and recommendations.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "A report that presents factual data without significant analysis or recommendations is called",
+    opts: ["Analytical report", "Recommendation report", "Informational report", "Feasibility report"],
+    ans: 2,
+    exp: "An informational report presents factual data without significant analysis or recommendations — examples include sales reports and inventory reports.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "Which type of business report evaluates the viability of a proposed project or venture?",
+    opts: ["Progress report", "Informational report", "Analytical report", "Feasibility report"],
+    ans: 3,
+    exp: "A feasibility report evaluates the viability of a proposed project or venture.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "The section of a business proposal that showcases the company's expertise, track record, and team capabilities is",
+    opts: ["Pricing and Terms", "Problem/Need Identification", "Qualifications and Experience", "Proposed Solution"],
+    ans: 2,
+    exp: "The Qualifications and Experience section showcases the company's expertise, track record, relevant experience, and team capabilities to build trust and credibility.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+  {
+    q: "By its very nature, business proposals are primarily",
+    opts: ["Informational", "Persuasive", "Analytical", "Regulatory"],
+    ans: 1,
+    exp: "By its very nature, proposals are persuasive — they seek to convince the receiver to accept the sender's propositions.",
+    hint: "Topic 3: Business Writing",
+    sec: "Business Writing"
+  },
+
+  // ── TOPIC 4: PRESENTATIONS ────────────────────────────────────────────
+  {
+    q: "Which presentation style is most preferred by accomplished presenters because it is flexible and natural?",
+    opts: ["Manuscript reading", "Rote memorisation", "Extemporaneous delivery", "Impromptu delivery"],
+    ans: 2,
+    exp: "Extemporaneous delivery is most preferred by accomplished presenters — it uses a small note or PowerPoint to aid memory and guide the presentation.",
+    hint: "Topic 4: Presentation Styles",
+    sec: "Presentations"
+  },
+  {
+    q: "Which presentation style is most suitable when a speaker is called upon with little or no prior notice?",
+    opts: ["Manuscript reading", "Rote memorisation", "Extemporaneous delivery", "Impromptu delivery"],
+    ans: 3,
+    exp: "Impromptu delivery happens when the presenter is called to speak with little or no notice — relying entirely on existing knowledge.",
+    hint: "Topic 4: Presentation Styles",
+    sec: "Presentations"
+  },
+  {
+    q: "According to Lucas and Stob (2023), reading an entire speech from a prepared script is called",
+    opts: ["Extemporaneous delivery", "Impromptu delivery", "Manuscript reading", "Rote memorisation"],
+    ans: 2,
+    exp: "Manuscript reading involves reading an entire speech from a prepared script — effective for presentations involving key statistics that cannot be missed.",
+    hint: "Topic 4: Presentation Styles",
+    sec: "Presentations"
+  },
+  {
+    q: "In a five-minute presentation, how many main points is it advisable to have?",
+    opts: ["Five to six", "Four to five", "Two to three", "As many as possible"],
+    ans: 2,
+    exp: "In five minutes, you will only have time for two or three main points — everything else should support these to avoid information overload.",
+    hint: "Topic 4: Presentation Styles",
+    sec: "Presentations"
+  },
+  {
+    q: "The introduction of a presentation should primarily",
+    opts: ["Summarise the conclusion", "List all references", "Catch attention, state aims and objectives, and warm up the audience", "Present detailed data and statistics"],
+    ans: 2,
+    exp: "The introduction should catch attention (with a provocative statement or humorous anecdote), state the aims and objectives early, and warm the presenter up to the audience.",
+    hint: "Topic 4: Presentation Styles",
+    sec: "Presentations"
+  },
+  {
+    q: "Presentation style that relies entirely on the presenter's ability to commit a whole script to memory is",
+    opts: ["Extemporaneous delivery", "Rote memorisation", "Manuscript reading", "Impromptu delivery"],
+    ans: 1,
+    exp: "Rote memorisation relies on the excellent memory of the presenter who is able to commit a whole script into memory.",
+    hint: "Topic 4: Presentation Styles",
+    sec: "Presentations"
+  },
+
+  // ── TOPIC 5: NEGOTIATION ──────────────────────────────────────────────
+  {
+    q: "Negotiation skills in business are best defined as",
+    opts: ["The ability to force agreements on other parties", "The abilities and techniques used to reach mutually acceptable agreements", "The use of authority to make binding decisions", "Skills used only in salary negotiations"],
+    ans: 1,
+    exp: "Negotiation skills are the abilities and techniques used by individuals or teams to reach mutually acceptable agreements with other parties.",
+    hint: "Topic 5: Negotiation Skills",
+    sec: "Negotiation"
+  },
+  {
+    q: "The goal of good negotiation in business is often to",
+    opts: ["Win at all costs", "Find win-win solutions that satisfy the needs of all parties", "Avoid all concessions", "Rely entirely on legal force"],
+    ans: 1,
+    exp: "The goal of good negotiation is often to find win-win solutions that satisfy the needs of all parties, creating value and ensuring sustainable agreements.",
+    hint: "Topic 5: Negotiation Skills",
+    sec: "Negotiation"
+  },
+  {
+    q: "Which negotiation tactic involves offering something of lesser value to you in exchange for something of greater value from the other party?",
+    opts: ["Making the first offer", "Knowing your walk-away point", "Trading concessions", "Using objective criteria"],
+    ans: 2,
+    exp: "Trading concessions means offering something of lesser value to you in exchange for something you value more from the other party.",
+    hint: "Topic 5: Negotiation Skills",
+    sec: "Negotiation"
+  },
+  {
+    q: "Understanding the underlying needs and desires of the other party, rather than just their stated demands, is the negotiation tactic of",
+    opts: ["Making the first offer", "Focusing on interests, not positions", "Building rapport", "Using objective criteria"],
+    ans: 1,
+    exp: "Focusing on interests (not positions) means understanding underlying needs and desires — this leads to more creative solutions.",
+    hint: "Topic 5: Negotiation Skills",
+    sec: "Negotiation"
+  },
+  {
+    q: "A negotiator who knows their 'walk-away point' is",
+    opts: ["Ready to accept any offer", "Willing to lose the deal at all costs", "Aware of their absolute minimum acceptable outcome to avoid bad deals", "Focused only on relationship building"],
+    ans: 2,
+    exp: "Knowing your walk-away point means understanding your absolute minimum acceptable outcome — this prevents you from agreeing to a bad deal.",
+    hint: "Topic 5: Negotiation Skills",
+    sec: "Negotiation"
+  },
+
+  // ── TOPIC 6: BUSINESS MODEL MEANING ──────────────────────────────────
+  {
+    q: "A business model is defined as",
+    opts: ["A financial plan for generating revenue", "An organisation's system of transforming inputs into outputs to create value over the short, medium and long term", "A marketing strategy for product promotion", "A legal document for business registration"],
+    ans: 1,
+    exp: "A business model is an organisation's system of transforming inputs, through its business activities, into outputs and outcomes aimed at fulfilling the organisation's strategic purpose and creating value over the short, medium and long term.",
+    hint: "Topic 6: Business Model",
+    sec: "Business Model"
+  },
+  {
+    q: "The term 'business model' was rarely used before which decade?",
+    opts: ["The 1970s", "The 1980s", "The 1990s", "The 2000s"],
+    ans: 2,
+    exp: "The term 'business model' was rarely in use before the 1990s. The advent of the personal computer and popularity of spreadsheets made strategic business design possible.",
+    hint: "Topic 6: Business Model",
+    sec: "Business Model"
+  },
+  {
+    q: "A business model describes the rationale of how an organisation",
+    opts: ["Hires and fires employees", "Creates, delivers, and captures value", "Manages its tax obligations", "Designs its product packaging"],
+    ans: 1,
+    exp: "A business model describes the rationale of how an organisation creates, delivers, and captures value.",
+    hint: "Topic 6: Business Model",
+    sec: "Business Model"
+  },
+  {
+    q: "The very idea of calling a business plan a 'model' indicates that it is",
+    opts: ["Permanent and unchangeable", "Temporary, subject to change, adjustable, and flexible", "Only relevant for large companies", "Exclusively financial in nature"],
+    ans: 1,
+    exp: "The term 'model' shows that a business model is temporary, subject to change, adjustable, and flexible — companies must continuously reassess their offerings.",
+    hint: "Topic 6: Business Model",
+    sec: "Business Model"
+  },
+
+  // ── TOPIC 7: FOUR PARTS ────────────────────────────────────────────────
+  {
+    q: "The four main interlocking parts of a business model are",
+    opts: ["Employees, technology, marketing, and finance", "The offering, customers, infrastructure, and financial viability", "Products, services, advertising, and distribution", "Vision, mission, strategy, and tactics"],
+    ans: 1,
+    exp: "The four main parts of a business model are: the offering, the customers, the infrastructure, and the financial viability.",
+    hint: "Topic 7: Four Parts of a Business Model",
+    sec: "Business Model"
+  },
+  {
+    q: "The Customer Value Proposition (CVP) is a component of which part of the business model?",
+    opts: ["Financial viability", "Infrastructure", "The offering", "The customers"],
+    ans: 2,
+    exp: "The CVP is part of the offering — it explains how products and services help customers do something more inexpensively, easily, effectively, or quickly than before.",
+    hint: "Topic 7: Four Parts of a Business Model",
+    sec: "Business Model"
+  },
+  {
+    q: "Which part of the business model includes all key resources such as people, technology, suppliers, and facilities?",
+    opts: ["The offering", "The customers", "Financial viability", "Infrastructure"],
+    ans: 3,
+    exp: "Infrastructure includes all key resources (people, technology, products, suppliers, partners, facilities) that an entrepreneur must have to drive the value proposition.",
+    hint: "Topic 7: Four Parts of a Business Model",
+    sec: "Business Model"
+  },
+  {
+    q: "Financial viability in a business model primarily helps entrepreneurs to assess",
+    opts: ["How to design the logo", "How much it costs to deliver the offering and the revenue that can be generated", "How to hire staff", "How to market the product"],
+    ans: 1,
+    exp: "Financial viability helps entrepreneurs assess how much it costs to deliver the offering and the amount of revenue that can be generated from customers.",
+    hint: "Topic 7: Four Parts of a Business Model",
+    sec: "Business Model"
+  },
+
+  // ── TOPIC 8: TYPES OF BUSINESS MODELS ──────────────────────────────────
+  {
+    q: "A distributor in a business model is best described as",
+    opts: ["A company that sells directly to end consumers", "A company that buys products from manufacturers and resells to retailers or the public", "A company that provides software as a service", "A company that earns revenue through advertising"],
+    ans: 1,
+    exp: "A distributor buys products from manufacturers and resells them to retailers or the public. Example: UNFI (wholesale food company).",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "In a franchising business model, the franchisee pays the franchisor",
+    opts: ["A fixed monthly salary", "Royalties based on an agreed percentage of sales", "A one-time lump sum only", "Nothing — it is a free license"],
+    ans: 1,
+    exp: "In a franchise model, the franchisee pays the franchisor royalties based on an agreed percentage of sales in exchange for marketing, operations, and financing support.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "Which business model involves charging customers for continuous access to a product or service to earn money through repeat purchases?",
+    opts: ["Aggregator model", "Licensing model", "Subscription model", "Freemium model"],
+    ans: 2,
+    exp: "The subscription model involves charging customers for continuous access and earns money through repeat purchases. Example: Hulu.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "Airbnb is an example of which business model?",
+    opts: ["SaaS model", "Licensing model", "Aggregator model", "Professional model"],
+    ans: 2,
+    exp: "Airbnb operates an aggregator business model — it connects customers with property owners on the same platform and earns commission on every booking.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "Google AdWords, which charges advertisers a fee every time a user clicks on an ad, is an example of which business model?",
+    opts: ["Subscription model", "Advertising model", "SaaS model", "Data selling model"],
+    ans: 1,
+    exp: "Google AdWords uses the advertising model (cost-per-click/CPA) — advertisers pay when a user clicks on an ad or when the click converts to a sale.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "Software as a Service (SaaS) operates on the principle of",
+    opts: ["Annual licensing fees only", "Pay as you go — customers only pay for the services they are using", "Free access with no charges", "One-time purchase of software"],
+    ans: 1,
+    exp: "SaaS operates on a 'pay as you go' basis — customers only pay for the services they are currently using. Example: Oracle cloud applications.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "LinkedIn's model of offering free core features while charging for enhanced features is an example of",
+    opts: ["Freemium model", "Subscription model", "Professional model", "Advertising model"],
+    ans: 0,
+    exp: "LinkedIn uses the freemium model — free basic services with premium/upgraded paid tiers offering more storage, functionality, and performance.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "A hotel charging customers by the night is an example of which business model?",
+    opts: ["Professional model", "Subscription model", "Utility and usage model", "Licensing model"],
+    ans: 2,
+    exp: "The utility and usage model charges customers fees based on how often goods or services are used — hotels (per night), mobile calls (per minute), car rentals (per day).",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "Lawyers and accountants who charge by the hour for their services are operating under which business model?",
+    opts: ["Franchising model", "Aggregator model", "Professional model", "Data selling model"],
+    ans: 2,
+    exp: "The professional model provides professional services on a time and materials contract — consultants, lawyers, and accountants often charge by the hour.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+  {
+    q: "Earning revenue by granting permission to other parties to use protected intellectual property in exchange for fees is the",
+    opts: ["Freemium model", "SaaS model", "Licensing model", "Aggregator model"],
+    ans: 2,
+    exp: "The licensing model earns revenue by granting permission to use protected intellectual property (copyrights, patents, trademarks) in exchange for fees.",
+    hint: "Topic 8: Types of Business Models",
+    sec: "Business Models"
+  },
+
+  // ── TOPIC 9: BUSINESS MODEL CANVAS ────────────────────────────────────
+  {
+    q: "The Business Model Canvas was initially proposed in 2005 by",
+    opts: ["Yves Pigneur", "Alexander Osterwalder", "Michael Porter", "Peter Drucker"],
+    ans: 1,
+    exp: "The Business Model Canvas was initially proposed by Alexander Osterwalder in 2005, based on his PhD work supervised by Yves Pigneur.",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+  {
+    q: "How many building blocks does Osterwalder's Business Model Canvas have?",
+    opts: ["Six", "Seven", "Eight", "Nine"],
+    ans: 3,
+    exp: "Osterwalder's Business Model Canvas has nine building blocks: Customer Segments, Value Propositions, Channels, Customer Relationships, Revenue Streams, Key Resources, Key Activities, Key Partnerships, and Cost Structure.",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+  {
+    q: "In the Business Model Canvas, Key Resources can be classified as",
+    opts: ["Only physical and intellectual", "Human, financial, physical, and intellectual", "Human and financial only", "Physical and technological only"],
+    ans: 1,
+    exp: "Key Resources in the Business Model Canvas can be human, financial, physical, and intellectual — they are essential assets to the company's continued success.",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+  {
+    q: "In the Business Model Canvas, the Value Proposition is best described as",
+    opts: ["The company's financial statements", "What distinguishes the company from its competitors by providing value to customers", "The company's marketing budget", "The list of all company employees"],
+    ans: 1,
+    exp: "The Value Proposition is what distinguishes the company from its competitors — it provides value through newness, performance, customisation, design, price, accessibility, and more.",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+  {
+    q: "The Partner Network block in the Business Model Canvas refers to",
+    opts: ["The company's shareholders", "Buyer-supplier relationships and strategic alliances formed to optimise operations and reduce risk", "The company's social media followers", "All employees at partner level"],
+    ans: 1,
+    exp: "The Partner Network involves cultivating buyer-supplier relationships and strategic alliances (joint ventures, alliances between competitors or non-competitors) to optimise operations and reduce risks.",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+  {
+    q: "Key Activities in the Business Model Canvas are",
+    opts: ["The company's daily administrative tasks", "The most important activities in executing a company's value proposition", "The company's HR recruitment activities", "The company's advertising campaigns"],
+    ans: 1,
+    exp: "Key Activities are the most important activities in executing a company's value proposition. Example for Bic: creating an efficient supply chain to drive down costs.",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+  {
+    q: "Which two blocks of the Business Model Canvas fall under 'Finances'?",
+    opts: ["Key Resources and Key Activities", "Value Proposition and Customer Segments", "Revenue Streams and Cost Structure", "Channels and Customer Relationships"],
+    ans: 2,
+    exp: "The two Finance blocks in the Business Model Canvas are Revenue Streams (cash generated from each customer segment) and Cost Structure (all costs to operate the business model).",
+    hint: "Topic 9: Business Model Canvas",
+    sec: "Business Model Canvas"
+  },
+
+  // ── TOPIC 10: VALUE PROPOSITION ────────────────────────────────────────
+  {
+    q: "A successful business creates value for its customers. Value is",
+    opts: ["Objective and the same for everyone", "Subjective — what is valuable to one person may not be to another", "Determined solely by price", "Fixed and never changes"],
+    ans: 1,
+    exp: "Value is subjective — what's valuable to one person may not be to another. This is why understanding customer needs is central to building a viable business model.",
+    hint: "Topic 10: Value Proposition",
+    sec: "Value Proposition"
+  },
+  {
+    q: "A viable business model is one that",
+    opts: ["Generates losses in the short term", "Allows a business to charge a price for the value it creates such that the business brings in enough money to continue operating", "Requires no pricing strategy", "Only serves large corporations"],
+    ans: 1,
+    exp: "A viable business model allows a business to charge a price for the value it creates, bringing in enough money to make it worthwhile and continue operating over time.",
+    hint: "Topic 10: Value Proposition",
+    sec: "Value Proposition"
+  },
+  {
+    q: "The Customer Value Proposition (CVP) explains how your products and services help customers",
+    opts: ["Pay higher prices willingly", "Do something more inexpensively, easily, effectively, or quickly than before", "Avoid competitors' products", "Rely on your brand exclusively"],
+    ans: 1,
+    exp: "The CVP explains how products and services help customers do something more inexpensively, easily, effectively, or quickly than before.",
+    hint: "Topic 10: Value Proposition",
+    sec: "Value Proposition"
+  },
+  {
+    q: "Which of the following is listed as a possible element of value in Osterwalder's Value Proposition?",
+    opts: ["Employee satisfaction", "Newness, performance, customisation, design, brand/status, price, cost reduction, risk reduction, accessibility", "Company size", "Number of patents owned"],
+    ans: 1,
+    exp: "Osterwalder lists value elements such as: newness, performance, customisation, 'getting the job done,' design, brand/status, price, cost reduction, risk reduction, accessibility, and convenience/usability.",
+    hint: "Topic 10: Value Proposition",
+    sec: "Value Proposition"
+  }
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let questions = [], cur = 0, chosen = [], answered = [], timerInt = null, elapsed = 0, username = '';
+
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function startQuiz() {
+  username = document.getElementById('uname').value.trim() || 'Student';
+  const n = parseInt(document.getElementById('qslider').value);
+  questions = shuffle([...BANK]).slice(0, Math.min(n, BANK.length));
+  chosen = Array(questions.length).fill(null);
+  answered = Array(questions.length).fill(false);
+  cur = 0; elapsed = 0;
+  document.getElementById('hdr-user').textContent = username;
+  show('quiz');
+  buildNav();
+  goQ(0);
+  startTimer();
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startTimer() {
+  clearInterval(timerInt);
+  timerInt = setInterval(() => {
+    elapsed++;
+    const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const s = String(elapsed % 60).padStart(2, '0');
+    document.getElementById('timer-txt').textContent = m + ':' + s;
+    document.getElementById('timer-badge').classList.toggle('warn', elapsed > 3600);
+  }, 1000);
+}
+
+function goQ(idx) {
+  if (idx < 0 || idx >= questions.length) return;
+  cur = idx;
+  const q = questions[cur];
+  document.getElementById('q-num-tag').textContent = 'Question ' + (cur + 1);
+  document.getElementById('q-sec-tag').textContent = q.sec || '';
+  document.getElementById('q-text').textContent = q.q;
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn' + (answered[cur] ? ' locked' : '');
+    if (answered[cur]) {
+      if (i === q.ans) btn.classList.add('correct');
+      else if (i === chosen[cur] && i !== q.ans) btn.classList.add('wrong');
+    } else if (chosen[cur] === i) btn.classList.add('selected');
+    btn.innerHTML = '<span class="opt-letter">' + labels[i] + '</span>' + o;
+    if (!answered[cur]) btn.onclick = () => pick(i);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  if (answered[cur]) {
+    const ok = chosen[cur] === q.ans;
+    document.getElementById('fb-label').textContent = ok ? '✓ Correct' : '✗ Incorrect';
+    document.getElementById('fb-label').className = 'fb-label ' + (ok ? 'ok' : 'bad');
+    document.getElementById('fb-text').textContent = q.exp || '';
+    document.getElementById('fb-hint').textContent = q.hint || '';
+    fb.classList.add('show');
+  } else { fb.classList.remove('show'); }
+
+  document.getElementById('btn-submit').disabled = chosen[cur] === null || answered[cur];
+  document.getElementById('btn-next').style.display = (answered[cur] && cur < questions.length - 1) ? 'inline-flex' : 'none';
+  document.getElementById('btn-finish').style.display = (answered[cur] && cur === questions.length - 1) ? 'inline-flex' : 'none';
+  document.getElementById('btn-prev').disabled = cur === 0;
+  const pct = ((cur + 1) / questions.length * 100).toFixed(1);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = (cur + 1) + '/' + questions.length;
+  updateNav();
+}
+
+function pick(i) {
+  if (answered[cur]) return;
+  chosen[cur] = i;
+  document.querySelectorAll('.opt-btn').forEach((b, idx) => b.classList.toggle('selected', idx === i));
+  document.getElementById('btn-submit').disabled = false;
+}
+
+function submitAns() {
+  if (chosen[cur] === null || answered[cur]) return;
+  answered[cur] = true;
+  goQ(cur);
+}
+
+function buildNav() {
+  const nav = document.getElementById('q-nav');
+  nav.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'nav-dot';
+    d.textContent = i + 1;
+    d.onclick = () => goQ(i);
+    nav.appendChild(d);
+  });
+}
+
+function updateNav() {
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.className = 'nav-dot';
+    if (i === cur) d.classList.add('active');
+    else if (answered[i]) d.classList.add(chosen[i] === questions[i].ans ? 'done-ok' : 'done-bad');
+  });
+}
+
+function confirmFinish() {
+  const unanswered = answered.filter(a => !a).length;
+  if (unanswered > 0 && !confirm(unanswered + ' question(s) unanswered. Finish anyway?')) return;
+  finishQuiz();
+}
+
+function finishQuiz() {
+  clearInterval(timerInt);
+  let correct = 0, skipped = 0;
+  questions.forEach((q, i) => {
+    if (!answered[i]) skipped++;
+    else if (chosen[i] === q.ans) correct++;
+  });
+  const wrong = questions.length - correct - skipped;
+  const pct = (correct / questions.length * 100).toFixed(1);
+  const ring = document.getElementById('score-ring');
+  ring.className = 'score-ring ' + (pct >= 70 ? 'great' : pct >= 50 ? 'mid' : 'low');
+  document.getElementById('res-score').textContent = correct;
+  document.getElementById('res-denom').textContent = '/ ' + questions.length;
+  document.getElementById('res-name').textContent = username;
+  document.getElementById('res-pct').textContent = pct + '% — ' + (pct >= 70 ? 'Excellent!' : pct >= 50 ? 'Good Effort' : 'Keep Studying');
+  const m = Math.floor(elapsed / 60), s = elapsed % 60;
+  document.getElementById('res-msg').textContent = 'Time: ' + m + 'm ' + s + 's';
+  document.getElementById('stats-row').innerHTML =
+    '<div class="stat-card ok"><div class="stat-val">' + correct + '</div><div class="stat-lbl">Correct</div></div>' +
+    '<div class="stat-card bad"><div class="stat-val">' + wrong + '</div><div class="stat-lbl">Wrong</div></div>' +
+    '<div class="stat-card skip"><div class="stat-val">' + skipped + '</div><div class="stat-lbl">Skipped</div></div>';
+  document.getElementById('breakdown').innerHTML = '<div class="bd-header"><span>Question</span><span>Result</span></div>' +
+    questions.map((q, i) => {
+      const st = !answered[i] ? 'skip' : chosen[i] === q.ans ? 'ok' : 'bad';
+      const lbl = !answered[i] ? 'Skipped' : chosen[i] === q.ans ? 'Correct' : 'Wrong';
+      return '<div class="bd-row"><span class="bd-q">Q' + (i + 1) + '. ' + q.q.slice(0, 55) + (q.q.length > 55 ? '…' : '') + '</span><span class="bd-badge ' + st + '">' + lbl + '</span></div>';
+    }).join('');
+  show('results');
+}
+
+function retryQuiz() {
+  chosen = Array(questions.length).fill(null);
+  answered = Array(questions.length).fill(false);
+  elapsed = 0; cur = 0;
+  show('quiz'); buildNav(); goQ(0); startTimer();
+}
+
+function goHome() { show('landing'); clearInterval(timerInt); }
+</script>
+</body>
+</html>

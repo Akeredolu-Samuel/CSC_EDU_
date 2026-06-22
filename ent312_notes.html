@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENT 312 — Study Notes</title>
+  <meta name="description" content="Compiled study notes for ENT 312: Developing and Communicating Business Models — Communication, Business Writing, Presentations, Negotiation.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1533030534131705" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0f1e;--bg2:#0d1325;--bg3:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --accent:#f97316;--accent-dim:rgba(249,115,22,0.1);
+      --text:#e0e4f0;--muted:#7a83a0;--dim:#3d4460;
+      --green:#22c55e;--amber:#f59e0b;--purple:#a855f7;
+      --font:'Inter',system-ui,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+    /* TOP BAR */
+    .top-bar{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);gap:12px;flex-wrap:wrap;}
+    .tb-left{display:flex;align-items:center;gap:12px;}
+    .btn-back{display:flex;align-items:center;gap:6px;background:transparent;border:0.5px solid var(--border);color:var(--muted);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;}
+    .btn-back:hover{border-color:rgba(255,255,255,0.2);color:var(--text);}
+    .tb-title{font-size:13px;font-weight:600;color:#fff;display:flex;align-items:center;gap:7px;}
+    .tb-badge{font-size:10px;background:var(--accent-dim);border:0.5px solid rgba(249,115,22,0.3);color:var(--accent);border-radius:99px;padding:2px 10px;}
+    .btn-quiz-link{display:flex;align-items:center;gap:6px;background:var(--accent);border:none;color:#fff;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);transition:background 0.2s;text-decoration:none;}
+    .btn-quiz-link:hover{background:#ea6e0a;}
+
+    /* LAYOUT */
+    .notes-layout{display:flex;max-width:1100px;margin:0 auto;gap:0;}
+
+    /* SIDEBAR */
+    .sidebar{width:240px;min-width:240px;border-right:0.5px solid var(--border);padding:1.5rem 1rem;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;flex-shrink:0;}
+    .sidebar::-webkit-scrollbar{width:4px;}
+    .sidebar::-webkit-scrollbar-track{background:transparent;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+    .sb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--dim);margin-bottom:0.8rem;padding:0 0.5rem;}
+    .sb-link{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:7px;font-size:11.5px;color:var(--muted);text-decoration:none;transition:all 0.15s;margin-bottom:2px;cursor:pointer;border:none;background:transparent;font-family:var(--font);text-align:left;width:100%;line-height:1.4;}
+    .sb-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+    .sb-link.active{background:var(--accent-dim);color:var(--accent);font-weight:500;}
+    .sb-num{min-width:16px;font-size:10px;color:var(--dim);margin-top:2px;}
+
+    /* MAIN CONTENT */
+    .notes-main{flex:1;padding:2rem 2.5rem;min-width:0;}
+
+    /* HERO BOX */
+    .notes-hero{background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(234,88,12,0.05));border:0.5px solid rgba(249,115,22,0.2);border-radius:14px;padding:1.8rem;margin-bottom:2.5rem;}
+    .nh-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.7rem;display:flex;align-items:center;gap:6px;}
+    .nh-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:0.5rem;}
+    .nh-sub{font-size:13px;color:var(--muted);margin-bottom:1rem;}
+    .topic-tags{display:flex;flex-wrap:wrap;gap:6px;}
+    .topic-tag{background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:99px;padding:3px 12px;font-size:11px;color:var(--muted);}
+
+    /* SECTIONS */
+    .notes-section{margin-bottom:3rem;scroll-margin-top:70px;}
+    .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;padding-bottom:0.8rem;border-bottom:0.5px solid var(--border);}
+    .sec-num{background:var(--accent-dim);border:0.5px solid rgba(249,115,22,0.3);color:var(--accent);width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+    .sec-title{font-size:18px;font-weight:600;color:#fff;}
+    .sec-src{font-size:10.5px;color:var(--dim);margin-top:1px;}
+
+    p{font-size:13.5px;color:var(--muted);margin-bottom:0.9rem;line-height:1.7;}
+    h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:0.6rem;margin-top:1.4rem;}
+    h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:0.5rem;margin-top:1.2rem;text-transform:uppercase;letter-spacing:0.06em;}
+
+    .bullet-list{margin:0.5rem 0 1rem 0;display:flex;flex-direction:column;gap:5px;}
+    .bullet-list li{font-size:13px;color:var(--muted);list-style:none;padding-left:1.2rem;position:relative;line-height:1.6;}
+    .bullet-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0.6;}
+
+    .def-box{background:var(--bg3);border:0.5px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .def-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:0.4rem;font-weight:600;}
+    .def-box p{font-size:13px;margin-bottom:0;color:var(--text);}
+
+    .highlight-box{background:rgba(34,197,94,0.06);border:0.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:0.9rem 1.1rem;margin:0.8rem 0 1.2rem;}
+    .highlight-box.amber{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
+    .highlight-box.purple{background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.2);}
+    .highlight-box.orange{background:rgba(249,115,22,0.06);border-color:rgba(249,115,22,0.2);}
+    .hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:0.5rem;font-weight:600;display:flex;align-items:center;gap:5px;}
+    .hb-label.amber{color:var(--amber);}
+    .hb-label.purple{color:var(--purple);}
+    .hb-label.orange{color:var(--accent);}
+    .highlight-box p{font-size:13px;margin-bottom:0;}
+
+    /* CARDS GRID */
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:1rem 0;}
+    .info-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem;}
+    .ic-num{font-size:10px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;}
+    .ic-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+    .ic-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+    /* DIMENSION ROWS */
+    .dim-list{display:flex;flex-direction:column;gap:8px;margin:1rem 0;}
+    .dim-row{background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;padding:0.9rem 1rem;transition:border-color 0.2s;}
+    .dim-row:hover{border-color:rgba(249,115,22,0.25);}
+    .dim-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+    .dim-badge{font-size:10px;background:var(--accent-dim);border:0.5px solid rgba(249,115,22,0.25);color:var(--accent);border-radius:99px;padding:1px 8px;}
+    .dim-desc{font-size:12px;color:var(--muted);line-height:1.55;}
+
+    /* TABLE */
+    .summary-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:12.5px;}
+    .summary-table th{background:rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;text-align:left;border-bottom:0.5px solid var(--border);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;}
+    .summary-table td{padding:9px 12px;border-bottom:0.5px solid rgba(255,255,255,0.04);color:var(--muted);vertical-align:top;line-height:1.5;}
+    .summary-table td:first-child{color:var(--text);font-weight:500;}
+    .summary-table tr:last-child td{border-bottom:none;}
+
+    /* FOOTER */
+    .notes-footer{text-align:center;padding:1.5rem;font-size:11px;color:var(--dim);border-top:0.5px solid var(--border);letter-spacing:0.05em;}
+    .notes-footer a{color:var(--accent);text-decoration:none;}
+    .notes-footer a:hover{text-decoration:underline;}
+
+    @media(max-width:768px){
+      .sidebar{display:none;}
+      .notes-main{padding:1.5rem 1.2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="tb-left">
+    <a href="index.html" class="btn-back"><i class="ti ti-arrow-left"></i> Portal</a>
+    <div class="tb-title">
+      <i class="ti ti-building-store" style="color:var(--accent)"></i>
+      ENT 312 — Study Notes
+      <span class="tb-badge">Entrepreneurship</span>
+    </div>
+  </div>
+  <a href="ent312_quiz.html" class="btn-quiz-link"><i class="ti ti-player-play" style="font-size:13px"></i> Take Quiz</a>
+</div>
+
+<div class="notes-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sb-label">Contents</div>
+    <button class="sb-link active" onclick="scrollTo('s0')"><span class="sb-num">—</span>Overview</button>
+    <button class="sb-link" onclick="scrollTo('s1')"><span class="sb-num">1</span>Nature of Communication</button>
+    <button class="sb-link" onclick="scrollTo('s2')"><span class="sb-num">2</span>Dimensions of Communication</button>
+    <button class="sb-link" onclick="scrollTo('s3')"><span class="sb-num">3</span>Business Writing</button>
+    <button class="sb-link" onclick="scrollTo('s4')"><span class="sb-num">4</span>Presentations</button>
+    <button class="sb-link" onclick="scrollTo('s5')"><span class="sb-num">5</span>Negotiation Skills</button>
+    <button class="sb-link" onclick="scrollTo('s6')"><span class="sb-num">6</span>Business Model Defined</button>
+    <button class="sb-link" onclick="scrollTo('s7')"><span class="sb-num">7</span>Four Parts of a Business Model</button>
+    <button class="sb-link" onclick="scrollTo('s8')"><span class="sb-num">8</span>Types of Business Models</button>
+    <button class="sb-link" onclick="scrollTo('s9')"><span class="sb-num">9</span>Business Model Canvas</button>
+    <button class="sb-link" onclick="scrollTo('s10')"><span class="sb-num">10</span>Assessment & References</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="notes-main">
+
+    <!-- HERO -->
+    <div class="notes-hero" id="s0">
+      <div class="nh-tag"><i class="ti ti-building-store" style="font-size:13px"></i> ENT 312 &nbsp;|&nbsp; Academic Achievers Tutorial Board</div>
+      <div class="nh-title">Developing &amp; Communicating Business Models</div>
+      <div class="nh-sub">A comprehensive guide to business communication, writing, presentations, negotiation, and business model frameworks.</div>
+      <div class="topic-tags">
+        <span class="topic-tag">Nature of Communication</span>
+        <span class="topic-tag">Business Writing</span>
+        <span class="topic-tag">Proposals &amp; Reports</span>
+        <span class="topic-tag">Presentations</span>
+        <span class="topic-tag">Negotiation</span>
+        <span class="topic-tag">Business Models</span>
+        <span class="topic-tag">Business Model Canvas</span>
+        <span class="topic-tag">Value Proposition</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1: NATURE OF COMMUNICATION -->
+    <section class="notes-section" id="s1">
+      <div class="sec-header">
+        <div class="sec-num">1</div>
+        <div>
+          <div class="sec-title">The Nature of Communication</div>
+          <div class="sec-src">Source: Burgoon &amp; Ruffner (1979); Gamble &amp; Gamble (2013); Locker et al (2024)</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>Communication is a process by which we assign and convey meaning in an attempt to create shared understanding. It is a two-way process of sending and receiving information, ideas, thoughts, feelings and goals — the sender can equally become the receiver in a constant stream of role interchange (Gamble &amp; Gamble, 2013).</p>
+      </div>
+
+      <p>Communication is one of the most complex human activities to understand and define. It has an all-pervasive and ubiquitous influence on almost every other human endeavour. Dance and Larson (1974) identified over <strong>91 interdisciplinary definitions</strong> of communication — spanning sociology, psychology, anthropology, politics, business, technology, philosophy, and more.</p>
+
+      <h3>Two Key Elements in Any Definition</h3>
+      <div class="cards-grid">
+        <div class="info-card">
+          <div class="ic-num">Element 1</div>
+          <div class="ic-name">Transmission</div>
+          <div class="ic-desc">Something is transmitted (facts, feelings, ideas). There must be a receiver. The sender must consider the receiver when structuring and delivering the message — neglecting the receiver results in no response or a wrong response.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Element 2</div>
+          <div class="ic-name">Understanding</div>
+          <div class="ic-desc">The correct interpretation of the message is vital. Shared understanding occurs only when the receiver understands the message in the same sense the sender intended. The greater the understanding, the more human action aligns with organisational goals.</div>
+        </div>
+      </div>
+
+      <h3>The Communication Process</h3>
+      <p>According to Locker et al (2024), every communication encounter — even in business — follows a consistent process:</p>
+      <div class="highlight-box orange">
+        <div class="hb-label orange"><i class="ti ti-arrow-right" style="font-size:11px"></i> Process Flow</div>
+        <p><strong>Sender</strong> → (has a message) → <strong>Channel</strong> → <strong>Receiver</strong></p>
+      </div>
+      <p>The process requires a vast repertoire of skills: intrapersonal and interpersonal processing, listening, observing, speaking, questioning, analyzing, and evaluating. It is through communication that collaboration and cooperation occur.</p>
+    </section>
+
+    <!-- SECTION 2: DIMENSIONS -->
+    <section class="notes-section" id="s2">
+      <div class="sec-header">
+        <div class="sec-num">2</div>
+        <div>
+          <div class="sec-title">Dimensions of Communication in Business</div>
+          <div class="sec-src">Source: DeVito (2014); Gamble &amp; Gamble (2013)</div>
+        </div>
+      </div>
+
+      <p>In business, communication is essential across all levels — internally within the organisation and externally with stakeholders, including people from different countries and cultural backgrounds.</p>
+
+      <div class="dim-list">
+
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">1</span>Formal vs. Informal Communication</div>
+          <div class="dim-desc"><strong>Formal:</strong> Follows established hierarchy — memos, reports, official emails, policy manuals, formal meetings. Ensures clarity, accuracy, and accountability (DeVito, 2014).<br><br><strong>Informal:</strong> Arises from social interactions — grapevine/rumors, casual chats, water cooler conversations. Fosters camaraderie but can spread misinformation.</div>
+        </div>
+
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">2</span>Vertical vs. Horizontal Communication</div>
+          <div class="dim-desc"><strong>Vertical:</strong> Flows up and down the hierarchy.<br>• <em>Downward</em> — management to employees (instructions, policies, feedback)<br>• <em>Upward</em> — employees to management (suggestions, feedback, reports)<br><br><strong>Horizontal:</strong> Between individuals/departments at the same level — essential for coordination, teamwork, and problem-solving.</div>
+        </div>
+
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">3</span>Oral vs. Written Communication</div>
+          <div class="dim-desc"><strong>Oral:</strong> Face-to-face conversations, telephone calls, presentations, meetings. Allows immediate feedback but lacks a permanent record.<br><br><strong>Written:</strong> Emails, memos, reports, proposals, letters, instant messaging. Provides a permanent record and allows careful consideration.</div>
+        </div>
+
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">4</span>Verbal vs. Nonverbal Communication</div>
+          <div class="dim-desc"><strong>Verbal:</strong> Actual words used in a message — interpersonal, group, or public contexts.<br><br><strong>Nonverbal:</strong> Body language (gestures, posture), facial expressions, touch (haptics), tone of voice (paralanguage), eye contact (oculesics), physical proximity (proxemics), timing (chronemics). Nonverbal cues often convey emotions and attitudes that words alone cannot.</div>
+        </div>
+
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">5</span>Internal vs. External Communication</div>
+          <div class="dim-desc"><strong>Internal:</strong> Within the organisation — fosters employee engagement, knowledge sharing, organisational culture, improved processes.<br><br><strong>External:</strong> With customers, suppliers, investors, media, and the public. Crucial for building and maintaining organisational reputation.</div>
+        </div>
+
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">6</span>Technological Communication</div>
+          <div class="dim-desc">Email, instant messaging, video conferencing, social media, company intranets, and collaboration tools. Provides speed, efficiency, and global reach — but presents challenges like information overload, security risks, and the need for digital literacy.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: BUSINESS WRITING -->
+    <section class="notes-section" id="s3">
+      <div class="sec-header">
+        <div class="sec-num">3</div>
+        <div>
+          <div class="sec-title">Writing in Business: Proposals, Letters &amp; Reports</div>
+          <div class="sec-src">Source: Argenti (2009); Lesikar et al (1999)</div>
+        </div>
+      </div>
+
+      <p>Writing is a key foundation on which business principle is built. Most communicative actions — letters, memos, reports, proposals, backgrounders, and position papers — require appreciable expertise in writing.</p>
+
+      <h3>The Five Steps of the Writing Process</h3>
+      <div class="dim-list">
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">1</span>Prewriting</div><div class="dim-desc">Planning, research, outlining, diagramming, storyboarding, or clustering/mind mapping.</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">2</span>Draft</div><div class="dim-desc">Initial composition in prose form.</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">3</span>Revision</div><div class="dim-desc">Review, modification, and organization (by the writer).</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">4</span>Editing</div><div class="dim-desc">Proofreading for clarity, conventions, and style (preferably by another writer).</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">5</span>Submittal</div><div class="dim-desc">Sharing the writing through performance, printing, or distribution.</div></div>
+      </div>
+      <div class="highlight-box amber">
+        <div class="hb-label amber"><i class="ti ti-info-circle" style="font-size:11px"></i> Note</div>
+        <p>These steps are not set in stone. Some may be merged or skipped depending on the project. Prewriting skills can be applied throughout the entire process.</p>
+      </div>
+
+      <h3>Business Letters</h3>
+      <p>Business letters remain a viable avenue for making enquiries, raising queries, and filing complaints. They serve as a structured and documented way to exchange ideas between organizations, employees, clients, or stakeholders (Argenti, 2009).</p>
+
+      <h4>Purposes of Business Letters</h4>
+      <ul class="bullet-list">
+        <li><strong>Formal Communication:</strong> Job applications, formal inquiries, complaints, proposals, legal notices</li>
+        <li><strong>Building Relationships:</strong> Demonstrates professionalism and attention to detail</li>
+        <li><strong>Creating a Record:</strong> Documented trail for legal or contractual purposes</li>
+        <li><strong>Conveying Important Information:</strong> Relaying critical information clearly and concisely</li>
+      </ul>
+
+      <h4>Structure of a Business Letter (Argenti, 2009)</h4>
+      <table class="summary-table">
+        <thead><tr><th>Component</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>Letterhead</td><td>Sender's company name, address, and contact information</td></tr>
+          <tr><td>Date</td><td>When the letter was written</td></tr>
+          <tr><td>Inside Address</td><td>Recipient's name, title, and address</td></tr>
+          <tr><td>Salutation</td><td>Formal greeting (e.g., "Dear Mr./Ms. [Last Name]")</td></tr>
+          <tr><td>Body</td><td>Main content, organized into clear paragraphs</td></tr>
+          <tr><td>Closing</td><td>Formal farewell (e.g., "Sincerely," "Yours faithfully")</td></tr>
+          <tr><td>Signature</td><td>Handwritten signature, followed by typed name and title</td></tr>
+          <tr><td>Enclosures</td><td>List of any documents included (if applicable)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Business Proposals</h3>
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>A business proposal is a formal, written document designed to persuade a prospective client, customer, investor, or partner that your product, service, or solution is the best way to address their specific needs or problems. By its nature, proposals are persuasive.</p>
+      </div>
+
+      <h4>Two Types of Business Proposals (Lesikar et al, 1999)</h4>
+      <div class="cards-grid">
+        <div class="info-card">
+          <div class="ic-num">Type 1</div>
+          <div class="ic-name">Solicited Proposal</div>
+          <div class="ic-desc">More detailed. Responds to a published Request for Proposal (RFP) or Invitation for Bid (IFB). Meets specific requirements set by the requesting party. The winning bidder's proposal addresses the exact needs stated.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Type 2</div>
+          <div class="ic-name">Unsolicited Proposal</div>
+          <div class="ic-desc">Like collateral marketing material. Broad spectrum — doesn't address a particular company or close a sale. Distributed via direct mail, left after cold calls, or at trade shows. Introduces a product or service to potential customers (Wagner, 1994).</div>
+        </div>
+      </div>
+
+      <h4>Structure of a Business Proposal</h4>
+      <ul class="bullet-list">
+        <li><strong>Problem/Need Identification:</strong> Clearly articulate the prospect's problem or opportunity</li>
+        <li><strong>Proposed Solution:</strong> Detail your product, service, or approach — specific, clear, and relevant</li>
+        <li><strong>Benefits and Value Proposition:</strong> Tangible and intangible advantages (efficiency, cost savings, revenue, reputation)</li>
+        <li><strong>Methodology and Implementation:</strong> Timelines, processes, and resources involved</li>
+        <li><strong>Pricing and Terms:</strong> Cost, payment terms, and financial information</li>
+        <li><strong>Qualifications and Experience:</strong> Company expertise, track record, team capabilities</li>
+        <li><strong>Call to Action:</strong> Clear next steps (sign contract, schedule a meeting, approve the proposal)</li>
+      </ul>
+
+      <h3>Business Report Writing</h3>
+      <p>Reports involve creating structured documents that provide information, analysis, or recommendations to assist in decision-making. A well-crafted report is clear, concise, and tailored to its audience.</p>
+
+      <h4>Types of Business Reports</h4>
+      <div class="cards-grid">
+        <div class="info-card"><div class="ic-num">Type 1</div><div class="ic-name">Informational</div><div class="ic-desc">Present factual data without significant analysis (e.g., sales reports, inventory reports).</div></div>
+        <div class="info-card"><div class="ic-num">Type 2</div><div class="ic-name">Analytical</div><div class="ic-desc">Analyse data, interpret findings, and draw conclusions (e.g., market research, financial analysis).</div></div>
+        <div class="info-card"><div class="ic-num">Type 3</div><div class="ic-name">Recommendation</div><div class="ic-desc">Analyse a problem and propose specific actions or solutions (e.g., feasibility studies, improvement proposals).</div></div>
+        <div class="info-card"><div class="ic-num">Type 4</div><div class="ic-name">Progress</div><div class="ic-desc">Provide updates on the status of a project or initiative.</div></div>
+        <div class="info-card"><div class="ic-num">Type 5</div><div class="ic-name">Feasibility</div><div class="ic-desc">Evaluate the viability of a proposed project or venture.</div></div>
+      </div>
+
+      <h4>Structure of a Business Report</h4>
+      <table class="summary-table">
+        <thead><tr><th>#</th><th>Section</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Title Page</td><td>Report title, author(s), date, recipient(s). Enables easy retrieval from storage.</td></tr>
+          <tr><td>2</td><td>Executive Summary</td><td>Brief overview (350–550 words): objectives, main findings, conclusions/recommendations. Often the most-read section.</td></tr>
+          <tr><td>3</td><td>Table of Contents</td><td>Main sections and subsections with page numbers.</td></tr>
+          <tr><td>4</td><td>Introduction</td><td>Background information, purpose, scope, and methodology overview.</td></tr>
+          <tr><td>5</td><td>Methodology</td><td>Methods and procedures used to gather and analyse data.</td></tr>
+          <tr><td>6</td><td>Findings</td><td>Key data and observations — factual and objective.</td></tr>
+          <tr><td>7</td><td>Analysis &amp; Discussion</td><td>Interprets findings, identifies trends, relates data to the report's purpose.</td></tr>
+          <tr><td>8</td><td>Conclusions</td><td>Summarises main findings and their implications.</td></tr>
+          <tr><td>9</td><td>Recommendations</td><td>Practical, feasible actions linked to the findings.</td></tr>
+          <tr><td>10</td><td>Appendices</td><td>Supplementary materials: raw data, questionnaires, interview transcripts (if applicable).</td></tr>
+          <tr><td>11</td><td>References</td><td>All sources cited in the report (if applicable).</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 4: PRESENTATIONS -->
+    <section class="notes-section" id="s4">
+      <div class="sec-header">
+        <div class="sec-num">4</div>
+        <div>
+          <div class="sec-title">Presentation of a Business Model</div>
+          <div class="sec-src">Source: Lucas &amp; Stob (2023)</div>
+        </div>
+      </div>
+
+      <p>Effectively delivering speeches in public spaces is one of the most elegant communication skills an individual can have. Within business, presentations are used to introduce new products, compete for business opportunities, apply for grants, or stand for elected positions.</p>
+
+      <h3>Four Styles of Presentation (Lucas &amp; Stob, 2023)</h3>
+      <div class="dim-list">
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">1</span>Manuscript Reading</div>
+          <div class="dim-desc">Reading an entire speech from a prepared script. Effective for presentations involving key statistics that cannot be missed.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">2</span>Rote Memorisation</div>
+          <div class="dim-desc">Relies on the excellent memory of the presenter who commits a whole script to memory.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">3</span>Extemporaneous Delivery</div>
+          <div class="dim-desc">The most preferred by accomplished presenters. Uses a small note or PowerPoint to aid memory and guide the presentation — flexible and natural.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">4</span>Impromptu Delivery</div>
+          <div class="dim-desc">When the presenter is called to speak with little or no notice. Relies entirely on existing knowledge and composure.</div>
+        </div>
+      </div>
+
+      <h3>Format of a Presentation</h3>
+
+      <h4>Introduction</h4>
+      <ul class="bullet-list">
+        <li>Start with a welcome message — creates familiarity and reduces anxiety</li>
+        <li>State early and clearly what the presentation is about: aims and objectives</li>
+        <li>Catch attention with a provocative statement or humorous anecdote</li>
+        <li>Example: <em>"Genetically-modified crops could save millions from starvation"</em></li>
+      </ul>
+
+      <h4>Body (Middle)</h4>
+      <ul class="bullet-list">
+        <li>Outline your argument or story in detail</li>
+        <li>In five minutes: only two or three main points — everything else supports these</li>
+        <li>List main headings and key phrases — do not overload with content</li>
+        <li>Use graphics or anecdotes to add variety — visuals may be the only take-away for many audience members</li>
+      </ul>
+
+      <h4>Conclusion</h4>
+      <ul class="bullet-list">
+        <li>Briefly summarise your main points</li>
+        <li>Recap key points you want the audience to remember and act on</li>
+        <li>Respond to queries and clarifications</li>
+        <li>Thank the audience for active listening</li>
+        <li>End on a strong or positive note — smile, slow down, look at the audience</li>
+        <li>Example: <em>"The benefits of organic farming are mind-blowing — so do not wait a second more to adopt it!"</em></li>
+      </ul>
+    </section>
+
+    <!-- SECTION 5: NEGOTIATION -->
+    <section class="notes-section" id="s5">
+      <div class="sec-header">
+        <div class="sec-num">5</div>
+        <div>
+          <div class="sec-title">Negotiation Skills in Business</div>
+          <div class="sec-src">Source: Locker et al (2024)</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>Negotiation skills are the abilities and techniques used by individuals or teams to reach mutually acceptable agreements with other parties — whether clients, suppliers, partners, employees, or internal stakeholders.</p>
+      </div>
+
+      <p>Negotiation occurs in business, non-profit organisations, government, legal proceedings, among nations, and in personal situations (employment salary, marriage, divorce, everyday life). It is an essential life skill for entrepreneurs.</p>
+
+      <h3>Importance of Negotiation Skills</h3>
+      <div class="cards-grid">
+        <div class="info-card"><div class="ic-name">Securing Favorable Deals</div><div class="ic-desc">Obtain better prices, terms, and conditions — leading to increased profitability and cost savings.</div></div>
+        <div class="info-card"><div class="ic-name">Building Strong Relationships</div><div class="ic-desc">Foster trust and rapport, leading to long-term mutually beneficial relationships. Especially important in Nigeria where personal connections play a significant role.</div></div>
+        <div class="info-card"><div class="ic-name">Conflict Resolution</div><div class="ic-desc">Provides a constructive way to resolve disputes, minimizing damage to relationships and avoiding costly litigation.</div></div>
+        <div class="info-card"><div class="ic-name">Win-Win Outcomes</div><div class="ic-desc">Good negotiation aims to satisfy the needs of all parties, creating sustainable agreements.</div></div>
+        <div class="info-card"><div class="ic-name">Career Advancement</div><div class="ic-desc">Strong negotiation skills are crucial for securing better job offers, salary packages, and promotions.</div></div>
+        <div class="info-card"><div class="ic-name">Strategic Advantage</div><div class="ic-desc">In a competitive market, effective negotiation provides a significant edge over competitors.</div></div>
+      </div>
+
+      <h3>Negotiation Strategies &amp; Tactics</h3>
+      <ul class="bullet-list">
+        <li><strong>Making the first offer:</strong> Anchors the negotiation and sets the initial range</li>
+        <li><strong>Focusing on interests, not positions:</strong> Understanding underlying needs leads to more creative solutions</li>
+        <li><strong>Creating value:</strong> Expanding the "pie" so all parties benefit more</li>
+        <li><strong>Trading concessions:</strong> Offering something of lesser value in exchange for something of greater value</li>
+        <li><strong>Using objective criteria:</strong> Referencing market data, industry standards, or legal precedents</li>
+        <li><strong>Building rapport:</strong> Establishing a positive connection for a more collaborative environment</li>
+        <li><strong>Knowing your walk-away point:</strong> Understanding your absolute minimum prevents agreeing to a bad deal</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 6: BUSINESS MODEL DEFINED -->
+    <section class="notes-section" id="s6">
+      <div class="sec-header">
+        <div class="sec-num">6</div>
+        <div>
+          <div class="sec-title">Meaning of Business Model</div>
+          <div class="sec-src">Topic: Business Model Development</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>A business model is an organisation's system of transforming inputs, through its business activities, into outputs and outcomes that are aimed at fulfilling the organisation's strategic purpose and creating value over the short, medium and long term. It describes the rationale of how an organisation <strong>creates, delivers, and captures value</strong>.</p>
+      </div>
+
+      <p>The term "business model" was rarely used before the 1990s. The advent of the personal computer and the growing popularity of spreadsheets made it possible for people to strategically design businesses before launching. A business model is like a <strong>roadmap</strong> that helps entrepreneurs understand how the pieces of their business fit together — what they are doing, how, for whom, and why.</p>
+
+      <div class="highlight-box">
+        <div class="hb-label"><i class="ti ti-bulb" style="font-size:11px"></i> Key Insight</div>
+        <p>Business models are relevant to both startup and existing businesses. For startups, it tests feasibility of a new opportunity. For existing businesses, it articulates current operations and identifies new spaces for innovation or growth. Business models are <em>temporary, subject to change, adjustable, and flexible</em>.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 7: FOUR PARTS -->
+    <section class="notes-section" id="s7">
+      <div class="sec-header">
+        <div class="sec-num">7</div>
+        <div>
+          <div class="sec-title">The Four Parts of a Business Model</div>
+        </div>
+      </div>
+
+      <p>A business model consists of four main interlocking parts that together create "the business." No business can survive without all four parts. Competitive advantage can come from any of these parts — not just the product or service offered.</p>
+
+      <div class="dim-list">
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">1</span>The Offering</div>
+          <div class="dim-desc">Identifies what you are offering to a particular customer segment, the value generated for those customers, and how you will reach and communicate with them. Includes the <strong>Customer Value Proposition (CVP)</strong> — how your products and services help customers do something more inexpensively, easily, effectively, or quickly than before.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">2</span>The Customers</div>
+          <div class="dim-desc">People or businesses willing to pay for what you are offering. You must choose the customers you most want to target, determine how to reach them, and figure out how to build and maintain a relationship with them.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">3</span>The Infrastructure</div>
+          <div class="dim-desc">All the key resources (people, technology, products, suppliers, partners, facilities) that an entrepreneur must have to drive the value proposition.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">4</span>Financial Viability</div>
+          <div class="dim-desc">Defines the revenue and cost structures a business needs to meet its operating expenses and financial obligations. Helps entrepreneurs assess how much it costs to deliver the offering and the amount of revenue that can be generated.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: TYPES -->
+    <section class="notes-section" id="s8">
+      <div class="sec-header">
+        <div class="sec-num">8</div>
+        <div>
+          <div class="sec-title">Types of Business Models</div>
+        </div>
+      </div>
+
+      <p>There are 12 main types of business models. Each type determines how a company makes its profits and who its customers will be.</p>
+
+      <div class="cards-grid">
+        <div class="info-card">
+          <div class="ic-num">Model 1</div>
+          <div class="ic-name">Distributor</div>
+          <div class="ic-desc">Buys products from manufacturers and resells to retailers or the public. Example: UNFI (wholesale food company).</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 2</div>
+          <div class="ic-name">Retailer</div>
+          <div class="ic-desc">Sells products directly to the public via store or website. Example: Konga.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 3</div>
+          <div class="ic-name">Franchising</div>
+          <div class="ic-desc">A franchisee buys a license from a franchisor to trade under the franchisor's name. Franchisor provides marketing, operations, and financing support. Franchisee pays royalties based on agreed percentage of sales.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 4</div>
+          <div class="ic-name">Subscription</div>
+          <div class="ic-desc">Charges customers for continuous access to a product or service. Revenue through repeat purchases. Example: Hulu (streaming).</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 5</div>
+          <div class="ic-name">Aggregator</div>
+          <div class="ic-desc">Connects vendors and buyers on the same platform; sells services under its own brand. Earns commission on every transaction. Example: Airbnb.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 6</div>
+          <div class="ic-name">Advertising</div>
+          <div class="ic-desc">Revenue from advertising products and services. Provides free content/services, charges sponsors. Example: Google AdWords (cost-per-click/CPA).</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 7</div>
+          <div class="ic-name">Data Selling</div>
+          <div class="ic-desc">Generates revenue by selling or licensing high-quality, exclusive information to other parties for advertising and analysis.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 8</div>
+          <div class="ic-name">SaaS</div>
+          <div class="ic-desc">Software as a Service — delivers applications over the Internet on a "pay as you go" basis. Example: Oracle cloud-based applications.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 9</div>
+          <div class="ic-name">Utility/Usage</div>
+          <div class="ic-desc">Charges customers based on how often goods or services are used. Example: mobile phone call minutes, hotel nightly rates, car rentals.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 10</div>
+          <div class="ic-name">Professional</div>
+          <div class="ic-desc">Provides professional services on a time-and-materials contract. Example: consultants, lawyers, accountants (hourly billing); freelance platforms.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 11</div>
+          <div class="ic-name">Licensing</div>
+          <div class="ic-desc">Earns revenue by granting permission to use protected intellectual property (copyrights, patents, trademarks) in exchange for fees. Example: software licenses, app sales to Apple.</div>
+        </div>
+        <div class="info-card">
+          <div class="ic-num">Model 12</div>
+          <div class="ic-name">Freemium</div>
+          <div class="ic-desc">Mixes free basic services with premium upgraded services. Free tier has limits; premium tier offers more storage, functionality, performance. Example: LinkedIn.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: CANVAS -->
+    <section class="notes-section" id="s9">
+      <div class="sec-header">
+        <div class="sec-num">9</div>
+        <div>
+          <div class="sec-title">Business Model Canvas</div>
+          <div class="sec-src">Proposed by Alexander Osterwalder (2005), supervised by Yves Pigneur</div>
+        </div>
+      </div>
+
+      <div class="def-box">
+        <div class="def-label">Definition</div>
+        <p>The Business Model Canvas is a template for strategic management used to create new business models and document existing ones. It offers a visual chart with elements describing a firm's value proposition, infrastructure, customers, and finances.</p>
+      </div>
+
+      <p>Osterwalder's canvas has <strong>nine building blocks</strong>:</p>
+
+      <h3>Infrastructure (3 blocks)</h3>
+      <div class="dim-list">
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">1</span>Key Activities</div>
+          <div class="dim-desc">The most important activities in executing a company's value proposition. Example for Bic (pen manufacturer): creating an efficient supply chain to drive down costs.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">2</span>Key Resources</div>
+          <div class="dim-desc">Resources necessary to create value for the customer — regarded as assets. Can be <strong>human, financial, physical, and intellectual</strong>.</div>
+        </div>
+        <div class="dim-row">
+          <div class="dim-title"><span class="dim-badge">3</span>Partner Network</div>
+          <div class="dim-desc">To optimize operations and reduce risks, organisations cultivate buyer-supplier relationships and strategic alliances (joint ventures or alliances between competitors or non-competitors).</div>
+        </div>
+      </div>
+
+      <h3>Offering</h3>
+      <div class="dim-row">
+        <div class="dim-title"><span class="dim-badge">4</span>Value Proposition</div>
+        <div class="dim-desc">What distinguishes the company from its competitors. Provides value through: newness, performance, customization, "getting the job done," design, brand/status, price, cost reduction, risk reduction, accessibility, and convenience/usability.<br><br>• <strong>Quantitative:</strong> Price and efficiency<br>• <strong>Qualitative:</strong> Overall customer experience and outcome</div>
+      </div>
+
+      <h3>Customers (3 blocks)</h3>
+      <div class="dim-list">
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">5</span>Customer Segments</div><div class="dim-desc">Defines the different groups of people or organizations a company aims to reach and serve.</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">6</span>Channels</div><div class="dim-desc">How a company communicates with and reaches its customer segments to deliver its value proposition.</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">7</span>Customer Relationships</div><div class="dim-desc">The types of relationships a company establishes with specific customer segments.</div></div>
+      </div>
+
+      <h3>Finances (2 blocks)</h3>
+      <div class="cards-grid">
+        <div class="info-card"><div class="ic-num">Block 8</div><div class="ic-name">Revenue Streams</div><div class="ic-desc">The cash a company generates from each customer segment.</div></div>
+        <div class="info-card"><div class="ic-num">Block 9</div><div class="ic-name">Cost Structure</div><div class="ic-desc">All costs incurred to operate the business model.</div></div>
+      </div>
+
+      <div class="highlight-box purple">
+        <div class="hb-label purple"><i class="ti ti-layout" style="font-size:11px"></i> The 9 Blocks Summary</div>
+        <p><strong>Infrastructure:</strong> Key Activities · Key Resources · Partner Network<br>
+        <strong>Offering:</strong> Value Proposition<br>
+        <strong>Customers:</strong> Customer Segments · Channels · Customer Relationships<br>
+        <strong>Finances:</strong> Revenue Streams · Cost Structure</p>
+      </div>
+    </section>
+
+    <!-- SECTION 10: ASSESSMENT -->
+    <section class="notes-section" id="s10">
+      <div class="sec-header">
+        <div class="sec-num">10</div>
+        <div>
+          <div class="sec-title">Assessment Questions &amp; References</div>
+        </div>
+      </div>
+
+      <h3>Assessment Questions</h3>
+      <div class="dim-list">
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">Q1</span>Highlight the various dimensions of communication in business.</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">Q2</span>Explain the two major types of proposal in business.</div></div>
+        <div class="dim-row"><div class="dim-title"><span class="dim-badge">Q3</span>Identify the basic methods of presentation in business.</div></div>
+      </div>
+
+      <h3 style="margin-top:2rem;">References</h3>
+      <ul class="bullet-list">
+        <li>Argenti, P. A. (2009). <em>Corporate communication.</em> Boston: McGraw-Hill/Irwin.</li>
+        <li>Burgoon, M. &amp; Ruffner, M. (1978). <em>Human Communication.</em> New York: Holt, Rinehart and Winston.</li>
+        <li>DeVito, J. A. (2014). <em>The interpersonal communication book.</em> New York: Pearson.</li>
+        <li>Gamble, T.K. &amp; Gamble, M. (2013). <em>Communication Works.</em> Boston: McGraw Hill.</li>
+        <li>Lesikar, R.; Flatley Jnr, M.E.; Pettit, J.D; Bamford, J. (1999). <em>Basic business communication.</em> Ontario: McGraw Hill Reyson.</li>
+        <li>Locker, K.; Mackiewicz, J.; Aune, J.E. &amp; Kienzle, D. (2024). <em>Business communication</em> (13th ed.). New York: McGraw Hill.</li>
+        <li>Lucas, S. &amp; Stob, P. (2023). <em>The art of public speaking</em> (13th ed.). New York: McGraw Hill.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer class="notes-footer">
+  ENT 312 &nbsp;&middot;&nbsp; Academic Achievers Tutorial Board &nbsp;&middot;&nbsp; Built by <a href="https://instagram.com/samwissyy" target="_blank">@samwissyy</a>
+</footer>
+
+<script>
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+  }
+
+  // Highlight active section on scroll
+  const sections = document.querySelectorAll('.notes-section, #s0');
+  const links = document.querySelectorAll('.sb-link');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sb-link[onclick*="${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('[id^="s"]').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GNS 312 — CBT Practice Quiz</title>
+  <meta name="description" content="CBT practice quizzes for GNS 312: Conflict Resolution, Peace Studies, Mediation and Peacebuilding.">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1533030534131705" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.29.0/dist/tabler-icons.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    #app { background: #0a0f1e; color: #e8eaf0; font-family: var(--font-sans); min-height: 640px; position: relative; }
+    .screen { display: none; flex-direction: column; min-height: 640px; }
+    .screen.active { display: flex; }
+
+    /* LANDING */
+    #landing { align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; background: #0a0f1e; position: relative; }
+    .brand-pill { display: inline-block; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 4px 14px; font-size: 11px; letter-spacing: 0.12em; color: #9ba3b8; margin-bottom: 1.4rem; text-transform: uppercase; }
+    .logo-ring { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; background: rgba(16,185,129,0.08); }
+    .logo-ring i { font-size: 28px; color: #10b981; }
+    h1.main-title { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+    .main-sub { font-size: 12.5px; color: #6b7594; margin-bottom: 1.6rem; }
+
+    .read-box { background: rgba(16,185,129,0.07); border: 0.5px solid rgba(16,185,129,0.25); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1.6rem; text-align: left; max-width: 430px; width: 100%; }
+    .read-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #10b981; font-weight: 500; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
+    .read-box ul { margin: 0.3rem 0 0 1rem; }
+    .read-box ul li { font-size: 11.5px; color: #7a83a0; line-height: 1.85; }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; max-width: 340px; width: 100%; margin-bottom: 1rem; }
+    .form-group label { font-size: 12px; color: #6b7594; text-align: left; }
+    .form-group input, .form-group select { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 14px; color: #e8eaf0; font-size: 13.5px; outline: none; transition: border-color 0.2s; font-family: var(--font-sans); }
+    .form-group input:focus, .form-group select:focus { border-color: #10b981; }
+    .form-group input::placeholder { color: #3d4460; }
+    .form-group select option { background: #0d1325; color: #e8eaf0; }
+
+    .q-count-row { display: flex; align-items: center; gap: 12px; max-width: 340px; width: 100%; margin-bottom: 1.4rem; }
+    .q-count-row label { font-size: 12px; color: #6b7594; white-space: nowrap; }
+    .q-count-row input[type=range] { flex: 1; accent-color: #10b981; }
+    .q-count-val { background: rgba(16,185,129,0.15); border: 0.5px solid rgba(16,185,129,0.35); border-radius: 6px; padding: 3px 10px; font-size: 13px; color: #10b981; font-weight: 500; min-width: 42px; text-align: center; }
+
+    .btn-start { background: #10b981; color: #fff; border: none; border-radius: 8px; padding: 11px 30px; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-start:hover { background: #059669; }
+
+    /* HEADER */
+    .quiz-header { background: #0d1325; border-bottom: 0.5px solid rgba(255,255,255,0.07); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .qh-left { display: flex; align-items: center; gap: 10px; }
+    .qh-logo { font-size: 12px; color: #10b981; font-weight: 500; }
+    .qh-user { font-size: 11.5px; color: #4b5577; }
+    .qh-right { display: flex; align-items: center; gap: 10px; }
+    .prog-bar { width: 100px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .prog-fill { height: 100%; background: #10b981; border-radius: 99px; transition: width 0.35s ease; }
+    .prog-label { font-size: 11px; color: #6b7594; min-width: 38px; text-align: right; }
+    .timer-badge { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #9ba3b8; display: flex; align-items: center; gap: 5px; }
+    .timer-badge.warn { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+    /* QUIZ BODY */
+    .quiz-body { flex: 1; padding: 1.5rem 1.25rem 1rem; max-width: 660px; width: 100%; margin: 0 auto; }
+    .q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .q-num-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #10b981; }
+    .q-section-tag { font-size: 10.5px; color: #3d4460; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 99px; }
+    .q-text { font-size: 16px; color: #e8eaf0; line-height: 1.55; margin-bottom: 1.4rem; font-weight: 500; }
+
+    .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 1.2rem; }
+    .opt-btn { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; color: #b8c0d8; font-size: 13px; cursor: pointer; text-align: left; transition: all 0.15s; font-family: var(--font-sans); display: flex; align-items: flex-start; gap: 11px; line-height: 1.45; }
+    .opt-btn:hover:not(.locked) { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); color: #e8eaf0; }
+    .opt-btn.selected { background: rgba(16,185,129,0.12); border-color: #10b981; color: #e8eaf0; }
+    .opt-btn.correct { background: rgba(34,197,94,0.09); border-color: #22c55e; color: #4ade80; }
+    .opt-btn.wrong { background: rgba(239,68,68,0.09); border-color: #ef4444; color: #f87171; }
+    .opt-btn.locked { cursor: default; }
+    .opt-letter { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; font-size: 10.5px; color: #6b7594; font-weight: 500; margin-top: 1px; transition: background 0.15s; }
+    .opt-btn.selected .opt-letter { background: #10b981; color: #fff; }
+    .opt-btn.correct .opt-letter { background: #22c55e; color: #fff; }
+    .opt-btn.wrong .opt-letter { background: #ef4444; color: #fff; }
+
+    .feedback-box { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; display: none; }
+    .feedback-box.show { display: block; }
+    .fb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; font-weight: 500; }
+    .fb-label.ok { color: #22c55e; }
+    .fb-label.bad { color: #ef4444; }
+    .fb-text { font-size: 12.5px; color: #8b95b0; line-height: 1.65; }
+    .fb-hint { margin-top: 0.4rem; font-size: 11px; color: #3d4460; }
+
+    /* NAVIGATOR */
+    .q-nav { display: flex; flex-wrap: wrap; gap: 5px; padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); max-width: 660px; width: 100%; margin: 0 auto; }
+    .nav-dot { width: 26px; height: 26px; border-radius: 6px; border: 0.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); font-size: 10px; color: #4b5577; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: var(--font-sans); }
+    .nav-dot:hover { border-color: rgba(16,185,129,0.4); color: #10b981; }
+    .nav-dot.active { border-color: #10b981; color: #10b981; background: rgba(16,185,129,0.1); }
+    .nav-dot.done-ok { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #4ade80; }
+    .nav-dot.done-bad { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.35); color: #f87171; }
+
+    /* FOOTER */
+    .quiz-footer { padding: 0.75rem 1.25rem; border-top: 0.5px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 660px; width: 100%; margin: 0 auto; }
+    .btn-action { background: #10b981; color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); transition: background 0.2s; }
+    .btn-action:disabled { background: rgba(255,255,255,0.07); color: #3d4460; cursor: not-allowed; }
+    .btn-action:not(:disabled):hover { background: #059669; }
+    .btn-ghost { background: transparent; border: 0.5px solid rgba(255,255,255,0.12); color: #9ba3b8; border-radius: 8px; padding: 9px 18px; font-size: 12.5px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 5px; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: #e8eaf0; }
+    .btn-finish { background: rgba(34,197,94,0.15); border: 0.5px solid rgba(34,197,94,0.4); color: #4ade80; border-radius: 8px; padding: 9px 22px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-finish:hover { background: rgba(34,197,94,0.22); }
+
+    /* RESULTS */
+    #results { align-items: center; justify-content: flex-start; padding: 1.5rem 1.25rem 1rem; background: #0a0f1e; overflow-y: auto; }
+    .res-top { text-align: center; margin-bottom: 1.5rem; width: 100%; }
+    .score-ring { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #10b981; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .score-ring.great { border-color: #22c55e; }
+    .score-ring.mid { border-color: #f59e0b; }
+    .score-ring.low { border-color: #ef4444; }
+    .score-num { font-size: 28px; font-weight: 500; color: #fff; }
+    .score-denom { font-size: 11px; color: #6b7594; }
+    .res-name { font-size: 17px; color: #e8eaf0; margin-bottom: 0.3rem; }
+    .res-pct { font-size: 13px; color: #6b7594; margin-bottom: 0.2rem; }
+    .res-msg { font-size: 12.5px; color: #4b5577; margin-bottom: 1.2rem; }
+
+    .stats-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .stat-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.7rem 1.2rem; text-align: center; min-width: 80px; }
+    .stat-val { font-size: 20px; font-weight: 500; }
+    .stat-lbl { font-size: 10.5px; color: #4b5577; margin-top: 2px; }
+    .stat-card.ok .stat-val { color: #4ade80; }
+    .stat-card.bad .stat-val { color: #f87171; }
+    .stat-card.skip .stat-val { color: #f59e0b; }
+
+    .breakdown { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; max-width: 500px; width: 100%; margin: 0 auto 1.2rem; overflow: hidden; }
+    .bd-header { padding: 0.6rem 1rem; background: rgba(255,255,255,0.04); border-bottom: 0.5px solid rgba(255,255,255,0.07); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #4b5577; display: flex; justify-content: space-between; }
+    .bd-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 1rem; border-bottom: 0.5px solid rgba(255,255,255,0.04); gap: 8px; }
+    .bd-row:last-child { border-bottom: none; }
+    .bd-q { font-size: 12px; color: #6b7594; flex: 1; }
+    .bd-badge { font-size: 10.5px; padding: 2px 9px; border-radius: 99px; white-space: nowrap; }
+    .bd-badge.ok { background: rgba(34,197,94,0.13); color: #4ade80; }
+    .bd-badge.bad { background: rgba(239,68,68,0.11); color: #f87171; }
+    .bd-badge.skip { background: rgba(245,158,11,0.13); color: #fbbf24; }
+
+    .res-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .btn-retry2 { background: #10b981; color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; gap: 7px; }
+    .btn-retry2:hover { background: #059669; }
+    .btn-home { background: transparent; border: 0.5px solid rgba(255,255,255,0.15); color: #9ba3b8; border-radius: 8px; padding: 10px 20px; font-size: 13px; cursor: pointer; font-family: var(--font-sans); }
+    .btn-home:hover { border-color: rgba(255,255,255,0.3); color: #e8eaf0; }
+
+    .footer-tag { text-align: center; padding: 0.65rem; font-size: 10px; color: #4b5577; border-top: 0.5px solid rgba(255,255,255,0.04); background: #0a0f1e; letter-spacing: 0.05em; }
+    .footer-tag span { color: #10b981; }
+    .footer-tag a { color: #10b981; text-decoration: none; }
+    .footer-tag a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body style="background: #0a0f1e; margin: 0;">
+
+<div id="app">
+
+  <!-- LANDING -->
+  <div id="landing" class="screen active">
+    <!-- Back to Portal top link -->
+    <div style="width: 100%; display: flex; justify-content: flex-start; padding: 15px; position: absolute; top: 0; left: 0;">
+      <a href="index.html" class="btn-ghost" style="padding: 5px 12px; font-size: 11.5px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Portal</a>
+    </div>
+
+    <div class="brand-pill" style="margin-top: 2rem;">GNS 312 &nbsp;|&nbsp; CBT Practice</div>
+    <div class="logo-ring"><i class="ti ti-world" aria-hidden="true"></i></div>
+    <h1 class="main-title">GNS 312 Quiz</h1>
+    <p class="main-sub">Conflict Resolution &middot; Peace Studies &middot; Mediation &middot; Peacebuilding</p>
+
+    <div class="read-box">
+      <div class="read-box-title"><i class="ti ti-book-2" aria-hidden="true" style="font-size:14px"></i> Quiz Coverage Areas</div>
+      <ul>
+        <li>Topic 1: Nature &amp; Types of Conflict</li>
+        <li>Topic 2: Conflict Theories &amp; Causes</li>
+        <li>Topic 3: Positive &amp; Negative Peace</li>
+        <li>Topic 4: Negotiation, Mediation &amp; Arbitration</li>
+        <li>Topic 5: Conflict Escalation &amp; De-escalation</li>
+        <li>Topic 6: Peacebuilding &amp; Reconciliation</li>
+        <li>Topic 7: Structural &amp; Cultural Violence</li>
+        <li>Topic 8: Conflict Prevention &amp; Diplomacy</li>
+        <li>Topic 9: Post-Conflict Reconstruction</li>
+        <li>Topic 10: Dialogue, Justice &amp; Sustainable Peace</li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="uname">Your name</label>
+      <input id="uname" type="text" placeholder="e.g. Samuel Adeyemi" maxlength="40" autocomplete="off" />
+    </div>
+
+    <div class="q-count-row">
+      <label for="qslider">Questions</label>
+      <input id="qslider" type="range" min="20" max="100" step="5" value="25" oninput="document.getElementById('qcval').textContent=this.value" />
+      <span class="q-count-val" id="qcval">25</span>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">
+      <i class="ti ti-player-play" aria-hidden="true"></i> Start CBT
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="qh-left" style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" class="btn-ghost" style="padding: 4px 10px; font-size: 11px; border-radius: 6px; text-decoration: none; display: flex; align-items: center; gap: 4px;"><i class="ti ti-arrow-left"></i> Home</a>
+        <span class="qh-logo"><i class="ti ti-world" aria-hidden="true"></i> GNS 312</span>
+        <span class="qh-user" id="hdr-user"></span>
+      </div>
+      <div class="qh-right">
+        <div class="timer-badge" id="timer-badge"><i class="ti ti-clock" aria-hidden="true" style="font-size:13px"></i><span id="timer-txt">--:--</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <span class="prog-label" id="prog-label">1/25</span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="q-meta">
+        <span class="q-num-tag" id="q-num-tag">Question 1</span>
+        <span class="q-section-tag" id="q-sec-tag"></span>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback-box" id="feedback">
+        <div class="fb-label" id="fb-label"></div>
+        <div class="fb-text" id="fb-text"></div>
+        <div class="fb-hint" id="fb-hint"></div>
+      </div>
+    </div>
+
+    <div class="q-nav" id="q-nav"></div>
+
+    <div class="quiz-footer">
+      <button class="btn-ghost" id="btn-prev" onclick="goQ(cur-1)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Prev</button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-action" id="btn-submit" onclick="submitAns()" disabled>Submit</button>
+        <button class="btn-ghost" id="btn-next" onclick="goQ(cur+1)" style="display:none">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+        <button class="btn-finish" id="btn-finish" onclick="confirmFinish()" style="display:none"><i class="ti ti-flag" aria-hidden="true"></i> Finish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="screen">
+    <div class="res-top">
+      <div class="brand-pill">Session Complete</div>
+      <div class="score-ring" id="score-ring">
+        <span class="score-num" id="res-score">0</span>
+        <span class="score-denom" id="res-denom">/ 25</span>
+      </div>
+      <p class="res-name" id="res-name"></p>
+      <p class="res-pct" id="res-pct"></p>
+      <p class="res-msg" id="res-msg"></p>
+    </div>
+    <div class="stats-row" id="stats-row"></div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="res-actions">
+      <button class="btn-retry2" onclick="retryQuiz()"><i class="ti ti-refresh" aria-hidden="true"></i> Retry Same</button>
+      <button class="btn-home" onclick="goHome()"><i class="ti ti-home" aria-hidden="true"></i> New Session</button>
+    </div>
+  </div>
+
+</div>
+<div class="footer-tag">GNS 312 &nbsp;&middot;&nbsp; <span>ACADEMIC ACHIEVERS TUTORIAL BOARD &nbsp;&middot;&nbsp; Built by <a href="https://instagram.com/samwissyy" target="_blank">@samwissyy</a></span></div>
+
+<script>
+const BANK = [
+  {
+    q: "A community experiencing long-standing inequality without open violence is best described as having",
+    opts: ["Manifest conflict", "Latent conflict", "Direct violence", "Resolved conflict"],
+    ans: 1,
+    exp: "Latent conflict refers to underlying tensions and inequalities that have not yet erupted into open violence but exist beneath the surface.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "According to conflict theory, conflict is inevitable because",
+    opts: ["Humans are naturally violent", "Resources are unevenly distributed", "Governments promote conflict", "Religion causes division"],
+    ans: 1,
+    exp: "Conflict theory holds that unequal distribution of resources creates tensions and competition among groups, making conflict inevitable in society.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "A peace agreement that stops fighting but ignores injustice is an example of",
+    opts: ["Positive peace", "Structural peace", "Negative peace", "Cultural peace"],
+    ans: 2,
+    exp: "Negative peace refers to the mere absence of direct violence or war, without addressing the underlying structural injustices or inequalities.",
+    hint: "Topic 3: Positive & Negative Peace",
+    sec: "Peace Concepts"
+  },
+  {
+    q: "When a mediator suggests solutions but does not impose them, the process is best described as",
+    opts: ["Arbitration", "Negotiation", "Mediation", "Litigation"],
+    ans: 2,
+    exp: "Mediation involves a neutral third party who facilitates dialogue and may suggest solutions, but the decision-making power remains with the disputants.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "A third party whose decision is binding on disputants is engaging in",
+    opts: ["Facilitation", "Conciliation", "Arbitration", "Dialogue"],
+    ans: 2,
+    exp: "Arbitration is a process where a neutral third party (arbitrator) hears both sides and makes a binding decision that the parties must accept.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Conflict escalation is most likely when",
+    opts: ["Communication improves", "Trust increases", "Misperceptions intensify", "Interests align"],
+    ans: 2,
+    exp: "When parties misperceive each other's intentions and actions, they tend to react defensively, triggering further hostile responses and escalating the conflict.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Structural violence differs from direct violence in that it",
+    opts: ["Is always visible", "Operates through social systems", "Is temporary", "Requires physical force"],
+    ans: 1,
+    exp: "Structural violence is embedded in social, political, and economic systems that cause harm without direct physical force — such as poverty, discrimination, and inequality.",
+    hint: "Topic 7: Structural & Cultural Violence",
+    sec: "Forms of Violence"
+  },
+  {
+    q: "A win-win outcome is most closely associated with",
+    opts: ["Competition", "Avoidance", "Collaboration", "Accommodation"],
+    ans: 2,
+    exp: "Collaboration seeks to fully satisfy the needs of all parties by working together to find creative solutions, resulting in mutually beneficial win-win outcomes.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which approach focuses on changing relationships and social structures, not just resolving issues?",
+    opts: ["Conflict management", "Conflict transformation", "Conflict avoidance", "Conflict suppression"],
+    ans: 1,
+    exp: "Conflict transformation goes beyond settling immediate disputes to address the deeper relational and structural causes of conflict for long-term change.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "An early warning sign of violent conflict is",
+    opts: ["Economic growth", "Increased dialogue", "Rising polarization", "Policy agreement"],
+    ans: 2,
+    exp: "Rising polarization — the division of society into opposing camps with extreme positions — is a key early warning indicator that violence may follow.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "The concept of 'positive peace' includes",
+    opts: ["Absence of war", "Military balance", "Justice and equity", "Silence among parties"],
+    ans: 2,
+    exp: "Positive peace, as defined by Johan Galtung, refers to the presence of social justice, equity, and cooperation — not merely the absence of war.",
+    hint: "Topic 3: Positive & Negative Peace",
+    sec: "Peace Concepts"
+  },
+  {
+    q: "A negotiation where both parties make concessions is best described as",
+    opts: ["Competition", "Compromise", "Avoidance", "Domination"],
+    ans: 1,
+    exp: "Compromise involves each party giving up something to reach a mutually acceptable agreement, distinguishing it from competition where one party wins at the other's expense.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "The failure of governance often leads to conflict because it",
+    opts: ["Encourages unity", "Eliminates inequality", "Undermines legitimacy", "Promotes cooperation"],
+    ans: 2,
+    exp: "When governance fails, institutions lose legitimacy and the ability to mediate grievances, creating conditions where groups may resort to violence.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "Ethno-religious conflicts are primarily driven by",
+    opts: ["Technological differences", "Cultural and belief systems", "Climate change", "Trade imbalance"],
+    ans: 1,
+    exp: "Ethno-religious conflicts arise from deep-seated differences in cultural identity, religious beliefs, and value systems between groups.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "A major limitation of force in conflict resolution is that it",
+    opts: ["Builds trust", "Ensures justice", "May deepen resentment", "Solves root causes"],
+    ans: 2,
+    exp: "Using force or coercion to resolve conflict may stop immediate violence but often breeds resentment and grievances that fuel future conflicts.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Peacebuilding differs from peacemaking because it",
+    opts: ["Focuses on short-term ceasefire", "Emphasizes long-term stability", "Relies on military force", "Avoids negotiation"],
+    ans: 1,
+    exp: "Peacebuilding is a long-term process that addresses root causes and builds institutions for sustainable peace, while peacemaking focuses on ending active hostilities.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A conflict that spreads across borders is classified as",
+    opts: ["Interpersonal", "Intrastate", "International", "Intragroup"],
+    ans: 2,
+    exp: "International conflict involves two or more sovereign states and crosses national borders, distinguishing it from intrastate conflicts within a single country.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "Which strategy is most appropriate when preserving relationships is more important than winning?",
+    opts: ["Competition", "Accommodation", "Domination", "Avoidance"],
+    ans: 1,
+    exp: "Accommodation involves one party yielding to the other's needs, prioritizing the relationship over winning, making it ideal when the relationship is highly valued.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Cultural violence legitimizes conflict by",
+    opts: ["Eliminating inequality", "Promoting dialogue", "Justifying harmful practices", "Preventing escalation"],
+    ans: 2,
+    exp: "Cultural violence includes aspects of culture (religion, ideology, art) that are used to justify or legitimize direct or structural violence.",
+    hint: "Topic 7: Structural & Cultural Violence",
+    sec: "Forms of Violence"
+  },
+  {
+    q: "Which factor most contributes to conflict persistence?",
+    opts: ["Effective communication", "Mutual trust", "Unresolved grievances", "Shared interests"],
+    ans: 2,
+    exp: "When underlying grievances — such as historical injustices, discrimination, or unmet needs — are not addressed, conflict tends to recur and persist.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "In conflict analysis, stakeholders are",
+    opts: ["Only government actors", "Individuals unaffected", "Parties with interest in the conflict", "External observers only"],
+    ans: 2,
+    exp: "Stakeholders in conflict analysis include all individuals, groups, and organizations that have an interest in, or are affected by, the conflict.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "Dialogue is most effective when",
+    opts: ["One party dominates", "Communication is one-sided", "Participants engage in active listening", "Emotions are suppressed"],
+    ans: 2,
+    exp: "Effective dialogue requires active listening, where each party genuinely seeks to understand the other's perspective rather than simply waiting to speak.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Power asymmetry in conflict often results in",
+    opts: ["Equal negotiation outcomes", "Increased cooperation", "Exploitation of weaker parties", "Immediate resolution"],
+    ans: 2,
+    exp: "When there is a significant power imbalance between parties, the stronger party may exploit the weaker one, making fair negotiation difficult.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Preventive diplomacy aims to",
+    opts: ["Escalate tensions", "Stop conflict before it begins", "Impose sanctions", "Enforce military action"],
+    ans: 1,
+    exp: "Preventive diplomacy involves early diplomatic actions to prevent disputes from escalating into violent conflicts before they begin.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "Reconciliation processes are primarily concerned with",
+    opts: ["Economic growth", "Punishment", "Restoring relationships", "Military strength"],
+    ans: 2,
+    exp: "Reconciliation focuses on healing damaged relationships between former adversaries and rebuilding trust after conflict.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which is a key feature of sustainable peace?",
+    opts: ["Temporary ceasefire", "Justice and inclusion", "Military dominance", "Silence of opposition"],
+    ans: 1,
+    exp: "Sustainable peace requires addressing root causes of conflict through justice, equitable inclusion of all groups, and building legitimate institutions.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "The 'security dilemma' refers to",
+    opts: ["Economic crisis", "Mutual fear leading to arms buildup", "Cultural misunderstanding", "Political instability"],
+    ans: 1,
+    exp: "The security dilemma occurs when one state's efforts to increase its own security cause other states to feel threatened, leading to an arms race and increased insecurity for all.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "Conflict mapping is used to",
+    opts: ["Escalate conflict", "Identify key actors and issues", "Ignore stakeholders", "Enforce decisions"],
+    ans: 1,
+    exp: "Conflict mapping is a visual tool used in conflict analysis to identify and understand the relationships between key actors, issues, and dynamics.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "A ceasefire agreement is best described as",
+    opts: ["Final resolution", "Temporary halt in fighting", "Justice system", "Peacebuilding"],
+    ans: 1,
+    exp: "A ceasefire is a temporary agreement between warring parties to stop fighting, creating space for negotiations but not constituting a final peace settlement.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which approach is least effective in resolving deep-rooted conflicts?",
+    opts: ["Dialogue", "Force", "Negotiation", "Mediation"],
+    ans: 1,
+    exp: "Force may stop immediate violence but is least effective for deep-rooted conflicts because it does not address underlying causes and often creates resentment.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Post-conflict reconstruction focuses on",
+    opts: ["Continuing violence", "Rebuilding institutions", "Increasing tension", "Avoiding justice"],
+    ans: 1,
+    exp: "Post-conflict reconstruction involves rebuilding physical infrastructure, social institutions, and governance systems destroyed or damaged by conflict.",
+    hint: "Topic 9: Post-Conflict Reconstruction",
+    sec: "Post-Conflict"
+  },
+  {
+    q: "The role of civil society in conflict resolution includes",
+    opts: ["Promoting violence", "Facilitating dialogue", "Enforcing laws", "Leading armies"],
+    ans: 1,
+    exp: "Civil society organizations play a key role in conflict resolution by facilitating community dialogue, building bridges between parties, and advocating for peace.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A major cause of resource-based conflict is",
+    opts: ["Abundance", "Scarcity", "Equality", "Cooperation"],
+    ans: 1,
+    exp: "Scarcity of essential resources such as land, water, or oil creates competition among groups and is a primary driver of resource-based conflicts.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "Which concept explains conflict arising from unequal distribution of power?",
+    opts: ["Functionalism", "Conflict theory", "Idealism", "Rationalism"],
+    ans: 1,
+    exp: "Conflict theory, associated with Marx and others, explains social conflict as arising from unequal distribution of power, resources, and status in society.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "Peace education primarily aims to",
+    opts: ["Promote war", "Build tolerance and skills", "Encourage dominance", "Suppress opinions"],
+    ans: 1,
+    exp: "Peace education aims to cultivate values, knowledge, and skills necessary for building a culture of peace, including tolerance, empathy, and conflict resolution.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which strategy prioritizes self-interest over others?",
+    opts: ["Collaboration", "Competition", "Accommodation", "Compromise"],
+    ans: 1,
+    exp: "Competition is a conflict strategy where a party pursues its own goals at the expense of others, prioritizing self-interest in a win-lose approach.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Effective communication in conflict requires",
+    opts: ["Assumptions", "Active listening", "Dominance", "Silence"],
+    ans: 1,
+    exp: "Active listening — genuinely hearing and understanding the other party's perspective — is fundamental to effective communication in conflict situations.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Which is NOT a stage of conflict?",
+    opts: ["Latent", "Escalation", "Resolution", "Perfection"],
+    ans: 3,
+    exp: "'Perfection' is not a recognized stage of conflict. Conflict stages typically include: latent, emergence, escalation, (de-escalation), and resolution/post-conflict.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "Long-term peace is most threatened by",
+    opts: ["Justice", "Inclusion", "Inequality", "Dialogue"],
+    ans: 2,
+    exp: "Persistent inequality — whether economic, social, or political — undermines long-term peace by creating grievances and conditions that fuel new conflicts.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "A neutral third party that facilitates discussion without imposing decisions is",
+    opts: ["Arbitrator", "Judge", "Mediator", "Soldier"],
+    ans: 2,
+    exp: "A mediator is a neutral facilitator who helps parties communicate and explore solutions but has no authority to impose decisions on the parties.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which concept emphasizes addressing root causes of conflict?",
+    opts: ["Conflict suppression", "Conflict transformation", "Conflict avoidance", "Conflict denial"],
+    ans: 1,
+    exp: "Conflict transformation, associated with John Paul Lederach, focuses on addressing the deep-rooted causes and relational dynamics that generate conflict.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Violence that is justified by tradition or ideology is",
+    opts: ["Direct violence", "Structural violence", "Cultural violence", "Physical violence"],
+    ans: 2,
+    exp: "Cultural violence refers to aspects of culture (religion, ideology, language, art) used to justify or legitimize direct or structural violence.",
+    hint: "Topic 7: Structural & Cultural Violence",
+    sec: "Forms of Violence"
+  },
+  {
+    q: "The primary goal of negotiation is to",
+    opts: ["Defeat opponent", "Reach agreement", "Escalate conflict", "Avoid discussion"],
+    ans: 1,
+    exp: "Negotiation is a process of communication between parties aimed at reaching a mutually acceptable agreement without the need for a third-party decision-maker.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "A major weakness of avoidance strategy is that it",
+    opts: ["Resolves issues", "Delays resolution", "Promotes justice", "Builds trust"],
+    ans: 1,
+    exp: "Avoidance as a conflict strategy merely postpones dealing with issues, allowing them to fester and potentially escalate into more serious problems.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Intractable conflicts are characterized by",
+    opts: ["Quick resolution", "Deep-rooted and prolonged nature", "Lack of interest", "Simple solutions"],
+    ans: 1,
+    exp: "Intractable conflicts are deeply entrenched, long-lasting conflicts that resist resolution due to complex underlying causes, identity issues, and high stakes.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Which factor is most critical for peace sustainability?",
+    opts: ["Military power", "Justice", "Silence", "Isolation"],
+    ans: 1,
+    exp: "Justice — addressing grievances, ensuring accountability, and creating equitable systems — is the most critical factor for sustaining peace long-term.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Social inequality contributes to conflict by",
+    opts: ["Promoting unity", "Creating grievances", "Enhancing cooperation", "Encouraging peace"],
+    ans: 1,
+    exp: "Social inequality generates grievances among marginalized groups who feel excluded or exploited, creating conditions that can fuel conflict.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "Dialogue differs from debate because it",
+    opts: ["Seeks to win", "Seeks understanding", "Ignores others", "Promotes conflict"],
+    ans: 1,
+    exp: "Unlike debate which aims to win arguments, dialogue seeks mutual understanding, shared meaning, and collaborative exploration of issues.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Which process aims at rebuilding trust after conflict?",
+    opts: ["Litigation", "Reconciliation", "Arbitration", "Competition"],
+    ans: 1,
+    exp: "Reconciliation is a process aimed at healing relationships, rebuilding trust, and fostering coexistence among former adversaries after conflict.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "The most effective conflict resolution approach combines",
+    opts: ["Force and domination", "Dialogue and justice", "Silence and avoidance", "Power and control"],
+    ans: 1,
+    exp: "Combining open dialogue with justice — addressing grievances fairly — is the most effective approach for sustainable conflict resolution.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "A conflict driven by competition over political power is best classified as",
+    opts: ["Economic conflict", "Political conflict", "Cultural conflict", "Environmental conflict"],
+    ans: 1,
+    exp: "Political conflict arises from competition for political power, authority, or control of government institutions and decision-making processes.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "When parties exaggerate differences and ignore similarities, conflict is likely to",
+    opts: ["De-escalate", "Stabilize", "Escalate", "Resolve"],
+    ans: 2,
+    exp: "Exaggerating differences while ignoring common ground increases hostility and in-group/out-group thinking, accelerating conflict escalation.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "A peace process that excludes key stakeholders is likely to",
+    opts: ["Succeed quickly", "Collapse or fail", "Reduce tension permanently", "Improve trust"],
+    ans: 1,
+    exp: "Excluding key stakeholders from peace processes creates agreements that lack legitimacy and ownership, making collapse or renewed conflict more likely.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which concept explains the cycle of retaliation in prolonged conflicts?",
+    opts: ["Peacebuilding", "Conflict spiral", "Mediation", "Arbitration"],
+    ans: 1,
+    exp: "The conflict spiral describes how each party's hostile response to the other's actions leads to escalating retaliation, perpetuating the conflict cycle.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "A mediator loses effectiveness when",
+    opts: ["They remain neutral", "They impose decisions", "They encourage dialogue", "They listen actively"],
+    ans: 1,
+    exp: "When a mediator imposes decisions rather than facilitating party-driven solutions, they undermine the voluntary nature of mediation and lose their effectiveness.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which factor most increases the likelihood of violent conflict?",
+    opts: ["Economic equality", "Strong institutions", "Weak governance", "Inclusive policies"],
+    ans: 2,
+    exp: "Weak governance — characterized by institutional failure, corruption, and inability to manage disputes — significantly increases the risk of violent conflict.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "The primary aim of track-two diplomacy is to",
+    opts: ["Use military force", "Engage unofficial actors in dialogue", "Enforce laws", "Conduct elections"],
+    ans: 1,
+    exp: "Track-two diplomacy involves informal dialogues between non-official actors (academics, civil society, former leaders) to complement official peace negotiations.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "A conflict that arises within a country is called",
+    opts: ["Interstate conflict", "Intrastate conflict", "Global conflict", "External conflict"],
+    ans: 1,
+    exp: "Intrastate conflict (also called civil war or internal conflict) occurs within the borders of a single country between domestic groups.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "Which approach is most suitable for addressing identity-based conflicts?",
+    opts: ["Force", "Dialogue and reconciliation", "Avoidance", "Competition"],
+    ans: 1,
+    exp: "Identity-based conflicts require sustained dialogue and reconciliation processes that acknowledge grievances, build understanding, and restore dignity.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A zero-sum perception in conflict means",
+    opts: ["Both parties gain", "One party's gain is another's loss", "No one loses", "All parties benefit equally"],
+    ans: 1,
+    exp: "Zero-sum thinking views conflict as a fixed pie where one party's gain necessarily comes at the expense of the other, making cooperation harder.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Conflict sensitivity in development projects requires",
+    opts: ["Ignoring local dynamics", "Understanding conflict context", "Imposing policies", "Using force"],
+    ans: 1,
+    exp: "Conflict sensitivity means development practitioners understand the conflict context and ensure their programs 'do no harm' and ideally contribute to peace.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "The legitimacy of a peace agreement depends largely on",
+    opts: ["External pressure", "Inclusion and fairness", "Military backing", "Speed of agreement"],
+    ans: 1,
+    exp: "Peace agreements gain legitimacy when key stakeholders are included in the process and the terms are perceived as fair by the affected populations.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which of the following best describes 'spoilers' in peace processes?",
+    opts: ["Neutral observers", "Actors who undermine peace efforts", "Mediators", "Peacekeepers"],
+    ans: 1,
+    exp: "Spoilers are individuals or groups who believe the peace process threatens their interests and therefore take actions to undermine or derail it.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A conflict fueled by misinformation is primarily linked to",
+    opts: ["Resource scarcity", "Communication breakdown", "Cultural identity", "Political ideology"],
+    ans: 1,
+    exp: "Misinformation creates or amplifies misunderstandings between parties, representing a fundamental communication breakdown that can intensify conflict.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Which strategy is most effective in high-trust relationships?",
+    opts: ["Competition", "Collaboration", "Avoidance", "Domination"],
+    ans: 1,
+    exp: "High trust between parties enables full collaboration, where both work together openly to find solutions that maximize gains for all parties.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "A major challenge in post-conflict societies is",
+    opts: ["Overdevelopment", "Rebuilding trust", "Excess resources", "Lack of diversity"],
+    ans: 1,
+    exp: "Rebuilding trust between former adversaries is one of the most difficult and crucial challenges in post-conflict societies for achieving lasting peace.",
+    hint: "Topic 9: Post-Conflict Reconstruction",
+    sec: "Post-Conflict"
+  },
+  {
+    q: "Which concept refers to fairness in distribution of resources?",
+    opts: ["Equality", "Equity", "Authority", "Power"],
+    ans: 1,
+    exp: "Equity refers to fairness in the distribution of resources and opportunities, taking into account people's different needs and circumstances.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "The failure to address root causes often leads to",
+    opts: ["Sustainable peace", "Conflict recurrence", "Immediate stability", "Cooperation"],
+    ans: 1,
+    exp: "When peace agreements address symptoms rather than root causes (poverty, discrimination, exclusion), conflicts are likely to recur.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A key principle of mediation is",
+    opts: ["Bias", "Neutrality", "Force", "Authority"],
+    ans: 1,
+    exp: "Neutrality — the mediator's impartiality toward all parties — is a fundamental principle that gives mediation its credibility and effectiveness.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which method focuses on finding mutually acceptable solutions?",
+    opts: ["Litigation", "Negotiation", "Violence", "Avoidance"],
+    ans: 1,
+    exp: "Negotiation is a voluntary, direct communication process between parties specifically aimed at finding mutually acceptable solutions.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Conflict escalation is often triggered by",
+    opts: ["Trust-building", "Miscommunication", "Cooperation", "Dialogue"],
+    ans: 1,
+    exp: "Miscommunication — where intentions are misread or messages distorted — is a common trigger for conflict escalation as parties react to perceived threats.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Which factor reduces the risk of conflict?",
+    opts: ["Inequality", "Inclusion", "Marginalization", "Discrimination"],
+    ans: 1,
+    exp: "Inclusive governance and social systems that give all groups a voice reduce grievances and the likelihood of conflict.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "Peacekeeping missions are typically authorized by",
+    opts: ["NGOs", "International organizations", "Individuals", "Corporations"],
+    ans: 1,
+    exp: "UN peacekeeping missions are typically authorized by the UN Security Council, an international organization, under Chapter VI or VII of the UN Charter.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A conflict over natural resources is an example of",
+    opts: ["Identity conflict", "Resource conflict", "Ideological conflict", "Cultural conflict"],
+    ans: 1,
+    exp: "Resource conflicts arise when groups compete over access to, control of, or distribution of natural resources such as land, oil, water, or minerals.",
+    hint: "Topic 2: Conflict Theories & Causes",
+    sec: "Conflict Theories"
+  },
+  {
+    q: "The concept of reconciliation involves",
+    opts: ["Punishment", "Healing and forgiveness", "Domination", "Competition"],
+    ans: 1,
+    exp: "Reconciliation is a process involving healing of wounds, acknowledgment of harm done, forgiveness, and the rebuilding of broken relationships.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which approach emphasizes dialogue over force?",
+    opts: ["Militarism", "Peaceful resolution", "Domination", "Competition"],
+    ans: 1,
+    exp: "Peaceful resolution approaches prioritize dialogue, negotiation, and non-violent means of addressing conflicts over coercive or military methods.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "A major weakness of arbitration is that it",
+    opts: ["Lacks structure", "May ignore relationships", "Is non-binding", "Avoids decisions"],
+    ans: 1,
+    exp: "Arbitration produces binding decisions but may ignore the ongoing relationship between parties, making it less suitable when preserving relationships matters.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which factor contributes most to ethnic conflict?",
+    opts: ["Shared identity", "Cultural differences", "Cooperation", "Equality"],
+    ans: 1,
+    exp: "Perceived or real cultural differences — in language, religion, customs, or history — between ethnic groups are primary drivers of ethnic conflict.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "The goal of conflict management is to",
+    opts: ["Eliminate conflict", "Control and regulate conflict", "Promote violence", "Avoid interaction"],
+    ans: 1,
+    exp: "Conflict management does not aim to eliminate conflict entirely but to control, contain, and regulate it so it does not become destructive.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which stage follows conflict escalation?",
+    opts: ["Resolution", "De-escalation", "Latent stage", "Ignorance"],
+    ans: 1,
+    exp: "De-escalation follows the peak of conflict escalation, during which the intensity of conflict begins to decrease through various de-escalatory measures.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "A mediator must avoid",
+    opts: ["Listening", "Taking sides", "Facilitating dialogue", "Encouraging communication"],
+    ans: 1,
+    exp: "A mediator must avoid taking sides or showing partiality, as this would compromise their neutrality and undermine trust from the disadvantaged party.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "The use of sanctions in conflict is an example of",
+    opts: ["Soft power", "Coercive strategy", "Dialogue", "Mediation"],
+    ans: 1,
+    exp: "Sanctions are coercive measures that apply economic or political pressure to force a party to change its behavior, making them a coercive strategy.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "Which factor strengthens peace agreements?",
+    opts: ["Exclusion", "Transparency", "Secrecy", "Force"],
+    ans: 1,
+    exp: "Transparency in peace processes builds public confidence and trust in the agreement, making implementation more likely to succeed.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "A conflict that involves values and beliefs is",
+    opts: ["Economic conflict", "Ideological conflict", "Resource conflict", "Political conflict"],
+    ans: 1,
+    exp: "Ideological conflict arises from fundamental differences in values, beliefs, worldviews, or political ideologies between parties.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "Sustainable peace is unlikely without",
+    opts: ["Military power", "Justice", "Silence", "Avoidance"],
+    ans: 1,
+    exp: "Justice — addressing past harms, ensuring accountability, and establishing equitable systems — is essential for sustainable peace.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Which concept emphasizes fairness in processes?",
+    opts: ["Procedural justice", "Structural violence", "Cultural violence", "Domination"],
+    ans: 0,
+    exp: "Procedural justice focuses on the fairness of the processes and procedures used to make decisions, not just the outcomes.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Which factor increases trust in negotiation?",
+    opts: ["Deception", "Transparency", "Manipulation", "Force"],
+    ans: 1,
+    exp: "Transparency — being open, honest, and clear about intentions and information — is crucial for building the trust necessary for effective negotiation.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which approach is least effective in identity conflicts?",
+    opts: ["Dialogue", "Force", "Reconciliation", "Inclusion"],
+    ans: 1,
+    exp: "Force is least effective in identity conflicts because it cannot change deeply held beliefs, values, or group identities and often hardens resistance.",
+    hint: "Topic 1: Nature & Types of Conflict",
+    sec: "Nature of Conflict"
+  },
+  {
+    q: "A conflict that persists over time without resolution is",
+    opts: ["Temporary", "Intractable", "Latent", "Minor"],
+    ans: 1,
+    exp: "Intractable conflicts are prolonged, resistant to resolution, and characterized by deep-rooted issues, high emotional intensity, and entrenched positions.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "Which factor contributes to conflict escalation?",
+    opts: ["Cooperation", "Stereotyping", "Dialogue", "Trust"],
+    ans: 1,
+    exp: "Stereotyping — applying rigid, oversimplified images to the other group — fuels hostility and dehumanization, contributing to conflict escalation.",
+    hint: "Topic 5: Conflict Escalation & De-escalation",
+    sec: "Conflict Dynamics"
+  },
+  {
+    q: "The role of leadership in conflict resolution includes",
+    opts: ["Escalating tension", "Promoting peace", "Ignoring issues", "Encouraging violence"],
+    ans: 1,
+    exp: "Effective leaders play a crucial role in conflict resolution by promoting peace, building coalitions for dialogue, and modeling cooperative behavior.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "Which strategy is best when time is limited and a quick decision is needed?",
+    opts: ["Collaboration", "Competition", "Avoidance", "Accommodation"],
+    ans: 1,
+    exp: "In time-critical situations, competition or directive decision-making may be necessary to achieve quick outcomes, even at the cost of participation.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Which factor undermines peacebuilding?",
+    opts: ["Inclusion", "Corruption", "Transparency", "Justice"],
+    ans: 1,
+    exp: "Corruption erodes institutional legitimacy, diverts resources from reconstruction, and fuels grievances, significantly undermining peacebuilding efforts.",
+    hint: "Topic 9: Post-Conflict Reconstruction",
+    sec: "Post-Conflict"
+  },
+  {
+    q: "A major benefit of dialogue is",
+    opts: ["Winning arguments", "Building understanding", "Imposing decisions", "Avoiding conflict"],
+    ans: 1,
+    exp: "The primary benefit of genuine dialogue is that it builds mutual understanding between parties, creating a foundation for finding common ground.",
+    hint: "Topic 10: Dialogue, Justice & Sustainable Peace",
+    sec: "Dialogue & Justice"
+  },
+  {
+    q: "Which concept refers to addressing emotional aspects of conflict?",
+    opts: ["Rational analysis", "Reconciliation", "Arbitration", "Competition"],
+    ans: 1,
+    exp: "Reconciliation processes explicitly address the emotional and psychological dimensions of conflict, including trauma, grief, and the need for acknowledgment.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which factor contributes to conflict prevention?",
+    opts: ["Early intervention", "Delayed action", "Ignorance", "Isolation"],
+    ans: 0,
+    exp: "Early intervention — addressing tensions and grievances before they escalate — is a key strategy for preventing conflict from becoming violent.",
+    hint: "Topic 8: Conflict Prevention & Diplomacy",
+    sec: "Conflict Prevention"
+  },
+  {
+    q: "Which process focuses on restoring dignity after conflict?",
+    opts: ["Punishment", "Reconciliation", "Arbitration", "Domination"],
+    ans: 1,
+    exp: "Reconciliation processes focus on restoring the dignity of victims, acknowledging harm, and enabling survivors to rebuild their lives and identities.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  },
+  {
+    q: "Which factor increases the effectiveness of mediation?",
+    opts: ["Bias", "Trust", "Force", "Secrecy"],
+    ans: 1,
+    exp: "Trust in the mediator's impartiality and competence is essential for parties to engage openly and honestly in the mediation process.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "A key element of successful negotiation is",
+    opts: ["Rigidity", "Flexibility", "Aggression", "Silence"],
+    ans: 1,
+    exp: "Flexibility — the willingness to consider alternative solutions and adjust positions — is essential for reaching negotiated agreements.",
+    hint: "Topic 4: Negotiation, Mediation & Arbitration",
+    sec: "Conflict Resolution Methods"
+  },
+  {
+    q: "Long-term conflict resolution is most effective when",
+    opts: ["Issues are ignored", "Root causes are addressed", "Force is used", "Parties avoid dialogue"],
+    ans: 1,
+    exp: "Addressing the root causes — structural inequalities, historical grievances, identity issues — is the foundation of durable, long-term conflict resolution.",
+    hint: "Topic 6: Peacebuilding & Reconciliation",
+    sec: "Peacebuilding"
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let questions = [], cur = 0, chosen = [], answered = [], timerInt = null, elapsed = 0, username = '';
+
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function startQuiz() {
+  username = document.getElementById('uname').value.trim() || 'Student';
+  const n = parseInt(document.getElementById('qslider').value);
+  questions = shuffle([...BANK]).slice(0, Math.min(n, BANK.length));
+  chosen = Array(questions.length).fill(null);
+  answered = Array(questions.length).fill(false);
+  cur = 0; elapsed = 0;
+  document.getElementById('hdr-user').textContent = username;
+  show('quiz');
+  buildNav();
+  goQ(0);
+  startTimer();
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startTimer() {
+  clearInterval(timerInt);
+  timerInt = setInterval(() => {
+    elapsed++;
+    const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const s = String(elapsed % 60).padStart(2, '0');
+    document.getElementById('timer-txt').textContent = m + ':' + s;
+    const badge = document.getElementById('timer-badge');
+    badge.classList.toggle('warn', elapsed > 3600);
+  }, 1000);
+}
+
+function goQ(idx) {
+  if (idx < 0 || idx >= questions.length) return;
+  cur = idx;
+  const q = questions[cur];
+  document.getElementById('q-num-tag').textContent = 'Question ' + (cur + 1);
+  document.getElementById('q-sec-tag').textContent = q.sec || '';
+  document.getElementById('q-text').textContent = q.q;
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn' + (answered[cur] ? ' locked' : '');
+    if (answered[cur]) {
+      if (i === q.ans) btn.classList.add('correct');
+      else if (i === chosen[cur] && i !== q.ans) btn.classList.add('wrong');
+    } else if (chosen[cur] === i) {
+      btn.classList.add('selected');
+    }
+    btn.innerHTML = '<span class="opt-letter">' + labels[i] + '</span>' + o;
+    if (!answered[cur]) btn.onclick = () => pick(i);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  if (answered[cur]) {
+    const ok = chosen[cur] === q.ans;
+    document.getElementById('fb-label').textContent = ok ? '✓ Correct' : '✗ Incorrect';
+    document.getElementById('fb-label').className = 'fb-label ' + (ok ? 'ok' : 'bad');
+    document.getElementById('fb-text').textContent = q.exp || '';
+    document.getElementById('fb-hint').textContent = q.hint || '';
+    fb.classList.add('show');
+  } else {
+    fb.classList.remove('show');
+  }
+
+  document.getElementById('btn-submit').disabled = chosen[cur] === null || answered[cur];
+  document.getElementById('btn-next').style.display = (answered[cur] && cur < questions.length - 1) ? 'inline-flex' : 'none';
+  document.getElementById('btn-finish').style.display = (answered[cur] && cur === questions.length - 1) ? 'inline-flex' : 'none';
+  document.getElementById('btn-prev').disabled = cur === 0;
+  const pct = ((cur + 1) / questions.length * 100).toFixed(1);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = (cur + 1) + '/' + questions.length;
+  updateNav();
+}
+
+function pick(i) {
+  if (answered[cur]) return;
+  chosen[cur] = i;
+  document.querySelectorAll('.opt-btn').forEach((b, idx) => {
+    b.classList.toggle('selected', idx === i);
+  });
+  document.getElementById('btn-submit').disabled = false;
+}
+
+function submitAns() {
+  if (chosen[cur] === null || answered[cur]) return;
+  answered[cur] = true;
+  goQ(cur);
+}
+
+function buildNav() {
+  const nav = document.getElementById('q-nav');
+  nav.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'nav-dot';
+    d.textContent = i + 1;
+    d.onclick = () => goQ(i);
+    nav.appendChild(d);
+  });
+}
+
+function updateNav() {
+  const dots = document.querySelectorAll('.nav-dot');
+  dots.forEach((d, i) => {
+    d.className = 'nav-dot';
+    if (i === cur) d.classList.add('active');
+    else if (answered[i]) d.classList.add(chosen[i] === questions[i].ans ? 'done-ok' : 'done-bad');
+  });
+}
+
+function confirmFinish() {
+  const unanswered = answered.filter(a => !a).length;
+  if (unanswered > 0 && !confirm(unanswered + ' question(s) unanswered. Finish anyway?')) return;
+  finishQuiz();
+}
+
+function finishQuiz() {
+  clearInterval(timerInt);
+  let correct = 0, skipped = 0;
+  questions.forEach((q, i) => {
+    if (!answered[i]) skipped++;
+    else if (chosen[i] === q.ans) correct++;
+  });
+  const wrong = questions.length - correct - skipped;
+  const pct = (correct / questions.length * 100).toFixed(1);
+
+  const ring = document.getElementById('score-ring');
+  ring.className = 'score-ring ' + (pct >= 70 ? 'great' : pct >= 50 ? 'mid' : 'low');
+  document.getElementById('res-score').textContent = correct;
+  document.getElementById('res-denom').textContent = '/ ' + questions.length;
+  document.getElementById('res-name').textContent = username;
+  document.getElementById('res-pct').textContent = pct + '% — ' + (pct >= 70 ? 'Excellent' : pct >= 50 ? 'Good Effort' : 'Keep Studying');
+  const m = Math.floor(elapsed / 60), s = elapsed % 60;
+  document.getElementById('res-msg').textContent = 'Time: ' + m + 'm ' + s + 's';
+
+  document.getElementById('stats-row').innerHTML =
+    '<div class="stat-card ok"><div class="stat-val">' + correct + '</div><div class="stat-lbl">Correct</div></div>' +
+    '<div class="stat-card bad"><div class="stat-val">' + wrong + '</div><div class="stat-lbl">Wrong</div></div>' +
+    '<div class="stat-card skip"><div class="stat-val">' + skipped + '</div><div class="stat-lbl">Skipped</div></div>';
+
+  const bd = document.getElementById('breakdown');
+  bd.innerHTML = '<div class="bd-header"><span>Question</span><span>Result</span></div>' +
+    questions.map((q, i) => {
+      const st = !answered[i] ? 'skip' : chosen[i] === q.ans ? 'ok' : 'bad';
+      const lbl = !answered[i] ? 'Skipped' : chosen[i] === q.ans ? 'Correct' : 'Wrong';
+      return '<div class="bd-row"><span class="bd-q">Q' + (i + 1) + '. ' + q.q.slice(0, 55) + (q.q.length > 55 ? '…' : '') + '</span><span class="bd-badge ' + st + '">' + lbl + '</span></div>';
+    }).join('');
+
+  show('results');
+}
+
+function retryQuiz() {
+  chosen = Array(questions.length).fill(null);
+  answered = Array(questions.length).fill(false);
+  elapsed = 0; cur = 0;
+  show('quiz');
+  buildNav();
+  goQ(0);
+  startTimer();
+}
+
+function goHome() { show('landing'); clearInterval(timerInt); }
+</script>
+</body>
+</html>
