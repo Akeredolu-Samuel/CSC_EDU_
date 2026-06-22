@@ -948,6 +948,7 @@ function finishQuiz() {
       const lbl = !answered[i] ? 'Skipped' : chosen[i] === q.ans ? 'Correct' : 'Wrong';
       return '<div class="bd-row"><span class="bd-q">Q' + (i + 1) + '. ' + q.q.slice(0, 55) + (q.q.length > 55 ? '…' : '') + '</span><span class="bd-badge ' + st + '">' + lbl + '</span></div>';
     }).join('');
+  postScore(username, correct);
   show('results');
 }
 
@@ -960,5 +961,25 @@ function retryQuiz() {
 
 function goHome() { show('landing'); clearInterval(timerInt); }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = 'https://qinptqnacaakrlsevhyp.supabase.co';
+  const supabaseKey = 'sb_publishable_gs3jj4nhv6atcuDIdhT71g_9WJmp4xf';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function postScore(user, score) {
+    if (!user || user.toLowerCase() === 'student' || score === 0) return;
+    try {
+      const { data } = await supabase.from('leaderboard').select('*').eq('username', user).maybeSingle();
+      if (data) {
+        await supabase.from('leaderboard').update({ total_score: data.total_score + score, quizzes_taken: data.quizzes_taken + 1, last_updated: new Date().toISOString() }).eq('username', user);
+      } else {
+        await supabase.from('leaderboard').insert([{ username: user, total_score: score, quizzes_taken: 1 }]);
+      }
+    } catch(err) { console.error('Supabase error:', err); }
+  }
+</script>
 </body>
+
 </html>

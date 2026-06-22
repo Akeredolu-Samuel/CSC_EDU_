@@ -104,10 +104,31 @@
     .review-cta a{color:var(--blue);text-decoration:none;transition:color 0.2s;}
     .review-cta a:hover{color:#60a5fa;}
 
+    .review-form-box{max-width:400px;margin:2rem auto 0;background:var(--bg2);border:0.5px solid var(--border);border-radius:12px;padding:1.2rem;text-align:left;}
+    .review-form-box input, .review-form-box textarea{width:100%;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;color:var(--text);font-family:var(--font);font-size:12.5px;margin-bottom:8px;outline:none;}
+    .review-form-box input:focus, .review-form-box textarea:focus{border-color:var(--blue);}
+    .review-form-box textarea{resize:vertical;min-height:70px;}
+    .review-form-box button{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:500;cursor:pointer;width:100%;transition:background 0.2s;}
+    .review-form-box button:hover{background:#2563eb;}
+
+    /* LEADERBOARD */
+    .leaderboard-section{padding:0 2rem 4rem;max-width:1120px;margin:0 auto;}
+    .lb-container{background:var(--bg2);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;max-width:600px;margin:0 auto;}
+    .lb-row{display:flex;align-items:center;justify-content:space-between;padding:12px 1.5rem;border-bottom:0.5px solid var(--border);background:transparent;}
+    .lb-row:last-child{border-bottom:none;}
+    .lb-rank{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);background:rgba(255,255,255,0.04);}
+    .lb-row:nth-child(1) .lb-rank{background:rgba(245,158,11,0.15);color:#fbbf24;box-shadow:0 0 10px rgba(245,158,11,0.2);} /* Gold */
+    .lb-row:nth-child(2) .lb-rank{background:rgba(156,163,175,0.15);color:#d1d5db;} /* Silver */
+    .lb-row:nth-child(3) .lb-rank{background:rgba(180,83,9,0.15);color:#d97706;} /* Bronze */
+    .lb-name{flex:1;margin-left:12px;font-size:13px;font-weight:500;color:var(--text);}
+    .lb-score{font-size:14px;font-weight:700;color:var(--blue);}
+    .lb-quizzes{font-size:11px;color:var(--dim);margin-left:8px;}
+
     @media(max-width:600px){
       .hub-hero{padding:2.5rem 1.2rem 1.5rem;}
       .courses-section{padding:1rem 1.2rem 2.5rem;}
       .reviews-section{padding:0 1.2rem 3rem;}
+      .leaderboard-section{padding:0 1.2rem 3rem;}
       .hub-header{padding:0.9rem 1.2rem;}.hero-stats{gap:1.5rem;}.hsep{display:none;}.hub-logo-sub{display:none;}
     }
   </style>
@@ -130,11 +151,13 @@
   <h1>Study Smart,<br>Score <span>Higher</span></h1>
   <p>Access CBT practice quizzes and compiled study notes for your courses. Select a course below to get started.</p>
   <div class="hero-stats">
-    <div class="hstat"><div class="hstat-num">10</div><div class="hstat-lbl">Courses Listed</div></div>
+    <div class="hstat"><div class="hstat-num">10</div><div class="hstat-lbl">Courses</div></div>
     <div class="hsep"></div>
-    <div class="hstat"><div class="hstat-num">280</div><div class="hstat-lbl">Quiz Questions</div></div>
+    <div class="hstat"><div class="hstat-num">280</div><div class="hstat-lbl">Questions</div></div>
     <div class="hsep"></div>
-    <div class="hstat"><div class="hstat-num">8</div><div class="hstat-lbl">Active Courses</div></div>
+    <div class="hstat"><div class="hstat-num" id="stat-users">--</div><div class="hstat-lbl">Active Students</div></div>
+    <div class="hsep"></div>
+    <div class="hstat"><div class="hstat-num" id="stat-quizzes">--</div><div class="hstat-lbl">Quizzes Taken</div></div>
   </div>
 </section>
 
@@ -326,14 +349,112 @@
       </div>
     </div>
   </div>
-  <div class="review-cta">
-    To submit your reviews text <a href="https://wa.me/2349054039475" target="_blank" style="color:var(--blue);text-decoration:none;">@samwissyy</a>
+  <div class="review-form-box">
+    <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">Submit a Review</div>
+    <input type="text" id="rev-name" placeholder="Your Name" maxlength="40" />
+    <textarea id="rev-text" placeholder="What do you think about the platform? Did the quizzes help?" maxlength="250"></textarea>
+    <button onclick="submitReview()" id="rev-btn">Submit Review</button>
+    <div id="rev-msg" style="font-size:11.5px;margin-top:8px;text-align:center;display:none;"></div>
+  </div>
+</section>
+
+<!-- LEADERBOARD SECTION -->
+<section class="leaderboard-section">
+  <div class="sec-label" style="justify-content:center;color:var(--amber)"><i class="ti ti-trophy"></i> Top 10 Students</div>
+  <div class="lb-container" id="leaderboard-list">
+    <div style="text-align:center;font-size:12px;color:var(--muted);padding:2rem;">Loading Leaderboard...</div>
   </div>
 </section>
 
 <footer class="hub-footer">
   CSc EDU &nbsp;&middot;&nbsp; <span>Built by <a href="https://instagram.com/samwissyy" target="_blank" style="color:inherit;">@samwissyy</a></span> &nbsp;&middot;&nbsp; Academic Practice Portal
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = 'https://qinptqnacaakrlsevhyp.supabase.co';
+  const supabaseKey = 'sb_publishable_gs3jj4nhv6atcuDIdhT71g_9WJmp4xf';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function loadData() {
+    try {
+      // 1. Fetch Stats
+      const { data: statsData } = await supabase.from('leaderboard').select('total_score, quizzes_taken');
+      if (statsData) {
+        document.getElementById('stat-users').textContent = statsData.length || 0;
+        const totalQuizzes = statsData.reduce((acc, curr) => acc + (curr.quizzes_taken || 0), 0);
+        document.getElementById('stat-quizzes').textContent = totalQuizzes || 0;
+      }
+
+      // 2. Fetch Leaderboard (Top 10)
+      const { data: lbData } = await supabase.from('leaderboard').select('*').order('total_score', { ascending: false }).limit(10);
+      const lbBox = document.getElementById('leaderboard-list');
+      if (lbData && lbData.length > 0) {
+        lbBox.innerHTML = lbData.map((user, i) => `
+          <div class="lb-row">
+            <div class="lb-rank">${i + 1}</div>
+            <div class="lb-name">${user.username}</div>
+            <div>
+              <span class="lb-score">${user.total_score} pts</span>
+              <span class="lb-quizzes">(${user.quizzes_taken} quizzes)</span>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        lbBox.innerHTML = '<div style="text-align:center;font-size:12px;color:var(--muted);padding:2rem;">No scores yet. Be the first!</div>';
+      }
+
+      // 3. Fetch Reviews
+      const { data: reviewsData } = await supabase.from('reviews').select('*').eq('approved', true).order('created_at', { ascending: false });
+      if (reviewsData && reviewsData.length > 0) {
+        const marquee = document.querySelector('.reviews-marquee');
+        const cardsHTML = reviewsData.map(r => `
+          <div class="review-card">
+            <div class="review-text">"${r.content}"</div>
+            <div style="font-size:10px;color:var(--dim);margin-top:8px;width:100%;text-align:right;">— ${r.user_name}</div>
+          </div>
+        `).join('');
+        // Duplicate for seamless scroll
+        marquee.innerHTML = cardsHTML + cardsHTML;
+      }
+    } catch(err) { console.error('Error loading data:', err); }
+  }
+
+  async function submitReview() {
+    const name = document.getElementById('rev-name').value.trim();
+    const text = document.getElementById('rev-text').value.trim();
+    const btn = document.getElementById('rev-btn');
+    const msg = document.getElementById('rev-msg');
+
+    if(!name || !text) {
+      msg.textContent = 'Please fill out both fields.';
+      msg.style.color = '#f87171';
+      msg.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const { error } = await supabase.from('reviews').insert([{ user_name: name, content: text, approved: false }]);
+    
+    if(error) {
+      msg.textContent = 'Error submitting review. Please try again.';
+      msg.style.color = '#f87171';
+    } else {
+      msg.textContent = 'Review submitted successfully! It will appear once approved.';
+      msg.style.color = '#4ade80';
+      document.getElementById('rev-name').value = '';
+      document.getElementById('rev-text').value = '';
+    }
+    msg.style.display = 'block';
+    btn.textContent = 'Submit Review';
+    btn.disabled = false;
+  }
+
+  // Load data on page load
+  window.addEventListener('DOMContentLoaded', loadData);
+</script>
 
 </body>
 </html>
