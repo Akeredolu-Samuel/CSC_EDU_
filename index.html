@@ -92,7 +92,24 @@
     .course-card:nth-child(7){animation-delay:0.35s;}
     .course-card:nth-child(8){animation-delay:0.4s;}
 
-    @media(max-width:600px){\n      .hub-hero{padding:2.5rem 1.2rem 1.5rem;}\n      .courses-section{padding:1rem 1.2rem 2.5rem;}\n      .hub-header{padding:0.9rem 1.2rem;}\n      .hero-stats{gap:1.5rem;}\n      .hsep{display:none;}\n      .hub-logo-sub{display:none;}\n    }
+    /* REVIEWS */
+    .reviews-section{padding:0 2rem 4rem;max-width:1120px;margin:0 auto;}
+    .reviews-marquee-container{overflow:hidden;position:relative;width:100%;-webkit-mask-image:linear-gradient(to right, transparent, black 5%, black 95%, transparent);mask-image:linear-gradient(to right, transparent, black 5%, black 95%, transparent);}
+    .reviews-marquee{display:flex;width:max-content;animation:scrollReviews 40s linear infinite;gap:16px;padding:10px 0;}
+    .reviews-marquee:hover{animation-play-state:paused;}
+    @keyframes scrollReviews{from{transform:translateX(0);}to{transform:translateX(calc(-50% - 8px));}}
+    .review-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;width:320px;display:flex;align-items:center;}
+    .review-text{font-size:12.5px;color:var(--text);line-height:1.6;font-style:italic;}
+    .review-cta{text-align:center;font-size:11.5px;color:var(--dim);margin-top:2rem;}
+    .review-cta a{color:var(--blue);text-decoration:none;transition:color 0.2s;}
+    .review-cta a:hover{color:#60a5fa;}
+
+    @media(max-width:600px){
+      .hub-hero{padding:2.5rem 1.2rem 1.5rem;}
+      .courses-section{padding:1rem 1.2rem 2.5rem;}
+      .reviews-section{padding:0 1.2rem 3rem;}
+      .hub-header{padding:0.9rem 1.2rem;}.hero-stats{gap:1.5rem;}.hsep{display:none;}.hub-logo-sub{display:none;}
+    }
   </style>
 </head>
 <body>
@@ -263,6 +280,56 @@
 
   </div>
 </main>
+
+<!-- REVIEWS SECTION -->
+<section class="reviews-section">
+  <div class="sec-label">Student Reviews</div>
+  <div class="reviews-marquee-container">
+    <div class="reviews-marquee">
+      <!-- Original Set -->
+      <div class="review-card">
+        <div class="review-text">"Thank you for this i saw some question for, the edu 301 quiz"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Saw so many question from the quiz for my edt 308 exams"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"I only read this nd i must say 5 don sure for me"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Samwisssyy this is cool i love it"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Thank you for building this jesus christ of csc edu"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Omo samwissy na your platform dey help me"</div>
+      </div>
+      <!-- Duplicated Set for Seamless Scrolling -->
+      <div class="review-card">
+        <div class="review-text">"Thank you for this i saw some question for, the edu 301 quiz"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Saw so many question from the quiz for my edt 308 exams"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"I only read this nd i must say 5 don sure for me"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Samwisssyy this is cool i love it"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Thank you for building this jesus christ of csc edu"</div>
+      </div>
+      <div class="review-card">
+        <div class="review-text">"Omo samwissy na your platform dey help me"</div>
+      </div>
+    </div>
+  </div>
+  <div class="review-cta">
+    To submit your reviews text <a href="https://wa.me/09054039475" target="_blank" style="color:var(--blue);text-decoration:none;">@samwissyy (09054039475)</a>
+  </div>
+</section>
 
 <footer class="hub-footer">
   CSc EDU &nbsp;&middot;&nbsp; <span>Built by <a href="https://instagram.com/samwissyy" target="_blank" style="color:inherit;">@samwissyy</a></span> &nbsp;&middot;&nbsp; Academic Practice Portal
