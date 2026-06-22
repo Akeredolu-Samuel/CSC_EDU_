@@ -260,80 +260,66 @@
 
 <script>
 const BANK = [
-  // SECTION 1: STAFF & CLEFS
-  { q: "What does a musical staff (or stave) consist of?", opts: ["4 lines and 5 spaces", "5 lines and 4 spaces", "6 lines and 3 spaces", "5 lines and 5 spaces"], ans: 1, exp: "A staff consists of 5 lines and 4 spaces.", hint: "", sec: "Music Fundamentals" },
-  { q: "What is another name for a musical staff?", opts: ["Clef", "Stave", "Score", "Bar"], ans: 1, exp: "Another name for a staff is a stave.", hint: "", sec: "Music Fundamentals" },
-  { q: "Which clef is used for notating music for high-pitched singers or instruments?", opts: ["Bass Clef", "F Clef", "Treble / G Clef", "Alto Clef"], ans: 2, exp: "The Treble or G Clef is used for high pitch.", hint: "", sec: "Music Fundamentals" },
-  { q: "The curly part of the Treble Clef ends at which line of the staff?", opts: ["First line", "Second line", "Third line", "Fourth line"], ans: 1, exp: "It ends at the second line, indicating that the note on that line is G.", hint: "", sec: "Music Fundamentals" },
-  { q: "What are the letter names for the lines of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "G, B, D, F, A", "E, G, B, D, F", "A, C, E, G"], ans: 2, exp: "E, G, B, D, F (Every Good Boy Deserves Food).", hint: "", sec: "Music Fundamentals" },
-  { q: "What are the letter names for the spaces of a Treble Staff from bottom to top?", opts: ["F, A, C, E", "E, G, B, D, F", "A, C, E, G", "G, B, D, F, A"], ans: 0, exp: "F, A, C, E (Face).", hint: "", sec: "Music Fundamentals" },
-  { q: "The Bass Clef is also known as what?", opts: ["G Clef", "C Clef", "F Clef", "D Clef"], ans: 2, exp: "The Bass Clef is known as the F Clef.", hint: "", sec: "Music Fundamentals" },
-  { q: "What are the lines of a Bass Staff from bottom to top?", opts: ["G, B, D, F, A", "E, G, B, D, F", "A, C, E, G", "F, A, C, E"], ans: 0, exp: "G, B, D, F, A (Good Boys Deserve Food Always).", hint: "", sec: "Music Fundamentals" },
-  { q: "What are the spaces of a Bass Staff from bottom to top?", opts: ["A, C, E, G", "F, A, C, E", "G, B, D, F", "E, G, B, D"], ans: 0, exp: "A, C, E, G (All Cows Eat Grass).", hint: "", sec: "Music Fundamentals" },
-  { q: "A Grand Staff is formed by joining the treble and bass staffs together using a what?", opts: ["Bar line", "Clef", "Brace", "Ledger line"], ans: 2, exp: "They are joined together with a brace to form one staff.", hint: "", sec: "Music Fundamentals" },
-
-  // SECTION 2: SOLFA & NOTES
-  { q: "What is the technical name for the Solfa note 'Doh'?", opts: ["Supertonic", "Tonic", "Mediant", "Dominant"], ans: 1, exp: "Doh is the Tonic.", hint: "", sec: "Music Fundamentals" },
-  { q: "What is the technical name for the Solfa note 'Soh'?", opts: ["Subdominant", "Leading Note", "Dominant", "Submediant"], ans: 2, exp: "Soh is the Dominant.", hint: "", sec: "Music Fundamentals" },
-  { q: "Which of the following represents the 'Mediant'?", opts: ["Mi", "Re", "Fah", "Lah"], ans: 0, exp: "Mi is the Mediant.", hint: "", sec: "Music Fundamentals" },
-  { q: "Which solfa note is known as the 'Leading Note'?", opts: ["Soh", "Lah", "Ti", "Doh¹"], ans: 2, exp: "Ti is the Leading Note.", hint: "", sec: "Music Fundamentals" },
-  { q: "How many beats does a Semibreve note have?", opts: ["1 beat", "2 beats", "3 beats", "4 beats"], ans: 3, exp: "A semibreve (whole note) has 4 beats.", hint: "", sec: "Rhythm and Notes" },
-  { q: "Which note has 2 beats and sounds like 'taa-aa'?", opts: ["Crotchet", "Minim", "Quaver", "Semibreve"], ans: 1, exp: "A minim (half note) has 2 beats.", hint: "", sec: "Rhythm and Notes" },
-  { q: "A crotchet (quarter note) is equal to how many beats?", opts: ["1 beat", "2 beats", "1/2 beat", "1/4 beat"], ans: 0, exp: "A crotchet has 1 beat.", hint: "", sec: "Rhythm and Notes" },
-  { q: "What happens when a dot is added to a musical note?", opts: ["It doubles the note's value", "It cuts the note's value in half", "It adds half of the original value to the note", "It makes the note silent"], ans: 2, exp: "A dotted note gains half of its original value.", hint: "", sec: "Rhythm and Notes" },
-  { q: "How many beats does a dotted minim have?", opts: ["2 beats", "3 beats", "4 beats", "1.5 beats"], ans: 1, exp: "A minim has 2 beats. The dot adds 1 beat (half of 2). Total = 3 beats.", hint: "", sec: "Rhythm and Notes" },
-  { q: "Which musical term refers to the speed of the beat?", opts: ["Rhythm", "Tempo", "Bar", "Staff"], ans: 1, exp: "Tempo indicates how fast or slow the beat is.", hint: "", sec: "Rhythm and Notes" },
-
-  // SECTION 3: GENRES OF MUSIC
-  { q: "Which genre of music is known as 'serious music' and consists of western text and lyrics?", opts: ["R&B", "Jazz", "Reggae", "Classical or Western Chorus"], ans: 3, exp: "Classical music is known as serious music with rules.", hint: "", sec: "Genres of Music" },
-  { q: "Which genre originated from the black Americans and is mostly instrumental?", opts: ["Highlife", "Jazz & Blues", "Fuji", "Traditional Music"], ans: 1, exp: "Jazz and blues originated from black America.", hint: "", sec: "Genres of Music" },
-  { q: "Which genre is recognized for its strong rhythmic baseline and originated from Jamaica?", opts: ["R&B", "Hip-Hop", "Reggae", "Juju"], ans: 2, exp: "Reggae originated from Jamaica.", hint: "", sec: "Genres of Music" },
-  { q: "Which Nigerian music genre originated from highlife and involves the use of 2 or more string instruments?", opts: ["Fuji", "Juju", "Afrobeat", "Apala"], ans: 1, exp: "Juju originated from highlife and uses multiple string instruments.", hint: "", sec: "Genres of Music" },
-  { q: "Fuji and Apala music originated from the Islamic believers of Nigeria.", opts: ["True", "False", "Only Fuji", "Only Apala"], ans: 0, exp: "Both originated from Islamic believers and consists of percussion.", hint: "", sec: "Genres of Music" },
-  { q: "Who composed the 'Hallelujah Chorus'?", opts: ["Charlie Parker", "J.G Handel", "Bob Marley", "Victor Uwaifo"], ans: 1, exp: "J.G Handel composed the Hallelujah Chorus.", hint: "", sec: "Genres of Music" },
-  { q: "Which of the following is NOT an example of a Highlife artist?", opts: ["Victor Uwaifo", "Fela Kuti", "King Sunny Ade", "Victor Olaiya"], ans: 2, exp: "King Sunny Ade is a Juju musician.", hint: "", sec: "Genres of Music" },
-  
-  // SECTION 4: STAGE PERFORMANCE & TERMS
-  { q: "What type of stage has a framed opening at the front, known as the arch?", opts: ["Proscenium Stage", "Thrust Stage", "Outdoor Stage", "Arena Stage"], ans: 0, exp: "Proscenium stage has a proscenium arch at the front.", hint: "", sec: "Stage Performance" },
-  { q: "What type of stage is completely surrounded by audience seating on all sides?", opts: ["Proscenium Stage", "Thrust Stage", "Arena Stage", "Platform Stage"], ans: 2, exp: "An Arena Stage (theater-in-the-round) is surrounded by seating.", hint: "", sec: "Stage Performance" },
-  { q: "A stage that extends into the audience area on three sides for a more intimate experience is called what?", opts: ["Platform Stage", "Thrust Stage", "Arena Stage", "Outdoor Stage"], ans: 1, exp: "This is a Thrust Stage.", hint: "", sec: "Stage Performance" },
-  { q: "What does the musical term 'Crescendo' mean?", opts: ["Gradually getting softer", "Gradually getting faster", "Gradually getting louder", "Short and detached"], ans: 2, exp: "Crescendo means gradually getting louder.", hint: "", sec: "Musical Terms" },
-  { q: "What does the musical term 'Allegro' mean?", opts: ["Slow", "Quick", "At a walking pace", "Smooth"], ans: 1, exp: "Allegro means quick.", hint: "", sec: "Musical Terms" },
-  { q: "Which term means 'gradually getting slower'?", opts: ["Ritardando (rit.)", "Accelerando (accel.)", "Decrescendo", "Legato"], ans: 0, exp: "Ritardando means gradually getting slower.", hint: "", sec: "Musical Terms" },
-  { q: "What does 'Forte (f)' mean in music?", opts: ["Very loud", "Soft", "Loud", "Smooth"], ans: 2, exp: "Forte means loud.", hint: "", sec: "Musical Terms" },
-  { q: "What does 'Da capo (or D.C.)' mean?", opts: ["From the beginning", "To the end", "Gradually softer", "Very soft"], ans: 0, exp: "Da capo means from the beginning.", hint: "", sec: "Musical Terms" },
-
-  // SECTION 5: MUSIC LICENSING
-  { q: "Which type of music license grants the right to synchronize sound with visual media like movies or TV?", opts: ["Master License", "Performance License", "Synchronization License", "Print License"], ans: 2, exp: "Synchronization license allows syncing music with visual media.", hint: "", sec: "Music Licensing" },
-  { q: "Which music license is required to play a sound recording in public via radio, TV, or concerts?", opts: ["Print License", "Synchronization License", "Mechanical License", "Broadcast or Performance License"], ans: 3, exp: "Performance licenses cover public streaming and playing.", hint: "", sec: "Music Licensing" },
-  { q: "Which organization acts as the sole collective management organization (CMO) approved by the Nigerian Copyright Commission?", opts: ["MCSN", "COSON", "PMAN", "NCC"], ans: 1, exp: "COSON is the sole CMO approved by the NCC.", hint: "", sec: "Music Licensing" },
-  { q: "Before Nigeria gained independence, most Nigerian composers were registered with which UK societies?", opts: ["ASCAP and BMI", "PRS and MCPS", "COSON and MCSN", "BMI and SECAC"], ans: 1, exp: "They were registered with the Performing Rights Society (PRS) and Mechanical Copyright Protection Society (MCPS).", hint: "", sec: "Music Licensing" },
-  { q: "Which license grants the rights to transcribe or print physical copies of musical notes?", opts: ["Print License", "Mechanical License", "Master License", "Performance License"], ans: 0, exp: "A Print License covers physical or sheet music printing.", hint: "", sec: "Music Licensing" },
-  { q: "What does CMO stand for in the context of Nigerian music copyright?", opts: ["Copyright Management Office", "Collective Management Organization", "Central Music Organization", "Copyright Music Operator"], ans: 1, exp: "CMO stands for Collective Management Organization.", hint: "", sec: "Music Licensing" },
-  
-  // SECTION 6: INSTRUMENTS & ORCHESTRA
-  { q: "Which of the following is a Woodwind instrument?", opts: ["Violin", "Clarinet", "Trumpet", "Conga"], ans: 1, exp: "The clarinet is a woodwind instrument.", hint: "", sec: "Instruments" },
-  { q: "Which of the following is a Brass instrument?", opts: ["Flute", "Trombone", "Cello", "Marimba"], ans: 1, exp: "The Trombone is a brass instrument.", hint: "", sec: "Instruments" },
-  { q: "Which type of instrument produces sound by vibrating a stretched membrane (animal skin)?", opts: ["Idiophones", "Membranophones", "Chordophones", "Aerophones"], ans: 1, exp: "Membranophones use stretched membranes (like drums).", hint: "", sec: "African Instruments" },
-  { q: "Which classification of African instruments produces sound by the vibration of their own body when struck or shaken?", opts: ["Idiophones", "Chordophones", "Membranophones", "Aerophones"], ans: 0, exp: "Idiophones (e.g. gongs, rattles) are self-sounding.", hint: "", sec: "African Instruments" },
-  { q: "An Aerophone produces sound primarily by causing a body of air to vibrate.", opts: ["True", "False", "Only in Western music", "Only in African music"], ans: 0, exp: "True. Aerophones use vibrating air (e.g. flutes, Kakaaki).", hint: "", sec: "African Instruments" },
-  { q: "Which of the following is a percussion instrument with a DEFINITE pitch (can play a tune)?", opts: ["Snare Drum", "Cymbals", "Xylophone", "Triangle"], ans: 2, exp: "A xylophone can play a tune, so it has a definite pitch.", hint: "", sec: "Instruments" },
-  { q: "Which percussion instrument has an INDEFINITE pitch (only produces rhythms)?", opts: ["Timpani", "Marimba", "Tubular Bells", "Conga"], ans: 3, exp: "Congas produce rhythms, not melodies.", hint: "", sec: "Instruments" },
-  { q: "Who invented the piano around 1720?", opts: ["Claudio Monteverdi", "J.G Handel", "Bartholomeo Cristofori", "Arnold Schoenberg"], ans: 2, exp: "Bartholomeo Cristofori, an Italian carpenter, invented the piano.", hint: "", sec: "Instruments" },
-  { q: "What was the original full name for the piano?", opts: ["Pianoforte", "Harpsichord", "Clavichord", "Synthesizer"], ans: 0, exp: "The full name is Pianoforte because it could play soft (piano) and loud (forte).", hint: "", sec: "Instruments" },
-  { q: "In what year was Claudio Monteverdi's opera 'Orfeo' produced?", opts: ["1500", "1607", "1720", "1800"], ans: 1, exp: "His opera Orfeo was produced in 1607.", hint: "", sec: "Orchestra" },
-  { q: "During the Renaissance, what word was used to refer to a group of instrumentalists playing together?", opts: ["Band", "Consort", "Choir", "Ensemble"], ans: 1, exp: "The word 'consort' was used.", hint: "", sec: "Orchestra" },
-  { q: "Which string instrument family eventually replaced the 'viol' family?", opts: ["The Guitar family", "The Violin family", "The Harp family", "The Lute family"], ans: 1, exp: "The violin family (violin, viola, cello, bass) replaced the viol family.", hint: "", sec: "Orchestra" },
-  { q: "Who led the orchestra's performance from his chair before batons and standing conductors became common?", opts: ["The First Violinist (Concertmaster)", "The Lead Cellist", "The Pianist", "The Drummer"], ans: 0, exp: "The concertmaster led the performance.", hint: "", sec: "Orchestra" },
-  { q: "Which composer is famous for writing a piece for a massive 150-piece orchestra?", opts: ["Claudio Monteverdi", "J.G Handel", "Arnold Schoenberg", "Carl Maria von Weber"], ans: 2, exp: "Arnold Schoenberg wrote for a 150-piece orchestra.", hint: "", sec: "Orchestra" },
-  
-  // EXTRA BALANCING QUESTIONS
-  { q: "What is the damper pedal on a piano used for?", opts: ["To play loud", "To sustain a note", "To play soft", "To tune the piano"], ans: 2, exp: "The damper pedal on the left side is used to play soft.", hint: "", sec: "Instruments" },
-  { q: "The sustain pedal on a piano is located on which side?", opts: ["Left side", "Middle", "Right side", "Under the seat"], ans: 2, exp: "The sustain (loud) pedal is on the right side.", hint: "", sec: "Instruments" },
-  { q: "Which type of piano is the biggest and used in grand opera halls?", opts: ["Upright piano", "Baby grand piano", "Grand piano", "Electronic keyboard"], ans: 2, exp: "The Grand piano is the biggest.", hint: "", sec: "Instruments" },
-  { q: "Which term describes 'at a walking pace'?", opts: ["Allegro", "Andante", "Adagio", "Moderato"], ans: 1, exp: "Andante means at a walking pace.", hint: "", sec: "Musical Terms" },
-  { q: "Which musical term means 'short and detached'?", opts: ["Legato", "Staccato", "Cantabile", "Adagio"], ans: 1, exp: "Staccato means short and detached.", hint: "", sec: "Musical Terms" },
-  { q: "How many beats does a 'Quaver' note have?", opts: ["1 beat", "2 beats", "1/2 beat", "1/4 beat"], ans: 2, exp: "A quaver has a 1/2 beat.", hint: "", sec: "Rhythm and Notes" }
+  {"q": "There are  ------------- musical alphabet ?", "opts": ["7", "3", "11", "6", "4"], "ans": 0, "exp": "The correct answer is 7.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Treble clef is  also known as ----------- clef ?", "opts": ["Treble", "Solo", "G clef", "Bass clef", "F"], "ans": 2, "exp": "The correct answer is G clef.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Bass clef is  also known as ----------- clef ?", "opts": ["Solo", "Treble", "Bass", "F", "G"], "ans": 3, "exp": "The correct answer is F.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The cheapest musical instrument ?", "opts": ["Sekere", "Piano", "Mouth", "Drum", "None of the above"], "ans": 2, "exp": "The correct answer is Mouth.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "------------  consist of five lines and four space?", "opts": ["Music", "Stave", "Sound", "Clef", "Notes"], "ans": 1, "exp": "The correct answer is Stave.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "----------- is the letter name of first line of bass clef ?", "opts": ["A", "G", "E", "A", "C"], "ans": 1, "exp": "The correct answer is G.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "----------- is the letter name of third  line of bass clef ?", "opts": ["A", "B", "C", "E", "D"], "ans": 4, "exp": "The correct answer is D.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The fourth line of bass clef is", "opts": ["G", "B", "D", "F", "A"], "ans": 3, "exp": "The correct answer is F.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The first space of bass clef is", "opts": ["A", "C", "E", "G", "F"], "ans": 0, "exp": "The correct answer is A.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The second space of bass clef is", "opts": ["F", "A", "C", "E", "G"], "ans": 2, "exp": "The correct answer is C.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The third space of bass clef is", "opts": ["A", "C", "E", "G", "F"], "ans": 2, "exp": "The correct answer is E.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The first line of bass clef is", "opts": ["G", "B", "D", "F", "A"], "ans": 0, "exp": "The correct answer is G.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The fourth space of bass clef is", "opts": ["G", "C", "E", "E", "P"], "ans": 0, "exp": "The correct answer is G.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The first line of treble clef is", "opts": ["E", "G", "B", "D", "A"], "ans": 0, "exp": "The correct answer is E.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The second line of treble clef is", "opts": ["G", "B", "D", "F", "A"], "ans": 0, "exp": "The correct answer is G.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The third line of treble clef is", "opts": ["F", "D", "G", "B", "E"], "ans": 3, "exp": "The correct answer is B.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The fourth line of treble clef is", "opts": ["E", "G", "B", "D", "F"], "ans": 3, "exp": "The correct answer is D.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Which line of the staff did the F clef derives its names?", "opts": ["1", "2", "3", "4", "5"], "ans": 3, "exp": "The correct answer is 4.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "This clef  is called Treble or ---- clef", "opts": ["G", "F", "A", "C", "P"], "ans": 0, "exp": "The correct answer is G.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "A play with happy ending is called -----------", "opts": ["TRAGIC-COMEDY", "COMIC", "TRAGIC", "MIME", "COMEDY"], "ans": 4, "exp": "The correct answer is COMEDY.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Another name for traditional music is------- music", "opts": ["JUJU", "CHURCH", "FOLK", "LOCAL", "POPULAR"], "ans": 2, "exp": "The correct answer is FOLK.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "There are ------ types of clef?", "opts": ["2", "5", "3", "4", "1"], "ans": 0, "exp": "The correct answer is 2.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Ise agbe nise ilee wa\u201d is an example of", "opts": ["FOLK", "POPULAR", "JAZZ", "HIP-HOP", "NONE OF THE ABOVE"], "ans": 0, "exp": "The correct answer is FOLK.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "------- collects money from public/commercial users", "opts": ["MCSN", "COSON", "PMAN", "CON", "CAC"], "ans": 1, "exp": "The correct answer is COSON.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "MCSN means", "opts": ["Musical Copyright Society of Nigeria", "Musical Company Society of Nigeria", "Music Cooperation Society of Nigeria", "Musical Copyright of Nigeria", "Musical Society of Nigeria"], "ans": 0, "exp": "The correct answer is Musical Copyright Society of Nigeria.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "hich type of microphone doesn\u2019t survive at very high sound pressure levels", "opts": ["DYNAMIC", "CLEF", "JACK PLUG", "CAPACITOR", "JACK"], "ans": 0, "exp": "The correct answer is DYNAMIC.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Which type of microphone is ideally suited to situations where there are high level of sound.", "opts": ["DYNAMIC", "CAPACITOR", "CHORD", "DRUM", "MIC"], "ans": 0, "exp": "The correct answer is DYNAMIC.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "There are ________types of microphones", "opts": ["2", "1", "3", "4", "7"], "ans": 0, "exp": "The correct answer is 2.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Who sang the song High-way", "opts": ["BELLA", "DAVIDO", "WIZKID", "TIWA SAVAGE", "BURNA BOY"], "ans": 0, "exp": "The correct answer is BELLA.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The genre of music that uses two or more guitar in performance is ____________", "opts": ["JUJU", "HIP-HOP", "TRADITIONAL", "JAZZ", "GOSPEL"], "ans": 0, "exp": "The correct answer is JUJU.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "R. Kelly is an artist of ______________genre of music", "opts": ["BLUES", "JAZZ", "REGGAE", "POP", "POPULAR"], "ans": 0, "exp": "The correct answer is BLUES.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The music known as serious music with western text is ______________", "opts": ["LOCAL MUSIC", "FOREIGN MUSIC", "WESTERN MUSIC", "AFRICAN MUSIC", "ASIA MUSIC"], "ans": 2, "exp": "The correct answer is WESTERN MUSIC.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The genre of music that is referred to as serious music with African text", "opts": ["INDIA MUSIC", "LOCAL MUSIC", "AFRICAN MUSIC", "LOCAL MUSIC", "TRADITIONAL MUSIC"], "ans": 2, "exp": "The correct answer is AFRICAN MUSIC.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "______________ genre of music tells about the do and don\u2019ts of a particular society", "opts": ["AFRICAN CHORUS", "HIP-HOP", "TRADITIONAL MUSIC", "JAZZ", "WESTERN CHORUS"], "ans": 2, "exp": "The correct answer is TRADITIONAL MUSIC.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Another name for traditional music is ________________", "opts": ["CHURCH MUSIC", "JUJU MUSIC", "FOLK MUSIC", "LOCAL MUSIC", "AFRICAN MUSIC"], "ans": 2, "exp": "The correct answer is FOLK MUSIC.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The music genre with strong/heavy brass session is ___________", "opts": ["HIGH LIFE/AFRO", "HIP-HOP", "REGGAE", "FUJI", "JUJU"], "ans": 0, "exp": "The correct answer is HIGH LIFE/AFRO.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "_____________ genre of music has strong bass line and beats", "opts": ["R&B", "HIP-HOP", "JAZZ/BLUES", "JUJU", "POP"], "ans": 1, "exp": "The correct answer is HIP-HOP.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The genre of music that originated from the black Americans is known as", "opts": ["JAZZ/BLUES", "TRADITIONAL", "HIP-HOP", "JUJU", "POP"], "ans": 0, "exp": "The correct answer is JAZZ/BLUES.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The musical genre that originated from Jamaica is _______________", "opts": ["REGGAE", "POP", "JAZZ", "WAKA", "APALA"], "ans": 0, "exp": "The correct answer is REGGAE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The musical note that looks like an egg is ________________", "opts": ["MINIM", "SEMIBREEVEE", "BREEVE", "QUAVER", "SEMI-QUAVER"], "ans": 1, "exp": "The correct answer is SEMIBREEVEE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "One of the following is an Islamized Nigerian popular music", "opts": ["AFRO BEAT", "JUJU", "APALA", "HIGHLIFE", "SAMBA"], "ans": 2, "exp": "The correct answer is APALA.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "One of the following has been nominated for Grammy awards a couple of times", "opts": ["SALAWA", "DAVIDO", "OLAMIDE", "KING SUNNY ADE", "ORLANDO JULIUS"], "ans": 3, "exp": "The correct answer is KING SUNNY ADE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "LASU Anthem was inaugurated in___", "opts": ["MAY 2017", "MAY 2018", "MAY 2019", "MAY 2020", "MAY 2021"], "ans": 1, "exp": "The correct answer is MAY 2018.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The composer of the current Nigerian National Anthem is__", "opts": ["BEN OGBUE", "BEN ODIASE", "BEN TOMOLOJU", "BEN ADEBIYI", "BEN IDAHOSA"], "ans": 1, "exp": "The correct answer is BEN ODIASE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Afrobeat is to Nigeria as reggae is to", "opts": ["CUBA", "GHANA", "JAMAICA", "AMERICA", "POLAND"], "ans": 2, "exp": "The correct answer is JAMAICA.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "One of the following is a highlife musician", "opts": ["VICTOR UWAIFO", "FEMI KUTI", "BANKY W", "DAVIDO", "MAKALELE"], "ans": 0, "exp": "The correct answer is VICTOR UWAIFO.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "FESTAC \u201977 was hosted by", "opts": ["GHANA", "CAMEROON", "NIGERIA", "USA", "CONGO"], "ans": 2, "exp": "The correct answer is NIGERIA.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The full meaning of FESTAC is", "opts": ["FESTIVAL OF SRTS IN COUNCIL", "FESTIVAL OF ARTISTES IN THEIR COUNTRIES", "FESTIVAL OF ATRISTES THAT COUNT", "FESTIVAL OF ARTS AND CULTURE", "FESTIVAL OF CULTURE"], "ans": 3, "exp": "The correct answer is FESTIVAL OF ARTS AND CULTURE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "FESTAC was held in ___", "opts": ["1975", "1977", "1981", "1984", "1980"], "ans": 1, "exp": "The correct answer is 1977.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "---------- was a popular Nigerian Reggae musician", "opts": ["MAJEK FASHEK", "KING SUNNY ADE", "OLIVE DE COQUE", "ALABI PASUMA", "TOPE ALABI"], "ans": 0, "exp": "The correct answer is MAJEK FASHEK.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "One of the following is a Nigerian composer", "opts": ["HARRY BELAFONTE", "FELA SOWANDE", "PHILIP GBEHO", "MIRIAM MAKEBA", "GEORGE HANDEL"], "ans": 1, "exp": "The correct answer is FELA SOWANDE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The composer of LASU Anthem is", "opts": ["BIODUN ADEBIYI", "GBENGA LOKO", "FEMI FASEUN", "DAVID AINA", "ISAAC AJENIFUJA"], "ans": 3, "exp": "The correct answer is DAVID AINA.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Mo ti gbana is a song by ___", "opts": ["NAIRA MARLEY", "DAVIDO", "WIZKID", "BELLA SHMURDA", "OLAMIDE"], "ans": 4, "exp": "The correct answer is OLAMIDE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The song \u201cGodly\u201d is by ____", "opts": ["OMAH LAY", "OLAMIDE", "OXLADE", "JOEBOY", "TU FACE"], "ans": 0, "exp": "The correct answer is OMAH LAY.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The acclaimed originator of Fuji music is", "opts": ["SIKIRU AYINDE BARRISTER", "WASIU AYINDE MARSHAL", "AYINLA KILLIGNTON", "ALABI PASUMA", "SALAWA ABENI"], "ans": 0, "exp": "The correct answer is SIKIRU AYINDE BARRISTER.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "One of the following is a country musician", "opts": ["RUDEBOY", "MICHEAL BOLTON", "HUGH MASEKELA", "KENNY ROGERS", "KENNY G"], "ans": 1, "exp": "The correct answer is MICHEAL BOLTON.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "The song \u201cNigeria yi ti gbogbo wa ni\u201d is by ____", "opts": ["EBENEZER OBEY", "KWAM 1", "KING SUNNY ADE", "ABAS AKANDE OBESERE", "TOPE ALABI"], "ans": 2, "exp": "The correct answer is KING SUNNY ADE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "One of the following is a fuji musician", "opts": ["SAHEED OSUPA", "AHUJA BELLO", "AYINLA OMOWURA", "YUSUF OLATUNJI", "ALASEYORI"], "ans": 0, "exp": "The correct answer is SAHEED OSUPA.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "Who is the first Nigerian to receive a Grammy nomination", "opts": ["SADE ADU", "FEMI KUTI", "BURNA BOY", "KING SUNNY ADE", "WIZKID"], "ans": 3, "exp": "The correct answer is KING SUNNY ADE.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
+  {"q": "There are ------ types of clef?", "opts": ["2", "5", "2", "5", "1"], "ans": 0, "exp": "The correct answer is 2.", "hint": "", "sec": "2020/2021 MUSIC CBT"},
 ];
 
 let username='', totalQ=25, quizQ=[], userAns=[], cur=0, score=0;
@@ -574,7 +560,7 @@ function goHome(){
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   const supabaseUrl = 'https://qinptqnacaakrlsevhyp.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpbnB0cW5hY2Fha3Jsc2V2aHlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMDY5NzgsImV4cCI6MjA5NzY4Mjk3OH0.ecqp5_FzfVM0KhKN8S7KOKawTmm3oZaLx1mcK5dxfm4';
+  const supabaseKey = 'sb_publishable_gs3jj4nhv6atcuDIdhT71g_9WJmp4xf';
   const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
   async function postScore(user, score) {
